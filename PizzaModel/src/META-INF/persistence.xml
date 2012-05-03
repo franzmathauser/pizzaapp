@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="2.0"
+    xmlns="http://java.sun.com/xml/ns/persistence"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" >
+
+    <persistence-unit name="test_pu" transaction-type="JTA">
+        <description>PizzaModel Persistence Unit.</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+       <jta-data-source>java:jboss/datasource/test</jta-data-source> 
+		<jar-file>PizzaModel.jar</jar-file>
+       <properties>
+           <property name="javax.persistence.lock.timeout" value="5000"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+           <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.show_sql" value="true" />
+
+       </properties>
+    </persistence-unit>
+
+</persistence>
