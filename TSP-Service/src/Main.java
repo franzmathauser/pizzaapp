@@ -17,6 +17,12 @@ import edu.hm.lip.pizza.service.DistanceMatrixBroker;
 import edu.hm.lip.pizza.tsp.TspPermuation;
 import edu.hm.lip.pizza.tsp.TspSolver;
 
+/**
+ * Dieses Beispiel zeit wie ein Roundtrip mit dem TSP-Solver erstellt werden kann
+ * 
+ * @author Franz Mathauser
+ *
+ */
 public class Main {
 
     /**

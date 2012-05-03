@@ -4,48 +4,81 @@ import edu.hm.lip.pizza.domain.google.GoogleDistanceElement;
 import edu.hm.lip.pizza.domain.google.GoogleDistanceMatrix;
 import edu.hm.lip.pizza.domain.google.GoogleDistanceRow;
 
-public class MatrixContainerAdapter {
+/**
+ * MatrixContainerAdapter bietet die Möglichkeit eine GoogleDistanceMatrix in ein generischeres MatrixContainer-Format
+ * umzuwandeln.
+ * 
+ * @author Franz Mathauser
+ */
+public class MatrixContainerAdapter
+{
 
-    public enum Measurements {
-        DISTANCE, DURATION
-    }
+	/**
+	 * Messwerttypen
+	 * 
+	 * @author Franz Mathauser
+	 */
+	public enum Measurements
+	{
+		DISTANCE, DURATION
+	}
 
-    private final MatrixContainer<Integer> convertedMatrix;
+	private final MatrixContainer<Integer> convertedMatrix;
 
-    public MatrixContainerAdapter(GoogleDistanceMatrix distanceMatrix,
-            Measurements measurement) {
-        convertedMatrix = convertGoogleDistanceMatrix(distanceMatrix,
-                measurement);
-    }
+	/**
+	 * Creates a MatrixContainerAdapter
+	 * 
+	 * @param distanceMatrix
+	 *            GoogleDistanceMatrix Information
+	 * @param measurement
+	 *            Messwerttyp
+	 */
+	public MatrixContainerAdapter( GoogleDistanceMatrix distanceMatrix, Measurements measurement )
+	{
+		convertedMatrix = convertGoogleDistanceMatrix( distanceMatrix, measurement );
+	}
 
-    private MatrixContainer<Integer> convertGoogleDistanceMatrix(
-            GoogleDistanceMatrix distanceMatrix, Measurements measurement) {
+	/**
+	 * Convertierung der GoogleDistanceMatrix Representation in ein generisches Format
+	 * 
+	 * @param distanceMatrix GoogleDistanceMatrix
+	 * @param measurement Messwerttyp
+	 * @return gernerische DistanceMatrix
+	 */
+	private MatrixContainer<Integer> convertGoogleDistanceMatrix( GoogleDistanceMatrix distanceMatrix, Measurements measurement )
+	{
 
-        MatrixContainer<Integer> returnMatrix = new MatrixContainer<Integer>();
+		MatrixContainer<Integer> returnMatrix = new MatrixContainer<Integer>();
 
-        int x = 0;
-        for (GoogleDistanceRow row : distanceMatrix.getDistanceRows()) {
-            int y = 0;
-            for (GoogleDistanceElement element : row.getElements()) {
+		int x = 0;
+		for (GoogleDistanceRow row : distanceMatrix.getDistanceRows())
+		{
+			int y = 0;
+			for (GoogleDistanceElement element : row.getElements())
+			{
 
-                Integer value = 0;
-                if (measurement == Measurements.DISTANCE) {
-                    value = Integer.parseInt(element.getDistance().getValue());
-                } else if (measurement == Measurements.DURATION) {
-                    value = Integer.parseInt(element.getDuration().getValue());
-                }
+				Integer value = 0;
+				if (measurement == Measurements.DISTANCE)
+				{
+					value = Integer.parseInt( element.getDistance().getValue() );
+				}
+				else if (measurement == Measurements.DURATION)
+				{
+					value = Integer.parseInt( element.getDuration().getValue() );
+				}
 
-                returnMatrix.set(x, y, value);
-                y++;
-            }
-            x++;
-        }
+				returnMatrix.set( x, y, value );
+				y++;
+			}
+			x++;
+		}
 
-        return returnMatrix;
-    }
+		return returnMatrix;
+	}
 
-    public MatrixContainer<Integer> getInstance() {
-        return convertedMatrix;
-    }
+	public MatrixContainer<Integer> getInstance()
+	{
+		return convertedMatrix;
+	}
 
 }

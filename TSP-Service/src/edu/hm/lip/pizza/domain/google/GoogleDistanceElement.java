@@ -2,41 +2,62 @@ package edu.hm.lip.pizza.domain.google;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class GoogleDistanceElement {
+/**
+ * Repräsentiert ein Distance-Element des Json-Response der GoogleMaps API
+ * 
+ * @author Franz Mathauser
+ */
+@JsonIgnoreProperties( ignoreUnknown = true )
+public class GoogleDistanceElement
+{
 
-    GoogleDistance distance;
-    GoogleDurration duration;
-    String status;
+	private GoogleDistance distance;
 
-    public GoogleDistance getDistance() {
-        return distance;
-    }
+	private GoogleDurration duration;
 
-    public GoogleDurration getDuration() {
-        return duration;
-    }
+	/**
+	 * Status Codes die durch Google übergeben werden können
+	 * 
+	 * OK gibt an, dass die Antwort ein gültiges result enthält. 
+	 * NOT_FOUND gibt an, dass der Ursprungsort und/oder Zielort dieses Paares nicht geocodiert werden konnte. 
+	 * ZERO_RESULTS gibt an, dass zwischen Ursprungsort und Zielort keine Route gefunden werden konnte.
+	 */
+	private String status;
 
-    public String getStatus() {
-        return status;
-    }
+	public GoogleDistance getDistance()
+	{
+		return distance;
+	}
 
-    public void setDistance(GoogleDistance distance) {
-        this.distance = distance;
-    }
+	public GoogleDurration getDuration()
+	{
+		return duration;
+	}
 
-    public void setDuration(GoogleDurration duration) {
-        this.duration = duration;
-    }
+	public String getStatus()
+	{
+		return status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setDistance( GoogleDistance distance )
+	{
+		this.distance = distance;
+	}
 
-    @Override
-    public String toString() {
-        return "GoogleDistanceRow [distance=" + distance + ", duration="
-                + duration + ", status=" + status + "]";
-    }
+	public void setDuration( GoogleDurration duration )
+	{
+		this.duration = duration;
+	}
+
+	public void setStatus( String status )
+	{
+		this.status = status;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "GoogleDistanceRow [distance=" + distance + ", duration=" + duration + ", status=" + status + "]";
+	}
 
 }

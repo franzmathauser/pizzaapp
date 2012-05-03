@@ -11,6 +11,14 @@ import edu.hm.lip.pizza.domain.Address;
 import edu.hm.lip.pizza.domain.Edge;
 import edu.hm.lip.pizza.domain.Path;
 
+/**
+ * Die RoundTripPermutation erstellt aus einer Liste von Adressen Permuationen durch zwei Regeln.
+ * Regel 1. Die erste Adresse wird als Endpunkt hinzugefügt
+ * Regel 2. Es werden alle Permutationen herausgefiltert die nicht Startpunkt und Endpunkt als gleiche Adresse haben. 
+ * 
+ * @author Franz Mathauser
+ *
+ */
 public class RoundTripPermutation implements PermutationManager {
 
     List<Edge> instanceList;

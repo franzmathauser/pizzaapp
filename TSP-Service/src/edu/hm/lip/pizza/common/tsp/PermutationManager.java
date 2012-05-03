@@ -4,8 +4,14 @@ import java.util.List;
 
 import edu.hm.lip.pizza.domain.Path;
 
-public interface PermutationManager {
+/**
+ * Repräsentiert eine mögliche Konfiguration von Pfaden.
+ * 
+ * @author Franz Mathauser
+ */
+public interface PermutationManager
+{
 
-    public List<Path> getPaths();
+	public List<Path> getPaths();
 
 }

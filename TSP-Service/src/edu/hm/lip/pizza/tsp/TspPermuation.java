@@ -6,11 +6,10 @@ import edu.hm.lip.pizza.domain.MatrixContainer;
 import edu.hm.lip.pizza.domain.Path;
 
 /**
- * Traveling Salesman Problem Solver
+ * Solves The TSP-Problem through Permutation of Paths
  * 
- * @author <a href="mailto:mrohrmoser@gmx-gmbh.de">Marcus Rohrmoser </a>
- * @version $Id: codetemplates.xml,v 1.1 2005/09/21 10:02:15 rohrmoser Exp
- *          www-data $
+ * @author Franz Mathauser
+ *
  */
 public class TspPermuation implements TspSolver {
 

@@ -6,41 +6,54 @@ import java.util.List;
 import edu.hm.lip.pizza.domain.Edge;
 import edu.hm.lip.pizza.domain.Path;
 
-public class NoDuplicatesPermutation implements Permutation {
+/**
+ * Erzeugt Permutationen ausgehend von Ecken ohne Duplikate zu erzeugen.
+ * 
+ * @author Franz Mathauser
+ */
+public class NoDuplicatesPermutation implements Permutation
+{
 
-    private List<Path> permutations;
+	private List<Path> permutations;
 
-    @Override
-    public List<Path> permute(List<Edge> edges) {
+	@Override
+	public List<Path> permute( List<Edge> edges )
+	{
 
-        permutations = new ArrayList<Path>();
+		permutations = new ArrayList<Path>();
 
-        generatePermutation(new ArrayList<Edge>(), edges);
-        return permutations;
-    }
+		generatePermutation( new ArrayList<Edge>(), edges );
+		return permutations;
+	}
 
-    public void generatePermutation(List<Edge> beginning, List<Edge> ending) {
-        if (ending.size() <= 1) {
-            ArrayList<Edge> list = new ArrayList<Edge>(beginning);
-            list.addAll(ending);
-            permutations.add(new Path(list));
+	public void generatePermutation( List<Edge> beginning, List<Edge> ending )
+	{
+		if (ending.size() <= 1)
+		{
+			ArrayList<Edge> list = new ArrayList<Edge>( beginning );
+			list.addAll( ending );
+			permutations.add( new Path( list ) );
 
-        } else
-            for (int i = 0; i < ending.size(); i++) {
-                try {
+		}
+		else
+			for (int i = 0; i < ending.size(); i++)
+			{
+				try
+				{
 
-                    List<Edge> newList = new ArrayList<Edge>(ending.subList(0,
-                            i));
-                    newList.addAll(ending.subList(i + 1, ending.size()));
+					List<Edge> newList = new ArrayList<Edge>( ending.subList( 0, i ) );
+					newList.addAll( ending.subList( i + 1, ending.size() ) );
 
-                    List<Edge> newBeginning = new ArrayList<Edge>(beginning);
-                    newBeginning.add(ending.get(i));
+					List<Edge> newBeginning = new ArrayList<Edge>( beginning );
+					newBeginning.add( ending.get( i ) );
 
-                    generatePermutation(newBeginning, newList);
-                } catch (StringIndexOutOfBoundsException exception) {
-                    exception.printStackTrace();
-                }
-            }
-    }
+					generatePermutation( newBeginning, newList );
+				}
+				catch (StringIndexOutOfBoundsException exception)
+				{
+					exception.printStackTrace();
+				}
+			}
+	}
 
 }

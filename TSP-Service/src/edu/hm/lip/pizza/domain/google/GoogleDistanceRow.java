@@ -4,22 +4,31 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GoogleDistanceRow {
+/**
+ * Repräsentiert eine Reihe der Distance-Matrix des Json-Response der GoogleMaps API
+ * 
+ * @author Franz Mathauser
+ */
+public class GoogleDistanceRow
+{
 
-    @JsonProperty("elements")
-    List<GoogleDistanceElement> elements;
+	@JsonProperty( "elements" )
+	List<GoogleDistanceElement> elements;
 
-    public List<GoogleDistanceElement> getElements() {
-        return elements;
-    }
+	public List<GoogleDistanceElement> getElements()
+	{
+		return elements;
+	}
 
-    public void setElements(List<GoogleDistanceElement> elements) {
-        this.elements = elements;
-    }
+	public void setElements( List<GoogleDistanceElement> elements )
+	{
+		this.elements = elements;
+	}
 
-    @Override
-    public String toString() {
-        return "GoogleDistanceRow [elements=" + elements + "]";
-    }
+	@Override
+	public String toString()
+	{
+		return "GoogleDistanceRow [elements=" + elements + "]";
+	}
 
 }
