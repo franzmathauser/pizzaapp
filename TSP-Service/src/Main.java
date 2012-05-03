@@ -18,7 +18,7 @@ import edu.hm.lip.pizza.tsp.TspPermuation;
 import edu.hm.lip.pizza.tsp.TspSolver;
 
 /**
- * Dieses Beispiel zeit wie ein Roundtrip mit dem TSP-Solver erstellt werden kann
+ * Dieses Beispiel zeigt wie der TSP-Solver eingesetzt werden kann.
  * 
  * @author Franz Mathauser
  *
