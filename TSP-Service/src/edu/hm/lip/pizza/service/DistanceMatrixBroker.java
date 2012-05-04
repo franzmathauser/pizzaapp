@@ -27,7 +27,7 @@ public class DistanceMatrixBroker
 {
 
 	/**
-	 * Delimiter zwischen origin oder destination Adressen
+	 * Delimiter zwischen origin oder destination Adressen.
 	 */
 	public static final String DESTINATION_DELIMITER = "|";
 
@@ -39,13 +39,12 @@ public class DistanceMatrixBroker
 	}
 
 	/**
-	 * Abfrage der GoogleDistanceApi nach DistanceMatrix Daten
+	 * Abfrage der GoogleDistanceApi nach DistanceMatrix Daten.
+	 * 
 	 * @return GoogleDistanceMatrix representation of request
-	 * @throws JsonParseException
-	 * @throws JsonMappingException
-	 * @throws IOException
+	 * @throws IOException fehler beim lesen des JSON-Response
 	 */
-	public GoogleDistanceMatrix requestDistanceMatrix() throws JsonParseException, JsonMappingException, IOException
+	public GoogleDistanceMatrix requestDistanceMatrix() throws IOException
 	{
 
 		String origins = "&origins=" + convertDestinations();
@@ -69,6 +68,7 @@ public class DistanceMatrixBroker
 
 	/**
 	 * Converts the given adresses for GET Parameters
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings( "deprecation" )

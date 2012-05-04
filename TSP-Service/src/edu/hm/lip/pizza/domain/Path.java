@@ -4,25 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Repräsentiert einen Weg zwischen mehrerer Ecken über Kanten
+ * Repräsentiert einen Weg zwischen mehrerer Ecken über Kanten.
  */
 public class Path
 {
 
 	/**
-	 * Liste der zusammenhängenden Ecken
+	 * Liste der zusammenhängenden Ecken.
 	 */
 	private final List<Edge> edges = new ArrayList<Edge>();
 
 	/**
-	 * Kosten um den ganzen Pfad zu durchlaufen
+	 * Kosten um den ganzen Pfad zu durchlaufen.
 	 */
 	private Long cost;
 
 	public Path( ArrayList<Edge> list )
 	{
 		for (Edge edge : list)
+		{
 			edges.add( edge );
+		}
 	}
 
 	public Path()

@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Repräsentiert eine Reihe der Distance-Matrix des Json-Response der GoogleMaps API
+ * Repräsentiert eine Reihe der Distance-Matrix des Json-Response der GoogleMaps API.
  * 
  * @author Franz Mathauser
  */

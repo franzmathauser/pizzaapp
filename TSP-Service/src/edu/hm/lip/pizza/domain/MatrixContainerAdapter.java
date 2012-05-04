@@ -14,7 +14,7 @@ public class MatrixContainerAdapter
 {
 
 	/**
-	 * Messwerttypen
+	 * Messwerttypen.
 	 * 
 	 * @author Franz Mathauser
 	 */
@@ -26,7 +26,7 @@ public class MatrixContainerAdapter
 	private final MatrixContainer<Integer> convertedMatrix;
 
 	/**
-	 * Creates a MatrixContainerAdapter
+	 * Creates a MatrixContainerAdapter.
 	 * 
 	 * @param distanceMatrix
 	 *            GoogleDistanceMatrix Information
@@ -39,7 +39,7 @@ public class MatrixContainerAdapter
 	}
 
 	/**
-	 * Convertierung der GoogleDistanceMatrix Representation in ein generisches Format
+	 * Convertierung der GoogleDistanceMatrix Representation in ein generisches Format.
 	 * 
 	 * @param distanceMatrix GoogleDistanceMatrix
 	 * @param measurement Messwerttyp

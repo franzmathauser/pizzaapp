@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.domain.google;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Repräsentiert ein Distance-Element des Json-Response der GoogleMaps API
+ * Repräsentiert ein Distance-Element des Json-Response der GoogleMaps API.
  * 
  * @author Franz Mathauser
  */
@@ -16,11 +16,11 @@ public class GoogleDistanceElement
 	private GoogleDurration duration;
 
 	/**
-	 * Status Codes die durch Google übergeben werden können
+	 * Status Codes die durch Google übergeben werden können.
 	 * 
-	 * OK gibt an, dass die Antwort ein gültiges result enthält. 
-	 * NOT_FOUND gibt an, dass der Ursprungsort und/oder Zielort dieses Paares nicht geocodiert werden konnte. 
-	 * ZERO_RESULTS gibt an, dass zwischen Ursprungsort und Zielort keine Route gefunden werden konnte.
+	 * OK gibt an, dass die Antwort ein gültiges result enthält. <br />
+	 * NOT_FOUND gibt an, dass der Ursprungsort und/oder Zielort dieses Paares nicht geocodiert werden konnte.<br /> 
+	 * ZERO_RESULTS gibt an, dass zwischen Ursprungsort und Zielort keine Route gefunden werden konnte.<br />
 	 */
 	private String status;
 

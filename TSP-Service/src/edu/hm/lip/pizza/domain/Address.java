@@ -1,7 +1,7 @@
 package edu.hm.lip.pizza.domain;
 
 /**
- * Repräsentiert ein Adress Objekt
+ * Repräsentiert ein Adress Objekt.
  * 
  * @author Franz Mathauser
  */

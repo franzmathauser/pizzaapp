@@ -7,7 +7,7 @@ import edu.hm.lip.pizza.domain.Edge;
 import edu.hm.lip.pizza.domain.Path;
 
 /**
- * Fügt die Erste Adresse an das Ende der Liste hinzu
+ * Fügt die Erste Adresse an das Ende der Liste hinzu.
  * 
  * @author Franz Mathauser
  */

@@ -6,7 +6,7 @@ import edu.hm.lip.pizza.domain.Edge;
 import edu.hm.lip.pizza.domain.Path;
 
 /**
- * Dekorator fügt die erste Ecke aus der Liste an das Ende der Liste an
+ * Dekorator fügt die erste Ecke aus der Liste an das Ende der Liste an.
  * 
  * @author Franz Mathauser
  */

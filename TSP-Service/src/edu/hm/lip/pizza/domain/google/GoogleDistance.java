@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Repräsentiert die Distance des Json-Response der GoogleMaps API
+ * Repräsentiert die Distance des Json-Response der GoogleMaps API.
  * 
  * @author Franz Mathauser
  */

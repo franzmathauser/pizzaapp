@@ -1,7 +1,7 @@
 package edu.hm.lip.pizza.domain;
 
 /**
- * Repräsentiert einen Knoten des Graphen
+ * Repräsentiert einen Knoten des Graphen.
  * 
  * @author Franz Mathauser
  */

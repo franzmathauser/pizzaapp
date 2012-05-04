@@ -6,7 +6,7 @@ import edu.hm.lip.pizza.domain.Edge;
 import edu.hm.lip.pizza.domain.Path;
 
 /**
- * Dekorator-Pattern Konstrukt
+ * Dekorator-Pattern Konstrukt.
  * 
  * @author Franz Mathauser
  */

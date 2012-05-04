@@ -12,48 +12,52 @@ import edu.hm.lip.pizza.domain.Edge;
 import edu.hm.lip.pizza.domain.Path;
 
 /**
- * Die RoundTripPermutation erstellt aus einer Liste von Adressen Permuationen durch zwei Regeln.
- * Regel 1. Die erste Adresse wird als Endpunkt hinzugefügt
- * Regel 2. Es werden alle Permutationen herausgefiltert die nicht Startpunkt und Endpunkt als gleiche Adresse haben. 
+ * Die RoundTripPermutation erstellt aus einer Liste von Adressen Permuationen durch zwei Regeln. Regel 1. Die erste
+ * Adresse wird als Endpunkt hinzugefügt Regel 2. Es werden alle Permutationen herausgefiltert die nicht Startpunkt und
+ * Endpunkt als gleiche Adresse haben.
  * 
  * @author Franz Mathauser
- *
  */
-public class RoundTripPermutation implements PermutationManager {
+public class RoundTripPermutation implements PermutationManager
+{
 
-    List<Edge> instanceList;
+	List<Edge> instanceList;
 
-    public RoundTripPermutation(List<Address> addressList) {
-        instanceList = new ArrayList<Edge>();
+	public RoundTripPermutation( List<Address> addressList )
+	{
+		instanceList = new ArrayList<Edge>();
 
-        int i = 0;
-        for (Address address : addressList) {
+		int i = 0;
+		for (Address address : addressList)
+		{
 
-            instanceList.add(new Edge(i, address));
-            i++;
-        }
+			instanceList.add( new Edge( i, address ) );
+			i++;
+		}
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see edu.hm.lip.pizza.common.tsp.PermutationManager#getPaths()
-     */
-    @Override
-    public List<Path> getPaths() {
+	/*
+	 * (non-Javadoc)
+	 * @see edu.hm.lip.pizza.common.tsp.PermutationManager#getPaths()
+	 */
+	@Override
+	public List<Path> getPaths()
+	{
 
-        Permutation p = new NoDuplicatesPermutation();
-        p = new AddOriginAsReturnpoint(p);
-        p = new RoundTripPermutations(p);
+		Permutation p = new NoDuplicatesPermutation();
+		p = new AddOriginAsReturnpoint( p );
+		p = new RoundTripPermutations( p );
 
-        List<Path> permutedEdges = p.permute(instanceList);
-        int j = 0;
-        for (Path edge : permutedEdges) {
-            System.out.println(j++ + ": " + edge);
-        }
+		List<Path> permutedEdges = p.permute( instanceList );
+		int j = 0;
+		for (Path edge : permutedEdges)
+		{
+			System.out.println( j++ + ": " + edge );
+		}
 
-        return permutedEdges;
+		return permutedEdges;
 
-    }
+	}
 
 }
