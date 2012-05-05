@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.internal.object.enums;
+package edu.hm.lip.pizza.api.object.enums;
 
 /**
  * Enumeration für die unterschiedlichen Größen einer Pizza.

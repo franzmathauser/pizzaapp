@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.internal.object.entities;
+package edu.hm.lip.pizza.api.object.ressources;
 
 import java.util.Date;
 
@@ -11,13 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject;
+import edu.hm.basic.object.AbstractBasicObject;
 
 /**
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
-public class GPSData extends AbstractPizzaAppEntityObject
+public class GPSData extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = -2600414734699183548L;
@@ -150,18 +150,6 @@ public class GPSData extends AbstractPizzaAppEntityObject
 	public String toString()
 	{
 		return "GPSData [id=" + id + ", lat=" + lat + ", lon=" + lon + ", date=" + date + ", driver=" + driver + "]";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject#validate()
-	 */
-	@Override
-	public void validate()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	/**

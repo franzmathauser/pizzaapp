@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.internal.object.entities;
+package edu.hm.lip.pizza.api.object.ressources;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject;
-import edu.hm.lip.pizza.internal.object.enums.Gender;
+import edu.hm.basic.object.AbstractBasicObject;
+import edu.hm.lip.pizza.api.object.enums.Gender;
 
 /**
  * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klass gehalten, wie beispielsweise der
@@ -20,7 +20,7 @@ import edu.hm.lip.pizza.internal.object.enums.Gender;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
-public class Customer extends AbstractPizzaAppEntityObject
+public class Customer extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = -5305461895246325685L;
@@ -339,18 +339,6 @@ public class Customer extends AbstractPizzaAppEntityObject
 		return "Customer [id=" + id + ", gener=" + gener + ", company=" + company + ", department=" + department + ", lastname="
 				+ lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city=" + city
 				+ ", level=" + level + ", phone=" + phone + ", email=" + email + ", orders=" + orders + "]";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject#validate()
-	 */
-	@Override
-	public void validate()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	/**

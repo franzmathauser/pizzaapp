@@ -8,13 +8,13 @@
 		<description>PizzaApp Persistence Unit.</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/PizzaAppDS</jta-data-source> 
-		<jar-file>PizzaAppInternal.jar</jar-file>
+		<jar-file>PizzaAppApi.jar</jar-file>
 		<properties>
 			<property name="javax.persistence.lock.timeout" value="5000"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.show_sql" value="true" />
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
+<!-- 			<property name="hibernate.format_sql" value="true" /> -->
+<!-- 			<property name="hibernate.show_sql" value="true" /> -->
 		</properties>
 	</persistence-unit>
 

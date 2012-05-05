@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.internal.object.entities;
+package edu.hm.lip.pizza.api.object.ressources;
 
 import java.util.Date;
 
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import edu.hm.lip.pizza.internal.object.enums.Stage;
+import edu.hm.lip.pizza.api.object.enums.Stage;
 
 
 @Entity

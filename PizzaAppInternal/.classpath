@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 7.1 Runtime"/>
+	<classpathentry kind="lib" path="/BasicLibraries/jackson/jackson-core-asl-1.9.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

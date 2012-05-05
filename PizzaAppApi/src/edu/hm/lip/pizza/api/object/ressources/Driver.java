@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.internal.object.entities;
+package edu.hm.lip.pizza.api.object.ressources;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject;
+import edu.hm.basic.object.AbstractBasicObject;
 
 /**
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
-public class Driver extends AbstractPizzaAppEntityObject
+public class Driver extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = -1902138035458443546L;
@@ -124,18 +124,6 @@ public class Driver extends AbstractPizzaAppEntityObject
 	public String toString()
 	{
 		return "Driver [id=" + id + ", name=" + name + ", gpsData=" + gpsData + ", orders=" + orders + "]";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject#validate()
-	 */
-	@Override
-	public void validate()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
