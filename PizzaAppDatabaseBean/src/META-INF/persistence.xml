@@ -7,7 +7,7 @@
 	<persistence-unit name="PizzaAppManager" transaction-type="JTA">
 		<description>PizzaApp Persistence Unit.</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:PizzaAppDS</jta-data-source> 
+		<jta-data-source>java:/PizzaAppDS</jta-data-source> 
 		<jar-file>PizzaAppInternal.jar</jar-file>
 		<properties>
 			<property name="javax.persistence.lock.timeout" value="5000"/>
