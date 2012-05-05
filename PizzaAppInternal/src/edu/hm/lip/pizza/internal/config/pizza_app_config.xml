@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE configuration>
+
+<configuration>
+	<system />
+	<additional>
+		<properties 
+			fileName="${user.home}/pizza_app_user.properties"
+			throwExceptionOnMissing="true" 
+			optional="false" />
+	</additional>
+</configuration>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.google.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:apiKey="074fnoQx3K593czSDu_uTr3Y3FyWknG8UMQLMkw"
+        android:clickable="true" />
+
+    <SlidingDrawer
+        android:id="@+id/configSlider"
+        android:layout_width="200dip"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right"
+        android:content="@+id/configContent"
+        android:handle="@+id/configHandle"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <Button
+            android:id="@+id/configHandle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/config" />
+    </SlidingDrawer>
+
+</FrameLayout>
