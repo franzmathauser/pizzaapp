@@ -11,12 +11,10 @@
 
 	<property name="project.name" value="BasicApi" />
 	
-	<property name="build.libs" value="${libraries.dir}" />
-	<path id="buildclasspath">
-		<fileset dir="${build.libs}/ant" includes="*.jar" />
-	</path>
 	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath refid="buildclasspath" />
+		<classpath>
+			<pathelement location="${libraries.dir}/ant/ant-contrib-1.0b3.jar" />
+		</classpath>
 	</taskdef>
 	
 	<if>

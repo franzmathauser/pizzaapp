@@ -20,19 +20,41 @@
 			<pathelement location="${libraries.dir}/ant/ant-contrib-1.0b3.jar" />
 		</classpath>
 	</taskdef>
-
-	<path id="lib.path">
-		<fileset dir="${libraries.dir}">
-			<include name="**/*.jar" />
-		</fileset>
-		<fileset dir="${build.dir}">
-			<include name="**/*.jar" />
-		</fileset>
-		<fileset dir="${jboss7.dir}">
-			<include name="bundles/**/*.jar" />
-			<include name="modules/**/*.jar" />
-		</fileset>
-	</path>
+	
+	<if>
+		<equals arg1="${jboss.version}" arg2="7" />
+	    <then>
+			<path id="lib.path">
+				<fileset dir="${libraries.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${build.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+		        <fileset dir="${jboss7.dir}">
+					<include name="bundles/**/*.jar" />
+					<include name="modules/**/*.jar" />
+				</fileset>
+			</path>
+	    </then>
+	    <else>
+	        <path id="lib.path">
+	            <fileset dir="${libraries.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${build.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+		        <fileset dir="${jboss6.dir}">
+					<include name="common/**/*.jar" />
+					<include name="lib/**/*.jar" />
+					<include name="client/*.jar" />
+					<include name="server/${jboss6.server.name}/lib/**/*.jar" />
+					<include name="server/${jboss6.server.name}/deployers/**/*.jar" />
+				</fileset>
+			</path>
+	    </else>
+	</if>
 
 	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,build-apis,build-appl" />
 
@@ -41,7 +63,6 @@
 		<echo message="ANT_HOME: ${ant.home}" />
 		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
 		<echo message="JAVA_HOME: ${java.home}" />
-		<echo message="JBOSS_HOME: ${jboss7.dir}" />
 		<echo message="JBoss Version: ${jboss.version}" />
 	</target>
 
@@ -105,7 +126,7 @@
 			<fileset dir="${build.dir}" includes="*.war" />
 			<fileset dir="${libraries.dir}/commons/configuration" includes="commons-*-*.jar" />
 			<fileset dir="${libraries.dir}/commons/lang" includes="commons-*-*.jar" />
-			<fileset dir="${libraries.dir}/commons/lang3" includes="commons-*-*.jar" />
+<!-- 			<fileset dir="${libraries.dir}/commons/lang3" includes="commons-*-*.jar" /> -->
 			<fileset dir="${libraries.dir}/commons/logging" includes="commons-*-*.jar" />
 		</ear>
 	</target>
