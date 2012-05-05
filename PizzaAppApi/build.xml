@@ -1,0 +1,67 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE project>
+
+<project name="HM.EDU: Generate PizzaApp API" default="complete-build" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="config.dir" value="../BuildAndDeployEnvironment" />
+
+	<!-- load global properties -->
+	<property file="${config.dir}/global-build.properties" />
+	<property file="${config.dir}/pizza_app/global-build.properties" />
+
+	<property name="project.name" value="PizzaAppApi" />
+
+	<path id="lib.path">
+		<fileset dir="${libraries.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${jboss7.dir}">
+			<include name="bundles/**/*.jar" />
+			<include name="modules/**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,compile,create-jar" />
+
+	<target name="print-config">
+		<echo message="${ant.version}" />
+		<echo message="ANT_HOME: ${ant.home}" />
+		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
+		<echo message="JAVA_HOME: ${java.home}" />
+		<echo message="JBOSS_HOME: ${jboss7.dir}" />
+		<echo message="JBoss Version: ${jboss.version}" />
+	</target>
+
+	<target name="clean" description="Clean up all temporary directories and files">
+		<echo message="Pre clean up build and dist directories" />
+		<delete dir="${build.dir}/${project.name}" failonerror="false" />
+	</target>
+
+	<target name="compile" description="Compiles the resources">
+		<echo message="Compile sources" />
+		<mkdir dir="${build.dir}/${project.name}" />
+		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
+			<classpath>
+				<path refid="lib.path" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="create-jar" description="Packs the classes into a JAR-file" depends="compile">
+		<echo message="Create jar file" />
+		<jar destfile="${build.dir}/${project.name}.jar" filesetmanifest="merge">
+			<metainf dir="${src.dir.default}/META-INF" />
+			<fileset dir="${build.dir}/${project.name}">
+				<include name="edu/**/*.class" />
+			</fileset>
+			<fileset dir="${src.dir.default}">
+				<include name="**/*.xml" />
+				<include name="**/*.xsd" />
+				<exclude name="META-INF" />
+			</fileset>
+		</jar>
+		<copy file="${build.dir}/${project.name}.jar" todir="${libraries.cache.dir}"/>
+	</target>
+
+</project>
