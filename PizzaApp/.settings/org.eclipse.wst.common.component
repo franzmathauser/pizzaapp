@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="PizzaApp">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="PizzaAppServices.war" deploy-path="/" handle="module:/resource/PizzaAppServices/PizzaAppServices">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="PizzaAppDatabaseBean.jar" deploy-path="/" handle="module:/resource/PizzaAppDatabaseBean/PizzaAppDatabaseBean">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="PizzaAppApi.jar" deploy-path="/" handle="module:/resource/PizzaAppApi/PizzaAppApi">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="PizzaAppInternal.jar" deploy-path="/" handle="module:/resource/PizzaAppInternal/PizzaAppInternal">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BasicApi.jar" deploy-path="/" handle="module:/resource/BasicApi/BasicApi">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-lang-2.6.jar" deploy-path="/" handle="module:/classpath/lib/BasicLibraries/commons/lang/commons-lang-2.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-1.1.1.jar" deploy-path="/" handle="module:/classpath/lib/BasicLibraries/commons/logging/commons-logging-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-configuration-1.7.jar" deploy-path="/" handle="module:/classpath/lib/BasicLibraries/commons/configuration/commons-configuration-1.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

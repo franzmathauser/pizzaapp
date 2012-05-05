@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE project>
+
+<project name="HM.EDU: Generate PizzaApp (Development Build)" default="deploy" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="config.dir" value="../BuildAndDeployEnvironment" />
+
+	<!-- load global properties -->
+	<property file="${config.dir}/global-build.properties" />
+	<property file="${config.dir}/pizza_app/global-build.properties" />
+
+	<target name="deploy">
+		<ant dir="." target="complete-build" />
+		<copy todir="${jboss7.deploy.dir}">
+			<fileset dir="${build.env.dist.dir}" includes="PizzaApp.ear" />
+		</copy>
+		<ant dir="." target="final-clean" />
+	</target>
+
+</project>

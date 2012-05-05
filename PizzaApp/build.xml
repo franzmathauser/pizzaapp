@@ -1,0 +1,136 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE project>
+
+<project name="HM.EDU: Generate PizzaApp" default="complete-build" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="config.dir" value="../BuildAndDeployEnvironment" />
+
+	<!-- load global properties -->
+	<property file="${config.dir}/global-build.properties" />
+	<property file="${config.dir}/pizza_app/global-build.properties" />
+
+	<property name="application.name" value="PizzaApp" />
+	<property name="pizza_app.projectlist" value="PizzaAppInternal,PizzaAppDatabaseBean" />
+	<property name="pizza_app.war.projectlist" value="PizzaAppServices" />
+	<property name="pizza_app.api.projectlist" value="BasicApi,PizzaAppApi" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${libraries.dir}/ant/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<path id="lib.path">
+		<fileset dir="${libraries.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${build.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${jboss7.dir}">
+			<include name="bundles/**/*.jar" />
+			<include name="modules/**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,build-apis,build-appl" />
+
+	<target name="print-config">
+		<echo message="${ant.version}" />
+		<echo message="ANT_HOME: ${ant.home}" />
+		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
+		<echo message="JAVA_HOME: ${java.home}" />
+		<echo message="JBOSS_HOME: ${jboss7.dir}" />
+		<echo message="JBoss Version: ${jboss.version}" />
+	</target>
+
+	<target name="clean" description="Clean up all temporary directories and files">
+		<echo message="Pre clean up build and dist directories" />
+		<delete dir="${build.dir}" failonerror="false" />
+	</target>
+
+	<target name="final-clean" description="Clean up all temporary directories and files">
+		<echo message="Post clean up build and dist directories" />
+		<delete dir="${build.env.dist.dir}" failonerror="false" />
+	</target>
+
+	<target name="compile" description="Compiles the resources">
+		<echo message="Compile sources" />
+		<mkdir dir="${build.dir}/${project.name}" />
+		<javac fork="${compile.fork}" srcdir="${root.dir}/${project.name}/${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
+			<classpath>
+				<path refid="lib.path" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="create-jar" description="Packs the classes into a JAR-file" depends="compile">
+		<echo message="Create jar file" />
+		<jar destfile="${build.dir}/${project.name}.jar" filesetmanifest="merge">
+			<metainf dir="${root.dir}/${project.name}/${src.dir.default}/META-INF" />
+			<fileset dir="${build.dir}/${project.name}">
+				<include name="edu/**/*.class" />
+			</fileset>
+			<fileset dir="${root.dir}/${project.name}/${src.dir.default}">
+				<include name="**/*.xml" />
+				<include name="**/*.xsd" />
+				<exclude name="META-INF" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="create-war" description="packs the classes into a JAR-file" depends="compile">
+		<echo message="Create war file" />
+		<war destfile="${build.dir}/${project.name}.war" webxml="${root.dir}/${project.name}/WebContent/WEB-INF/web.xml" filesetmanifest="merge">
+			<metainf dir="${root.dir}/${project.name}/WebContent/META-INF" />
+			<fileset dir="${root.dir}/${project.name}/WebContent/">
+				<include name="**/*" />
+				<exclude name="META-INF/**/*" />
+				<exclude name="WEB-INF/**/*" />
+			</fileset>
+			<webinf dir="${root.dir}/${project.name}/WebContent/WEB-INF/">
+				<include name="*.xml" />
+				<exclude name="web.xml" />
+			</webinf>
+			<classes dir="${build.dir}/${project.name}" />
+		</war>
+	</target>
+
+	<target name="create-ear" description="packs the jars into an EAR-file">
+		<echo message="Create ear file" />
+		<ear destfile="${build.env.dist.dir}/${application.name}.ear" appxml="EarContent/META-INF/application.xml">
+			<fileset dir="${build.dir}" includes="*.jar" />
+			<fileset dir="${build.dir}" includes="*.war" />
+			<fileset dir="${libraries.dir}/commons/configuration" includes="commons-*-*.jar" />
+			<fileset dir="${libraries.dir}/commons/lang" includes="commons-*-*.jar" />
+			<fileset dir="${libraries.dir}/commons/lang3" includes="commons-*-*.jar" />
+			<fileset dir="${libraries.dir}/commons/logging" includes="commons-*-*.jar" />
+		</ear>
+	</target>
+
+	<target name="build-apis" description="Builds all APIs">
+		<echo message="Build all APIs" />
+		<foreach target="loop-apis" param="api.name" list="${pizza_app.api.projectlist}" />
+	</target>
+
+	<target name="build-appl" description="Builds all Application Projects">
+		<echo message="Build PizzaApp" />
+		<foreach target="loop-projects" param="project.name" list="${pizza_app.projectlist}" />
+		<foreach target="loop-wars" param="project.name" list="${pizza_app.war.projectlist}" />
+		<antcall target="create-ear" />
+	</target>
+
+	<target name="loop-apis" description="Loop for each API">
+		<ant dir="${root.dir}/${api.name}" target="complete-build" inheritall="false" />
+	</target>
+
+	<target name="loop-projects" description="Loop for each Application Project">
+		<antcall target="create-jar" />
+	</target>
+
+	<target name="loop-wars" description="Loop for each WAR">
+		<antcall target="create-war" />
+	</target>
+
+</project>
