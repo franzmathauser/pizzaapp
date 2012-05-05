@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import edu.hm.lip.pizza.api.object.ressources.Product;
 import edu.hm.lip.pizza.internal.bean.AbstractPizzaAppBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
+import edu.hm.lip.pizza.internal.object.entities.Product;
 
 /**
  * @author Franz Mathauser

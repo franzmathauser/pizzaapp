@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.internal.object.entities;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import edu.hm.lip.pizza.api.object.enums.Size;
 
@@ -29,9 +29,10 @@ public class ProductConfiguration
 
 	@ManyToOne( fetch = FetchType.LAZY )
 	private Product product;
+	
+	@OneToMany( mappedBy = "productConfiguration" )
+	private List<OrderLine> orderLines;
 
-	@ManyToMany( mappedBy = "productConfigurations" )
-	private List<Order> orders;
 
 	/**
 	 * Liefert das Attribut id.
@@ -118,24 +119,26 @@ public class ProductConfiguration
 	}
 
 	/**
-	 * Liefert das Attribut orders.
-	 * 
-	 * @return orders
+	 * Liefert das Attribut orderLines.
+	 *
+	 * @return orderLines
 	 */
-	public List<Order> getOrders()
+	public List<OrderLine> getOrderLines()
 	{
-		return orders;
+		return orderLines;
 	}
 
 	/**
-	 * Setzt das Attribut orders.
-	 * 
-	 * @param orders
-	 *            zu setzender Wert für das Attribut orders
+	 * Setzt das Attribut orderLines.
+	 *
+	 * @param orderLines 
+	 * 			zu setzender Wert für das Attribut orderLines
 	 */
-	public void setOrders( List<Order> orders )
+	public void setOrderLines( List<OrderLine> orderLines )
 	{
-		this.orders = orders;
+		this.orderLines = orderLines;
 	}
+
+
 
 }

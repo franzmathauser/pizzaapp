@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.internal.object.entities;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import edu.hm.basic.object.AbstractBasicObject;
 import edu.hm.lip.pizza.api.object.enums.Gender;
 
 /**
- * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klass gehalten, wie beispielsweise der
+ * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise der
  * Name, die Adresse, usw.
  * 
  * @author Franz Mathauser, Stefan Wörner
@@ -30,7 +30,7 @@ public class Customer extends AbstractBasicObject
 	private Integer id;
 
 	@Enumerated( value = EnumType.ORDINAL )
-	private Gender gener;
+	private Gender gender;
 
 	private String company;
 
@@ -77,13 +77,13 @@ public class Customer extends AbstractBasicObject
 	}
 
 	/**
-	 * Liefert das Attribut gener.
+	 * Liefert das Attribut gender.
 	 * 
-	 * @return gener
+	 * @return gender
 	 */
 	public Gender getGener()
 	{
-		return gener;
+		return gender;
 	}
 
 	/**
@@ -92,9 +92,9 @@ public class Customer extends AbstractBasicObject
 	 * @param gener
 	 *            zu setzender Wert für das Attribut gener
 	 */
-	public void setGener( Gender gener )
+	public void setGener( Gender gender )
 	{
-		this.gener = gener;
+		this.gender = gender;
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class Customer extends AbstractBasicObject
 	@Override
 	public String toString()
 	{
-		return "Customer [id=" + id + ", gener=" + gener + ", company=" + company + ", department=" + department + ", lastname="
+		return "Customer [id=" + id + ", gender=" + gender + ", company=" + company + ", department=" + department + ", lastname="
 				+ lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city=" + city
 				+ ", level=" + level + ", phone=" + phone + ", email=" + email + ", orders=" + orders + "]";
 	}

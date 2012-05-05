@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import edu.hm.lip.pizza.api.object.ressources.Product;
+import edu.hm.lip.pizza.internal.object.entities.Product;
 
 /**
  * @author Franz Mathauser

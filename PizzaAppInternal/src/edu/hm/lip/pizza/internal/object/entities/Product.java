@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.internal.object.entities;
 
 import java.util.List;
 

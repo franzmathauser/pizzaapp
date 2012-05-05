@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.internal.object.entities;
 
 import java.util.List;
 
@@ -11,6 +11,9 @@ import javax.persistence.OneToMany;
 import edu.hm.basic.object.AbstractBasicObject;
 
 /**
+ * Entität für die Fahrers. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, GPS-Daten, Bestellungen
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity

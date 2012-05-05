@@ -8,7 +8,7 @@
 		<description>PizzaApp Persistence Unit.</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/PizzaAppDS</jta-data-source> 
-		<jar-file>PizzaAppApi.jar</jar-file>
+		<jar-file>PizzaAppInternal.jar</jar-file>
 		<properties>
 			<property name="javax.persistence.lock.timeout" value="5000"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
