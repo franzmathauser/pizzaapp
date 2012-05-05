@@ -100,6 +100,7 @@
 	<target name="create-ear" description="packs the jars into an EAR-file">
 		<echo message="Create ear file" />
 		<ear destfile="${build.env.dist.dir}/${application.name}.ear" appxml="EarContent/META-INF/application.xml">
+		    <fileset dir="EarContent" includes="META-INF/jboss*.xml" />
 			<fileset dir="${build.dir}" includes="*.jar" />
 			<fileset dir="${build.dir}" includes="*.war" />
 			<fileset dir="${libraries.dir}/commons/configuration" includes="commons-*-*.jar" />
