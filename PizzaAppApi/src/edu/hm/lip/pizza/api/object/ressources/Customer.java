@@ -1,35 +1,33 @@
-package edu.hm.lip.pizza.internal.object.entities;
+package edu.hm.lip.pizza.api.object.ressources;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import edu.hm.basic.object.AbstractBasicObject;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+
 import edu.hm.lip.pizza.api.object.enums.Gender;
 
 /**
- * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise der
- * Name, die Adresse, usw.
+ * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, die Adresse, usw.
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
-@Entity
-public class Customer extends AbstractBasicObject
+
+@XmlRootElement( name = "Customer" )
+@JsonSerialize( include = Inclusion.NON_NULL )
+@Produces( { "application/xml", "application/json", "text/xml" } )
+@Consumes( { "application/xml", "application/json", "text/xml" } )
+public class Customer
 {
 
-	private static final long serialVersionUID = -5305461895246325685L;
-
-	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
 
-	@Enumerated( value = EnumType.ORDINAL )
 	private Gender gender;
 
 	private String company;
@@ -81,18 +79,18 @@ public class Customer extends AbstractBasicObject
 	 * 
 	 * @return gender
 	 */
-	public Gender getGener()
+	public Gender getGender()
 	{
 		return gender;
 	}
 
 	/**
-	 * Setzt das Attribut gener.
+	 * Setzt das Attribut gender.
 	 * 
-	 * @param gener
-	 *            zu setzender Wert für das Attribut gener
+	 * @param gender
+	 *            zu setzender Wert für das Attribut gender
 	 */
-	public void setGener( Gender gender )
+	public void setGender( Gender gender )
 	{
 		this.gender = gender;
 	}
@@ -336,9 +334,9 @@ public class Customer extends AbstractBasicObject
 	@Override
 	public String toString()
 	{
-		return "Customer [id=" + id + ", gender=" + gender + ", company=" + company + ", department=" + department + ", lastname="
-				+ lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city=" + city
-				+ ", level=" + level + ", phone=" + phone + ", email=" + email + ", orders=" + orders + "]";
+		return "Customer [id=" + id + ", gender=" + gender + ", company=" + company + ", department=" + department
+				+ ", lastname=" + lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city="
+				+ city + ", level=" + level + ", phone=" + phone + ", email=" + email + ", orders=" + orders + "]";
 	}
 
 	/**

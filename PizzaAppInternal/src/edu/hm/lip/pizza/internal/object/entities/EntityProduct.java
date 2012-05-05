@@ -7,21 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Table;
 
 @Entity
-@XmlRootElement( name = "Product" )
-//@XmlType( propOrder = { "name", "code", "examiner", "examDate", "room", "numSupervisors", "currentSupervisors" } )
-//@XmlAccessorOrder( XmlAccessOrder.ALPHABETICAL )
-//@XmlAccessorType( XmlAccessType.NONE )
-//@JsonPropertyOrder( value = { "Name", "Code", "Examiner", "ExamineDate", "Room", "NecessarySupervisors", "Supervisors" },
-//					alphabetic = true )
-//@JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class Product
+@Table( name = "product" )
+public class EntityProduct
 {
 
 	@Id
@@ -35,7 +25,7 @@ public class Product
 	private String imageUrl;
 
 	@OneToMany( mappedBy = "product" )
-	private List<ProductConfiguration> configurations;
+	private List<EntityProductConfiguration> configurations;
 
 	/**
 	 * Liefert das Attribut id.
@@ -126,7 +116,7 @@ public class Product
 	 * 
 	 * @return configurations
 	 */
-	public List<ProductConfiguration> getConfigurations()
+	public List<EntityProductConfiguration> getConfigurations()
 	{
 		return configurations;
 	}
@@ -137,7 +127,7 @@ public class Product
 	 * @param configurations
 	 *            zu setzender Wert für das Attribut configurations
 	 */
-	public void setConfigurations( List<ProductConfiguration> configurations )
+	public void setConfigurations( List<EntityProductConfiguration> configurations )
 	{
 		this.configurations = configurations;
 	}

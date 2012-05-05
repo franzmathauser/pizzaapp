@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,7 +18,8 @@ import edu.hm.lip.pizza.api.object.enums.Stage;
 
 
 @Entity
-public class OrderStage
+@Table( name = "order_stage" )
+public class EntityOrderStage
 {
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -30,7 +32,7 @@ public class OrderStage
 	private Date createDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Order order;
+	private EntityOrder order;
 
 	
 	public Integer getId()
@@ -68,15 +70,15 @@ public class OrderStage
 		this.createDate = createDate;
 	}
 
-	public Order getOrder()
+	public EntityOrder getOrder()
 	{
 		return order;
 	}
 
 
-	public void setOrder( Order order )
+	public void setOrder( EntityOrder entityOrder )
 	{
-		this.order = order;
+		this.order = entityOrder;
 	}
 
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import edu.hm.lip.pizza.internal.object.entities.Product;
+import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 
 /**
  * @author Franz Mathauser
@@ -13,14 +13,14 @@ import edu.hm.lip.pizza.internal.object.entities.Product;
 public interface IProductDAOLocal
 {
 
-	Product create( Product product );
+	EntityProduct create( EntityProduct entityProduct );
 	
-	List<Product> readAll();
+	List<EntityProduct> readAll();
 	
-	Product read(int id);
+	EntityProduct read(int id);
 	
-	Product update(Product product);
+	EntityProduct update(EntityProduct entityProduct);
 	
-	void delete(Product product);
+	void delete(EntityProduct entityProduct);
 	
 }

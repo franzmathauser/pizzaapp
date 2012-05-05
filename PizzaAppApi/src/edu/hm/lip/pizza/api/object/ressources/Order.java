@@ -1,35 +1,34 @@
-package edu.hm.lip.pizza.internal.object.entities;
+package edu.hm.lip.pizza.api.object.ressources;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@Entity
-@Table( name = "order_table" )
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+
+/**
+ * 
+ * @author Franz Mathauser
+ *
+ */
+@XmlRootElement( name = "Order" )
+@JsonSerialize( include = Inclusion.NON_NULL )
+@Produces( { "application/xml", "application/json", "text/xml" } )
+@Consumes( { "application/xml", "application/json", "text/xml" } )
 public class Order
 {
 
-	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
 
-	@OneToMany( mappedBy = "order" )
 	private List<OrderLine> orderLines;
 
-	@ManyToOne( fetch = FetchType.LAZY )
 	private Customer customer;
 
-	@ManyToOne( fetch = FetchType.LAZY )
 	private Driver driver;
 
-	@OneToMany( mappedBy = "order" )
 	private List<OrderStage> stages;
 
 	/**

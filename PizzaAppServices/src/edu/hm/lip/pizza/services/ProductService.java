@@ -8,6 +8,8 @@ import javax.ejb.Stateless;
 import edu.hm.lip.pizza.api.object.ressources.Product;
 import edu.hm.lip.pizza.api.request.IProductServiceLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
+import edu.hm.lip.pizza.internal.converter.ProductConverter;
+import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 
 /**
  * @author Franz Mathauser
@@ -27,7 +29,8 @@ public class ProductService implements IProductServiceLocal
 	@Override
 	public List<Product> findAll()
 	{
-		return productDAOBean.readAll();
+		List<EntityProduct> list = productDAOBean.readAll();
+		return ProductConverter.convertEntityToServiceProductList( list );
 	}
 
 }

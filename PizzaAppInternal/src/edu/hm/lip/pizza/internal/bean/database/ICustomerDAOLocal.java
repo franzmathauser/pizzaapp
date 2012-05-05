@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import edu.hm.lip.pizza.internal.object.entities.Customer;
+import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 
 /**
  * @author Franz Mathauser
@@ -13,13 +13,13 @@ import edu.hm.lip.pizza.internal.object.entities.Customer;
 public interface ICustomerDAOLocal
 {
 
-	Customer create( Customer customer );
+	EntityCustomer create( EntityCustomer entityCustomer );
 
-	List<Customer> readAll();
+	List<EntityCustomer> readAll();
 
-	Customer read( int id );
+	EntityCustomer read( int id );
 
-	Customer update( Customer customer );
+	EntityCustomer update( EntityCustomer entityCustomer );
 
-	void delete( Customer customer );
+	void delete( EntityCustomer entityCustomer );
 }

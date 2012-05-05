@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import edu.hm.lip.pizza.api.object.enums.Size;
 
 @Entity
-public class ProductConfiguration
+@Table( name = "product_configuration" )
+public class EntityProductConfiguration
 {
 
 	@Id
@@ -28,10 +30,10 @@ public class ProductConfiguration
 	private Double price;
 
 	@ManyToOne( fetch = FetchType.LAZY )
-	private Product product;
+	private EntityProduct product;
 	
 	@OneToMany( mappedBy = "productConfiguration" )
-	private List<OrderLine> orderLines;
+	private List<EntityOrderLine> orderLines;
 
 
 	/**
@@ -102,7 +104,7 @@ public class ProductConfiguration
 	 * 
 	 * @return product
 	 */
-	public Product getProduct()
+	public EntityProduct getProduct()
 	{
 		return product;
 	}
@@ -110,12 +112,12 @@ public class ProductConfiguration
 	/**
 	 * Setzt das Attribut product.
 	 * 
-	 * @param product
+	 * @param entityProduct
 	 *            zu setzender Wert für das Attribut product
 	 */
-	public void setProduct( Product product )
+	public void setProduct( EntityProduct entityProduct )
 	{
-		this.product = product;
+		this.product = entityProduct;
 	}
 
 	/**
@@ -123,7 +125,7 @@ public class ProductConfiguration
 	 *
 	 * @return orderLines
 	 */
-	public List<OrderLine> getOrderLines()
+	public List<EntityOrderLine> getOrderLines()
 	{
 		return orderLines;
 	}
@@ -131,12 +133,12 @@ public class ProductConfiguration
 	/**
 	 * Setzt das Attribut orderLines.
 	 *
-	 * @param orderLines 
+	 * @param entityOrderLines 
 	 * 			zu setzender Wert für das Attribut orderLines
 	 */
-	public void setOrderLines( List<OrderLine> orderLines )
+	public void setOrderLines( List<EntityOrderLine> entityOrderLines )
 	{
-		this.orderLines = orderLines;
+		this.orderLines = entityOrderLines;
 	}
 
 

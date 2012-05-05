@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import edu.hm.basic.object.AbstractBasicObject;
 
@@ -17,7 +18,8 @@ import edu.hm.basic.object.AbstractBasicObject;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
-public class Driver extends AbstractBasicObject
+@Table( name = "driver" )
+public class EntityDriver extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = -1902138035458443546L;
@@ -29,10 +31,10 @@ public class Driver extends AbstractBasicObject
 	private String name;
 
 	@OneToMany( mappedBy = "driver" )
-	private List<GPSData> gpsData;
+	private List<EntityGPSData> gpsData;
 
 	@OneToMany( mappedBy = "driver" )
-	private List<Order> orders;
+	private List<EntityOrder> orders;
 
 	/**
 	 * Liefert das Attribut id.
@@ -81,7 +83,7 @@ public class Driver extends AbstractBasicObject
 	 * 
 	 * @return gpsData
 	 */
-	public List<GPSData> getGpsData()
+	public List<EntityGPSData> getGpsData()
 	{
 		return gpsData;
 	}
@@ -92,7 +94,7 @@ public class Driver extends AbstractBasicObject
 	 * @param gpsData
 	 *            zu setzender Wert für das Attribut gpsData
 	 */
-	public void setGpsData( List<GPSData> gpsData )
+	public void setGpsData( List<EntityGPSData> gpsData )
 	{
 		this.gpsData = gpsData;
 	}
@@ -102,7 +104,7 @@ public class Driver extends AbstractBasicObject
 	 * 
 	 * @return orders
 	 */
-	public List<Order> getOrders()
+	public List<EntityOrder> getOrders()
 	{
 		return orders;
 	}
@@ -110,12 +112,12 @@ public class Driver extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut orders.
 	 * 
-	 * @param orders
+	 * @param entityOrders
 	 *            zu setzender Wert für das Attribut orders
 	 */
-	public void setOrders( List<Order> orders )
+	public void setOrders( List<EntityOrder> entityOrders )
 	{
-		this.orders = orders;
+		this.orders = entityOrders;
 	}
 
 	/**

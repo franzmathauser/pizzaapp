@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.Customer;
+import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 
 /**
  * @author Franz Mathauser
@@ -20,7 +20,7 @@ public class CustomerDAO implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#create(edu.hm.lip.pizza.api.object.ressources.Customer)
 	 */
 	@Override
-	public Customer create( Customer customer )
+	public EntityCustomer create( EntityCustomer entityCustomer )
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -32,7 +32,7 @@ public class CustomerDAO implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#readAll()
 	 */
 	@Override
-	public List<Customer> readAll()
+	public List<EntityCustomer> readAll()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -44,7 +44,7 @@ public class CustomerDAO implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#read(int)
 	 */
 	@Override
-	public Customer read( int id )
+	public EntityCustomer read( int id )
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -56,7 +56,7 @@ public class CustomerDAO implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#update(edu.hm.lip.pizza.api.object.ressources.Customer)
 	 */
 	@Override
-	public Customer update( Customer customer )
+	public EntityCustomer update( EntityCustomer entityCustomer )
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -68,7 +68,7 @@ public class CustomerDAO implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#delete(edu.hm.lip.pizza.api.object.ressources.Customer)
 	 */
 	@Override
-	public void delete( Customer customer )
+	public void delete( EntityCustomer entityCustomer )
 	{
 		// TODO Auto-generated method stub
 

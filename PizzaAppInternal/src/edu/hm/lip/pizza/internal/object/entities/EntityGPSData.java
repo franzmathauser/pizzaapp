@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,7 +18,8 @@ import edu.hm.basic.object.AbstractBasicObject;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
-public class GPSData extends AbstractBasicObject
+@Table( name = "gps_data" )
+public class EntityGPSData extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = -2600414734699183548L;
@@ -34,7 +36,7 @@ public class GPSData extends AbstractBasicObject
 	private Date date;
 
 	@ManyToOne( fetch = FetchType.LAZY )
-	private Driver driver;
+	private EntityDriver driver;
 
 	/**
 	 * Liefert das Attribut id.
@@ -125,7 +127,7 @@ public class GPSData extends AbstractBasicObject
 	 * 
 	 * @return driver
 	 */
-	public Driver getDriver()
+	public EntityDriver getDriver()
 	{
 		return driver;
 	}
@@ -133,12 +135,12 @@ public class GPSData extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut driver.
 	 * 
-	 * @param driver
+	 * @param entityDriver
 	 *            zu setzender Wert für das Attribut driver
 	 */
-	public void setDriver( Driver driver )
+	public void setDriver( EntityDriver entityDriver )
 	{
-		this.driver = driver;
+		this.driver = entityDriver;
 	}
 
 	/**

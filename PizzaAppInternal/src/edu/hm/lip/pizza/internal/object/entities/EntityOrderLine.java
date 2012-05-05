@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import edu.hm.basic.object.AbstractBasicObject;
 
@@ -13,7 +14,8 @@ import edu.hm.basic.object.AbstractBasicObject;
  * @author Franz Mathauser
  */
 @Entity
-public class OrderLine extends AbstractBasicObject
+@Table( name = "order_line" )
+public class EntityOrderLine extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = 164883825149781318L;
@@ -25,10 +27,10 @@ public class OrderLine extends AbstractBasicObject
 	private Integer count;
 
 	@ManyToOne( fetch = FetchType.LAZY )
-	private Order order;
+	private EntityOrder order;
 
 	@ManyToOne( fetch = FetchType.LAZY )
-	private ProductConfiguration productConfiguration;
+	private EntityProductConfiguration productConfiguration;
 
 	/**
 	 * Liefert das Attribut id.
@@ -77,7 +79,7 @@ public class OrderLine extends AbstractBasicObject
 	 * 
 	 * @return order
 	 */
-	public Order getOrder()
+	public EntityOrder getOrder()
 	{
 		return order;
 	}
@@ -85,12 +87,12 @@ public class OrderLine extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut order.
 	 * 
-	 * @param order
+	 * @param entityOrder
 	 *            zu setzender Wert für das Attribut order
 	 */
-	public void setOrder( Order order )
+	public void setOrder( EntityOrder entityOrder )
 	{
-		this.order = order;
+		this.order = entityOrder;
 	}
 
 	/**
@@ -134,7 +136,7 @@ public class OrderLine extends AbstractBasicObject
 	 * 
 	 * @return productConfiguration
 	 */
-	public ProductConfiguration getProductConfiguration()
+	public EntityProductConfiguration getProductConfiguration()
 	{
 		return productConfiguration;
 	}
@@ -142,12 +144,12 @@ public class OrderLine extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut productConfiguration.
 	 * 
-	 * @param productConfiguration
+	 * @param entityProductConfiguration
 	 *            zu setzender Wert für das Attribut productConfiguration
 	 */
-	public void setProductConfiguration( ProductConfiguration productConfiguration )
+	public void setProductConfiguration( EntityProductConfiguration entityProductConfiguration )
 	{
-		this.productConfiguration = productConfiguration;
+		this.productConfiguration = entityProductConfiguration;
 	}
 
 }
