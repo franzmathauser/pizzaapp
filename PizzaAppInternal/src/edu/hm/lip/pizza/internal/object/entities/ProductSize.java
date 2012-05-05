@@ -1,144 +1,78 @@
 package edu.hm.lip.pizza.internal.object.entities;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
-import edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject;
 import edu.hm.lip.pizza.internal.object.enums.Size;
 
-/**
- * Entität für die Produktgröße. Enthält neben der Größe des Produkts (
- * {@link edu.hm.lip.pizza.internal.object.enums.Size}) auch den der Größe zugeordneten Produktpreis.
- * 
- * @author Franz Mathauser, Stefan Wörner
- */
 @Entity
-public class ProductSize extends AbstractPizzaAppEntityObject
+public class ProductSize
 {
 
-	private static final long serialVersionUID = -4869069978324781L;
-
 	@Id
+	@GeneratedValue( strategy = GenerationType.AUTO )
+	private Integer id;
+	
 	@Enumerated( value = EnumType.ORDINAL )
 	private Size size;
 
 	private Double price;
 
-	@ManyToMany( mappedBy = "sizes" )
-	private List<Product> products;
+	@ManyToOne( fetch = FetchType.LAZY )
+	private Product product;
 
-	/**
-	 * Liefert das Attribut size.
-	 * 
-	 * @return size
-	 */
 	public Size getSize()
 	{
 		return size;
 	}
 
-	/**
-	 * Setzt das Attribut size.
-	 * 
-	 * @param size
-	 *            zu setzender Wert für das Attribut size
-	 */
 	public void setSize( Size size )
 	{
 		this.size = size;
 	}
 
-	/**
-	 * Liefert das Attribut price.
-	 * 
-	 * @return price
-	 */
 	public Double getPrice()
 	{
 		return price;
 	}
 
-	/**
-	 * Setzt das Attribut price.
-	 * 
-	 * @param price
-	 *            zu setzender Wert für das Attribut price
-	 */
 	public void setPrice( Double price )
 	{
 		this.price = price;
 	}
 
-	/**
-	 * Liefert das Attribut products.
-	 * 
-	 * @return products
-	 */
-	public List<Product> getProducts()
+	public Product getProducts()
 	{
-		return products;
+		return product;
 	}
 
-	/**
-	 * Setzt das Attribut products.
-	 * 
-	 * @param products
-	 *            zu setzender Wert für das Attribut products
-	 */
-	public void setProducts( List<Product> products )
+	public void setProduct( Product product )
 	{
-		this.products = products;
+		this.product = product;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
+	public Integer getId()
+	{
+		return id;
+	}
+
+	public void setId( Integer id )
+	{
+		this.id = id;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "ProductSize [size=" + size + ", price=" + price + ", products=" + products + "]";
+		return "ProductSize [id=" + id + ", size=" + size + ", price=" + price + ", product=" + product + "]";
 	}
+	
+	
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.internal.object.AbstractPizzaAppEntityObject#validate()
-	 */
-	@Override
-	public void validate()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
-	 */
-	@Override
-	public int hashCode()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals( Object obj )
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
