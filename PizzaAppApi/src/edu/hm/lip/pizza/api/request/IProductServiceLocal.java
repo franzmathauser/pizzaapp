@@ -12,10 +12,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import edu.hm.lip.pizza.api.object.ressources.GPSData;
 import edu.hm.lip.pizza.api.object.ressources.Product;
 
 /**
+ * REST-Service für die Produktdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Local
@@ -25,24 +26,56 @@ import edu.hm.lip.pizza.api.object.ressources.Product;
 public interface IProductServiceLocal
 {
 
+	/**
+	 * Liste aller Produkte.
+	 * 
+	 * @return Produktliste
+	 */
 	@GET
 	@Path( "" )
 	List<Product> findAll();
 
+	/**
+	 * Erzeugt ein neues Produkt.
+	 * 
+	 * @param product
+	 *            Produkt
+	 * @return erzeugte Produkt
+	 */
 	@POST
 	@Path( "" )
-	public Product create( Product product );
+	Product create( Product product );
 
+	/**
+	 * Liefere Product anhand von id.
+	 * 
+	 * @param id
+	 *            Produktidentifikator
+	 * @return Produkt
+	 */
 	@GET
 	@Path( "{id}" )
 	Product find( @PathParam( "id" ) int id );
 
+	/**
+	 * Überschreibe Produktdaten.
+	 * 
+	 * @param product
+	 *            Produkt
+	 * @return überschriebenes Produkt
+	 */
 	@PUT
 	@Path( "{id}" )
-	public Product update( Product product );
+	Product update( Product product );
 
+	/**
+	 * Lösche Produkt anhand von id.
+	 * 
+	 * @param id
+	 *            Produktidentifikator
+	 */
 	@DELETE
 	@Path( "{id}" )
-	public void remove( @PathParam( "id" ) int id );
+	void remove( @PathParam( "id" ) int id );
 
 }

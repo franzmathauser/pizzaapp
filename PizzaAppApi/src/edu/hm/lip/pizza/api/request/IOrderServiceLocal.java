@@ -15,6 +15,8 @@ import javax.ws.rs.Produces;
 import edu.hm.lip.pizza.api.object.ressources.Order;
 
 /**
+ * REST-Service für die Bestelldomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Local
@@ -24,23 +26,55 @@ import edu.hm.lip.pizza.api.object.ressources.Order;
 public interface IOrderServiceLocal
 {
 
+	/**
+	 * Liste aller Bestellungen.
+	 * 
+	 * @return Order-Liste
+	 */
 	@GET
 	@Path( "" )
 	List<Order> findAll();
 
+	/**
+	 * Erzeugt eine neue Bestellung.
+	 * 
+	 * @param order
+	 *            Bestellung
+	 * @return erzeugte Bestellung
+	 */
 	@POST
 	@Path( "" )
-	public Order create( Order order );
+	Order create( Order order );
 
+	/**
+	 * Liefere Bestellung anhand von id.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 * @return Bestellung
+	 */
 	@GET
 	@Path( "{id}" )
 	Order find( @PathParam( "id" ) int id );
 
+	/**
+	 * Lösche Bestellung.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 */
 	@DELETE
 	@Path( "{id}" )
-	public void remove( @PathParam( "id" ) int id );
+	void remove( @PathParam( "id" ) int id );
 
+	/**
+	 * Setze Bestell-Stage als Ausgeliefert.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 * @return bearbeitete Bestellung
+	 */
 	@PUT
 	@Path( "{id}/delivered" )
-	public Order updateOrderToDelivered( @PathParam( "id" ) int id );
+	Order updateOrderToDelivered( @PathParam( "id" ) int id );
 }

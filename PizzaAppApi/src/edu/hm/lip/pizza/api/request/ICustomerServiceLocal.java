@@ -13,9 +13,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import edu.hm.lip.pizza.api.object.ressources.Customer;
-import edu.hm.lip.pizza.api.object.ressources.Product;
 
 /**
+ * REST-Service für die Kundendomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Local
@@ -25,24 +26,56 @@ import edu.hm.lip.pizza.api.object.ressources.Product;
 public interface ICustomerServiceLocal
 {
 
+	/**
+	 * Liste aller Kunden.
+	 * 
+	 * @return Kundenliste
+	 */
 	@GET
 	@Path( "" )
 	List<Customer> findAll();
 
+	/**
+	 * Erzeugt ein neues Kunden-Objekt.
+	 * 
+	 * @param customer
+	 *            Kunde
+	 * @return erzeugte Kunde
+	 */
 	@POST
 	@Path( "" )
-	public Customer create( Customer customer );
+	Customer create( Customer customer );
 
+	/**
+	 * Liefere Kunde anhand seiner id.
+	 * 
+	 * @param id
+	 *            Kundenidentifikator
+	 * @return Kunde
+	 */
 	@GET
 	@Path( "{id}" )
 	Customer find( @PathParam( "id" ) int id );
 
+	/**
+	 * Überschreibe Kundendaten.
+	 * 
+	 * @param customer
+	 *            Kunde
+	 * @return Kunde
+	 */
 	@PUT
 	@Path( "{id}" )
-	public Customer update( Customer customer );
+	Customer update( Customer customer );
 
+	/**
+	 * Kunden löschen.
+	 * 
+	 * @param id
+	 *            Kundenidentifikator
+	 */
 	@DELETE
 	@Path( "{id}" )
-	public void remove( @PathParam( "id" ) int id );
+	void remove( @PathParam( "id" ) int id );
 
 }

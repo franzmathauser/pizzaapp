@@ -14,7 +14,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
  * 
  * @author Franz Mathauser
  */
-public class ProductConverter
+public final class ProductConverter
 {
 
 	private ProductConverter()

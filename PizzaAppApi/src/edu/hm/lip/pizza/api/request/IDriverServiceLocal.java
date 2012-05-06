@@ -14,9 +14,10 @@ import javax.ws.rs.QueryParam;
 
 import edu.hm.lip.pizza.api.object.ressources.Driver;
 import edu.hm.lip.pizza.api.object.ressources.Order;
-import edu.hm.lip.pizza.api.object.ressources.Product;
 
 /**
+ * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Local
@@ -26,29 +27,70 @@ import edu.hm.lip.pizza.api.object.ressources.Product;
 public interface IDriverServiceLocal
 {
 
+	/**
+	 * Liste aller Fahrer.
+	 * 
+	 * @return Fahrerliste
+	 */
 	@GET
 	@Path( "" )
 	List<Driver> findAll();
 
+	/**
+	 * Erzeugt ein neuen Fahrer.
+	 * 
+	 * @param driver
+	 *            Fahrer
+	 * @return erzeugten Fahrer
+	 */
 	@POST
 	@Path( "" )
-	public Driver create( Product product );
+	Driver create( Driver driver );
 
+	/**
+	 * Liefere Fahrer anhand von id.
+	 * 
+	 * @param id
+	 *            Fahreridentifikation
+	 * @return Fahrer
+	 */
 	@GET
 	@Path( "{id}" )
 	Driver find( @PathParam( "id" ) int id );
 
+	/**
+	 * Liste der auszuliefernden Bestellungen in optimierter Reihenfolge für einen Fahrer mit id.
+	 * 
+	 * @param id
+	 *            Fahreridentifikation
+	 * @return Bestellungsliste
+	 */
 	@GET
 	@Path( "{id}/route" )
-	@QueryParam("")
+	@QueryParam( "" )
 	List<Order> getRoute( @PathParam( "id" ) int id );
 
+	/**
+	 * Fügt eine Bestellungen einem Fahrer hinzu.
+	 * 
+	 * @param id
+	 *            Fahreridentifikation
+	 * @return Bestellungsliste
+	 */
 	@POST
 	@Path( "{id}/orders" )
 	List<Order> getOrders( @PathParam( "id" ) int id );
 
+	/**
+	 * Entferne zugeordnete Bestellung von Fahrer.
+	 * 
+	 * @param dId
+	 *            Fahreridentifikation
+	 * @param oId
+	 *            Bestellungsidentifikation
+	 */
 	@DELETE
-	@Path( "{d_id}/orders/{o_id}" )
-	public void remove( @PathParam( "d_id" ) int id, @PathParam( "o_id" ) int o_id );
+	@Path( "{dId}/orders/{oId}" )
+	void remove( @PathParam( "dId" ) int dId, @PathParam( "oId" ) int oId );
 
 }

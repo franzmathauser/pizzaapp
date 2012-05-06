@@ -1,10 +1,10 @@
 package edu.hm.lip.pizza.internal.converter;
 
-import edu.hm.lip.pizza.api.object.enums.Gender;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.hm.lip.pizza.api.object.ressources.Customer;
-import edu.hm.lip.pizza.api.object.ressources.ProductConfiguration;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
-import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**
  * Konverter-Klasse fuer Customer-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu
@@ -12,13 +12,18 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
  * 
  * @author Franz Mathauser
  */
-public class CustomerConverter
+public final class CustomerConverter
 {
+
+	private CustomerConverter()
+	{
+
+	}
 
 	/**
 	 * Konvertiert das Entity-Customer-Objekt in ein ProductConfiguration-Objekt im Service-Datenmodell.
 	 * 
-	 * @param eCustomr
+	 * @param eCustomer
 	 *            Entity-Customer-Objekt
 	 * @return Customer-Objekt aus dem Service-Datenmodell
 	 */
@@ -53,7 +58,7 @@ public class CustomerConverter
 	 *            Customer-Objekt aus dem Service-Datenmodell
 	 * @return Entity-Customer-Objekt
 	 */
-	public static EntityCustomer convertServiceToEntityProductConfiguration( Customer customer )
+	public static EntityCustomer convertServiceToEntityCustomer( Customer customer )
 	{
 		if (customer == null)
 		{
@@ -76,6 +81,25 @@ public class CustomerConverter
 		eCustomer.setEmail( customer.getEmail() );
 
 		return eCustomer;
+	}
+
+	/**
+	 * Konvertiert eine Liste von Entity-Customer-Objekten in eine Liste von Customer-Objekten im Service-Datenmodell.
+	 * 
+	 * @param eCustomerList
+	 *            Liste von Entity-Customer-Objekten
+	 * @return Liste von Customer-Objekten
+	 */
+	public static List<Customer> convertEntityToServiceCustomerList( List<EntityCustomer> eCustomerList )
+	{
+		List<Customer> customers = new ArrayList<Customer>();
+
+		for (EntityCustomer eCustomer : eCustomerList)
+		{
+			customers.add( convertEntityToServiceCustomer( eCustomer ) );
+		}
+
+		return customers;
 	}
 
 }

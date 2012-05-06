@@ -9,8 +9,13 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
  * 
  * @author Franz Mathauser
  */
-public class ProductConfigurationConverter
+public final class ProductConfigurationConverter
 {
+
+	private ProductConfigurationConverter()
+	{
+
+	}
 
 	/**
 	 * Konvertiert das Entity-ProductConfiguration-Objekt in ein ProductConfiguration-Objekt im Service-Datenmodell.
