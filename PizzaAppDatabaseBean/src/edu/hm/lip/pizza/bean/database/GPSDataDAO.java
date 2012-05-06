@@ -7,16 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import edu.hm.lip.pizza.api.object.resources.GPSData;
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 
 /**
  * @author Franz Mathauser
  */
 @Stateless
-public class GPSDataDAO implements IGPSDataDAOLocal
+public class GPSDataDAO extends AbstractBean  implements IGPSDataDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

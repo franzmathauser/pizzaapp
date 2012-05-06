@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
@@ -15,7 +16,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
  * @author Franz Mathauser
  */
 @Stateless
-public class OrderDAO implements IOrderDAOLocal
+public class OrderDAO extends AbstractBean  implements IOrderDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

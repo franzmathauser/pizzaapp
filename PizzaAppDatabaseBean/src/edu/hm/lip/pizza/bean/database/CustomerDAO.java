@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
-import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 
 /**
  * @author Franz Mathauser
  */
 @Stateless
-public class CustomerDAO implements ICustomerDAOLocal
+public class CustomerDAO extends AbstractBean  implements ICustomerDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

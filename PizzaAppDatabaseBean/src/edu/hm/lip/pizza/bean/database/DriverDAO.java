@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 
@@ -14,7 +15,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
  * @author Franz Mathauser
  */
 @Stateless
-public class DriverDAO implements IDriverDAOLocal
+public class DriverDAO extends AbstractBean  implements IDriverDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )
