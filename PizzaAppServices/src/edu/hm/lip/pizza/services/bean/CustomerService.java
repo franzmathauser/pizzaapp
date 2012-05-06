@@ -1,11 +1,13 @@
-package edu.hm.lip.pizza.services;
+package edu.hm.lip.pizza.services.bean;
 
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Customer;
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.converter.CustomerConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
@@ -13,7 +15,8 @@ import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 /**
  * @author Franz Mathauser
  */
-public class CustomerService implements ICustomerServiceLocal
+@Stateless
+public class CustomerService extends AbstractBean implements ICustomerServiceLocal
 {
 
 	@EJB

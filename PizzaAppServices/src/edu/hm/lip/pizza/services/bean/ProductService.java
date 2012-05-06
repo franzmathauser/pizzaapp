@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.services;
+package edu.hm.lip.pizza.services.bean;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.api.communication.request.IProductServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Product;
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
 import edu.hm.lip.pizza.internal.converter.ProductConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
@@ -15,7 +16,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
  * @author Franz Mathauser
  */
 @Stateless
-public class ProductService implements IProductServiceLocal
+public class ProductService extends AbstractBean implements IProductServiceLocal
 {
 
 	@EJB

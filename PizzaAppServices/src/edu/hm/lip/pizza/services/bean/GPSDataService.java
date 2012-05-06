@@ -1,11 +1,13 @@
-package edu.hm.lip.pizza.services;
+package edu.hm.lip.pizza.services.bean;
 
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
+import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
@@ -14,7 +16,8 @@ import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 /**
  * @author Franz Mathauser
  */
-public class GPSDataService implements IGPSDataServiceLocal
+@Stateless
+public class GPSDataService extends AbstractBean implements IGPSDataServiceLocal
 {
 
 	@EJB
