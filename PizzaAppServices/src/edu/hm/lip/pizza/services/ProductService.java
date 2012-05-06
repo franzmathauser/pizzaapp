@@ -29,8 +29,62 @@ public class ProductService implements IProductServiceLocal
 	@Override
 	public List<Product> findAll()
 	{
-		List<EntityProduct> list = productDAOBean.readAll();
-		return ProductConverter.convertEntityToServiceProductList( list );
+		return ProductConverter.convertEntityToServiceProductList( productDAOBean.readAll() );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#create(edu.hm.lip.pizza.api.object.ressources.Product)
+	 */
+	@Override
+	public Product create( Product product )
+	{
+		EntityProduct eProduct = productDAOBean.create( ProductConverter.convertServiceToEntityProduct( product ) );
+		return ProductConverter.convertEntityToServiceProduct( eProduct );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#find(int)
+	 */
+	@Override
+	public Product find( int id )
+	{
+
+		EntityProduct eProduct = productDAOBean.read( id );
+		return ProductConverter.convertEntityToServiceProduct( eProduct );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#update(edu.hm.lip.pizza.api.object.ressources.Product)
+	 */
+	@Override
+	public Product update( Product product )
+	{
+		EntityProduct eProduct = ProductConverter.convertServiceToEntityProduct( product );
+		productDAOBean.update( eProduct );
+
+		return ProductConverter.convertEntityToServiceProduct( eProduct );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#remove(int)
+	 */
+	@Override
+	public void remove( int id )
+	{
+		EntityProduct eProduct = productDAOBean.read( id );
+		if (eProduct != null)
+		{
+			productDAOBean.delete( eProduct );
+		}
+
 	}
 
 }

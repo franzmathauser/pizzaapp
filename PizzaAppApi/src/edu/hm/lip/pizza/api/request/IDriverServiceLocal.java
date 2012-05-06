@@ -7,42 +7,48 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
-import edu.hm.lip.pizza.api.object.ressources.GPSData;
+import edu.hm.lip.pizza.api.object.ressources.Driver;
+import edu.hm.lip.pizza.api.object.ressources.Order;
 import edu.hm.lip.pizza.api.object.ressources.Product;
 
 /**
  * @author Franz Mathauser
  */
 @Local
-@Path( "/products" )
+@Path( "/drivers" )
 @Produces( { "application/xml", "application/json", "text/xml" } )
 @Consumes( { "application/xml", "application/json", "text/xml" } )
-public interface IProductServiceLocal
+public interface IDriverServiceLocal
 {
 
 	@GET
 	@Path( "" )
-	List<Product> findAll();
+	List<Driver> findAll();
 
 	@POST
 	@Path( "" )
-	public Product create( Product product );
+	public Driver create( Product product );
 
 	@GET
 	@Path( "{id}" )
-	Product find( @PathParam( "id" ) int id );
+	Driver find( @PathParam( "id" ) int id );
 
-	@PUT
-	@Path( "{id}" )
-	public Product update( Product product );
+	@GET
+	@Path( "{id}/route" )
+	@QueryParam("")
+	List<Order> getRoute( @PathParam( "id" ) int id );
+
+	@POST
+	@Path( "{id}/orders" )
+	List<Order> getOrders( @PathParam( "id" ) int id );
 
 	@DELETE
-	@Path( "{id}" )
-	public void remove( @PathParam( "id" ) int id );
+	@Path( "{d_id}/orders/{o_id}" )
+	public void remove( @PathParam( "d_id" ) int id, @PathParam( "o_id" ) int o_id );
 
 }

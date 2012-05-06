@@ -19,30 +19,40 @@ import edu.hm.lip.pizza.api.object.ressources.Product;
  * @author Franz Mathauser
  */
 @Local
-@Path( "/products" )
+@Path( "/gpsdatas" )
 @Produces( { "application/xml", "application/json", "text/xml" } )
 @Consumes( { "application/xml", "application/json", "text/xml" } )
-public interface IProductServiceLocal
+public interface IGPSDataServiceLocal
 {
 
 	@GET
 	@Path( "" )
-	List<Product> findAll();
+	List<GPSData> findAll();
 
 	@POST
 	@Path( "" )
-	public Product create( Product product );
+	public GPSData create( GPSData gpsData );
+	
+	@GET
+	@Path( "/drivers" )
+	List<GPSData> findDriverPositions();
+	
+	@GET
+	@Path( "/drivers/{id}" )
+	GPSData findDriverPositions( @PathParam( "id" ) int id);
+	
+	@POST
+	@Path( "/drivers/{id}/orders" )
+	List<GPSData> addOrderToDriver( @PathParam( "id" ) int id);
 
 	@GET
 	@Path( "{id}" )
-	Product find( @PathParam( "id" ) int id );
-
-	@PUT
-	@Path( "{id}" )
-	public Product update( Product product );
+	List<GPSData> find( @PathParam( "id" ) int id );
 
 	@DELETE
 	@Path( "{id}" )
 	public void remove( @PathParam( "id" ) int id );
+	
+	
 
 }

@@ -12,37 +12,35 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import edu.hm.lip.pizza.api.object.ressources.GPSData;
-import edu.hm.lip.pizza.api.object.ressources.Product;
+import edu.hm.lip.pizza.api.object.ressources.Order;
 
 /**
  * @author Franz Mathauser
  */
 @Local
-@Path( "/products" )
+@Path( "/orders" )
 @Produces( { "application/xml", "application/json", "text/xml" } )
 @Consumes( { "application/xml", "application/json", "text/xml" } )
-public interface IProductServiceLocal
+public interface IOrderServiceLocal
 {
 
 	@GET
 	@Path( "" )
-	List<Product> findAll();
+	List<Order> findAll();
 
 	@POST
 	@Path( "" )
-	public Product create( Product product );
+	public Order create( Order order );
 
 	@GET
 	@Path( "{id}" )
-	Product find( @PathParam( "id" ) int id );
-
-	@PUT
-	@Path( "{id}" )
-	public Product update( Product product );
+	Order find( @PathParam( "id" ) int id );
 
 	@DELETE
 	@Path( "{id}" )
 	public void remove( @PathParam( "id" ) int id );
 
+	@PUT
+	@Path( "{id}/delivered" )
+	public Order updateOrderToDelivered( @PathParam( "id" ) int id );
 }
