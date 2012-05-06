@@ -2,6 +2,7 @@ package edu.hm.lip.pizza.bean.database;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,6 +14,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
 /**
  * @author Franz Mathauser
  */
+@Stateless
 public class OrderDAO implements IOrderDAOLocal
 {
 

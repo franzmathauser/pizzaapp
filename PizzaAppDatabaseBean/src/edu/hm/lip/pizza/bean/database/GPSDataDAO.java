@@ -2,6 +2,7 @@ package edu.hm.lip.pizza.bean.database;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,6 +15,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 /**
  * @author Franz Mathauser
  */
+@Stateless
 public class GPSDataDAO implements IGPSDataDAOLocal
 {
 
@@ -41,7 +43,7 @@ public class GPSDataDAO implements IGPSDataDAOLocal
 	@Override
 	public List<EntityGPSData> readAll()
 	{
-		Query query = em.createQuery( "SELECT g FROM EntitGPSData g", EntityGPSData.class );
+		Query query = em.createQuery( "SELECT g FROM EntityGPSData g", EntityGPSData.class );
 		return query.getResultList();
 	}
 
