@@ -12,17 +12,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import edu.hm.basic.object.AbstractBasicObject;
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
 /**
+ * Entität für die GPS-Daten eines Fahrers. Es werden alle benötigten Geo-Information in dieser Klasse gehalten, wie
+ * beispielsweise die lat/lon Koordinaten und der zugehörige Zeitstempel.
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
 @Table( name = "gps_data" )
-public class EntityGPSData extends AbstractBasicObject
+public class EntityGPSData extends AbstractEntityObject
 {
 
-	private static final long serialVersionUID = -2600414734699183548L;
+	private static final long serialVersionUID = -7934314990291298556L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -135,23 +138,12 @@ public class EntityGPSData extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut driver.
 	 * 
-	 * @param entityDriver
+	 * @param driver
 	 *            zu setzender Wert für das Attribut driver
 	 */
-	public void setDriver( EntityDriver entityDriver )
+	public void setDriver( EntityDriver driver )
 	{
-		this.driver = entityDriver;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "GPSData [id=" + id + ", lat=" + lat + ", lon=" + lon + ", date=" + date + ", driver=" + driver + "]";
+		this.driver = driver;
 	}
 
 	/**
@@ -177,4 +169,17 @@ public class EntityGPSData extends AbstractBasicObject
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

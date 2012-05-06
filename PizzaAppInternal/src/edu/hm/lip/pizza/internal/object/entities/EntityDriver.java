@@ -9,20 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import edu.hm.basic.object.AbstractBasicObject;
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
 /**
- * Entität für die Fahrers. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
- * der Name, GPS-Daten, Bestellungen
+ * Entität für die Fahrer. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, seine zugehörigen GPS-Daten und Bestellungen.
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
 @Table( name = "driver" )
-public class EntityDriver extends AbstractBasicObject
+public class EntityDriver extends AbstractEntityObject
 {
 
-	private static final long serialVersionUID = -1902138035458443546L;
+	private static final long serialVersionUID = -4619947632360941269L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -112,23 +112,12 @@ public class EntityDriver extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut orders.
 	 * 
-	 * @param entityOrders
+	 * @param orders
 	 *            zu setzender Wert für das Attribut orders
 	 */
-	public void setOrders( List<EntityOrder> entityOrders )
+	public void setOrders( List<EntityOrder> orders )
 	{
-		this.orders = entityOrders;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "Driver [id=" + id + ", name=" + name + ", gpsData=" + gpsData + ", orders=" + orders + "]";
+		this.orders = orders;
 	}
 
 	/**
@@ -154,4 +143,17 @@ public class EntityDriver extends AbstractBasicObject
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

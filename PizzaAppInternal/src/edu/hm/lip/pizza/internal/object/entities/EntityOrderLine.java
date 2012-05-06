@@ -8,17 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import edu.hm.basic.object.AbstractBasicObject;
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
 /**
- * @author Franz Mathauser
+ * Entität für eine Bestellungszeile. Es werden alle benötigten Bestellzeilen-Information in dieser Klasse gehalten, wie
+ * beispielsweise das bestellte Produkt, die zugehörige Anzahl und die zugehörige Gesamtbestellung.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
 @Table( name = "order_line" )
-public class EntityOrderLine extends AbstractBasicObject
+public class EntityOrderLine extends AbstractEntityObject
 {
 
-	private static final long serialVersionUID = 164883825149781318L;
+	private static final long serialVersionUID = -5832679243021389694L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -87,12 +90,33 @@ public class EntityOrderLine extends AbstractBasicObject
 	/**
 	 * Setzt das Attribut order.
 	 * 
-	 * @param entityOrder
+	 * @param order
 	 *            zu setzender Wert für das Attribut order
 	 */
-	public void setOrder( EntityOrder entityOrder )
+	public void setOrder( EntityOrder order )
 	{
-		this.order = entityOrder;
+		this.order = order;
+	}
+
+	/**
+	 * Liefert das Attribut productConfiguration.
+	 * 
+	 * @return productConfiguration
+	 */
+	public EntityProductConfiguration getProductConfiguration()
+	{
+		return productConfiguration;
+	}
+
+	/**
+	 * Setzt das Attribut productConfiguration.
+	 * 
+	 * @param productConfiguration
+	 *            zu setzender Wert für das Attribut productConfiguration
+	 */
+	public void setProductConfiguration( EntityProductConfiguration productConfiguration )
+	{
+		this.productConfiguration = productConfiguration;
 	}
 
 	/**
@@ -129,27 +153,6 @@ public class EntityOrderLine extends AbstractBasicObject
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/**
-	 * Liefert das Attribut productConfiguration.
-	 * 
-	 * @return productConfiguration
-	 */
-	public EntityProductConfiguration getProductConfiguration()
-	{
-		return productConfiguration;
-	}
-
-	/**
-	 * Setzt das Attribut productConfiguration.
-	 * 
-	 * @param entityProductConfiguration
-	 *            zu setzender Wert für das Attribut productConfiguration
-	 */
-	public void setProductConfiguration( EntityProductConfiguration entityProductConfiguration )
-	{
-		this.productConfiguration = entityProductConfiguration;
 	}
 
 }

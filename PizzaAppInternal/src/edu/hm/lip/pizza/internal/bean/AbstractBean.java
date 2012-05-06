@@ -5,7 +5,7 @@ package edu.hm.lip.pizza.internal.bean;
  * 
  * @author Stefan Wörner
  */
-public abstract class AbstractPizzaAppBean
+public abstract class AbstractBean
 {
 
 }

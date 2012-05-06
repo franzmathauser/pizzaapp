@@ -7,8 +7,9 @@ import edu.hm.basic.object.AbstractBasicObject;
  * 
  * @author Stefan Wörner
  */
-public abstract class AbstractPizzaAppInternalObject extends AbstractBasicObject
+public abstract class AbstractInternalObject extends AbstractBasicObject
 {
 
 	private static final long serialVersionUID = 2227937452004068244L;
+
 }

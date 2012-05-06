@@ -9,10 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+
+/**
+ * Entität für die Produkte. Es werden alle benötigten Produkt-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, eine Beschreibung und das zugehörige Produktbild.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
+ */
 @Entity
 @Table( name = "product" )
-public class EntityProduct
+public class EntityProduct extends AbstractEntityObject
 {
+
+	private static final long serialVersionUID = 2540347691582631624L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -130,6 +140,42 @@ public class EntityProduct
 	public void setConfigurations( List<EntityProductConfiguration> configurations )
 	{
 		this.configurations = configurations;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals( Object obj )
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

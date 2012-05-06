@@ -11,21 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import edu.hm.basic.object.AbstractBasicObject;
 import edu.hm.lip.pizza.api.object.enums.Gender;
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
 /**
- * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise der
- * Name, die Adresse, usw.
+ * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, die Adresse und eMail-Adresse.
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @Entity
 @Table( name = "customer" )
-public class EntityCustomer extends AbstractBasicObject
+public class EntityCustomer extends AbstractEntityObject
 {
 
-	private static final long serialVersionUID = -5305461895246325685L;
+	private static final long serialVersionUID = 3895442825911877353L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -89,10 +89,10 @@ public class EntityCustomer extends AbstractBasicObject
 	}
 
 	/**
-	 * Setzt das Attribut gener.
+	 * Setzt das Attribut gender.
 	 * 
 	 * @param gender
-	 *            zu setzender Wert für das Attribut gener
+	 *            zu setzender Wert für das Attribut gender
 	 */
 	public void setGender( Gender gender )
 	{
@@ -310,37 +310,24 @@ public class EntityCustomer extends AbstractBasicObject
 	}
 
 	/**
-	 * Liefert das Attribut orders.
+	 * Liefert das Attribut entityOrders.
 	 * 
-	 * @return orders
+	 * @return entityOrders
 	 */
-	public List<EntityOrder> getOrders()
+	public List<EntityOrder> getEntityOrders()
 	{
 		return entityOrders;
 	}
 
 	/**
-	 * Setzt das Attribut orders.
+	 * Setzt das Attribut entityOrders.
 	 * 
 	 * @param entityOrders
-	 *            zu setzender Wert für das Attribut orders
+	 *            zu setzender Wert für das Attribut entityOrders
 	 */
-	public void setOrders( List<EntityOrder> entityOrders )
+	public void setEntityOrders( List<EntityOrder> entityOrders )
 	{
 		this.entityOrders = entityOrders;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "Customer [id=" + id + ", gender=" + gender + ", company=" + company + ", department=" + department + ", lastname="
-				+ lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city=" + city
-				+ ", level=" + level + ", phone=" + phone + ", email=" + email + ", orders=" + entityOrders + "]";
 	}
 
 	/**
@@ -366,4 +353,17 @@ public class EntityCustomer extends AbstractBasicObject
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -5,10 +5,10 @@ package edu.hm.lip.pizza.internal.config;
  * 
  * @author Stefan Wörner
  */
-public final class PizzaAppConfigurationConstants
+public final class ConfigurationConstants
 {
 
-	private PizzaAppConfigurationConstants()
+	private ConfigurationConstants()
 	{
 
 	}

@@ -14,11 +14,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import edu.hm.lip.pizza.api.object.enums.Size;
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
+/**
+ * Entität für die Produkt-Konfiguration. Es werden alle benötigten Produkt-Konfigurations-Information in dieser Klasse
+ * gehalten, wie beispielsweise die Produktgröße und der zugehörige Produkt-Größen-Preis.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
+ */
 @Entity
 @Table( name = "product_configuration" )
-public class EntityProductConfiguration
+public class EntityProductConfiguration extends AbstractEntityObject
 {
+
+	private static final long serialVersionUID = -2410008984145483351L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -31,10 +40,9 @@ public class EntityProductConfiguration
 
 	@ManyToOne( fetch = FetchType.LAZY )
 	private EntityProduct product;
-	
+
 	@OneToMany( mappedBy = "productConfiguration" )
 	private List<EntityOrderLine> orderLines;
-
 
 	/**
 	 * Liefert das Attribut id.
@@ -112,17 +120,17 @@ public class EntityProductConfiguration
 	/**
 	 * Setzt das Attribut product.
 	 * 
-	 * @param entityProduct
+	 * @param product
 	 *            zu setzender Wert für das Attribut product
 	 */
-	public void setProduct( EntityProduct entityProduct )
+	public void setProduct( EntityProduct product )
 	{
-		this.product = entityProduct;
+		this.product = product;
 	}
 
 	/**
 	 * Liefert das Attribut orderLines.
-	 *
+	 * 
 	 * @return orderLines
 	 */
 	public List<EntityOrderLine> getOrderLines()
@@ -132,15 +140,49 @@ public class EntityProductConfiguration
 
 	/**
 	 * Setzt das Attribut orderLines.
-	 *
-	 * @param entityOrderLines 
-	 * 			zu setzender Wert für das Attribut orderLines
+	 * 
+	 * @param orderLines
+	 *            zu setzender Wert für das Attribut orderLines
 	 */
-	public void setOrderLines( List<EntityOrderLine> entityOrderLines )
+	public void setOrderLines( List<EntityOrderLine> orderLines )
 	{
-		this.orderLines = entityOrderLines;
+		this.orderLines = orderLines;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals( Object obj )
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

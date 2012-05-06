@@ -11,10 +11,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+
+/**
+ * Entität für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie
+ * beispielsweise der zugehörige Kunde, der Fahrer der die Bestellung ausfährt, die Bestelldetails (Einzelprodukte).
+ * 
+ * @author Franz Mathauser, Stefan Wörner
+ */
 @Entity
 @Table( name = "order_table" )
-public class EntityOrder
+public class EntityOrder extends AbstractEntityObject
 {
+
+	private static final long serialVersionUID = -7930788547232091933L;
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
@@ -54,6 +64,27 @@ public class EntityOrder
 	}
 
 	/**
+	 * Liefert das Attribut orderLines.
+	 * 
+	 * @return orderLines
+	 */
+	public List<EntityOrderLine> getOrderLines()
+	{
+		return orderLines;
+	}
+
+	/**
+	 * Setzt das Attribut orderLines.
+	 * 
+	 * @param orderLines
+	 *            zu setzender Wert für das Attribut orderLines
+	 */
+	public void setOrderLines( List<EntityOrderLine> orderLines )
+	{
+		this.orderLines = orderLines;
+	}
+
+	/**
 	 * Liefert das Attribut customer.
 	 * 
 	 * @return customer
@@ -66,12 +97,12 @@ public class EntityOrder
 	/**
 	 * Setzt das Attribut customer.
 	 * 
-	 * @param entityCustomer
+	 * @param customer
 	 *            zu setzender Wert für das Attribut customer
 	 */
-	public void setCustomer( EntityCustomer entityCustomer )
+	public void setCustomer( EntityCustomer customer )
 	{
-		this.customer = entityCustomer;
+		this.customer = customer;
 	}
 
 	/**
@@ -87,12 +118,12 @@ public class EntityOrder
 	/**
 	 * Setzt das Attribut driver.
 	 * 
-	 * @param entityDriver
+	 * @param driver
 	 *            zu setzender Wert für das Attribut driver
 	 */
-	public void setDriver( EntityDriver entityDriver )
+	public void setDriver( EntityDriver driver )
 	{
-		this.driver = entityDriver;
+		this.driver = driver;
 	}
 
 	/**
@@ -117,24 +148,39 @@ public class EntityOrder
 	}
 
 	/**
-	 * Liefert das Attribut orderLines.
+	 * {@inheritDoc}
 	 * 
-	 * @return orderLines
+	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
 	 */
-	public List<EntityOrderLine> getOrderLines()
+	@Override
+	public int hashCode()
 	{
-		return orderLines;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/**
-	 * Setzt das Attribut orderLines.
+	 * {@inheritDoc}
 	 * 
-	 * @param entityOrderLines
-	 *            zu setzender Wert für das Attribut orderLines
+	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
 	 */
-	public void setOrderLines( List<EntityOrderLine> entityOrderLines )
+	@Override
+	public boolean equals( Object obj )
 	{
-		this.orderLines = entityOrderLines;
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
