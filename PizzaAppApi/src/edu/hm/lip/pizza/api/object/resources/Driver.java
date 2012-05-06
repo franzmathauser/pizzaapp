@@ -13,7 +13,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 
 /**
- * Resource für die Fahrers. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
+ * Resource für die Fahrer. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
  * der Name, seine zugehörigen GPS-Daten und Bestellungen.
  * 
  * @author Franz Mathauser, Stefan Wörner
