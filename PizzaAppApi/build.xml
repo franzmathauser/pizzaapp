@@ -7,11 +7,11 @@
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
 
 	<!-- load global properties -->
-	<property file="${config.dir}/global-build.properties" />
 	<property file="${config.dir}/pizza_app/global-build.properties" />
+	<property file="${config.dir}/global-build.properties" />
 
 	<property name="project.name" value="PizzaAppApi" />
-	
+
 	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
 			<pathelement location="${libraries.dir}/ant/ant-contrib-1.0b3.jar" />
@@ -20,23 +20,23 @@
 
 	<if>
 		<equals arg1="${jboss.version}" arg2="7" />
-	    <then>
+		<then>
 			<path id="lib.path">
 				<fileset dir="${libraries.dir}">
 					<include name="**/*.jar" />
 				</fileset>
-		        <fileset dir="${jboss7.dir}">
+				<fileset dir="${jboss7.dir}">
 					<include name="bundles/**/*.jar" />
 					<include name="modules/**/*.jar" />
 				</fileset>
 			</path>
-	    </then>
-	    <else>
-	        <path id="lib.path">
-	            <fileset dir="${libraries.dir}">
+		</then>
+		<else>
+			<path id="lib.path">
+				<fileset dir="${libraries.dir}">
 					<include name="**/*.jar" />
 				</fileset>
-		        <fileset dir="${jboss6.dir}">
+				<fileset dir="${jboss6.dir}">
 					<include name="common/**/*.jar" />
 					<include name="lib/**/*.jar" />
 					<include name="client/*.jar" />
@@ -44,7 +44,7 @@
 					<include name="server/${jboss6.server.name}/deployers/**/*.jar" />
 				</fileset>
 			</path>
-	    </else>
+		</else>
 	</if>
 
 	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,compile,create-jar" />
@@ -54,7 +54,17 @@
 		<echo message="ANT_HOME: ${ant.home}" />
 		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
 		<echo message="JAVA_HOME: ${java.home}" />
+
 		<echo message="JBoss Version: ${jboss.version}" />
+		<if>
+			<equals arg1="${jboss.version}" arg2="7" />
+			<then>
+				<echo message="JBoss Deploy-Dir: ${jboss7.deploy.dir}" />
+			</then>
+			<else>
+				<echo message="JBoss Deploy-Dir: ${jboss6.deploy.dir}" />
+			</else>
+		</if>
 	</target>
 
 	<target name="clean" description="Clean up all temporary directories and files">
@@ -65,7 +75,8 @@
 	<target name="compile" description="Compiles the resources">
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
-		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
+		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}"
+			debug="${compile.debug}" includeantruntime="${compile.antruntime}">
 			<classpath>
 				<path refid="lib.path" />
 			</classpath>
@@ -85,7 +96,7 @@
 				<exclude name="META-INF" />
 			</fileset>
 		</jar>
-		<copy file="${build.dir}/${project.name}.jar" todir="${libraries.cache.dir}"/>
+		<copy file="${build.dir}/${project.name}.jar" todir="${libraries.cache.dir}" />
 	</target>
 
 </project>

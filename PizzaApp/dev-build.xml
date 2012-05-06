@@ -7,9 +7,9 @@
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
 
 	<!-- load global properties -->
-	<property file="${config.dir}/global-build.properties" />
 	<property file="${config.dir}/pizza_app/global-build.properties" />
-	
+	<property file="${config.dir}/global-build.properties" />
+
 	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
 			<pathelement location="${libraries.dir}/ant/ant-contrib-1.0b3.jar" />
@@ -20,16 +20,16 @@
 		<ant dir="." target="complete-build" />
 		<if>
 			<equals arg1="${jboss.version}" arg2="7" />
-		    <then>
+			<then>
 				<copy todir="${jboss7.deploy.dir}">
 					<fileset dir="${build.env.dist.dir}" includes="PizzaApp.ear" />
 				</copy>
-		    </then>
-		    <else>
-		        <copy todir="${jboss6.deploy.dir}">
+			</then>
+			<else>
+				<copy todir="${jboss6.deploy.dir}">
 					<fileset dir="${build.env.dist.dir}" includes="PizzaApp.ear" />
 				</copy>
-		    </else>
+			</else>
 		</if>
 		<ant dir="." target="final-clean" />
 	</target>
