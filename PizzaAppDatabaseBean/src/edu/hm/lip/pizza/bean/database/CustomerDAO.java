@@ -3,9 +3,13 @@ package edu.hm.lip.pizza.bean.database;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
+import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 
 /**
  * @author Franz Mathauser
@@ -14,6 +18,9 @@ import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 public class CustomerDAO implements ICustomerDAOLocal
 {
 
+	@PersistenceContext( unitName = "PizzaAppManager" )
+	private EntityManager em;
+	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -22,8 +29,9 @@ public class CustomerDAO implements ICustomerDAOLocal
 	@Override
 	public EntityCustomer create( EntityCustomer entityCustomer )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		em.persist( entityCustomer );
+		em.flush();
+		return entityCustomer;
 	}
 
 	/**
@@ -34,8 +42,8 @@ public class CustomerDAO implements ICustomerDAOLocal
 	@Override
 	public List<EntityCustomer> readAll()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Query query = em.createQuery( "SELECT c FROM EntitCustomery c", EntityCustomer.class );
+		return query.getResultList();
 	}
 
 	/**
@@ -46,8 +54,7 @@ public class CustomerDAO implements ICustomerDAOLocal
 	@Override
 	public EntityCustomer read( int id )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return em.find( EntityCustomer.class, id );
 	}
 
 	/**
@@ -58,8 +65,9 @@ public class CustomerDAO implements ICustomerDAOLocal
 	@Override
 	public EntityCustomer update( EntityCustomer entityCustomer )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		entityCustomer = em.merge( entityCustomer );
+		em.flush();
+		return entityCustomer;
 	}
 
 	/**
@@ -70,7 +78,8 @@ public class CustomerDAO implements ICustomerDAOLocal
 	@Override
 	public void delete( EntityCustomer entityCustomer )
 	{
-		// TODO Auto-generated method stub
+		em.remove( entityCustomer );
+		em.flush();
 
 	}
 

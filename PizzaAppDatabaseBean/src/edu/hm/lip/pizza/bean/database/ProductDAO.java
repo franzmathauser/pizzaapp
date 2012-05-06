@@ -2,14 +2,12 @@ package edu.hm.lip.pizza.bean.database;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import edu.hm.lip.pizza.internal.bean.AbstractPizzaAppBean;
-import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 
@@ -19,9 +17,6 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 @Stateless
 public class ProductDAO extends AbstractPizzaAppBean implements IProductDAOLocal
 {
-
-	@EJB
-	private ICustomerDAOLocal customerDAOLocal;
 
 	@PersistenceContext( unitName = "PizzaAppManager" )
 	private EntityManager em;
