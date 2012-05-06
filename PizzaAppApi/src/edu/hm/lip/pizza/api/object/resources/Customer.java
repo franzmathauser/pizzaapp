@@ -1,30 +1,32 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.api.object.resources;
 
 import java.util.List;
 
-import javax.persistence.OneToMany;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 import edu.hm.lip.pizza.api.object.enums.Gender;
 
 /**
- * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise
- * der Name, die Adresse, usw.
+ * Resource für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, die Adresse und eMail-Adresse.
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
-
 @XmlRootElement( name = "Customer" )
 @JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class Customer
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+public class Customer extends AbstractRessourceObject
 {
+
+	private static final long serialVersionUID = 2338873171248303915L;
 
 	private Integer id;
 
@@ -50,12 +52,12 @@ public class Customer
 
 	private String email;
 
-	@OneToMany( mappedBy = "customer" )
 	private List<Order> orders;
 
+	
 	/**
 	 * Liefert das Attribut id.
-	 * 
+	 *
 	 * @return id
 	 */
 	public Integer getId()
@@ -63,20 +65,22 @@ public class Customer
 		return id;
 	}
 
+	
 	/**
 	 * Setzt das Attribut id.
-	 * 
-	 * @param id
-	 *            zu setzender Wert für das Attribut id
+	 *
+	 * @param id 
+	 * 			zu setzender Wert für das Attribut id
 	 */
 	public void setId( Integer id )
 	{
 		this.id = id;
 	}
 
+	
 	/**
 	 * Liefert das Attribut gender.
-	 * 
+	 *
 	 * @return gender
 	 */
 	public Gender getGender()
@@ -84,20 +88,22 @@ public class Customer
 		return gender;
 	}
 
+	
 	/**
 	 * Setzt das Attribut gender.
-	 * 
-	 * @param gender
-	 *            zu setzender Wert für das Attribut gender
+	 *
+	 * @param gender 
+	 * 			zu setzender Wert für das Attribut gender
 	 */
 	public void setGender( Gender gender )
 	{
 		this.gender = gender;
 	}
 
+	
 	/**
 	 * Liefert das Attribut company.
-	 * 
+	 *
 	 * @return company
 	 */
 	public String getCompany()
@@ -105,20 +111,22 @@ public class Customer
 		return company;
 	}
 
+	
 	/**
 	 * Setzt das Attribut company.
-	 * 
-	 * @param company
-	 *            zu setzender Wert für das Attribut company
+	 *
+	 * @param company 
+	 * 			zu setzender Wert für das Attribut company
 	 */
 	public void setCompany( String company )
 	{
 		this.company = company;
 	}
 
+	
 	/**
 	 * Liefert das Attribut department.
-	 * 
+	 *
 	 * @return department
 	 */
 	public String getDepartment()
@@ -126,20 +134,22 @@ public class Customer
 		return department;
 	}
 
+	
 	/**
 	 * Setzt das Attribut department.
-	 * 
-	 * @param department
-	 *            zu setzender Wert für das Attribut department
+	 *
+	 * @param department 
+	 * 			zu setzender Wert für das Attribut department
 	 */
 	public void setDepartment( String department )
 	{
 		this.department = department;
 	}
 
+	
 	/**
 	 * Liefert das Attribut lastname.
-	 * 
+	 *
 	 * @return lastname
 	 */
 	public String getLastname()
@@ -147,20 +157,22 @@ public class Customer
 		return lastname;
 	}
 
+	
 	/**
 	 * Setzt das Attribut lastname.
-	 * 
-	 * @param lastname
-	 *            zu setzender Wert für das Attribut lastname
+	 *
+	 * @param lastname 
+	 * 			zu setzender Wert für das Attribut lastname
 	 */
 	public void setLastname( String lastname )
 	{
 		this.lastname = lastname;
 	}
 
+	
 	/**
 	 * Liefert das Attribut forename.
-	 * 
+	 *
 	 * @return forename
 	 */
 	public String getForename()
@@ -168,20 +180,22 @@ public class Customer
 		return forename;
 	}
 
+	
 	/**
 	 * Setzt das Attribut forename.
-	 * 
-	 * @param forename
-	 *            zu setzender Wert für das Attribut forename
+	 *
+	 * @param forename 
+	 * 			zu setzender Wert für das Attribut forename
 	 */
 	public void setForename( String forename )
 	{
 		this.forename = forename;
 	}
 
+	
 	/**
 	 * Liefert das Attribut street.
-	 * 
+	 *
 	 * @return street
 	 */
 	public String getStreet()
@@ -189,20 +203,22 @@ public class Customer
 		return street;
 	}
 
+	
 	/**
 	 * Setzt das Attribut street.
-	 * 
-	 * @param street
-	 *            zu setzender Wert für das Attribut street
+	 *
+	 * @param street 
+	 * 			zu setzender Wert für das Attribut street
 	 */
 	public void setStreet( String street )
 	{
 		this.street = street;
 	}
 
+	
 	/**
 	 * Liefert das Attribut zipcode.
-	 * 
+	 *
 	 * @return zipcode
 	 */
 	public String getZipcode()
@@ -210,20 +226,22 @@ public class Customer
 		return zipcode;
 	}
 
+	
 	/**
 	 * Setzt das Attribut zipcode.
-	 * 
-	 * @param zipcode
-	 *            zu setzender Wert für das Attribut zipcode
+	 *
+	 * @param zipcode 
+	 * 			zu setzender Wert für das Attribut zipcode
 	 */
 	public void setZipcode( String zipcode )
 	{
 		this.zipcode = zipcode;
 	}
 
+	
 	/**
 	 * Liefert das Attribut city.
-	 * 
+	 *
 	 * @return city
 	 */
 	public String getCity()
@@ -231,20 +249,22 @@ public class Customer
 		return city;
 	}
 
+	
 	/**
 	 * Setzt das Attribut city.
-	 * 
-	 * @param city
-	 *            zu setzender Wert für das Attribut city
+	 *
+	 * @param city 
+	 * 			zu setzender Wert für das Attribut city
 	 */
 	public void setCity( String city )
 	{
 		this.city = city;
 	}
 
+	
 	/**
 	 * Liefert das Attribut level.
-	 * 
+	 *
 	 * @return level
 	 */
 	public String getLevel()
@@ -252,20 +272,22 @@ public class Customer
 		return level;
 	}
 
+	
 	/**
 	 * Setzt das Attribut level.
-	 * 
-	 * @param level
-	 *            zu setzender Wert für das Attribut level
+	 *
+	 * @param level 
+	 * 			zu setzender Wert für das Attribut level
 	 */
 	public void setLevel( String level )
 	{
 		this.level = level;
 	}
 
+	
 	/**
 	 * Liefert das Attribut phone.
-	 * 
+	 *
 	 * @return phone
 	 */
 	public String getPhone()
@@ -273,20 +295,22 @@ public class Customer
 		return phone;
 	}
 
+	
 	/**
 	 * Setzt das Attribut phone.
-	 * 
-	 * @param phone
-	 *            zu setzender Wert für das Attribut phone
+	 *
+	 * @param phone 
+	 * 			zu setzender Wert für das Attribut phone
 	 */
 	public void setPhone( String phone )
 	{
 		this.phone = phone;
 	}
 
+	
 	/**
 	 * Liefert das Attribut email.
-	 * 
+	 *
 	 * @return email
 	 */
 	public String getEmail()
@@ -294,20 +318,22 @@ public class Customer
 		return email;
 	}
 
+	
 	/**
 	 * Setzt das Attribut email.
-	 * 
-	 * @param email
-	 *            zu setzender Wert für das Attribut email
+	 *
+	 * @param email 
+	 * 			zu setzender Wert für das Attribut email
 	 */
 	public void setEmail( String email )
 	{
 		this.email = email;
 	}
 
+	
 	/**
 	 * Liefert das Attribut orders.
-	 * 
+	 *
 	 * @return orders
 	 */
 	public List<Order> getOrders()
@@ -315,29 +341,18 @@ public class Customer
 		return orders;
 	}
 
+	
 	/**
 	 * Setzt das Attribut orders.
-	 * 
-	 * @param orders
-	 *            zu setzender Wert für das Attribut orders
+	 *
+	 * @param orders 
+	 * 			zu setzender Wert für das Attribut orders
 	 */
 	public void setOrders( List<Order> orders )
 	{
 		this.orders = orders;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "Customer [id=" + id + ", gender=" + gender + ", company=" + company + ", department=" + department
-				+ ", lastname=" + lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city="
-				+ city + ", level=" + level + ", phone=" + phone + ", email=" + email + ", orders=" + orders + "]";
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -351,6 +366,7 @@ public class Customer
 		return 0;
 	}
 
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -362,4 +378,18 @@ public class Customer
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

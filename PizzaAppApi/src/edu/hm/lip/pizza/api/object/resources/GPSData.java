@@ -1,23 +1,31 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.api.object.resources;
 
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+
 /**
+ * Resource für die GPS-Daten eines Fahrers. Es werden alle benötigten Geo-Information in dieser Klasse gehalten, wie
+ * beispielsweise die lat/lon Koordinaten und der zugehörige Zeitstempel.
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @XmlRootElement( name = "GPSData" )
 @JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class GPSData 
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+public class GPSData extends AbstractRessourceObject
 {
+
+	private static final long serialVersionUID = -988635383766944140L;
 
 	private Integer id;
 
@@ -137,17 +145,6 @@ public class GPSData
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "GPSData [id=" + id + ", lat=" + lat + ", lon=" + lon + ", date=" + date + ", driver=" + driver + "]";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
 	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
 	 */
 	@Override
@@ -168,4 +165,17 @@ public class GPSData
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

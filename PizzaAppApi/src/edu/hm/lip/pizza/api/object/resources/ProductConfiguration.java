@@ -1,22 +1,32 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.api.object.resources;
 
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 import edu.hm.lip.pizza.api.object.enums.Size;
 
+/**
+ * Resource für die Produkt-Konfiguration. Es werden alle benötigten Produkt-Konfigurations-Information in dieser Klasse
+ * gehalten, wie beispielsweise die Produktgröße und der zugehörige Produkt-Größen-Preis.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
+ */
 @XmlRootElement( name = "ProductConfiguration" )
 @JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class ProductConfiguration
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+public class ProductConfiguration extends AbstractRessourceObject
 {
+
+	private static final long serialVersionUID = -7082424038218537628L;
 
 	private Integer id;
 
@@ -131,6 +141,42 @@ public class ProductConfiguration
 	public void setOrderLines( List<OrderLine> orderLines )
 	{
 		this.orderLines = orderLines;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals( Object obj )
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

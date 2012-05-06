@@ -1,26 +1,31 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.api.object.resources;
 
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+
 /**
- * Entität für die Fahrers. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
- * der Name, GPS-Daten, Bestellungen
+ * Resource für die Fahrers. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
+ * der Name, seine zugehörigen GPS-Daten und Bestellungen.
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @XmlRootElement( name = "Driver" )
 @JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class Driver
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+public class Driver extends AbstractRessourceObject
 {
+
+	private static final long serialVersionUID = 1156952828196122081L;
 
 	private Integer id;
 
@@ -117,17 +122,6 @@ public class Driver
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "Driver [id=" + id + ", name=" + name + ", gpsData=" + gpsData + ", orders=" + orders + "]";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
 	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
 	 */
 	@Override
@@ -148,4 +142,17 @@ public class Driver
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

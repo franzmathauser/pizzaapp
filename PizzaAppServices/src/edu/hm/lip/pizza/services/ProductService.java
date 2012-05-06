@@ -5,8 +5,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import edu.hm.lip.pizza.api.object.ressources.Product;
-import edu.hm.lip.pizza.api.request.IProductServiceLocal;
+import edu.hm.lip.pizza.api.communication.request.IProductServiceLocal;
+import edu.hm.lip.pizza.api.object.resources.Product;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
 import edu.hm.lip.pizza.internal.converter.ProductConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
@@ -24,7 +24,7 @@ public class ProductService implements IProductServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#findAll()
+	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#findAll()
 	 */
 	@Override
 	public List<Product> findAll()
@@ -35,7 +35,7 @@ public class ProductService implements IProductServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#create(edu.hm.lip.pizza.api.object.ressources.Product)
+	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#create(edu.hm.lip.pizza.api.object.resources.Product)
 	 */
 	@Override
 	public Product create( Product product )
@@ -47,7 +47,7 @@ public class ProductService implements IProductServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#find(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#find(int)
 	 */
 	@Override
 	public Product find( int id )
@@ -60,7 +60,7 @@ public class ProductService implements IProductServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#update(edu.hm.lip.pizza.api.object.ressources.Product)
+	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#update(edu.hm.lip.pizza.api.object.resources.Product)
 	 */
 	@Override
 	public Product update( Product product )
@@ -74,7 +74,7 @@ public class ProductService implements IProductServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IProductServiceLocal#remove(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#remove(int)
 	 */
 	@Override
 	public void remove( int id )

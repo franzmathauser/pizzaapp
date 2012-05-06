@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import edu.hm.lip.pizza.api.object.ressources.GPSData;
-import edu.hm.lip.pizza.api.request.IGPSDataServiceLocal;
+import edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal;
+import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
@@ -26,7 +26,7 @@ public class GPSDataService implements IGPSDataServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IGPSDataServiceLocal#findAll()
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal#findAll()
 	 */
 	@Override
 	public List<GPSData> findAll()
@@ -37,7 +37,7 @@ public class GPSDataService implements IGPSDataServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IGPSDataServiceLocal#create(edu.hm.lip.pizza.api.object.ressources.GPSData)
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal#create(edu.hm.lip.pizza.api.object.resources.GPSData)
 	 */
 	@Override
 	public GPSData create( GPSData gpsData )
@@ -49,7 +49,7 @@ public class GPSDataService implements IGPSDataServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IGPSDataServiceLocal#findDriverPositions()
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal#findDriverPositions()
 	 */
 	@Override
 	public List<GPSData> findDriverPositions()
@@ -61,7 +61,7 @@ public class GPSDataService implements IGPSDataServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IGPSDataServiceLocal#findDriverPositions(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal#findDriverPositions(int)
 	 */
 	@Override
 	public GPSData findDriverPositions( int id )
@@ -73,7 +73,7 @@ public class GPSDataService implements IGPSDataServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IGPSDataServiceLocal#find(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal#find(int)
 	 */
 	@Override
 	public GPSData find( int id )
@@ -85,7 +85,7 @@ public class GPSDataService implements IGPSDataServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.IGPSDataServiceLocal#remove(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataServiceLocal#remove(int)
 	 */
 	@Override
 	public void remove( int id )

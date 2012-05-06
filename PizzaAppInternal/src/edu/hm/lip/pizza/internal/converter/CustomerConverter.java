@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.ressources.Customer;
+import edu.hm.lip.pizza.api.object.resources.Customer;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 
 /**

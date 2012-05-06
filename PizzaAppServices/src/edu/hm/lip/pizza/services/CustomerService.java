@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import edu.hm.lip.pizza.api.object.ressources.Customer;
-import edu.hm.lip.pizza.api.request.ICustomerServiceLocal;
+import edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal;
+import edu.hm.lip.pizza.api.object.resources.Customer;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.converter.CustomerConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
@@ -22,7 +22,7 @@ public class CustomerService implements ICustomerServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.ICustomerServiceLocal#findAll()
+	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal#findAll()
 	 */
 	@Override
 	public List<Customer> findAll()
@@ -33,7 +33,7 @@ public class CustomerService implements ICustomerServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.ICustomerServiceLocal#create(edu.hm.lip.pizza.api.object.ressources.Customer)
+	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal#create(edu.hm.lip.pizza.api.object.resources.Customer)
 	 */
 	@Override
 	public Customer create( Customer customer )
@@ -45,7 +45,7 @@ public class CustomerService implements ICustomerServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.ICustomerServiceLocal#find(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal#find(int)
 	 */
 	@Override
 	public Customer find( int id )
@@ -57,7 +57,7 @@ public class CustomerService implements ICustomerServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.ICustomerServiceLocal#update(edu.hm.lip.pizza.api.object.ressources.Customer)
+	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal#update(edu.hm.lip.pizza.api.object.resources.Customer)
 	 */
 	@Override
 	public Customer update( Customer customer )
@@ -71,7 +71,7 @@ public class CustomerService implements ICustomerServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.request.ICustomerServiceLocal#remove(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerServiceLocal#remove(int)
 	 */
 	@Override
 	public void remove( int id )

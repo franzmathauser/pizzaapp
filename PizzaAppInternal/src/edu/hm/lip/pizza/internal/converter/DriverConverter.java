@@ -1,6 +1,6 @@
 package edu.hm.lip.pizza.internal.converter;
 
-import edu.hm.lip.pizza.api.object.ressources.Driver;
+import edu.hm.lip.pizza.api.object.resources.Driver;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 
 /**

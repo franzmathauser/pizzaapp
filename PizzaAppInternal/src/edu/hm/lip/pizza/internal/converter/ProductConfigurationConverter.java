@@ -1,6 +1,6 @@
 package edu.hm.lip.pizza.internal.converter;
 
-import edu.hm.lip.pizza.api.object.ressources.ProductConfiguration;
+import edu.hm.lip.pizza.api.object.resources.ProductConfiguration;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**

@@ -1,21 +1,29 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.api.object.resources;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+
 /**
- * @author Franz Mathauser
+ * Resource für eine Bestellungszeile. Es werden alle benötigten Bestellzeilen-Information in dieser Klasse gehalten,
+ * wie beispielsweise das bestellte Produkt, die zugehörige Anzahl und die zugehörige Gesamtbestellung.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
  */
 @XmlRootElement( name = "OrderLine" )
 @JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class OrderLine
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+public class OrderLine extends AbstractRessourceObject
 {
+
+	private static final long serialVersionUID = -4220314995390716779L;
 
 	private Integer id;
 
@@ -89,6 +97,27 @@ public class OrderLine
 	}
 
 	/**
+	 * Liefert das Attribut productConfiguration.
+	 * 
+	 * @return productConfiguration
+	 */
+	public ProductConfiguration getProductConfiguration()
+	{
+		return productConfiguration;
+	}
+
+	/**
+	 * Setzt das Attribut productConfiguration.
+	 * 
+	 * @param productConfiguration
+	 *            zu setzender Wert für das Attribut productConfiguration
+	 */
+	public void setProductConfiguration( ProductConfiguration productConfiguration )
+	{
+		this.productConfiguration = productConfiguration;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
@@ -122,27 +151,6 @@ public class OrderLine
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/**
-	 * Liefert das Attribut productConfiguration.
-	 * 
-	 * @return productConfiguration
-	 */
-	public ProductConfiguration getProductConfiguration()
-	{
-		return productConfiguration;
-	}
-
-	/**
-	 * Setzt das Attribut productConfiguration.
-	 * 
-	 * @param productConfiguration
-	 *            zu setzender Wert für das Attribut productConfiguration
-	 */
-	public void setProductConfiguration( ProductConfiguration productConfiguration )
-	{
-		this.productConfiguration = productConfiguration;
 	}
 
 }

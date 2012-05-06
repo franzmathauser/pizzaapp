@@ -1,25 +1,31 @@
-package edu.hm.lip.pizza.api.object.ressources;
+package edu.hm.lip.pizza.api.object.resources;
 
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+
 /**
+ * Resource für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie beispielsweise
+ * der zugehörige Kunde, der Fahrer der die Bestellung ausfährt, die Bestelldetails (Einzelprodukte).
  * 
- * @author Franz Mathauser
- *
+ * @author Franz Mathauser, Stefan Wörner
  */
 @XmlRootElement( name = "Order" )
 @JsonSerialize( include = Inclusion.NON_NULL )
-@Produces( { "application/xml", "application/json", "text/xml" } )
-@Consumes( { "application/xml", "application/json", "text/xml" } )
-public class Order
+@Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
+public class Order extends AbstractRessourceObject
 {
+
+	private static final long serialVersionUID = 4218276686425658940L;
 
 	private Integer id;
 
@@ -50,6 +56,27 @@ public class Order
 	public void setId( Integer id )
 	{
 		this.id = id;
+	}
+
+	/**
+	 * Liefert das Attribut orderLines.
+	 * 
+	 * @return orderLines
+	 */
+	public List<OrderLine> getOrderLines()
+	{
+		return orderLines;
+	}
+
+	/**
+	 * Setzt das Attribut orderLines.
+	 * 
+	 * @param orderLines
+	 *            zu setzender Wert für das Attribut orderLines
+	 */
+	public void setOrderLines( List<OrderLine> orderLines )
+	{
+		this.orderLines = orderLines;
 	}
 
 	/**
@@ -116,24 +143,39 @@ public class Order
 	}
 
 	/**
-	 * Liefert das Attribut orderLines.
+	 * {@inheritDoc}
 	 * 
-	 * @return orderLines
+	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
 	 */
-	public List<OrderLine> getOrderLines()
+	@Override
+	public int hashCode()
 	{
-		return orderLines;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/**
-	 * Setzt das Attribut orderLines.
+	 * {@inheritDoc}
 	 * 
-	 * @param orderLines
-	 *            zu setzender Wert für das Attribut orderLines
+	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
 	 */
-	public void setOrderLines( List<OrderLine> orderLines )
+	@Override
+	public boolean equals( Object obj )
 	{
-		this.orderLines = orderLines;
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
