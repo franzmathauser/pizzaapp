@@ -9,7 +9,7 @@
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:apiKey="074fnoQx3K593czSDu_uTr3Y3FyWknG8UMQLMkw"
+        android:apiKey="074fnoQx3K5_emj9jUf_Zjo4aNKCYYSMbpMflLQ"
         android:clickable="true" />
 
     <SlidingDrawer

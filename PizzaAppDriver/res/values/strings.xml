@@ -2,7 +2,7 @@
 <resources>
 
     
-    <string name="app_name">PizzaApp - Driver</string><string name="configHeading">Configuration</string>
+    <string name="app_name">PizzaApp - Driver</string><string name="configHeading">Map Config</string>
     <string name="configTrack">Enable Tracking</string><string name="configFollow">Follow my Position</string><string name="configRoute">Show Route</string>
     <string name="configTraffic">Show Traffic Info</string>
     
