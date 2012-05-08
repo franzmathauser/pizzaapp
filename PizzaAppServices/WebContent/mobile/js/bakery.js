@@ -2,7 +2,7 @@ $(document).ready(
 		function() {
 
 			var carImage = 'images/pizzaauto.png';
-			
+
 			var driver = new Array();
 			var client, destination;
 
@@ -29,7 +29,7 @@ $(document).ready(
 				// is called on new message
 				client.subscribe(destination, function(message) {
 					$("#messages").append("<p>" + message.body + "</p>\n");
-										
+
 					obj = jQuery.parseJSON(message.body);
 					var index = obj.id;
 					pos = new google.maps.LatLng(obj.lat, obj.lon);
@@ -38,7 +38,7 @@ $(document).ready(
 							&& driver[index] !== null) {
 						driver[index].setPosition(pos);
 					} else {
-						
+
 						driver[index] = new google.maps.Marker({
 							position : pos,
 							title : obj.name,
