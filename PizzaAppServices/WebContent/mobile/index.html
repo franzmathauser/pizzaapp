@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Bakery</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/bakery.css" type="text/css">
+<script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var map;
+	});
+</script>
+<script type="text/javascript" src='js/stomp.js'></script>
+<script type="text/javascript" src='js/bakery.js'></script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
+<script>
+	$(document)
+			.ready(
+					function() {
+						var supported = ("WebSocket" in window);
+						if (!supported) {
+							var msg = "Your browser does not support Web Sockets. This example will not work properly.<br>";
+							msg += "Please use a Web Browser with Web Sockets support (WebKit or Google Chrome).";
+							$("#messages").html(msg);
+						}
+					});
+</script>
+
+<script>
+	jQuery(window).ready(
+			function() {
+
+				var myLatlng = new google.maps.LatLng(48.0972, 11.5265);
+				var myOptions = {
+					zoom : 15,
+					center : myLatlng,
+					mapTypeId : google.maps.MapTypeId.ROADMAP,
+				}
+				map = new google.maps.Map(
+						document.getElementById("map_canvas"), myOptions);
+
+				var marker = new google.maps.Marker({
+					position : myLatlng,
+					title : "Tara-Systems"
+				});
+
+				// To add the marker to the map, call setMap();
+				marker.setMap(map);
+			});
+</script>
+
+<style type="text/css" media="screen">
+#map_canvas {
+	width: 500px;
+	height: 500px;
+}
+
+#mapcontainer {
+	height: 500px;
+	background: #eee;
+}
+</style>
+</head>
+<body>
+
+	<div id="mapcontainer">
+		<div id="map_canvas">This will be a map</div>
+	</div>
+
+	<input type='hidden' name=url id='connect_url'
+		value='ws://localhost:61614/stomp' />
+	<input type='hidden' id='connect_login' value="guest">
+	<input type='hidden' id='connect_passcode' type=password value="guest">
+	<input type='hidden' id='destination' value="/topic/test">
+
+	<div id="disconnect">
+		<form id='disconnect_form'>
+			<input type=submit id='disconnect_submit' value="Disconnect">
+		</form>
+	</div>
+	<div id="messages"></div>
+	<div id="debug"></div>
+
+</body>
+</html>
+
