@@ -55,7 +55,7 @@ $(document).ready(
 				});
 			};
 			client.connect(login, passcode, onconnect);
-
+ 
 			// disconnection handler
 			$('#disconnect_form').submit(function() {
 				client.disconnect(function() {
