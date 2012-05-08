@@ -17,26 +17,26 @@ Voraussetzungen:
 
 Datasource:
 -----------
-Die JBoss Datasource f�r die Anbindung der MySQL Datenbank liegt im Projekt "BuildAndDeployEnvironment". Der zugeh�rige JNDI-Name lautet:
+Die JBoss Datasource für die Anbindung der MySQL Datenbank liegt im Projekt "BuildAndDeployEnvironment". Der zugehörige JNDI-Name lautet:
 
     java:jdbc/PizzaAppDS
 
-Der ben�tigte JDBC-Treiber liegt im Projekt "BasicLibraries". Verwendet wird:
+Der benötigte JDBC-Treiber liegt im Projekt "BasicLibraries". Verwendet wird:
 
 	mysql-connector-java-5.1.18-bin.jar
 
 Build Properties:
 -----------------	
-F�r die ant Skripten existieren global-build.properties im Projekt "BuildAndDeployEnvironment". Diese m�ssen individuell auf jedem Rechner, je nach Konfiguration angepasst werden. Speziell der Installationspfad des JBoss Application Server muss richtig gesetzt werden, da sonst der Build-Prozess fehlschl�gt.
+Für die ant Skripten existieren global-build.properties im Projekt "BuildAndDeployEnvironment". Diese müssen individuell auf jedem Rechner, je nach Konfiguration angepasst werden. Speziell der Installationspfad des JBoss Application Server muss richtig gesetzt werden, da sonst der Build-Prozess fehlschlägt.
 
 Build:
 ------
-Die Pizza-Service App l�sst sich per ant bauen. Das zugeh�rige Skript liegt im Projekt "PizzaApp".
+Die Pizza-Service App lässt sich per ant bauen. Das zugehörige Skript liegt im Projekt "PizzaApp".
 
     ant -buildfile PizzaApp/build.xml complete-build
 
 Deployment:
 -----------
-F�r das automatische Deployment ist ebenfalls ein ant Skript vorhanden.
+Für das automatische Deployment ist ebenfalls ein ant Skript vorhanden.
 
     ant -buildfile PizzaApp/dev-build.xml deploy
