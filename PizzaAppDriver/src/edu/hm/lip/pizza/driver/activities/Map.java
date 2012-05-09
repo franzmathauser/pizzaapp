@@ -17,11 +17,11 @@ import android.widget.CheckBox;
 import edu.hm.lip.pizza.driver.ConfigStore;
 import edu.hm.lip.pizza.driver.PreferencesConstants;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.listener.MapLocationListener;
+import edu.hm.lip.pizza.driver.listener.DriverLocationListener;
 
 /**
- * This is the main activity of the application. It displays the map an has a silder for configuration items on the
- * right side.
+ * Diese Klasse repräsentiert die Hauptaktivität der Applikation. Sie beinhaltet die Kartenansicht und hat am rechten
+ * Rand einen Slider für die Kartenkonfiguration.
  * 
  * @author Stefan Wörner
  */
@@ -29,13 +29,16 @@ public class Map extends MapActivity
 {
 
 	private MapView m_mapView;
+
 	private MapController m_mapController;
 
 	// private Button m_configHandle;
 	// private SlidingDrawer m_configSlider;
 
 	private LocationManager m_locationManager;
-	private MapLocationListener m_mapLocationListener;
+
+	private DriverLocationListener m_mapLocationListener;
+
 	private MyLocationOverlay m_myLocationOverlay;
 
 	/**
@@ -79,12 +82,17 @@ public class Map extends MapActivity
 		m_myLocationOverlay.disableMyLocation();
 		m_mapView.getOverlays().add( m_myLocationOverlay );
 
+		// m_mapLocationOverlay = new MapLocationOverlay( this, m_mapView );
+		// m_mapLocationOverlay.enableCompass();
+		// m_mapLocationOverlay.enableMyLocation();
+		// m_mapView.getOverlays().add( m_mapLocationOverlay );
+
 		// *********************************************************
 		// * Map Controller ****************************************
 		// *********************************************************
 		// get the map controller
 		m_mapController = m_mapView.getController();
-		// set zoom level to 18 (1 means world view)
+		// set zoom level to 18 (1 means world view - range from 1 to 21)
 		m_mapController.setZoom( 18 );
 		// get last know location of the gps location provider for the initial map extent
 		Location lastLocation = m_locationManager.getLastKnownLocation( LocationManager.GPS_PROVIDER );
@@ -177,11 +185,11 @@ public class Map extends MapActivity
 	}
 
 	/**
-	 * Handles the configuration changes. If a configuration item (e.g. track, follow ...) is checked or unchecked this
-	 * method is called to process the click event.
+	 * Handler für Click Events in der Kartenkonfiguration. Wenn ein Configuration Item (z.B. Track, Follow, ...)
+	 * selektiert oder deselektiert wird, wird diese Methode aufgerufen um das Event abzuarbeiten.
 	 * 
 	 * @param view
-	 *            the view from which the event was fired
+	 *            Die View von welcher das Event gefeuert wurde
 	 */
 	public void configClickHandler( View view )
 	{
@@ -226,7 +234,8 @@ public class Map extends MapActivity
 	}
 
 	/**
-	 * Loads or restores all application preferences from the application preferences file.
+	 * List alle Applikationseinstellungen aus dem Application Prefernce File aus und stellt die Konfiguration
+	 * entsprechend wieder her.
 	 */
 	private void loadPreferences()
 	{
@@ -256,7 +265,7 @@ public class Map extends MapActivity
 	}
 
 	/**
-	 * Saves all application preferences in an application preferences file.
+	 * Speichert alle Applikationseinstellungen im Application Prefernce File.
 	 */
 	private void savePreferences()
 	{
@@ -274,7 +283,8 @@ public class Map extends MapActivity
 	}
 
 	/**
-	 * Registers all required location listener.
+	 * Registriert alle benötigten Location Listener, bzw. zeigt einen Fehlerdialog an, falls die Provider deaktiviert
+	 * sind.
 	 */
 	private void registerLocationListener()
 	{
@@ -288,14 +298,15 @@ public class Map extends MapActivity
 		else
 		{
 			// create new MapLocationListener to get notifications concerning the current location
-			m_mapLocationListener = new MapLocationListener( this, m_mapView );
+			m_mapLocationListener = new DriverLocationListener( this, m_mapView );
 			// register location listener for updates using the GPS Provider
+			// TODO finetuning für minDistance und minTime
 			m_locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, m_mapLocationListener );
 		}
 	}
 
 	/**
-	 * Unregisters all location listener.
+	 * Deregistriert alle Location Listener.
 	 */
 	private void unregisterLocationListener()
 	{

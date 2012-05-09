@@ -1,8 +1,9 @@
 package edu.hm.lip.pizza.driver;
 
 /**
- * Represents the application wide configuration store. All configuration information can be accessed by and stored
- * within this class.
+ * Repräsentiert den applikationsweiten Configuration Store. Es sind alle Konfigurationsinformationen über diese
+ * Utility-Klasse verfügbar. Der Configuration Store ist als Singleton implementiert und muss daher nicht instanziiert
+ * werden.
  * 
  * @author Stefan Wörner
  */
@@ -12,12 +13,15 @@ public final class ConfigStore
 	private static ConfigStore m_instance;
 
 	private Boolean m_trackEnabled;
+
 	private Boolean m_followEnabled;
+
 	private Boolean m_routeEnabled;
+
 	private Boolean m_trafficEnabled;
 
 	/**
-	 * Private Constructor.
+	 * Privater Konstruktor.
 	 */
 	private ConfigStore()
 	{
@@ -28,10 +32,10 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Returns the current instance of the configruation store. If the instance not yet exists a new instance will be
-	 * created.
+	 * Git die aktuelle Instanz des Configuration Stores zurück. Falls noch keine Instanz existiert wird eine neue
+	 * erzeugt.
 	 * 
-	 * @return
+	 * @return Configuration Store Instanz
 	 */
 	private static ConfigStore getInstance()
 	{
@@ -43,16 +47,16 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Sets or restores the complete configuration store.
+	 * Stetzt die komplette Konfiguration neu.
 	 * 
 	 * @param trackEnabled
-	 *            indicates if the tracking function is enabled
+	 *            Zeigt an ob die Tracking Funktion aktiv ist
 	 * @param followEnabled
-	 *            indicates if the following function is enabled
+	 *            Zeigt an ob die Following Funktion aktiv ist
 	 * @param routeEnabled
-	 *            indicates if the route function is enabled
+	 *            Zeigt an ob die Route Funktion aktiv ist
 	 * @param trafficEnabled
-	 *            indicates if the traffic function is enabled
+	 *            Zeigt an ob die Traffic Funktion aktiv ist
 	 */
 	public static void restoreInstance( Boolean trackEnabled, Boolean followEnabled, Boolean routeEnabled, Boolean trafficEnabled )
 	{
@@ -64,7 +68,7 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Gets the track enabled flag.
+	 * Liefert das Attribut trackEnabled.
 	 * 
 	 * @return trackEnabled
 	 */
@@ -74,10 +78,10 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Sets the track enabled flag.
+	 * Setzt das Attribut trackEnabled.
 	 * 
 	 * @param trackEnabled
-	 *            indicates if the tracking function is enabled
+	 *            zu setzender Wert für das Attribut trackEnabled
 	 */
 	public static void setTrackEnabled( Boolean trackEnabled )
 	{
@@ -85,7 +89,7 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Gets the follow enabled flag.
+	 * Liefert das Attribut followEnabled.
 	 * 
 	 * @return followEnabled
 	 */
@@ -95,10 +99,10 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Sets the follow enabled flag.
+	 * Setzt das Attribut followEnabled.
 	 * 
 	 * @param followEnabled
-	 *            indicates if the follow function is enabled
+	 *            zu setzender Wert für das Attribut followEnabled
 	 */
 	public static void setFollowEnabled( Boolean followEnabled )
 	{
@@ -106,9 +110,9 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Gets the route enabled flag.
+	 * Liefert das Attribut routeEnabled.
 	 * 
-	 * @return the routeEnabled
+	 * @return routeEnabled
 	 */
 	public static Boolean getRouteEnabled()
 	{
@@ -116,10 +120,10 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Sets the route enabled flag.
+	 * Setzt das Attribut routeEnabled.
 	 * 
 	 * @param routeEnabled
-	 *            indicates if the route function is enabled
+	 *            zu setzender Wert für das Attribut routeEnabled
 	 */
 	public static void setRouteEnabled( Boolean routeEnabled )
 	{
@@ -127,9 +131,9 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Gets the traffic enabled flag.
+	 * Liefert das Attribut trafficEnabled.
 	 * 
-	 * @return the trafficEnabled
+	 * @return trafficEnabled
 	 */
 	public static Boolean getTrafficEnabled()
 	{
@@ -137,13 +141,14 @@ public final class ConfigStore
 	}
 
 	/**
-	 * Sets the traffic enabled flag.
+	 * Setzt das Attribut trafficEnabled.
 	 * 
 	 * @param trafficEnabled
-	 *            indicates if the traffic function is enabled
+	 *            zu setzender Wert für das Attribut trafficEnabled
 	 */
 	public static void setTrafficEnabled( Boolean trafficEnabled )
 	{
 		getInstance().m_trafficEnabled = trafficEnabled;
 	}
+
 }
