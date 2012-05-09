@@ -7,6 +7,12 @@
     <string name="configTraffic">Show Traffic Info</string>
     
     <color name="config_bg">#CC000000</color>
+    <string name="menuAppConfig">App Config</string>
+    <string name="menuHelp">Help</string>
+    <string name="menuAbout">About</string>
+    <string name="imgDescCurrentLocation">Go to my current Location</string>
+    <string name="imgDescMapMode">Switch Map Mode</string>
+    <string name="imgDescLoadRoute">Load Route from Server</string>
     
 
 </resources>

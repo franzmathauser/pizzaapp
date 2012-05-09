@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -182,6 +184,42 @@ public class Map extends MapActivity
 	protected boolean isRouteDisplayed()
 	{
 		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onCreateOptionsMenu( Menu menu )
+	{
+		getMenuInflater().inflate( R.menu.app_menu, menu );
+		return super.onCreateOptionsMenu( menu );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item )
+	{
+		switch (item.getItemId())
+		{
+			case R.id.menuAbout:
+				// startActivity( new Intent( this, About.class ) );
+				return true;
+			case R.id.menuHelp:
+				// startActivity( new Intent( this, Help.class ) );
+				return true;
+			case R.id.menuAppConfig:
+				// startActivity( new Intent( this, AppConfig.class ) );
+				return true;
+			default:
+				return super.onOptionsItemSelected( item );
+		}
 	}
 
 	/**
