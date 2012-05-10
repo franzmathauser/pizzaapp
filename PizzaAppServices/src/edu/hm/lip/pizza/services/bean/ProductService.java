@@ -6,7 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.api.communication.request.IProductServiceLocal;
-import edu.hm.lip.pizza.api.object.resources.Product;
+import edu.hm.lip.pizza.api.object.resources.ProductDTO;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
 import edu.hm.lip.pizza.internal.converter.ProductConverter;
@@ -28,7 +28,7 @@ public class ProductService extends AbstractBean implements IProductServiceLocal
 	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#findAll()
 	 */
 	@Override
-	public List<Product> findAll()
+	public List<ProductDTO> findAll()
 	{
 		return ProductConverter.convertEntityToServiceProductList( productDAOBean.readAll() );
 	}
@@ -39,7 +39,7 @@ public class ProductService extends AbstractBean implements IProductServiceLocal
 	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#create(edu.hm.lip.pizza.api.object.resources.Product)
 	 */
 	@Override
-	public Product create( Product product )
+	public ProductDTO create( ProductDTO product )
 	{
 		EntityProduct eProduct = productDAOBean.create( ProductConverter.convertServiceToEntityProduct( product ) );
 		return ProductConverter.convertEntityToServiceProduct( eProduct );
@@ -51,7 +51,7 @@ public class ProductService extends AbstractBean implements IProductServiceLocal
 	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#find(int)
 	 */
 	@Override
-	public Product find( int id )
+	public ProductDTO find( int id )
 	{
 
 		EntityProduct eProduct = productDAOBean.read( id );
@@ -64,7 +64,7 @@ public class ProductService extends AbstractBean implements IProductServiceLocal
 	 * @see edu.hm.lip.pizza.api.communication.request.IProductServiceLocal#update(edu.hm.lip.pizza.api.object.resources.Product)
 	 */
 	@Override
-	public Product update( Product product )
+	public ProductDTO update( ProductDTO product )
 	{
 		EntityProduct eProduct = ProductConverter.convertServiceToEntityProduct( product );
 		productDAOBean.update( eProduct );

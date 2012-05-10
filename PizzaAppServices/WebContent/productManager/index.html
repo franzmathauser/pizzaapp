@@ -18,7 +18,7 @@ table {
 	overflow: hidden;
 	border: 1px solid #d3d3d3;
 	background: #fefefe;
-	width: 100%;
+	width: 90%;
 	margin: 0 auto 0;
 	-moz-border-radius: 5px; /* FF1+ */
 	-webkit-border-radius: 5px; /* Saf3-4 */
@@ -100,54 +100,61 @@ tr:last-child td.last {
 	-moz-border-radius-bottomright: 5px;
 	-webkit-border-bottom-right-radius: 5px; /* Saf3-4 */
 }
+
+.update, .delete {
+	cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
 	<form id="product_form" class="formee">
-		<div class="formee-msg-success">
-			<h3>Success Message</h3>
-		</div>
 		<div style="float: left; width: 50%">
 			<fieldset>
 				<legend>Produktadministration</legend>
-
+				<input type="input" name="id" id="productId" style="display:none" readonly="readonly"/>
 				<div class="grid-12-12">
-					<label>Name <em class="formee-req">*</em></label> <input name="name"
-						type="text" value="" />
+					<label>Name <em class="formee-req">*</em></label> <input id="name"
+						name="name" type="text" value="" />
+				</div>
+				<div class="grid-4-12"> 
+					<label>Preis L <em class="formee-req">*</em></label> <input id="price_l"
+						name="price_l" type="text" value="" />
 				</div>
 				<div class="grid-4-12">
-					<label>Preis L <em class="formee-req">*</em></label> <input name="price_l"
-						type="text" value="" />
+					<label>Preis XL <em class="formee-req">*</em></label> <input id="price_xl"
+						name="price_xl" type="text" value="" />
 				</div>
 				<div class="grid-4-12">
-					<label>Preis XL <em class="formee-req">*</em></label> <input name="price_xl"
-						type="text" value="" />
-				</div>
-				<div class="grid-4-12">
-					<label>Preis XXL <em class="formee-req">*</em></label> <input name="price_xxl"
-						type="text" value="" />
+					<label>Preis XXL <em class="formee-req">*</em></label> <input id="price_xxl"
+						name="price_xxl" type="text" value="" />
 				</div>
 				<div class="grid-12-12">
 					<label>Beschreibung <em class="formee-req">*</em></label>
-					<textarea rows="" cols="" name="description"></textarea>
+					<textarea rows="" cols="" name="description" id="description"></textarea>
 				</div>
 
 				<div class="grid-12-12">
-					<label>Bild-Url <em class="formee-req">*</em></label> <input name="image_url"
-						type="text" value="" />
+					<label>Bild-Url <em class="formee-req">*</em></label> <input id="image_url"
+						name="image_url" type="text" value="" />
 				</div>
 				<div class="grid-12-12">
-					<input id="send_form" class="right" type="submit" title="send" value="Speichern" />
-					<input class="right" type="reset" title="reset" value="Reset" />
+					<input id="send_form" class="right" type="submit" title="send"
+						value="Speichern" /> <input class="right" type="reset"
+						title="reset" value="Reset" />
 				</div>
 			</fieldset>
 		</div>
 		<div style="float: right; width: 50%;">
 			<fieldset>
 				<legend>Produkte</legend>
-
+				<div id="success_box" class="formee-msg-success" style="display:none;">
+					<h3 id="success_message">Success Message</h3>
+				</div>
+				<div id="error_box" class="formee-msg-error" style="display:none;">
+					<h3 id="error_message">Success Message</h3>
+				</div>
 				<table id="products" cellspacing="0">
 					<tr>
 						<th>Bild</th>

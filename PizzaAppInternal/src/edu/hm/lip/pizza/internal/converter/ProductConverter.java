@@ -3,8 +3,10 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.hm.lip.pizza.api.object.enums.Size;
 import edu.hm.lip.pizza.api.object.resources.Product;
 import edu.hm.lip.pizza.api.object.resources.ProductConfiguration;
+import edu.hm.lip.pizza.api.object.resources.ProductDTO;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
@@ -29,29 +31,38 @@ public final class ProductConverter
 	 *            Entity-Product-Objekt
 	 * @return Product-Objekt aus dem Service-Datenmodell
 	 */
-	public static Product convertEntityToServiceProduct( EntityProduct eProduct )
+	public static ProductDTO convertEntityToServiceProduct( EntityProduct eProduct )
 	{
 		if (eProduct == null)
 		{
 			return null;
 		}
 
-		Product product = new Product();
+		ProductDTO product = new ProductDTO();
 		product.setId( eProduct.getId() );
 		product.setName( eProduct.getName() );
 		product.setImageUrl( eProduct.getImageUrl() );
 		product.setDescription( eProduct.getDescription() );
 
-		List<ProductConfiguration> eProductConfigurations = new ArrayList<ProductConfiguration>();
-
 		for (EntityProductConfiguration configuration : eProduct.getConfigurations())
 		{
-			eProductConfigurations
-					.add( ProductConfigurationConverter.convertEntityToServiceProductConfiguration( configuration ) );
+			switch (configuration.getSize())
+			{
+				case L:
+					product.setPriceL( configuration.getPrice().toString() );
+					break;
+				case XL:
+					product.setPriceXL( configuration.getPrice().toString() );
+					break;
+				case XXL:
+					product.setPriceXXL( configuration.getPrice().toString() );
+					break;
+				default:
+					break;
+			}
 
 		}
 
-		product.setConfigurations( eProductConfigurations );
 		return product;
 
 	}
@@ -63,7 +74,7 @@ public final class ProductConverter
 	 *            Product-Objekt aus dem Service-Datenmodell
 	 * @return Entity-Product-Objekt
 	 */
-	public static EntityProduct convertServiceToEntityProduct( Product product )
+	public static EntityProduct convertServiceToEntityProduct( ProductDTO product )
 	{
 		if (product == null)
 		{
@@ -78,13 +89,35 @@ public final class ProductConverter
 
 		List<EntityProductConfiguration> productConfigurations = new ArrayList<EntityProductConfiguration>();
 
-		for (ProductConfiguration configuration : product.getConfigurations())
+		if (product.getPriceL() != null && !product.getPriceL().isEmpty())
 		{
-			productConfigurations.add( ProductConfigurationConverter.convertServiceToEntityProductConfiguration( configuration ) );
-
+			EntityProductConfiguration eProductConfiguration = new EntityProductConfiguration();
+			eProductConfiguration.setProduct( eProduct );
+			eProductConfiguration.setSize( Size.L );
+			eProductConfiguration.setPrice( Double.parseDouble( product.getPriceL() ) );
+			productConfigurations.add( eProductConfiguration );
+		}
+		if (product.getPriceL() != null && !product.getPriceXL().isEmpty())
+		{
+			EntityProductConfiguration eProductConfiguration = new EntityProductConfiguration();
+			eProductConfiguration.setProduct( eProduct );
+			eProductConfiguration.setSize( Size.XL );
+			eProductConfiguration.setPrice( Double.parseDouble( product.getPriceXL() ) );
+			productConfigurations.add( eProductConfiguration );
+		}
+		if (product.getPriceL() != null && !product.getPriceXXL().isEmpty())
+		{
+			EntityProductConfiguration eProductConfiguration = new EntityProductConfiguration();
+			eProductConfiguration.setProduct( eProduct );
+			eProductConfiguration.setSize( Size.XXL );
+			eProductConfiguration.setPrice( Double.parseDouble( product.getPriceXXL() ) );
+			productConfigurations.add( eProductConfiguration );
 		}
 
-		eProduct.setConfigurations( productConfigurations );
+		if (productConfigurations.size() > 0)
+		{
+			eProduct.setConfigurations( productConfigurations );
+		}
 		return eProduct;
 
 	}
@@ -96,14 +129,14 @@ public final class ProductConverter
 	 *            Liste von Entity-Product-Objekten
 	 * @return Liste von Product-Objekten aus dem Service-Datenmodell
 	 */
-	public static List<Product> convertEntityToServiceProductList( List<EntityProduct> eProductList )
+	public static List<ProductDTO> convertEntityToServiceProductList( List<EntityProduct> eProductList )
 	{
 		if (eProductList == null || eProductList.isEmpty())
 		{
 			return null;
 		}
 
-		List<Product> productList = new ArrayList<Product>();
+		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 
 		for (EntityProduct eProduct : eProductList)
 		{
