@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <title>Pizza Mobile Shop</title>
@@ -34,7 +34,7 @@
 	<!-- Start of first page: #products -->
 	<div data-role="page" id="products" data-theme="e">
 
-		<div data-role="header" data-position="inline">
+		<div data-role="header" data-position="fixed">
 			<!-- 			<a href="index.html" data-icon="delete">Cancel</a> -->
 			<h1>Produkte</h1>
 			<a href="#cart" data-icon="check" data-theme="b" class="ui-btn-right">Warenkorb</a>
@@ -49,13 +49,13 @@
 					<!-- 					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif" -->
 					<!-- 					style="width: 70px; height: 70px; float: left;" /> <a -->
 					<!-- 					href="#detail">Adam Kinkaid<br /> <span class="price">Preis -->
-					<!-- 							ab 7,30 €</span></a></li> -->
+					<!-- 							ab 7,30 &euro;</span></a></li> -->
 
 					<li><a href="#detail" data-icon="arrow-r"> <img
 							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
 							style="width: 84px; height: 84px;" />
 							<h3>Pizza Salami</h3>
-							<p>ab 7,30 €</p>
+							<p>ab 7,30 &euro;</p>
 					</a> <!-- 				<a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album</a> -->
 					</li>
 				</ul>
@@ -63,10 +63,6 @@
 		</div>
 		<!-- /content -->
 
-		<div data-role="footer">
-			<h4>PizzaApp - HM</h4>
-		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page products -->
 
@@ -74,7 +70,7 @@
 	<!-- Start of second page: #detail -->
 	<div data-role="page" id="detail" data-theme="e">
 
-		<div data-role="header" data-position="inline">
+		<div data-role="header" data-position="fixed">
 			<a href="#products" data-icon="back">Back</a>
 			<h1>Produktdetails</h1>
 			<a href="#cart" data-icon="check" data-theme="b" class="ui-btn-right">Warenkorb</a>
@@ -119,17 +115,13 @@
 		</div>
 		<!-- /content -->
 
-		<div data-role="footer">
-			<h4>PizzaApp - HM</h4>
-		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page detail -->
 
 	<!-- Start of cart page: #cart -->
 	<div data-role="page" id="cart" data-theme="e">
 
-		<div data-role="header" data-position="inline">
+		<div data-role="header" data-position="fixed">
 			<a href="#products" data-icon="back">Products</a>
 			<h1>Warenkorb</h1>
 			<a href="#customerForm" data-icon="check" data-theme="b"
@@ -146,37 +138,33 @@
 						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
 						style="width: 84px; height: 84px;" />
 						<h3>Pizza Salami</h3>
-						<p>Preis 123,58 €</p>
+						<p>Preis 123,58 &euro;</p>
 				</a><a href="#deleteCartItem" data-rel="dialog" data-transition="pop">Artikel
-						löschen</a></li>
+						l&ouml;schen</a></li>
 				<li><a href="#detail"> <img
 						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
 						style="width: 84px; height: 84px;" />
 						<h3>Pizza Salami</h3>
-						<p>Preis 123,58 €</p>
+						<p>Preis 123,58 &euro;</p>
 
 				</a><a href="#deleteCartItem" data-rel="dialog" data-transition="pop">Artikel
-						löschen </a></li>
+						l&ouml;schen </a></li>
 
 				<li data-theme="d"><h3 style="text-align: right">Betrag:
-						247,06 €</h3></li>
+						247,06 &euro;</h3></li>
 			</ul>
 
 		</div>
 		<!-- /content -->
 
-		<div data-role="footer">
-			<h4>PizzaApp - HM</h4>
-		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page cart -->
 
 	<!-- Start of customerForm page: #customerForm -->
 	<div data-role="page" id="customerForm" data-theme="e">
 
-		<div data-role="header" data-position="inline">
-			<a href="#cart" data-icon="back">Zurück</a>
+		<div data-role="header" data-position="fixed">
+			<a href="#cart" data-icon="back">Zur&uuml;ck</a>
 			<h1>Kundendaten</h1>
 			<a href="#orderPreview" data-icon="check" data-theme="b"
 				class="ui-btn-right">Weiter</a>
@@ -203,7 +191,7 @@
 						name="forename" id="forename" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
-					<label for="street">Straße</label> <input type="text"
+					<label for="street">Stra&szlig;e</label> <input type="text"
 						name="street" id="street" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
@@ -242,19 +230,15 @@
 		</div>
 		<!-- /content -->
 
-		<div data-role="footer">
-			<h4>PizzaApp - HM</h4>
-		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page customerForm -->
 
 	<!-- Start of orderPreview page: #orderPreview -->
 	<div data-role="page" id="orderPreview" data-theme="e">
 
-		<div data-role="header" data-position="inline">
-			<a href="#customerForm" data-icon="back">Zurück</a>
-			<h1>Bestellübersicht</h1>
+		<div data-role="header" data-position="fixed">
+			<a href="#customerForm" data-icon="back">Zur&uuml;ck</a>
+			<h1>Bestell&uuml;bersicht</h1>
 			<a href="#ordered" data-icon="check" data-theme="b"
 				class="ui-btn-right">Abschicken</a>
 		</div>
@@ -268,14 +252,14 @@
 					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
 					style="width: 84px; height: 84px;" />
 					<h3>Pizza Salami</h3>
-					<p>Preis 123,58 €</p></li>
+					<p>Preis 123,58 &euro;</p></li>
 				<li><img
 					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
 					style="width: 84px; height: 84px;" />
 					<h3>Pizza Salami</h3>
-					<p>Preis 123,58 €</p></li>
+					<p>Preis 123,58 &euro;</p></li>
 				<li data-theme="d"><h3 style="text-align: right">Betrag:
-						247,06 €</h3></li>
+						247,06 &euro;</h3></li>
 				<li data-role="list-divider">Kundendaten</li>
 			</ul>
 
@@ -293,19 +277,15 @@
 		</div>
 		<!-- /content -->
 
-		<div data-role="footer">
-			<h4>PizzaApp - HM</h4>
-		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page orderPreview -->
 
 	<!-- Start of ordered page: #ordered -->
 	<div data-role="page" id="ordered" data-theme="e">
 
-		<div data-role="header" data-position="inline">
-			<!-- 			<a href="#customerForm" data-icon="back">Zurück</a> -->
-			<h1>Bestellübersicht</h1>
+		<div data-role="header" data-position="fixed">
+			<!-- 			<a href="#customerForm" data-icon="back">Zur&uuml;ck</a> -->
+			<h1>Bestell&uuml;bersicht</h1>
 			<!-- 			<a href="#ordered" data-icon="check" data-theme="b" -->
 			<!-- 				class="ui-btn-right">Abschicken</a> -->
 		</div>
@@ -313,27 +293,23 @@
 
 		<div data-role="content" data-theme="2">
 
-			<h3>Vielen Dank für Ihre Bestellung.</h3>
+			<h3>Vielen Dank f&uuml;r Ihre Bestellung.</h3>
 
 			<p>Die leckerste Pizza der Stadt wartet auf dich... und wird
-				demnächst zu dir ausgeliefert.</p>
+				demn&auml;chst zu dir ausgeliefert.</p>
 
 			<a href="#products" data-role="button" data-theme="b">Start</a>
 
 		</div>
 		<!-- /content -->
 
-		<div data-role="footer">
-			<h4>PizzaApp - HM</h4>
-		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page ordered -->
 
 	<div data-role="page" id="popupAddToCard" data-theme="e">
 
 		<div data-role="header">
-			<h1>Hinzufügen</h1>
+			<h1>Hinzuf&uuml;gen</h1>
 		</div>
 		<!-- /header -->
 
