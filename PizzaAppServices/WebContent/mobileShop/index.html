@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pizza Mobile Shop</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script
+	src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+
+<style type="text/css" media="screen">
+#detail_name {
+	font-weight: bold;
+	padding-bottom: 0.5em;
+}
+
+#detail_description {
+	font-style: italic;
+	padding-bottom: 0.2em;
+}
+</style>
+
+</head>
+<body>
+
+	<!-- Start of first page: #products -->
+	<div data-role="page" id="products" data-theme="e">
+
+		<div data-role="header" data-position="inline">
+			<!-- 			<a href="index.html" data-icon="delete">Cancel</a> -->
+			<h1>Produkte</h1>
+			<a href="#cart" data-icon="check" data-theme="b" class="ui-btn-right">Warenkorb</a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+			<div class="content-primary">
+				<ul data-role="listview" data-theme="d" data-filter="true"
+					data-filter-theme="d" data-filter-placeholder="Search products...">
+					<!-- 				<li class="ui-li-has-thumb"><img -->
+					<!-- 					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif" -->
+					<!-- 					style="width: 70px; height: 70px; float: left;" /> <a -->
+					<!-- 					href="#detail">Adam Kinkaid<br /> <span class="price">Preis -->
+					<!-- 							ab 7,30 €</span></a></li> -->
+
+					<li><a href="#detail" data-icon="arrow-r"> <img
+							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+							style="width: 84px; height: 84px;" />
+							<h3>Pizza Salami</h3>
+							<p>ab 7,30 €</p>
+					</a> <!-- 				<a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album</a> -->
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /content -->
+
+		<div data-role="footer">
+			<h4>PizzaApp - HM</h4>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /page products -->
+
+
+	<!-- Start of second page: #detail -->
+	<div data-role="page" id="detail" data-theme="e">
+
+		<div data-role="header" data-position="inline">
+			<a href="#products" data-icon="back">Back</a>
+			<h1>Produktdetails</h1>
+			<a href="#cart" data-icon="check" data-theme="b" class="ui-btn-right">Warenkorb</a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="2">
+
+			<form id="product_detail_form" action="#detail" data-ajax="false">
+				<input type="hidden" name="product_id" id="product_id"
+					readonly="readonly" style="display: none;" />
+				<div class="ui-grid-a">
+					<div class="ui-block-a" style="width: 30%">
+						<img
+							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+							style="width: 70px; height: 70px; float: left;" />
+					</div>
+					<div class="ui-block-b" style="width: 70%">
+						<div id="detail_name" class="ui-block-a">Pizza Salami</div>
+						<div id="detail_description" class="ui-block-a">Beschreibungstext
+							kommt hier</div>
+						<div style="clear: both;">
+							<fieldset data-role="controlgroup">
+								<input type="radio" name="size" id="size_l" value="l" /> <label
+									for="size_l">L</label> <input type="radio" name="size"
+									id="size_xl" value="xl" checked="checked" /> <label
+									for="size_xl">XL</label> <input type="radio" name="size"
+									id="size_xxl" value="xxl" /> <label for="size_xxl">XXL</label>
+							</fieldset>
+						</div>
+						<div>
+							<a href="#popupAddToCard" data-role="button" data-inline="true"
+								data-rel="dialog" data-transition="pop" data-theme="b">Bestellen</a>
+						</div>
+
+
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+		<!-- /content -->
+
+		<div data-role="footer">
+			<h4>PizzaApp - HM</h4>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /page detail -->
+
+	<!-- Start of cart page: #cart -->
+	<div data-role="page" id="cart" data-theme="e">
+
+		<div data-role="header" data-position="inline">
+			<a href="#products" data-icon="back">Products</a>
+			<h1>Warenkorb</h1>
+			<a href="#customerForm" data-icon="check" data-theme="b"
+				class="ui-btn-right">Bestellen</a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="2">
+
+
+			<ul data-role="listview" data-split-icon="delete"
+				data-split-theme="d">
+				<li><a href="#detail"> <img
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px;" />
+						<h3>Pizza Salami</h3>
+						<p>Preis 123,58 €</p>
+				</a><a href="#deleteCartItem" data-rel="dialog" data-transition="pop">Artikel
+						löschen</a></li>
+				<li><a href="#detail"> <img
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px;" />
+						<h3>Pizza Salami</h3>
+						<p>Preis 123,58 €</p>
+
+				</a><a href="#deleteCartItem" data-rel="dialog" data-transition="pop">Artikel
+						löschen </a></li>
+
+				<li data-theme="d"><h3 style="text-align: right">Betrag:
+						247,06 €</h3></li>
+			</ul>
+
+		</div>
+		<!-- /content -->
+
+		<div data-role="footer">
+			<h4>PizzaApp - HM</h4>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /page cart -->
+
+	<!-- Start of customerForm page: #customerForm -->
+	<div data-role="page" id="customerForm" data-theme="e">
+
+		<div data-role="header" data-position="inline">
+			<a href="#cart" data-icon="back">Zurück</a>
+			<h1>Kundendaten</h1>
+			<a href="#orderPreview" data-icon="check" data-theme="b"
+				class="ui-btn-right">Weiter</a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="2">
+
+			<form id="customer_form" action="#customerForm" data-ajax="false">
+				<div data-role="fieldcontain">
+					<label for="company">Firma</label> <input type="text"
+						name="company" id="company" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="department">Abteilung</label> <input type="text"
+						name="department" id="department" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="lastname">Nachname</label> <input type="text"
+						name="lastname" id="lastname" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="forename">Vorname</label> <input type="text"
+						name="forename" id="forename" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="street">Straße</label> <input type="text"
+						name="street" id="street" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="zipcode">PLZ</label> <input type="text" name="zipcode"
+						id="zipcode" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="city">Ort</label> <input type="text" name="city"
+						id="city" value="" data-mini="true" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="city">Hinterhof/ Etage</label>
+					<textarea cols="40" rows="8" name="level" id="level"></textarea>
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="phone">Telefon</label> <input type="text" name="phone"
+						id="phone" value="" data-mini="true" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="email">E-Mail</label> <input type="text" name="email"
+						id="email" value="" data-mini="true" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="note">Bemerkung</label>
+					<textarea cols="40" rows="8" name="note" id="note"></textarea>
+				</div>
+
+
+				<a href="#orderPreview" data-role="button" data-theme="b">Weiter</a>
+
+			</form>
+
+		</div>
+		<!-- /content -->
+
+		<div data-role="footer">
+			<h4>PizzaApp - HM</h4>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /page customerForm -->
+
+	<!-- Start of orderPreview page: #orderPreview -->
+	<div data-role="page" id="orderPreview" data-theme="e">
+
+		<div data-role="header" data-position="inline">
+			<a href="#customerForm" data-icon="back">Zurück</a>
+			<h1>Bestellübersicht</h1>
+			<a href="#ordered" data-icon="check" data-theme="b"
+				class="ui-btn-right">Abschicken</a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="2">
+
+			<ul data-role="listview">
+				<li data-role="list-divider">Bestellung</li>
+				<li><img
+					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+					style="width: 84px; height: 84px;" />
+					<h3>Pizza Salami</h3>
+					<p>Preis 123,58 €</p></li>
+				<li><img
+					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+					style="width: 84px; height: 84px;" />
+					<h3>Pizza Salami</h3>
+					<p>Preis 123,58 €</p></li>
+				<li data-theme="d"><h3 style="text-align: right">Betrag:
+						247,06 €</h3></li>
+				<li data-role="list-divider">Kundendaten</li>
+			</ul>
+
+			<p class="customer_data">
+			<div id="customer_data_name">Max Mustermann</div>
+			<div id="customer_data_street">Musterstr. 1</div>
+			<div id="customer_data_city">54321 Musterstadt</div>
+			<br />
+			<div id="customer_data_email">max.mustermann@online.de</div>
+			<div id="customer_data_phone">0170 / 87654321</div>
+			<br />
+			<div>Bezahlung: Bar</div>
+			</p>
+
+		</div>
+		<!-- /content -->
+
+		<div data-role="footer">
+			<h4>PizzaApp - HM</h4>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /page orderPreview -->
+
+	<!-- Start of ordered page: #ordered -->
+	<div data-role="page" id="ordered" data-theme="e">
+
+		<div data-role="header" data-position="inline">
+			<!-- 			<a href="#customerForm" data-icon="back">Zurück</a> -->
+			<h1>Bestellübersicht</h1>
+			<!-- 			<a href="#ordered" data-icon="check" data-theme="b" -->
+			<!-- 				class="ui-btn-right">Abschicken</a> -->
+		</div>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="2">
+
+			<h3>Vielen Dank für Ihre Bestellung.</h3>
+
+			<p>Die leckerste Pizza der Stadt wartet auf dich... und wird
+				demnächst zu dir ausgeliefert.</p>
+
+			<a href="#products" data-role="button" data-theme="b">Start</a>
+
+		</div>
+		<!-- /content -->
+
+		<div data-role="footer">
+			<h4>PizzaApp - HM</h4>
+		</div>
+		<!-- /footer -->
+	</div>
+	<!-- /page ordered -->
+
+	<div data-role="page" id="popupAddToCard" data-theme="e">
+
+		<div data-role="header">
+			<h1>Hinzufügen</h1>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+			<h2>Artikel in den Warenkorb</h2>
+			<p>Wollen sie wirklich diesen Artikel in den Warenkob legen?</p>
+			<p>
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#detail" data-rel="back" data-role="button"
+						data-icon="delete" data-inline="true" data-icon="back"
+						data-theme="b">Nein</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#cart" data-rel="check" data-role="button"
+						data-icon="check" data-inline="true" data-icon="back"
+						data-theme="b">Rein damit!</a>
+				</div>
+			</fieldset>
+
+
+
+			</p>
+		</div>
+		<!-- /content -->
+	</div>
+	<!-- /page popup -->
+
+	<div data-role="page" id="deleteCartItem" data-theme="e">
+
+		<div data-role="header">
+			<h1>Entfernen</h1>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+			<h2>Artikel aus Warenkorb entfernen?</h2>
+			<p>Wollen sie wirklich diesen Artikel entfernen?</p>
+			<br />
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#cart" data-role="button" data-icon="check"
+						data-inline="true" data-theme="b">Raus damit!</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#cart" data-role="button" data-icon="delete"
+						data-inline="true" data-theme="b" style="float: right;">Nein</a>
+				</div>
+			</fieldset>
+		</div>
+		<!-- /content -->
+	</div>
+	<!-- /page popup -->
+
+</body>
+</html>
