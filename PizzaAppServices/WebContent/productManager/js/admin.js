@@ -1,21 +1,5 @@
 var rootURL = "http://localhost:8080/PizzaAppServices/products";
 
-$.fn.serializeObject = function() {
-	var o = {};
-	var a = this.serializeArray();
-	$.each(a, function() {
-		if (o[this.name] !== undefined) {
-			if (!o[this.name].push) {
-				o[this.name] = [ o[this.name] ];
-			}
-			o[this.name].push(this.value || '');
-		} else {
-			o[this.name] = this.value || '';
-		}
-	});
-	return o;
-};
-
 function deleteProduct(id) {
 	console.log('deleteProduct');
 	$.ajax({
@@ -115,7 +99,7 @@ function renderList(data) {
 						'<tr id="'
 								+ data[i].id
 								+ '">'
-								+ '<td><img src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif" style="width: 100px; height: 100px" /></td>'
+								+ '<td><img src="'+data[i].image_url+'" style="width: 100px; height: 100px" /></td>'
 								+ '<td>'
 								+ data[i].name
 								+ '</td>'
