@@ -1,12 +1,12 @@
 package edu.hm.lip.pizza.api.object.resources;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -31,11 +31,23 @@ public class Product extends AbstractRessourceObject
 
 	private String name;
 
+	@XmlElement( name = "price_l" )
+	@JsonProperty( "price_l" )
+	private String priceL;
+
+	@XmlElement( name = "price_xl" )
+	@JsonProperty( "price_xl" )
+	private String priceXL;
+
+	@XmlElement( name = "price_xxl" )
+	@JsonProperty( "price_xxl" )
+	private String priceXXL;
+
 	private String description;
 
+	@XmlElement( name = "image_url" )
+	@JsonProperty( "image_url" )
 	private String imageUrl;
-
-	private List<ProductConfiguration> configurations;
 
 	/**
 	 * Liefert das Attribut id.
@@ -80,6 +92,69 @@ public class Product extends AbstractRessourceObject
 	}
 
 	/**
+	 * Liefert das Attribut priceL.
+	 * 
+	 * @return priceL
+	 */
+	public String getPriceL()
+	{
+		return priceL;
+	}
+
+	/**
+	 * Setzt das Attribut priceL.
+	 * 
+	 * @param priceL
+	 *            zu setzender Wert für das Attribut priceL
+	 */
+	public void setPriceL( String priceL )
+	{
+		this.priceL = priceL;
+	}
+
+	/**
+	 * Liefert das Attribut priceXL.
+	 * 
+	 * @return priceXL
+	 */
+	public String getPriceXL()
+	{
+		return priceXL;
+	}
+
+	/**
+	 * Setzt das Attribut priceXL.
+	 * 
+	 * @param priceXL
+	 *            zu setzender Wert für das Attribut priceXL
+	 */
+	public void setPriceXL( String priceXL )
+	{
+		this.priceXL = priceXL;
+	}
+
+	/**
+	 * Liefert das Attribut priceXXL.
+	 * 
+	 * @return priceXXL
+	 */
+	public String getPriceXXL()
+	{
+		return priceXXL;
+	}
+
+	/**
+	 * Setzt das Attribut priceXXL.
+	 * 
+	 * @param priceXXL
+	 *            zu setzender Wert für das Attribut priceXXL
+	 */
+	public void setPriceXXL( String priceXXL )
+	{
+		this.priceXXL = priceXXL;
+	}
+
+	/**
 	 * Liefert das Attribut description.
 	 * 
 	 * @return description
@@ -119,27 +194,6 @@ public class Product extends AbstractRessourceObject
 	public void setImageUrl( String imageUrl )
 	{
 		this.imageUrl = imageUrl;
-	}
-
-	/**
-	 * Liefert das Attribut configurations.
-	 * 
-	 * @return configurations
-	 */
-	public List<ProductConfiguration> getConfigurations()
-	{
-		return configurations;
-	}
-
-	/**
-	 * Setzt das Attribut configurations.
-	 * 
-	 * @param configurations
-	 *            zu setzender Wert für das Attribut configurations
-	 */
-	public void setConfigurations( List<ProductConfiguration> configurations )
-	{
-		this.configurations = configurations;
 	}
 
 	/**

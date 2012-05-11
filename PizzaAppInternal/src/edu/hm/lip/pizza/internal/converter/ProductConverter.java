@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.hm.lip.pizza.api.object.enums.Size;
-import edu.hm.lip.pizza.api.object.resources.Product;
+import edu.hm.lip.pizza.api.object.resources.XYZProduct;
 import edu.hm.lip.pizza.api.object.resources.ProductConfiguration;
-import edu.hm.lip.pizza.api.object.resources.ProductDTO;
+import edu.hm.lip.pizza.api.object.resources.Product;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
@@ -31,14 +31,14 @@ public final class ProductConverter
 	 *            Entity-Product-Objekt
 	 * @return Product-Objekt aus dem Service-Datenmodell
 	 */
-	public static ProductDTO convertEntityToServiceProduct( EntityProduct eProduct )
+	public static Product convertEntityToServiceProduct( EntityProduct eProduct )
 	{
 		if (eProduct == null)
 		{
 			return null;
 		}
 
-		ProductDTO product = new ProductDTO();
+		Product product = new Product();
 		product.setId( eProduct.getId() );
 		product.setName( eProduct.getName() );
 		product.setImageUrl( eProduct.getImageUrl() );
@@ -74,7 +74,7 @@ public final class ProductConverter
 	 *            Product-Objekt aus dem Service-Datenmodell
 	 * @return Entity-Product-Objekt
 	 */
-	public static EntityProduct convertServiceToEntityProduct( ProductDTO product )
+	public static EntityProduct convertServiceToEntityProduct( Product product )
 	{
 		if (product == null)
 		{
@@ -129,14 +129,14 @@ public final class ProductConverter
 	 *            Liste von Entity-Product-Objekten
 	 * @return Liste von Product-Objekten aus dem Service-Datenmodell
 	 */
-	public static List<ProductDTO> convertEntityToServiceProductList( List<EntityProduct> eProductList )
+	public static List<Product> convertEntityToServiceProductList( List<EntityProduct> eProductList )
 	{
 		if (eProductList == null || eProductList.isEmpty())
 		{
 			return null;
 		}
 
-		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+		List<Product> productList = new ArrayList<Product>();
 
 		for (EntityProduct eProduct : eProductList)
 		{

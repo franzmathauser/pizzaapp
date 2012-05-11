@@ -13,7 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import edu.hm.lip.pizza.api.object.resources.ProductDTO;
+import edu.hm.lip.pizza.api.object.resources.Product;
 
 /**
  * REST-Service für die Produktdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
@@ -34,7 +34,7 @@ public interface IProductServiceLocal
 	 */
 	@GET
 	@Path( "" )
-	List<ProductDTO> findAll();
+	List<Product> findAll();
 
 	/**
 	 * Erzeugt ein neues Produkt.
@@ -45,7 +45,7 @@ public interface IProductServiceLocal
 	 */
 	@POST
 	@Path( "" )
-	ProductDTO create( ProductDTO product );
+	Product create( Product product );
 
 	/**
 	 * Liefere Product anhand von id.
@@ -56,7 +56,7 @@ public interface IProductServiceLocal
 	 */
 	@GET
 	@Path( "{id}" )
-	ProductDTO find( @PathParam( "id" ) int id );
+	Product find( @PathParam( "id" ) int id );
 
 	/**
 	 * Überschreibe Produktdaten.
@@ -67,7 +67,7 @@ public interface IProductServiceLocal
 	 */
 	@PUT
 	@Path( "{id}" )
-	ProductDTO update( ProductDTO product );
+	Product update( Product product );
 
 	/**
 	 * Lösche Produkt anhand von id.

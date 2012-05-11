@@ -34,7 +34,7 @@ public class ProductConfiguration extends AbstractRessourceObject
 
 	private Double price;
 
-	private Product product;
+	private XYZProduct xYZProduct;
 
 	private List<OrderLine> orderLines;
 
@@ -106,20 +106,20 @@ public class ProductConfiguration extends AbstractRessourceObject
 	 * 
 	 * @return product
 	 */
-	public Product getProduct()
+	public XYZProduct getProduct()
 	{
-		return product;
+		return xYZProduct;
 	}
 
 	/**
 	 * Setzt das Attribut product.
 	 * 
-	 * @param product
+	 * @param xYZProduct
 	 *            zu setzender Wert für das Attribut product
 	 */
-	public void setProduct( Product product )
+	public void setProduct( XYZProduct xYZProduct )
 	{
-		this.product = product;
+		this.xYZProduct = xYZProduct;
 	}
 
 	/**
