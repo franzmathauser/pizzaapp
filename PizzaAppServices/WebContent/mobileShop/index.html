@@ -16,6 +16,7 @@
 
 <script type="text/javascript" src="../js/commons.js"></script>
 <script type="text/javascript" src="js/products.js"></script>
+<script type="text/javascript" src="js/cart.js"></script>
 
 <style type="text/css" media="screen">
 #detail_name {
@@ -87,7 +88,7 @@
 		<div data-role="content" data-theme="2">
 
 			<form id="product_detail_form" action="#detail" data-ajax="false">
-				<input type="hidden" name="detail_product_id" id="product_id"
+				<input type="hidden" name="detail_product_id" id="detail_product_id"
 					readonly="readonly" style="display: none;" />
 				<div class="ui-grid-a">
 					<div class="ui-block-a" style="width: 30%">
@@ -101,11 +102,11 @@
 							kommt hier</div>
 						<div style="clear: both;">
 							<fieldset data-role="controlgroup">
-								<input type="radio" name="size" id="size_l" value="l" /> <label
+								<input type="radio" name="detail_size" id="size_l" value="l" /> <label
 									for="size_l">L <span id="detail_price_l"></span></label> <input
-									type="radio" name="size" id="size_xl" value="xl"
+									type="radio" name="detail_size" id="size_xl" value="xl"
 									checked="checked" /> <label for="size_xl">XL <span
-									id="detail_price_xl"></span></label> <input type="radio" name="size"
+									id="detail_price_xl"></span></label> <input type="radio" name="detail_size"
 									id="size_xxl" value="xxl" /> <label for="size_xxl">XXL
 									<span id="detail_price_xxl"></span>
 								</label>
@@ -142,7 +143,7 @@
 		<div data-role="content" data-theme="2">
 
 
-			<ul data-role="listview" data-split-icon="delete"
+			<ul id="cart_list" data-role="listview" data-split-icon="delete"
 				data-split-theme="d">
 				<li><a href="#detail"> <img
 						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
@@ -256,7 +257,7 @@
 
 		<div data-role="content" data-theme="2">
 
-			<ul data-role="listview">
+			<ul id="previewProductList" data-role="listview">
 				<li data-role="list-divider">Bestellung</li>
 				<li><img
 					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
@@ -334,7 +335,7 @@
 						data-theme="b">Nein</a>
 				</div>
 				<div class="ui-block-b">
-					<a href="#cart"  data-role="button"
+					<a href="#cart" id="add_to_cart" data-role="button"
 						data-icon="check" data-inline="true" data-icon="back"
 						data-theme="b">Rein damit!</a>
 				</div>
@@ -359,9 +360,11 @@
 			<h2>Artikel aus Warenkorb entfernen?</h2>
 			<p>Wollen sie wirklich diesen Artikel entfernen?</p>
 			<br />
+			<input type="text" id="del_row" name="del_row" readonly="readonly" style="display: none;"/>
+			
 			<fieldset class="ui-grid-a">
 				<div class="ui-block-a">
-					<a href="#cart" data-role="button" data-icon="check"
+					<a id="confirm_deleteCartItem" href="#cart" data-role="button" data-icon="check"
 						data-inline="true" data-theme="b">Raus damit!</a>
 				</div>
 				<div class="ui-block-b">

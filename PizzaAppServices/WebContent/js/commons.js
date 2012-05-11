@@ -13,3 +13,9 @@ $.fn.serializeObject = function() {
 	});
 	return o;
 };
+
+function euro(price){
+	
+	price = parseFloat(price.toString());
+	return  price.toFixed(2) + ' €';
+}

@@ -28,9 +28,9 @@ function renderDetails(obj) {
 
 	$('#detail_product_id').val(obj.id);
 	$('#detail_name').html(obj.name);
-	$('#detail_price_l').html(obj.price_l + ' &euro;');
-	$('#detail_price_xl').html(obj.price_xl + ' &euro;');
-	$('#detail_price_xxl').html(obj.price_xxl + ' &euro;');
+	$('#detail_price_l').html(euro(obj.price_l));
+	$('#detail_price_xl').html(euro(obj.price_xl));
+	$('#detail_price_xxl').html(euro(obj.price_xxl));
 	$('#detail_description').html(obj.description);
 	$('#detail_image_url').attr('src', obj.image_url);
 
@@ -49,11 +49,11 @@ function renderProductList(data) {
 						+ '"><a href="#detail" data-icon="arrow-r">'
 						+ '<img	src="' + data[i].image_url
 						+ '" style="width: 84px; height: 84px;" />' + '<h3>'
-						+ data[i].name + '</h3>' + '<p>ab ' + data[i].price_l
-						+ ' &euro;</p>' + '</a>' + '</li>');
+						+ data[i].name + '</h3>' + '<p>ab ' + euro(data[i].price_l)
+						+ '</p>' + '</a>' + '</li>');
 	}
 
-	$('#product_list').listview('refresh');
+	$('#product_list:visible').listview('refresh');
 
 	$('.product').click(function() {
 		var row = $(this);
@@ -108,6 +108,12 @@ $(document).ready(function() {
 
 	findAll();
 
+	$(document).bind("pageshow", function(){
+        if($("#product_list:visible").length){
+            $('#product_list').listview('refresh');
+        }
+    });
+
 	$('a[href~="#orderPreview"]').click(function() {
 
 		var lastname = $('#lastname').val();
@@ -135,5 +141,6 @@ $(document).ready(function() {
 	});
 
 	initCookieValues();
+	
 
 });
