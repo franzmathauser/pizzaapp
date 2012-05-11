@@ -60,24 +60,25 @@ function renderProductList(data) {
 		var id = row.attr('product_id');
 
 		renderDetails(products[id]);
-		setCookie('detail_product_id', id);
+		$.cookies.set('detail_product_id', id);
 
 	});
 
-	// var last_product_id = getCookie('detail_product_id');
+	// var last_product_id = $.cookies.get('detail_product_id');
 	// if(last_product_id != null){
 	// renderDetails(products[last_product_id]);
 	// }
 }
 
 function initCookieValues() {
-	var lastname = getCookie('lastname');
-	var forename = getCookie('forename');
-	var zipcode = getCookie('zipcode');
-	var street = getCookie('street');
-	var city = getCookie('city');
-	var email = getCookie('email');
-	var phone = getCookie('phone');
+	
+	var lastname = $.cookies.get('lastname');
+	var forename = $.cookies.get('forename');
+	var zipcode = $.cookies.get('zipcode');
+	var street = $.cookies.get('street');
+	var city = $.cookies.get('city');
+	var email = $.cookies.get('email');
+	var phone = $.cookies.get('phone');
 
 	if (lastname != null) {
 		$('#lastname').val(lastname);
@@ -123,13 +124,14 @@ $(document).ready(function() {
 		$('#customer_data_email').html(email);
 		$('#customer_data_phone').html(phone);
 
-		setCookie('forename', forename);
-		setCookie('lastname', lastname);
-		setCookie('street', street);
-		setCookie('zipcode', zipcode);
-		setCookie('city', city);
-		setCookie('email', email);
-		setCookie('phone', phone);
+		
+		$.cookies.set('forename', forename);
+		$.cookies.set('lastname', lastname);
+		$.cookies.set('street', street);
+		$.cookies.set('zipcode', zipcode);
+		$.cookies.set('city', city);
+		$.cookies.set('email', email);
+		$.cookies.set('phone', phone);
 	});
 
 	initCookieValues();
