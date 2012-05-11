@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.hm.lip.pizza.api.object.enums.Size;
-import edu.hm.lip.pizza.api.object.resources.XYZProduct;
-import edu.hm.lip.pizza.api.object.resources.ProductConfiguration;
 import edu.hm.lip.pizza.api.object.resources.Product;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
