@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
 /**
@@ -30,16 +33,21 @@ public class EntityOrder extends AbstractEntityObject
 	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
 
-	@OneToMany( mappedBy = "order" )
+	private String note;
+
+	@OneToMany( mappedBy = "order")
+	@Cascade( value = CascadeType.ALL )
 	private List<EntityOrderLine> orderLines;
 
 	@ManyToOne( fetch = FetchType.LAZY )
+	@Cascade( value = CascadeType.ALL )
 	private EntityCustomer customer;
 
 	@ManyToOne( fetch = FetchType.LAZY )
 	private EntityDriver driver;
 
 	@OneToMany( mappedBy = "order" )
+	@Cascade( value = CascadeType.ALL )
 	private List<EntityOrderStage> stages;
 
 	/**
@@ -61,6 +69,27 @@ public class EntityOrder extends AbstractEntityObject
 	public void setId( Integer id )
 	{
 		this.id = id;
+	}
+
+	/**
+	 * Liefert das Attribut note.
+	 *
+	 * @return note
+	 */
+	public String getNote()
+	{
+		return note;
+	}
+
+	/**
+	 * Setzt das Attribut note.
+	 *
+	 * @param note 
+	 * 			zu setzender Wert für das Attribut note
+	 */
+	public void setNote( String note )
+	{
+		this.note = note;
 	}
 
 	/**

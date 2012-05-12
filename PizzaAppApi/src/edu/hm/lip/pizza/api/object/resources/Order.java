@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -28,14 +30,14 @@ public class Order extends AbstractRessourceObject
 	private static final long serialVersionUID = 4218276686425658940L;
 
 	private Integer id;
+	
+	private String note; 
 
+	@XmlElement( name = "order_lines" )
+	@JsonProperty( "order_lines")
 	private List<OrderLine> orderLines;
 
 	private Customer customer;
-
-	private Driver driver;
-
-	private List<OrderStage> stages;
 
 	/**
 	 * Liefert das Attribut id.
@@ -56,6 +58,27 @@ public class Order extends AbstractRessourceObject
 	public void setId( Integer id )
 	{
 		this.id = id;
+	}
+
+	/**
+	 * Liefert das Attribut note.
+	 *
+	 * @return note
+	 */
+	public String getNote()
+	{
+		return note;
+	}
+
+	/**
+	 * Setzt das Attribut note.
+	 *
+	 * @param note 
+	 * 			zu setzender Wert für das Attribut note
+	 */
+	public void setNote( String note )
+	{
+		this.note = note;
 	}
 
 	/**
@@ -98,48 +121,6 @@ public class Order extends AbstractRessourceObject
 	public void setCustomer( Customer customer )
 	{
 		this.customer = customer;
-	}
-
-	/**
-	 * Liefert das Attribut driver.
-	 * 
-	 * @return driver
-	 */
-	public Driver getDriver()
-	{
-		return driver;
-	}
-
-	/**
-	 * Setzt das Attribut driver.
-	 * 
-	 * @param driver
-	 *            zu setzender Wert für das Attribut driver
-	 */
-	public void setDriver( Driver driver )
-	{
-		this.driver = driver;
-	}
-
-	/**
-	 * Liefert das Attribut stages.
-	 * 
-	 * @return stages
-	 */
-	public List<OrderStage> getStages()
-	{
-		return stages;
-	}
-
-	/**
-	 * Setzt das Attribut stages.
-	 * 
-	 * @param stages
-	 *            zu setzender Wert für das Attribut stages
-	 */
-	public void setStages( List<OrderStage> stages )
-	{
-		this.stages = stages;
 	}
 
 	/**

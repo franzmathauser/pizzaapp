@@ -37,7 +37,7 @@ function findAll() {
 }
 
 function addProduct(data) {
-	console.log('addWine');
+	console.log('addProduct');
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
