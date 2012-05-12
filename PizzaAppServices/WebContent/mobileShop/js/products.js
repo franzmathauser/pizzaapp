@@ -38,6 +38,7 @@ function renderDetails(obj) {
 
 function renderProductList(data) {
 
+	
 	if (data == null)
 		return false;
 
@@ -64,10 +65,19 @@ function renderProductList(data) {
 
 	});
 
-	// var last_product_id = $.cookies.get('detail_product_id');
-	// if(last_product_id != null){
-	// renderDetails(products[last_product_id]);
-	// }
+	var last_product_id = $.cookies.get('detail_product_id');
+	if(last_product_id != null){
+		renderDetails(products[last_product_id]);
+	}
+	
+	refreshCart();
+	
+	if ($("#cart_list:visible").length) {
+		$('#cart_list').listview('refresh');
+	}
+	if ($("#previewProductList:visible").length) {
+		$('#previewProductList').listview('refresh');
+	}
 }
 
 function initCookieValues() {
