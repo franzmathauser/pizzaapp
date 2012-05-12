@@ -1,4 +1,4 @@
-var productsBaseURL = "http://localhost:8080/PizzaAppServices/products";
+var productsBaseURL = getBaseURL()+"/PizzaAppServices/products";
 
 var products = new Array();
 

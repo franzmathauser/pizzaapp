@@ -1,4 +1,4 @@
-var orderssBaseURL = "http://localhost:8080/PizzaAppServices/orders";
+var orderssBaseURL = getBaseURL()+"/PizzaAppServices/orders";
 
 var refreshCart = function() {
 	var cart = $.cookies.get('cart');

@@ -6,7 +6,8 @@ $(document).ready(
 			var driver = new Array();
 			var client, destination;
 
-			var url = $("#connect_url").val();
+//			var url = $("#connect_url").val();
+			var url = 'ws://'+window.location.hostname+':61614/stomp';
 			var login = $("#connect_login").val();
 			var passcode = $("#connect_passcode").val();
 			destination = $("#destination").val();

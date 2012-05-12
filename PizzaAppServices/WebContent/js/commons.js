@@ -19,3 +19,10 @@ function euro(price){
 	price = parseFloat(price.toString());
 	return  price.toFixed(2) + ' €';
 }
+
+function getBaseURL(){
+	var protocol = window.location.protocol;
+	var host = window.location.host;
+	
+	return protocol+'//'+host;
+}

@@ -1,4 +1,4 @@
-var rootURL = "http://localhost:8080/PizzaAppServices/products";
+var rootURL = getBaseURL()+"/PizzaAppServices/products";
 
 function deleteProduct(id) {
 	console.log('deleteProduct');
