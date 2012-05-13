@@ -7,7 +7,7 @@
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
 
 	<!-- load global properties (user specific) -->
-	<property file="${user.home}/.ant/pizza_app/global-build.properties" />
+	<property file="${user.home}/.ant/global-build.properties" />
 
 	<!-- load global properties (workspace specific) -->
 	<property file="${config.dir}/pizza_app/global-build.properties" />
@@ -62,6 +62,7 @@
 	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,build-apis,build-appl" />
 
 	<target name="print-config">
+		<echo message="USER_HOME: ${user.home}"/>
 		<echo message="${ant.version}" />
 		<echo message="ANT_HOME: ${ant.home}" />
 		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
