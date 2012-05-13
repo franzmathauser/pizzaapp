@@ -62,6 +62,7 @@
 	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,build-apis,build-appl" />
 
 	<target name="print-config">
+		<echo message="${user.home}"/>
 		<echo message="${ant.version}" />
 		<echo message="ANT_HOME: ${ant.home}" />
 		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
