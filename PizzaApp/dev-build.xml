@@ -39,7 +39,8 @@
 	
 	<target name="restart-jboss">
 		<shellscript shell="bash">
-			/opt/bitnami/ctlscript.sh restart jboss
+			/opt/bitnami/ctlscript.sh stop jboss
+			start-stop-daemon --start --quiet --background --exec /opt/bitnami/ctlscript.sh start jboss
 		</shellscript>
 	</target>
 
