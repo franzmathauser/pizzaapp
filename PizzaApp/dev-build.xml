@@ -36,18 +36,5 @@
 		</if>
 		<ant dir="." target="final-clean" />
 	</target>
-	
-	<target name="stop-jboss">
-		<shellscript shell="bash">
-			/opt/bitnami/jboss/bin/shutdown.sh --host=localhost --port=1090 -S
-			sleep 20
-		</shellscript>
-	</target>
-	
-	<target name="start-jboss">
-		<exec executable="/bin/bash" spawn="true">
-			<arg line="/opt/bitnami/ctlscript.sh start jboss" />
-		</exec>
-	</target>
 
 </project>
