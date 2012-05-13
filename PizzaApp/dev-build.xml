@@ -46,7 +46,7 @@
 	
 	<target name="start-jboss">
 		<exec executable="/bin/bash" spawn="true">
-			<arg line="nohup /opt/bitnami/jboss/bin/run.sh >/var/log/jboss.log" />
+			<arg line="/opt/bitnami/ctlscript.sh start jboss" />
 		</exec>
 	</target>
 
