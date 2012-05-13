@@ -1,72 +1,46 @@
-$(document).ready(
-		function() {
+var end = new Date();
+end.setMinutes ( end.getMinutes() + 2 );
 
-			var carImage = 'images/pizzaauto.png';
 
-			var driver = new Array();
-			var client, destination;
+function toSt2(n) {
+	s = '';
+	if (n < 10) s += '0';
+	return (s + n).toString();
+	}
+	function toSt3(n) {
+	s = '';
+	if (n < 10) s += '00';
+	else if (n < 100) s += '0';
+	return (s + n).toString();
+	}
+	
+function countdown() {
+	d = new Date();
+	count = Math.floor(end.getTime() - d.getTime());
+	if (count > 0) {
+		count = Math.floor(count / 1000);
+		seconds = toSt2(count % 60);
+		count = Math.floor(count / 60);
+		minutes = toSt2(count % 60);
+		count = Math.floor(count / 60);
+		hours = toSt2(count % 24);
+		
+		var output = '';
+		
+		if(hours > 0){
+			output += hours+':';
+		}
+		if(minutes > 0 || hours > 0){
+			output += minutes+':';
+		}
+		output +=seconds;
+		
+		$('.time').text(output);
 
-//			var url = $("#connect_url").val();
-			var url = 'ws://'+window.location.hostname+':61614/stomp';
-			var login = $("#connect_login").val();
-			var passcode = $("#connect_passcode").val();
-			destination = $("#destination").val();
+		setTimeout('countdown()', 1000);
+	}
+}
 
-			client = Stomp.client(url);
-
-			// this allows to display debug logs directly on the web page
-			client.debug = function(str) {
-				$("#debug").append(str + "\n");
-			};
-			// the client is notified when it is connected to the server.
-			var onconnect = function(frame) {
-				client.debug("connected to Stomp");
-				$('#connect').fadeOut({
-					duration : 'fast'
-				});
-				$('#disconnect').fadeIn();
-				$('#send_form_input').removeAttr('disabled');
-
-				// is called on new message
-				client.subscribe(destination, function(message) {
-					$("#messages").append("<p>" + message.body + "</p>\n");
-
-					obj = jQuery.parseJSON(message.body);
-					var index = obj.id;
-					pos = new google.maps.LatLng(obj.lat, obj.lon);
-
-					if (typeof driver[index] !== 'undefined'
-							&& driver[index] !== null) {
-						driver[index].setPosition(pos);
-					} else {
-
-						driver[index] = new google.maps.Marker({
-							position : pos,
-							title : obj.name,
-							icon : carImage,
-							map : map
-						});
-
-						driver[index].setMap(map);
-					}
-
-					driver[index].setPosition(pos);
-					map.setCenter(pos);
-
-				});
-			};
-			client.connect(login, passcode, onconnect);
- 
-			// disconnection handler
-			$('#disconnect_form').submit(function() {
-				client.disconnect(function() {
-					$('#disconnect').fadeOut({
-						duration : 'fast'
-					});
-					$('#connect').fadeIn();
-					$('#send_form_input').addAttr('disabled');
-				});
-				return false;
-			});
-
-		});
+$(document).ready(function() {
+	countdown();
+});

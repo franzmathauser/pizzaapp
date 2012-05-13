@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Pizza Mobile Shop</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="../css/jquery.mobile-1.1.0.min.css" />
+<script src="../js/jquery-1.7.1.min.js"></script>
+<script src="../js/jquery.mobile-1.1.0.min.js"></script>
+<script
+	src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+
+<!--  http://code.google.com/p/cookies/ -->
+<script src="../js/jquery.cookies.2.2.0.min.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true">
+	
+</script>
+
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript" src="js/bakery.js"></script>
+
+<style type="text/css" media="screen">
+/* wird erst bei einer mindestbreite von 600px angewandt. */
+@media all and (min-width:800px) {
+	.left-content {
+		float: left;
+		width: 49%;
+		text-align: left;
+		border-right:1px solid;
+	}
+	.right-content {
+		float: right;
+		width: 50%;
+		
+		border:1px solid;
+	}
+}
+
+#map_canvas {
+	width: 100%;
+	height: 400px;
+}
+
+.stage-icon {
+	padding-left: 5px;
+	padding-top: 0.5em;
+}
+.time{
+font-size:3em;
+text-align:right;
+}
+</style>
+
+<script>
+	jQuery(window).ready(
+
+			function() {
+				var map;
+
+				var myLatlng = new google.maps.LatLng(48.0972, 11.5265);
+				var myOptions = {
+					zoom : 15,
+					center : myLatlng,
+					mapTypeId : google.maps.MapTypeId.ROADMAP,
+				}
+				map = new google.maps.Map(
+						document.getElementById("map_canvas"), myOptions);
+
+				var marker = new google.maps.Marker({
+					position : myLatlng,
+					title : "Tara-Systems"
+				});
+
+				// To add the marker to the map, call setMap();
+				marker.setMap(map);
+			});
+</script>
+
+</head>
+<body>
+
+	<!-- Start of first page: #products -->
+	<div data-role="page" id="products" data-theme="e">
+
+		<div data-role="header" data-position="fixed">
+			<h1>Produkte</h1>
+		</div>
+		<!-- /header -->
+
+		<div data-role="">
+
+
+			<div class="left-content">
+
+				<div id="map_canvas"></div>
+				<ul data-role="listview" data-theme="d">
+				<li data-role="list-divider">Fahrer</li>
+					<li>
+						<div class="ui-grid-b">
+							<div class="ui-block-a">Fahrer 1</div>
+							<div class="ui-block-b"><img src="img/stack-2.png" /></div>
+							<div class="time ui-block-c">ca. 4:59</div>
+						</div>
+					</li>
+					<li>
+
+						<div class="ui-grid-b">
+							<div class="ui-block-a">Fahrer 2</div>
+							<div class="ui-block-b"><img src="img/stack-5.png" /></div>
+							<div class="time ui-block-c">ca. 4:59</div>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+
+			<div class="right-content">
+				<!-- 				<h3>Bestellungen</h3> -->
+				<ul data-role="listview" data-theme="d" data-divider-theme="d">
+					<li data-role="list-divider">Friday, October 8, 2010 <span
+						class="ui-li-count">2</span></li>
+					<li><img class="stage-icon" id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; float: left;" /> <a
+						href="index.html">
+
+							<h3>Stephen Weber</h3>
+							<p>
+								<strong>You've been invited to a meeting at Filament
+									Group in Boston, MA</strong>
+							</p>
+							<p>Hey Stephen, if you're available at 10am tomorrow, we've
+								got a meeting with the jQuery team.</p>
+							<p class="ui-li-aside">
+								<strong>6:24</strong>PM
+							</p>
+
+					</a></li>
+					<li><img class="stage-icon" id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; float: left;" /> <a
+						href="index.html">
+
+							<h3>Stephen Weber</h3>
+							<p>
+								<strong>You've been invited to a meeting at Filament
+									Group in Boston, MA</strong>
+							</p>
+							<p>Hey Stephen, if you're available at 10am tomorrow, we've
+								got a meeting with the jQuery team.</p>
+							<p class="ui-li-aside">
+								<strong>6:24</strong>PM
+							</p>
+
+					</a></li>
+					<li><img class="stage-icon" id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; float: left;" /> <a
+						href="index.html">
+
+							<h3>Stephen Weber</h3>
+							<p>
+								<strong>You've been invited to a meeting at Filament
+									Group in Boston, MA</strong>
+							</p>
+							<p>Hey Stephen, if you're available at 10am tomorrow, we've
+								got a meeting with the jQuery team.</p>
+							<p class="ui-li-aside">
+								<strong>6:24</strong>PM
+							</p>
+
+					</a></li>
+					<li><img class="stage-icon" id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; float: left;" /> <a
+						href="index.html">
+
+							<h3>Stephen Weber</h3>
+							<p>
+								<strong>You've been invited to a meeting at Filament
+									Group in Boston, MA</strong>
+							</p>
+							<p>Hey Stephen, if you're available at 10am tomorrow, we've
+								got a meeting with the jQuery team.</p>
+							<p class="ui-li-aside">
+								<strong>6:24</strong>PM
+							</p>
+
+					</a></li>
+
+				</ul>
+			</div>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page products -->
+
+</body>
+</html>
