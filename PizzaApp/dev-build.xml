@@ -37,9 +37,14 @@
 		<ant dir="." target="final-clean" />
 	</target>
 	
-	<target name="restart-jboss">
+	<target name="stop-jboss">
 		<shellscript shell="bash">
 			/opt/bitnami/ctlscript.sh stop jboss
+		</shellscript>
+	</target>
+	
+	<target name="start-jboss">
+		<shellscript shell="bash">
 			start-stop-daemon --start --quiet --background --exec /opt/bitnami/ctlscript.sh start jboss
 		</shellscript>
 	</target>
