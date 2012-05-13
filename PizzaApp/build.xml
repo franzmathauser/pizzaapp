@@ -6,7 +6,10 @@
 	<!-- set global properties for this build -->
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
 
-	<!-- load global properties -->
+	<!-- load global properties (user specific) -->
+	<property file="${user.home}/.ant/pizza_app/global-build.properties" />
+
+	<!-- load global properties (workspace specific) -->
 	<property file="${config.dir}/pizza_app/global-build.properties" />
 	<property file="${config.dir}/global-build.properties" />
 
