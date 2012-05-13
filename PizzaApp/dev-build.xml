@@ -38,13 +38,16 @@
 	</target>
 
 	<target name="stop-jboss">
-		<exec dir="${jboss6.dir}/bin" executable="/bin/bash">
+		<exec executable="/bin/bash">
 			<arg line="/opt/bitnami/jboss/bin/shutdown.sh --host=localhost --port=1090 -S" />
+		</exec>
+		<exec executable="/bin/bash">
+			<arg line="sleep 20" />
 		</exec>
 	</target>
 
 	<target name="start-jboss">
-		<exec dir="${jboss6.dir}/bin" executable="/bin/bash" spawn="true">
+		<exec executable="/bin/bash" spawn="true">
 			<arg line="nohup /opt/bitnami/jboss/bin/run.sh >/var/log/jboss.log" />
 		</exec>
 	</target>
