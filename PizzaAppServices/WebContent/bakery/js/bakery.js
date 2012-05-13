@@ -1,7 +1,6 @@
 var end = new Date();
 end.setMinutes ( end.getMinutes() + 2 );
 
-
 function toSt2(n) {
 	s = '';
 	if (n < 10) s += '0';
