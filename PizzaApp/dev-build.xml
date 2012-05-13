@@ -36,5 +36,11 @@
 		</if>
 		<ant dir="." target="final-clean" />
 	</target>
+	
+	<target name="restart-jboss">
+		<shellscript shell="bash">
+			/opt/bitnami/ctlscript.sh restart jboss
+		</shellscript>
+	</target>
 
 </project>
