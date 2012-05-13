@@ -39,13 +39,13 @@
 	
 	<target name="stop-jboss">
 		<shellscript shell="bash">
-			/opt/bitnami/ctlscript.sh stop jboss
+			/opt/bitnami/jboss/bin/shutdown.sh --host=localhost --port=1090 -S
 		</shellscript>
 	</target>
 	
 	<target name="start-jboss">
 		<shellscript shell="bash">
-			start-stop-daemon --start --quiet --background --exec /opt/bitnami/ctlscript.sh start jboss
+			/opt/bitnami/jboss/bin/run.sh
 		</shellscript>
 	</target>
 
