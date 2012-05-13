@@ -1,3 +1,5 @@
+var orderssBaseURL = getBaseURL()+"/PizzaAppServices/orders";
+
 var refreshCart = function() {
 	var cart = $.cookies.get('cart');
 	var cart_size = cart.length;
@@ -8,7 +10,7 @@ var refreshCart = function() {
 		var product = products[cart[i].product_id];
 		var size = cart[i].size;
 		var price = eval('product.price_' + size);
-		var quantity = cart[i].count;
+		var quantity = cart[i].quantity;
 		var sum = euro(quantity * price);
 		orderSum += quantity * price;
 
@@ -63,6 +65,27 @@ var refreshCart = function() {
 
 };
 
+
+function addOrder(data) {
+	console.log('addOrder');
+	$.ajax({
+		type : 'POST',
+		contentType : 'application/json',
+		url : orderssBaseURL,
+		dataType : "json",
+		data : data,
+		success : function(data, textStatus, jqXHR) {
+			// TODO remove reset cart in cookie
+			// refresh cart
+			console.log('sent order to server');
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+//			errorMessage('Product create error: ' + textStatus);
+			console.error('order count not be saved');
+		}
+	});
+}
+
 $(document).ready(function() {
 
 	var cart = $.cookies.get('cart');
@@ -81,7 +104,7 @@ $(document).ready(function() {
 		var found = false;
 		for ( var i = 0; i < cart_size; i++) {
 			if (cart[i].product_id == product_id && cart[i].size == size) {
-				cart[i].count++;
+				cart[i].quantity++;
 				found = true;
 			}
 		}
@@ -89,7 +112,7 @@ $(document).ready(function() {
 			cart[cart_size] = {
 				'product_id' : product_id,
 				'size' : size,
-				'count' : 1
+				'quantity' : 1
 			};
 		$.cookies.set('cart', cart);
 	});
@@ -111,6 +134,33 @@ $(document).ready(function() {
 		refreshCart();
 	});
 
+	$('a[href="#ordered"]').click(function() {
+
+		var note = $('#note').val();
+		var orderLines = $.cookies.get('cart');
+
+		var json = JSON.stringify({
+			"customer" : {
+				"company" : $('#company').val(),
+				"department" : $('#department').val(),
+				"lastname" : $('#lastname').val(),
+				"forename" : $('#forename').val(),
+				"street" : $('#street').val(),
+				"zipcode" : $('#zipcode').val(),
+				"city" : $('#city').val(),
+				"street" : $('#street').val(),
+				"level" : $('#level').val(),
+				"phone" : $('#phone').val(),
+				"email" : $('#email').val()
+			},
+			"note" : note,
+			"order_lines" : orderLines
+		});
+		
+		console.log(json);
+		addOrder(json);
+	});
+
 	$(document).bind("pageshow", function() {
 		if ($("#cart_list:visible").length) {
 			$('#cart_list').listview('refresh');
@@ -119,6 +169,5 @@ $(document).ready(function() {
 			$('#previewProductList').listview('refresh');
 		}
 	});
-	
-	
+
 });

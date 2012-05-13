@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -51,8 +53,6 @@ public class Customer extends AbstractRessourceObject
 	private String phone;
 
 	private String email;
-
-	private List<Order> orders;
 
 	
 	/**
@@ -329,30 +329,6 @@ public class Customer extends AbstractRessourceObject
 	{
 		this.email = email;
 	}
-
-	
-	/**
-	 * Liefert das Attribut orders.
-	 *
-	 * @return orders
-	 */
-	public List<Order> getOrders()
-	{
-		return orders;
-	}
-
-	
-	/**
-	 * Setzt das Attribut orders.
-	 *
-	 * @param orders 
-	 * 			zu setzender Wert für das Attribut orders
-	 */
-	public void setOrders( List<Order> orders )
-	{
-		this.orders = orders;
-	}
-
 
 	/**
 	 * {@inheritDoc}

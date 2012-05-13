@@ -3,8 +3,10 @@ package edu.hm.lip.pizza.api.object.resources;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -27,15 +29,20 @@ public class OrderLine extends AbstractRessourceObject
 
 	private Integer id;
 
-	private Integer count;
+	private Integer quantity;
 
-	private Order order;
+	private String size;
+	
+	@XmlElement( name = "product_id" )
+	@JsonProperty( "product_id" )
+	private Integer productId;
 
-	private ProductConfiguration productConfiguration;
+	
 
+	
 	/**
 	 * Liefert das Attribut id.
-	 * 
+	 *
 	 * @return id
 	 */
 	public Integer getId()
@@ -43,78 +50,85 @@ public class OrderLine extends AbstractRessourceObject
 		return id;
 	}
 
+	
 	/**
 	 * Setzt das Attribut id.
-	 * 
-	 * @param id
-	 *            zu setzender Wert für das Attribut id
+	 *
+	 * @param id 
+	 * 			zu setzender Wert für das Attribut id
 	 */
 	public void setId( Integer id )
 	{
 		this.id = id;
 	}
 
+	
 	/**
-	 * Liefert das Attribut count.
-	 * 
-	 * @return count
+	 * Liefert das Attribut quantity.
+	 *
+	 * @return quantity
 	 */
-	public Integer getCount()
+	public Integer getQuantity()
 	{
-		return count;
+		return quantity;
 	}
 
+	
 	/**
-	 * Setzt das Attribut count.
-	 * 
-	 * @param count
-	 *            zu setzender Wert für das Attribut count
+	 * Setzt das Attribut quantity.
+	 *
+	 * @param quantity 
+	 * 			zu setzender Wert für das Attribut quantity
 	 */
-	public void setCount( Integer count )
+	public void setQuantity( Integer quantity )
 	{
-		this.count = count;
+		this.quantity = quantity;
 	}
 
+	
 	/**
-	 * Liefert das Attribut order.
-	 * 
-	 * @return order
+	 * Liefert das Attribut size.
+	 *
+	 * @return size
 	 */
-	public Order getOrder()
+	public String getSize()
 	{
-		return order;
+		return size;
 	}
 
+	
 	/**
-	 * Setzt das Attribut order.
-	 * 
-	 * @param order
-	 *            zu setzender Wert für das Attribut order
+	 * Setzt das Attribut size.
+	 *
+	 * @param size 
+	 * 			zu setzender Wert für das Attribut size
 	 */
-	public void setOrder( Order order )
+	public void setSize( String size )
 	{
-		this.order = order;
+		this.size = size;
 	}
 
+	
 	/**
-	 * Liefert das Attribut productConfiguration.
-	 * 
-	 * @return productConfiguration
+	 * Liefert das Attribut productId.
+	 *
+	 * @return productId
 	 */
-	public ProductConfiguration getProductConfiguration()
+	public Integer getProductId()
 	{
-		return productConfiguration;
+		return productId;
 	}
 
+	
 	/**
-	 * Setzt das Attribut productConfiguration.
-	 * 
-	 * @param productConfiguration
-	 *            zu setzender Wert für das Attribut productConfiguration
+	 * Setzt das Attribut productId.
+	 *
+	 * @param productId 
+	 * 			zu setzender Wert für das Attribut productId
 	 */
-	public void setProductConfiguration( ProductConfiguration productConfiguration )
+	public void setProductId( Integer productId )
 	{
-		this.productConfiguration = productConfiguration;
+		this.productId = productId;
 	}
 
 	/**

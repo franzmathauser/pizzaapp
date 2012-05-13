@@ -1,4 +1,4 @@
-var rootURL = "http://localhost:8080/PizzaAppServices/products";
+var rootURL = getBaseURL()+"/PizzaAppServices/products";
 
 function deleteProduct(id) {
 	console.log('deleteProduct');
@@ -37,7 +37,7 @@ function findAll() {
 }
 
 function addProduct(data) {
-	console.log('addWine');
+	console.log('addProduct');
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',

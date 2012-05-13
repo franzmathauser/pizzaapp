@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
 /**
@@ -27,12 +30,14 @@ public class EntityOrderLine extends AbstractEntityObject
 	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
 
-	private Integer count;
+	private Integer quantity;
 
 	@ManyToOne( fetch = FetchType.LAZY )
+	@Cascade( value = CascadeType.ALL )
 	private EntityOrder order;
 
 	@ManyToOne( fetch = FetchType.LAZY )
+	@Cascade( value = CascadeType.ALL )
 	private EntityProductConfiguration productConfiguration;
 
 	/**
@@ -57,24 +62,24 @@ public class EntityOrderLine extends AbstractEntityObject
 	}
 
 	/**
-	 * Liefert das Attribut count.
+	 * Liefert das Attribut quantity.
 	 * 
-	 * @return count
+	 * @return quantity
 	 */
-	public Integer getCount()
+	public Integer getQuantity()
 	{
-		return count;
+		return quantity;
 	}
 
 	/**
-	 * Setzt das Attribut count.
+	 * Setzt das Attribut quantity.
 	 * 
-	 * @param count
-	 *            zu setzender Wert für das Attribut count
+	 * @param quantity
+	 *            zu setzender Wert für das Attribut quantity
 	 */
-	public void setCount( Integer count )
+	public void setQuantity( Integer quantity )
 	{
-		this.count = count;
+		this.quantity = quantity;
 	}
 
 	/**
