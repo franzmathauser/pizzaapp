@@ -6,7 +6,10 @@
 	<!-- set global properties for this build -->
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
 
-	<!-- load global properties -->
+	<!-- load global properties (user specific) -->
+	<property file="${user.home}/.ant/global-build.properties" />
+
+	<!-- load global properties (workspace specific) -->
 	<property file="${config.dir}/global-build.properties" />
 
 	<property name="project.name" value="BasicApi" />
@@ -47,6 +50,7 @@
 	<target name="complete-build" description="Builds the ESP API" depends="print-config,clean,compile,create-jar" />
 
 	<target name="print-config">
+		<echo message="USER_HOME: ${user.home}"/>
 		<echo message="${ant.version}" />
 		<echo message="ANT_HOME: ${ant.home}" />
 		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
