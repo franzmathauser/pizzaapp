@@ -40,12 +40,13 @@
 	<target name="stop-jboss">
 		<shellscript shell="bash">
 			/opt/bitnami/jboss/bin/shutdown.sh --host=localhost --port=1090 -S
+			sleep 20
 		</shellscript>
 	</target>
 	
 	<target name="start-jboss">
 		<shellscript shell="bash">
-			/opt/bitnami/jboss/bin/run.sh
+			nohup /opt/bitnami/jboss/bin/run.sh >/var/log/jboss.log
 		</shellscript>
 	</target>
 
