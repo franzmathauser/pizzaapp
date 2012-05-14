@@ -20,6 +20,9 @@
 		</classpath>
 	</taskdef>
 
+	<taskdef resource="checkstyletask.properties"
+         classpath="${libraries.dir}/ant/checkstyle-5.5-all.jar"/>
+
 	<if>
 		<equals arg1="${jboss.version}" arg2="7" />
 		<then>
@@ -76,6 +79,13 @@
 	<target name="compile" description="Compiles the resources">
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
+
+		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
+		  <fileset dir="src" includes="**/*.java"/>
+		  <formatter type="plain"/>
+		  <formatter type="xml" toFile="${build.dir}/checkstyle_results.xml"/>
+		</checkstyle>
+
 		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}"
 			debug="${compile.debug}" includeantruntime="${compile.antruntime}">
 			<classpath>
