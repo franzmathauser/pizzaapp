@@ -14,6 +14,7 @@ Voraussetzungen:
 * JBoss Application Server 6.1
 * MySQL 5.5
 * Android SDK (V2.2 mit Google API)
+* ActiveMQ 5.6.0
 
 Datasource:
 -----------
@@ -28,6 +29,8 @@ Der benötigte JDBC-Treiber liegt im Projekt "BasicLibraries". Verwendet wird:
 Build Properties:
 -----------------	
 Für die ant Skripten existieren global-build.properties im Projekt "BuildAndDeployEnvironment". Diese müssen individuell auf jedem Rechner, je nach Konfiguration angepasst werden. Speziell der Installationspfad des JBoss Application Server muss richtig gesetzt werden, da sonst der Build-Prozess fehlschlägt.
+
+Es besteht die Möglichkeit die eingecheckten global-build.properties im Projekt "BuildAndDeployEnvironment" zu überschreiben. Hierzu legt man eigene global-build.properties ins Verzeichnis <USER_HOME>/.ant/global-build.properties. Diese werden als erstes beim Build angezogen.
 
 Build:
 ------
