@@ -34,7 +34,7 @@
 				</copy>
 			</else>
 		</if>
-		<ant dir="." target="final-clean" />
+<!--		<ant dir="." target="final-clean" />-->
 	</target>
 
 </project>
