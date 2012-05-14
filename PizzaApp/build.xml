@@ -24,8 +24,7 @@
 		</classpath>
 	</taskdef>
 
-	<taskdef resource="checkstyletask.properties"
-         classpath="${libraries.dir}/ant/checkstyle-5.5-all.jar"/>
+	<taskdef resource="checkstyletask.properties" classpath="${libraries.dir}/ant/checkstyle-5.5-all.jar" />
 
 	<if>
 		<equals arg1="${jboss.version}" arg2="7" />
@@ -65,7 +64,7 @@
 	<target name="complete-build" description="Builds the PizzaApp API" depends="print-config,clean,build-apis,build-appl" />
 
 	<target name="print-config">
-		<echo message="USER_HOME: ${user.home}"/>
+		<echo message="USER_HOME: ${user.home}" />
 		<echo message="${ant.version}" />
 		<echo message="ANT_HOME: ${ant.home}" />
 		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
@@ -93,14 +92,19 @@
 		<delete dir="${build.env.dist.dir}" failonerror="false" />
 	</target>
 
+	<target name="run-checkstyle" description="Checks the style of source code using checkstyle">
+		<echo message="Checking source code style" />
+		<mkdir dir="${build.env.dist.dir}/checkstyle" />
+		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
+			<fileset dir="${root.dir}/${project.name}/${src.dir.default}" includes="**/*.java" />
+			<formatter type="plain" />
+			<formatter type="xml" toFile="${build.env.dist.dir}/checkstyle/results_${project.name}.xml" />
+		</checkstyle>
+	</target>
+
 	<target name="compile" description="Compiles the resources">
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
-		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
-		  <fileset dir="${root.dir}/${project.name}/${src.dir.default}" includes="**/*.java"/>
-		  <formatter type="plain"/>
-		  <formatter type="xml" toFile="${build.dir}/${project.name}/checkstyle_results.xml"/>
-		</checkstyle>
 		<javac fork="${compile.fork}" srcdir="${root.dir}/${project.name}/${src.dir.default}" destdir="${build.dir}/${project.name}"
 			verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
 			<classpath>
@@ -173,10 +177,12 @@
 
 	<target name="loop-projects" description="Loop for each Application Project">
 		<antcall target="create-jar" />
+		<antcall target="run-checkstyle" />
 	</target>
 
 	<target name="loop-wars" description="Loop for each WAR">
 		<antcall target="create-war" />
+		<antcall target="run-checkstyle" />
 	</target>
 
 </project>
