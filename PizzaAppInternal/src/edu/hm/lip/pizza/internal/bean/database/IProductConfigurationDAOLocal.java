@@ -12,13 +12,13 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 public interface IProductConfigurationDAOLocal
 {
 
-	
 	/**
-	 * 
-	 * @param product Produktidentifikator
-	 * @param size Produktgröße
+	 * @param product
+	 *            Produktidentifikator
+	 * @param size
+	 *            Produktgröße
 	 * @return Produktkonfiguration
 	 */
 	EntityProductConfiguration getProductConfiguration( Integer product, Size size );
-		
+
 }

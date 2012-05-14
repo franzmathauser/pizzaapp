@@ -12,8 +12,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
@@ -40,7 +38,7 @@ public class EntityProduct extends AbstractEntityObject
 
 	private String imageUrl;
 
-	@OneToMany( mappedBy = "product",fetch=FetchType.EAGER )
+	@OneToMany( mappedBy = "product", fetch = FetchType.EAGER )
 	@Cascade( value = CascadeType.ALL )
 	private List<EntityProductConfiguration> configurations;
 

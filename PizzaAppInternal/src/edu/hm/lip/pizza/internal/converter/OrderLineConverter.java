@@ -3,13 +3,8 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-
-import edu.hm.lip.pizza.api.object.enums.Size;
 import edu.hm.lip.pizza.api.object.resources.OrderLine;
-import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrderLine;
-import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**
  * Konverter-Klasse fuer OrderLine-Objekte, um zwischen dem Service-Datenmodell und dem Entitäten-Datenmodell zu
@@ -67,7 +62,7 @@ public final class OrderLineConverter
 		EntityOrderLine eOrderLine = new EntityOrderLine();
 		eOrderLine.setId( orderLine.getId() );
 		eOrderLine.setQuantity( orderLine.getQuantity() );
-		
+
 		return eOrderLine;
 
 	}
@@ -119,7 +114,5 @@ public final class OrderLineConverter
 
 		return eOrderLineList;
 	}
-
-	
 
 }

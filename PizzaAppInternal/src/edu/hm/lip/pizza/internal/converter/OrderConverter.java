@@ -35,11 +35,11 @@ public final class OrderConverter
 		}
 
 		Order order = new Order();
-		
+
 		order.setId( eOrder.getId() );
 		order.setNote( eOrder.getNote() );
-		order.setOrderLines( OrderLineConverter.convertEntityToServiceOrderLineList(eOrder.getOrderLines()));
-		order.setCustomer( CustomerConverter.convertEntityToServiceCustomer( eOrder.getCustomer() ));
+		order.setOrderLines( OrderLineConverter.convertEntityToServiceOrderLineList( eOrder.getOrderLines() ) );
+		order.setCustomer( CustomerConverter.convertEntityToServiceCustomer( eOrder.getCustomer() ) );
 
 		return order;
 	}
@@ -62,8 +62,8 @@ public final class OrderConverter
 
 		eOrder.setId( order.getId() );
 		eOrder.setNote( order.getNote() );
-		eOrder.setOrderLines( OrderLineConverter.convertServiceToEntityOrderLineList(order.getOrderLines()));
-		eOrder.setCustomer( CustomerConverter.convertServiceToEntityCustomer( order.getCustomer() ));
+		eOrder.setOrderLines( OrderLineConverter.convertServiceToEntityOrderLineList( order.getOrderLines() ) );
+		eOrder.setCustomer( CustomerConverter.convertServiceToEntityCustomer( order.getCustomer() ) );
 
 		return eOrder;
 	}

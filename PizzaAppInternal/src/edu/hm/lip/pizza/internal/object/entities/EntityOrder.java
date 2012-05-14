@@ -35,7 +35,7 @@ public class EntityOrder extends AbstractEntityObject
 
 	private String note;
 
-	@OneToMany( mappedBy = "order")
+	@OneToMany( mappedBy = "order" )
 	@Cascade( value = CascadeType.ALL )
 	private List<EntityOrderLine> orderLines;
 
@@ -73,7 +73,7 @@ public class EntityOrder extends AbstractEntityObject
 
 	/**
 	 * Liefert das Attribut note.
-	 *
+	 * 
 	 * @return note
 	 */
 	public String getNote()
@@ -83,9 +83,9 @@ public class EntityOrder extends AbstractEntityObject
 
 	/**
 	 * Setzt das Attribut note.
-	 *
-	 * @param note 
-	 * 			zu setzender Wert für das Attribut note
+	 * 
+	 * @param note
+	 *            zu setzender Wert für das Attribut note
 	 */
 	public void setNote( String note )
 	{

@@ -14,13 +14,13 @@ public interface IProductDAOLocal
 {
 
 	EntityProduct create( EntityProduct entityProduct );
-	
+
 	List<EntityProduct> readAll();
-	
-	EntityProduct read(int id);
-	
-	EntityProduct update(EntityProduct entityProduct);
-	
-	void delete(EntityProduct entityProduct);
-	
+
+	EntityProduct read( int id );
+
+	EntityProduct update( EntityProduct entityProduct );
+
+	void delete( EntityProduct entityProduct );
+
 }
