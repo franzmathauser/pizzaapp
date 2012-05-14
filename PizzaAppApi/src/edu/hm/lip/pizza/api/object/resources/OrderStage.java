@@ -14,8 +14,8 @@ import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 import edu.hm.lip.pizza.api.object.enums.Stage;
 
 /**
- * Resource für den Bestellstatus. Es werden alle benötigten Status-Information in dieser Klasse gehalten, wie beispielsweise
- * der aktuelle Status und der zugehörige Zeitstempel.
+ * Resource für den Bestellstatus. Es werden alle benötigten Status-Information in dieser Klasse gehalten, wie
+ * beispielsweise der aktuelle Status und der zugehörige Zeitstempel.
  * 
  * @author Franz Mathauser, Stefan Wörner
  */

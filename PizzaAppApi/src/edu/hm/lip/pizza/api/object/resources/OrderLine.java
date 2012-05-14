@@ -32,17 +32,14 @@ public class OrderLine extends AbstractRessourceObject
 	private Integer quantity;
 
 	private String size;
-	
+
 	@XmlElement( name = "product_id" )
 	@JsonProperty( "product_id" )
 	private Integer productId;
 
-	
-
-	
 	/**
 	 * Liefert das Attribut id.
-	 *
+	 * 
 	 * @return id
 	 */
 	public Integer getId()
@@ -50,22 +47,20 @@ public class OrderLine extends AbstractRessourceObject
 		return id;
 	}
 
-	
 	/**
 	 * Setzt das Attribut id.
-	 *
-	 * @param id 
-	 * 			zu setzender Wert für das Attribut id
+	 * 
+	 * @param id
+	 *            zu setzender Wert für das Attribut id
 	 */
 	public void setId( Integer id )
 	{
 		this.id = id;
 	}
 
-	
 	/**
 	 * Liefert das Attribut quantity.
-	 *
+	 * 
 	 * @return quantity
 	 */
 	public Integer getQuantity()
@@ -73,22 +68,20 @@ public class OrderLine extends AbstractRessourceObject
 		return quantity;
 	}
 
-	
 	/**
 	 * Setzt das Attribut quantity.
-	 *
-	 * @param quantity 
-	 * 			zu setzender Wert für das Attribut quantity
+	 * 
+	 * @param quantity
+	 *            zu setzender Wert für das Attribut quantity
 	 */
 	public void setQuantity( Integer quantity )
 	{
 		this.quantity = quantity;
 	}
 
-	
 	/**
 	 * Liefert das Attribut size.
-	 *
+	 * 
 	 * @return size
 	 */
 	public String getSize()
@@ -96,22 +89,20 @@ public class OrderLine extends AbstractRessourceObject
 		return size;
 	}
 
-	
 	/**
 	 * Setzt das Attribut size.
-	 *
-	 * @param size 
-	 * 			zu setzender Wert für das Attribut size
+	 * 
+	 * @param size
+	 *            zu setzender Wert für das Attribut size
 	 */
 	public void setSize( String size )
 	{
 		this.size = size;
 	}
 
-	
 	/**
 	 * Liefert das Attribut productId.
-	 *
+	 * 
 	 * @return productId
 	 */
 	public Integer getProductId()
@@ -119,12 +110,11 @@ public class OrderLine extends AbstractRessourceObject
 		return productId;
 	}
 
-	
 	/**
 	 * Setzt das Attribut productId.
-	 *
-	 * @param productId 
-	 * 			zu setzender Wert für das Attribut productId
+	 * 
+	 * @param productId
+	 *            zu setzender Wert für das Attribut productId
 	 */
 	public void setProductId( Integer productId )
 	{

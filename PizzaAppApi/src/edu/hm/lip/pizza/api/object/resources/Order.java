@@ -15,8 +15,8 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 
 /**
- * Resource für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie beispielsweise
- * der zugehörige Kunde, der Fahrer der die Bestellung ausfährt, die Bestelldetails (Einzelprodukte).
+ * Resource für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie
+ * beispielsweise der zugehörige Kunde, der Fahrer der die Bestellung ausfährt, die Bestelldetails (Einzelprodukte).
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
@@ -30,11 +30,11 @@ public class Order extends AbstractRessourceObject
 	private static final long serialVersionUID = 4218276686425658940L;
 
 	private Integer id;
-	
-	private String note; 
+
+	private String note;
 
 	@XmlElement( name = "order_lines" )
-	@JsonProperty( "order_lines")
+	@JsonProperty( "order_lines" )
 	private List<OrderLine> orderLines;
 
 	private Customer customer;
@@ -62,7 +62,7 @@ public class Order extends AbstractRessourceObject
 
 	/**
 	 * Liefert das Attribut note.
-	 *
+	 * 
 	 * @return note
 	 */
 	public String getNote()
@@ -72,9 +72,9 @@ public class Order extends AbstractRessourceObject
 
 	/**
 	 * Setzt das Attribut note.
-	 *
-	 * @param note 
-	 * 			zu setzender Wert für das Attribut note
+	 * 
+	 * @param note
+	 *            zu setzender Wert für das Attribut note
 	 */
 	public void setNote( String note )
 	{

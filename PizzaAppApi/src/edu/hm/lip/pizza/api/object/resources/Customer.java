@@ -1,14 +1,10 @@
 package edu.hm.lip.pizza.api.object.resources;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -54,10 +50,9 @@ public class Customer extends AbstractRessourceObject
 
 	private String email;
 
-	
 	/**
 	 * Liefert das Attribut id.
-	 *
+	 * 
 	 * @return id
 	 */
 	public Integer getId()
@@ -65,22 +60,20 @@ public class Customer extends AbstractRessourceObject
 		return id;
 	}
 
-	
 	/**
 	 * Setzt das Attribut id.
-	 *
-	 * @param id 
-	 * 			zu setzender Wert für das Attribut id
+	 * 
+	 * @param id
+	 *            zu setzender Wert für das Attribut id
 	 */
 	public void setId( Integer id )
 	{
 		this.id = id;
 	}
 
-	
 	/**
 	 * Liefert das Attribut gender.
-	 *
+	 * 
 	 * @return gender
 	 */
 	public Gender getGender()
@@ -88,22 +81,20 @@ public class Customer extends AbstractRessourceObject
 		return gender;
 	}
 
-	
 	/**
 	 * Setzt das Attribut gender.
-	 *
-	 * @param gender 
-	 * 			zu setzender Wert für das Attribut gender
+	 * 
+	 * @param gender
+	 *            zu setzender Wert für das Attribut gender
 	 */
 	public void setGender( Gender gender )
 	{
 		this.gender = gender;
 	}
 
-	
 	/**
 	 * Liefert das Attribut company.
-	 *
+	 * 
 	 * @return company
 	 */
 	public String getCompany()
@@ -111,22 +102,20 @@ public class Customer extends AbstractRessourceObject
 		return company;
 	}
 
-	
 	/**
 	 * Setzt das Attribut company.
-	 *
-	 * @param company 
-	 * 			zu setzender Wert für das Attribut company
+	 * 
+	 * @param company
+	 *            zu setzender Wert für das Attribut company
 	 */
 	public void setCompany( String company )
 	{
 		this.company = company;
 	}
 
-	
 	/**
 	 * Liefert das Attribut department.
-	 *
+	 * 
 	 * @return department
 	 */
 	public String getDepartment()
@@ -134,22 +123,20 @@ public class Customer extends AbstractRessourceObject
 		return department;
 	}
 
-	
 	/**
 	 * Setzt das Attribut department.
-	 *
-	 * @param department 
-	 * 			zu setzender Wert für das Attribut department
+	 * 
+	 * @param department
+	 *            zu setzender Wert für das Attribut department
 	 */
 	public void setDepartment( String department )
 	{
 		this.department = department;
 	}
 
-	
 	/**
 	 * Liefert das Attribut lastname.
-	 *
+	 * 
 	 * @return lastname
 	 */
 	public String getLastname()
@@ -157,22 +144,20 @@ public class Customer extends AbstractRessourceObject
 		return lastname;
 	}
 
-	
 	/**
 	 * Setzt das Attribut lastname.
-	 *
-	 * @param lastname 
-	 * 			zu setzender Wert für das Attribut lastname
+	 * 
+	 * @param lastname
+	 *            zu setzender Wert für das Attribut lastname
 	 */
 	public void setLastname( String lastname )
 	{
 		this.lastname = lastname;
 	}
 
-	
 	/**
 	 * Liefert das Attribut forename.
-	 *
+	 * 
 	 * @return forename
 	 */
 	public String getForename()
@@ -180,22 +165,20 @@ public class Customer extends AbstractRessourceObject
 		return forename;
 	}
 
-	
 	/**
 	 * Setzt das Attribut forename.
-	 *
-	 * @param forename 
-	 * 			zu setzender Wert für das Attribut forename
+	 * 
+	 * @param forename
+	 *            zu setzender Wert für das Attribut forename
 	 */
 	public void setForename( String forename )
 	{
 		this.forename = forename;
 	}
 
-	
 	/**
 	 * Liefert das Attribut street.
-	 *
+	 * 
 	 * @return street
 	 */
 	public String getStreet()
@@ -203,22 +186,20 @@ public class Customer extends AbstractRessourceObject
 		return street;
 	}
 
-	
 	/**
 	 * Setzt das Attribut street.
-	 *
-	 * @param street 
-	 * 			zu setzender Wert für das Attribut street
+	 * 
+	 * @param street
+	 *            zu setzender Wert für das Attribut street
 	 */
 	public void setStreet( String street )
 	{
 		this.street = street;
 	}
 
-	
 	/**
 	 * Liefert das Attribut zipcode.
-	 *
+	 * 
 	 * @return zipcode
 	 */
 	public String getZipcode()
@@ -226,22 +207,20 @@ public class Customer extends AbstractRessourceObject
 		return zipcode;
 	}
 
-	
 	/**
 	 * Setzt das Attribut zipcode.
-	 *
-	 * @param zipcode 
-	 * 			zu setzender Wert für das Attribut zipcode
+	 * 
+	 * @param zipcode
+	 *            zu setzender Wert für das Attribut zipcode
 	 */
 	public void setZipcode( String zipcode )
 	{
 		this.zipcode = zipcode;
 	}
 
-	
 	/**
 	 * Liefert das Attribut city.
-	 *
+	 * 
 	 * @return city
 	 */
 	public String getCity()
@@ -249,22 +228,20 @@ public class Customer extends AbstractRessourceObject
 		return city;
 	}
 
-	
 	/**
 	 * Setzt das Attribut city.
-	 *
-	 * @param city 
-	 * 			zu setzender Wert für das Attribut city
+	 * 
+	 * @param city
+	 *            zu setzender Wert für das Attribut city
 	 */
 	public void setCity( String city )
 	{
 		this.city = city;
 	}
 
-	
 	/**
 	 * Liefert das Attribut level.
-	 *
+	 * 
 	 * @return level
 	 */
 	public String getLevel()
@@ -272,22 +249,20 @@ public class Customer extends AbstractRessourceObject
 		return level;
 	}
 
-	
 	/**
 	 * Setzt das Attribut level.
-	 *
-	 * @param level 
-	 * 			zu setzender Wert für das Attribut level
+	 * 
+	 * @param level
+	 *            zu setzender Wert für das Attribut level
 	 */
 	public void setLevel( String level )
 	{
 		this.level = level;
 	}
 
-	
 	/**
 	 * Liefert das Attribut phone.
-	 *
+	 * 
 	 * @return phone
 	 */
 	public String getPhone()
@@ -295,22 +270,20 @@ public class Customer extends AbstractRessourceObject
 		return phone;
 	}
 
-	
 	/**
 	 * Setzt das Attribut phone.
-	 *
-	 * @param phone 
-	 * 			zu setzender Wert für das Attribut phone
+	 * 
+	 * @param phone
+	 *            zu setzender Wert für das Attribut phone
 	 */
 	public void setPhone( String phone )
 	{
 		this.phone = phone;
 	}
 
-	
 	/**
 	 * Liefert das Attribut email.
-	 *
+	 * 
 	 * @return email
 	 */
 	public String getEmail()
@@ -318,12 +291,11 @@ public class Customer extends AbstractRessourceObject
 		return email;
 	}
 
-	
 	/**
 	 * Setzt das Attribut email.
-	 *
-	 * @param email 
-	 * 			zu setzender Wert für das Attribut email
+	 * 
+	 * @param email
+	 *            zu setzender Wert für das Attribut email
 	 */
 	public void setEmail( String email )
 	{
@@ -342,7 +314,6 @@ public class Customer extends AbstractRessourceObject
 		return 0;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -354,7 +325,6 @@ public class Customer extends AbstractRessourceObject
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	/**
 	 * {@inheritDoc}
