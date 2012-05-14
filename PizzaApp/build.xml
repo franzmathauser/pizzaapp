@@ -99,7 +99,7 @@
 		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
 		  <fileset dir="${root.dir}/${project.name}/${src.dir.default}" includes="**/*.java"/>
 		  <formatter type="plain"/>
-		  <formatter type="xml" toFile="${build.dir}/checkstyle_results.xml"/>
+		  <formatter type="xml" toFile="${build.dir}/${project.name}/checkstyle_results.xml"/>
 		</checkstyle>
 		<javac fork="${compile.fork}" srcdir="${root.dir}/${project.name}/${src.dir.default}" destdir="${build.dir}/${project.name}"
 			verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
