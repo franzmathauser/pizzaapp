@@ -97,7 +97,7 @@
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
 		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
-		  <fileset dir="src" includes="**/*.java"/>
+		  <fileset dir="${root.dir}/${project.name}/${src.dir.default}" includes="**/*.java"/>
 		  <formatter type="plain"/>
 		  <formatter type="xml" toFile="${build.dir}/checkstyle_results.xml"/>
 		</checkstyle>
