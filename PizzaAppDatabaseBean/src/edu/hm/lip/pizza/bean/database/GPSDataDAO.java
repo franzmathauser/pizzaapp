@@ -15,7 +15,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
  * @author Franz Mathauser
  */
 @Stateless
-public class GPSDataDAO extends AbstractBean  implements IGPSDataDAOLocal
+public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

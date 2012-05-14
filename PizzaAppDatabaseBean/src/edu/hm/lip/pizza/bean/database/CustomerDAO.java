@@ -15,12 +15,12 @@ import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
  * @author Franz Mathauser
  */
 @Stateless
-public class CustomerDAO extends AbstractBean  implements ICustomerDAOLocal
+public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )
 	private EntityManager em;
-	
+
 	/**
 	 * {@inheritDoc}
 	 * 

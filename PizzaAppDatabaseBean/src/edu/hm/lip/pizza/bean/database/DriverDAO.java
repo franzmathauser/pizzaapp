@@ -15,7 +15,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
  * @author Franz Mathauser
  */
 @Stateless
-public class DriverDAO extends AbstractBean  implements IDriverDAOLocal
+public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

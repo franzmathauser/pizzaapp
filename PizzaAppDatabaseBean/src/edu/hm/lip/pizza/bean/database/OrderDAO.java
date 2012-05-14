@@ -16,7 +16,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
  * @author Franz Mathauser
  */
 @Stateless
-public class OrderDAO extends AbstractBean  implements IOrderDAOLocal
+public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

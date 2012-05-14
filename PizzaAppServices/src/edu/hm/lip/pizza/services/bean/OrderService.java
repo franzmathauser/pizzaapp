@@ -65,17 +65,16 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 
 			EntityProductConfiguration eProductConfiguration = productConfigurationDAOBean.getProductConfiguration(
 					orderLine.getProductId(), convertStringSizeToSize( orderLine.getSize() ) );
-			
-			
+
 			EntityOrderLine eOrderLine = eOrder.getOrderLines().get( i++ );
-			
+
 			eOrderLine.setOrder( eOrder );
-			
+
 			eOrderLine.setProductConfiguration( eProductConfiguration );
 		}
 
 		eOrder = orderDAOBean.create( eOrder );
-		//return OrderConverter.convertEntityToServiceOrder( eOrder );
+		// return OrderConverter.convertEntityToServiceOrder( eOrder );
 		return null;
 	}
 
