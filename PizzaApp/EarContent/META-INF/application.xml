@@ -4,7 +4,7 @@
   <module>
     <web>
       <web-uri>PizzaAppServices.war</web-uri>
-      <context-root>/</context-root>
+      <context-root>PizzaAppServices</context-root>
     </web>
   </module>
   <module>
