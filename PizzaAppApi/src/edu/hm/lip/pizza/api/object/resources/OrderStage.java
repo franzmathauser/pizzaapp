@@ -7,6 +7,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -128,8 +132,8 @@ public class OrderStage extends AbstractRessourceObject
 	@Override
 	public int hashCode()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return HashCodeBuilder.reflectionHashCode( INITIAL_NON_ZERO_ODD_NUMBER, MULTIPLIER_NON_ZERO_ODD_NUMBER, this, true,
+				this.getClass(), null );
 	}
 
 	/**
@@ -140,8 +144,7 @@ public class OrderStage extends AbstractRessourceObject
 	@Override
 	public boolean equals( Object obj )
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return EqualsBuilder.reflectionEquals( this, obj, true, this.getClass(), null );
 	}
 
 	/**
@@ -152,7 +155,12 @@ public class OrderStage extends AbstractRessourceObject
 	@Override
 	public String toString()
 	{
-		return "OrderStage [id=" + id + ", stage=" + stage + ", createDate=" + createDate + ", order=" + order + "]";
+		ReflectionToStringBuilder rsb = new ReflectionToStringBuilder( this, ToStringStyle.SHORT_PREFIX_STYLE );
+		rsb.setAppendStatics( false );
+		rsb.setAppendTransients( true );
+		rsb.setUpToClass( this.getClass() );
+		rsb.setExcludeFieldNames( null );
+		return rsb.toString();
 	}
 
 }
