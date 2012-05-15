@@ -1,4 +1,4 @@
-var orderssBaseURL = getBaseURL()+"/PizzaAppServices/orders";
+var orderssBaseURL = getBaseURL()+"/orders";
 
 var refreshCart = function() {
 	var cart = $.cookies.get('cart');

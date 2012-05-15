@@ -1,4 +1,4 @@
-var productsBaseURL = getBaseURL()+"/PizzaAppServices/products";
+var productsBaseURL = getBaseURL()+"/products";
 
 var products = new Array();
 
