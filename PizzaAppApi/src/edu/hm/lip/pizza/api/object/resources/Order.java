@@ -150,13 +150,12 @@ public class Order extends AbstractRessourceObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "Order [id=" + id + ", note=" + note + ", orderLines=" + orderLines + ", customer=" + customer + "]";
 	}
 
 }

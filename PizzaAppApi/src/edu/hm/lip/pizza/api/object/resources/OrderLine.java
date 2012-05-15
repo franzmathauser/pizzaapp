@@ -148,13 +148,12 @@ public class OrderLine extends AbstractRessourceObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "OrderLine [id=" + id + ", quantity=" + quantity + ", size=" + size + ", productId=" + productId + "]";
 	}
 
 }
