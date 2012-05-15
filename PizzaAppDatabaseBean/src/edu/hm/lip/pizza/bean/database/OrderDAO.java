@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
@@ -94,6 +95,21 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	{
 		EntityOrder eOrder = read( id );
 		return eOrder.getStages().get( eOrder.getStages().size() - 1 );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#getUndeliveredTasks()
+	 */
+	@SuppressWarnings( "unchecked" )
+	@Override
+	public List<EntityOrder> getUndeliveredOrders()
+	{
+		Query query = em.createQuery(
+				"SELECT o FROM EntityOrder o where not exists (from EntityOrderStage as s where s.order = o AND s.stage = "
+						+ Stage.IN_DELIVERY.ordinal() + ")", EntityOrder.class );
+		return query.getResultList();
 	}
 
 }

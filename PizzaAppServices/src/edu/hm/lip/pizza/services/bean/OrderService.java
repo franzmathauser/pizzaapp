@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal;
-import edu.hm.lip.pizza.api.object.enums.Size;
 import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
@@ -44,8 +43,7 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 	@Override
 	public List<Order> findAll()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return OrderConverter.convertEntityToServiceOrderList( orderDAOBean.readAll() );
 	}
 
 	/**
@@ -64,19 +62,19 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 		for (EntityOrderLine eOrderLine : eOrder.getOrderLines())
 		{
 
-			EntityProductConfiguration eProductConfiguration = productConfigurationDAOBean.getProductConfiguration(
-					order.getOrderLines().get( i++ ).getProductId(), eOrderLine.getProductConfiguration().getSize() );
+			EntityProductConfiguration eProductConfiguration = productConfigurationDAOBean.getProductConfiguration( order
+					.getOrderLines().get( i++ ).getProductId(), eOrderLine.getProductConfiguration().getSize() );
 
 			eOrderLine.setOrder( eOrder );
 			eOrderLine.setProductConfiguration( eProductConfiguration );
 		}
-		
-		List<EntityOrderStage> stages =  new ArrayList<EntityOrderStage>();
+
+		List<EntityOrderStage> stages = new ArrayList<EntityOrderStage>();
 		EntityOrderStage eOrderStage = OrderStageManager.fistStage();
 		eOrderStage.setOrder( eOrder );
 		stages.add( eOrderStage );
 		eOrder.setStages( stages );
-		
+
 		eOrder = orderDAOBean.create( eOrder );
 		return OrderConverter.convertEntityToServiceOrder( eOrder );
 	}
@@ -117,22 +115,16 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 		return null;
 	}
 
-	private static Size convertStringSizeToSize( String size )
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal#getUndeliveredOrders()
+	 */
+	@Override
+	public List<Order> getUndeliveredOrders()
 	{
-		Size eSize = null;
-		if (size.equals( "l" ))
-		{
-			eSize = Size.L;
-		}
-		else if (size.equals( "xl" ))
-		{
-			eSize = Size.XL;
-		}
-		else if (size.equals( "xxl" ))
-		{
-			eSize = Size.XXL;
-		}
-		return eSize;
+		return OrderConverter.convertEntityToServiceOrderList( orderDAOBean.getUndeliveredOrders() );
+
 	}
 
 }

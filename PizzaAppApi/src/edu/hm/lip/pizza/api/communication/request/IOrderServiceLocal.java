@@ -79,4 +79,13 @@ public interface IOrderServiceLocal
 	@Path( "{id}/delivered" )
 	Order updateOrderToDelivered( @PathParam( "id" ) int id );
 
+	/**
+	 * Liste aller Bestellungen, die sich noch in der Backstube befinden.
+	 * 
+	 * @return Order-Liste
+	 */
+	@GET
+	@Path( "/undelivered" )
+	List<Order> getUndeliveredOrders();
+
 }
