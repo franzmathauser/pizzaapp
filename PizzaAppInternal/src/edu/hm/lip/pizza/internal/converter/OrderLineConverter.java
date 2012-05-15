@@ -41,7 +41,6 @@ public final class OrderLineConverter
 		orderLine.setProductId( eOrderLine.getProductConfiguration().getProduct().getId() );
 		orderLine.setQuantity( eOrderLine.getQuantity() );
 		orderLine.setSize( eOrderLine.getProductConfiguration().getSize().toString().toLowerCase() );
-
 		return orderLine;
 
 	}
