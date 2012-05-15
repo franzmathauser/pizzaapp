@@ -50,22 +50,30 @@ html,body {
 }
 
 .stage-icon {
+	
 }
 
 .time {
-	font-size: 3em;
+	font-size: 2em;
 	text-align: right;
+	padding-right:0.15em;
 }
 
-.driverName{
-font-size:1.7em;
+.driverName {
+	font-size: 2em;
 }
 
 .pizza {
 	font-size: 1.7em;
-	margin:0.2em;
+	margin: 0.2em;
 }
 
+.orderTime {
+	color:#B8B8B8;
+}
+.driver .ui-grid-c div{
+height:64px; 
+}
 </style>
 
 <script>
@@ -94,6 +102,11 @@ font-size:1.7em;
 </script>
 
 </head>
+
+<!-- colors blue = #1874cd -->
+<!-- colors orange = #FFA500 -->
+<!-- colors grey = ##BEBEBE -->
+
 <body>
 
 	<!-- Start of first page: #products -->
@@ -113,118 +126,148 @@ font-size:1.7em;
 			<ul data-role="listview" data-theme="d">
 				<li data-role="list-divider">Fahrer</li>
 				<li>
-					<div class="ui-grid-b">
-						<div class="ui-block-a driverName">Fahrer 1</div>
-						<div class="ui-block-b">
-							<img src="img/stack-2.png" />
+					<div class="driver ui-grid-c">
+						<div class="ui-block-a"><span class="driverName">Fahrer 1</span></div>
+						<div class="ui-block-b" style="border-right: 1px #bbb solid; margin-right:0.15em;">
+							<img src="img/stack-2.png" style="float:left"/>
+							<div class="time">ca. 4:59</div>
 						</div>
-						<div class="time ui-block-c">ca. 4:59</div>
+						<div class="ui-block-c"><span class="driverName">Fahrer 2</span></div>
+						<div class="ui-block-d">
+							<img src="img/stack-2.png" style="float:left"/>
+							<div class="time">ca. 4:59</div>
+						</div>
 					</div>
 				</li>
 				<li>
-
-					<div class="ui-grid-b">
-						<div class="ui-block-a driverName">Fahrer 2</div>
-						<div class="ui-block-b">
-							<img src="img/stack-5.png" />
+					<div class="driver ui-grid-c">
+						<div class="ui-block-a"><span class="driverName">Fahrer 3</span></div>
+						<div class="ui-block-b" style="border-right: 1px #bbb solid; margin-right:0.15em;">
+							<img src="img/stack-2.png" style="float:left"/>
+							<div class="time">ca. 4:59</div>
 						</div>
-						<div class="time ui-block-c">ca. 4:59</div>
+						<div class="ui-block-c"><span class="driverName">Fahrer 4</span></div>
+						<div class="ui-block-d">
+							<img src="img/stack-2.png" style="float:left"/>
+							<div class="time">ca. 4:59</div>
+						</div>
 					</div>
 				</li>
-
+				
 			</ul>
 		</div>
 
 		<div class="right-content">
 			<!-- 				<h3>Bestellungen</h3> -->
 			<ul data-role="listview" data-theme="d" data-divider-theme="d">
-				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
-					class="ui-li-count">12</span></li>
-				<li><a href="index.html"> 
-				
-				<div style="float: left;  margin:0px;">
-				<img class="stage-icon"
-						id="detail_image_url"
-						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-						style="width: 84px; height: 84px; " />
-						<br />
-						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+				<li data-role="list-divider">Oberbiberger Str. 10, München <span
+					class="ui-li-count" style="font-size:1.1em;">57,68 &euro;</span>
+				</li>
+				<li style="background-color: #0000ff;"><a href="index.html">
+
+						<div style="float: left; margin: 0px; padding-right: 0.5em; height:50px">
+							<svg height="60px" width="60px" xmlns="http://www.w3.org/2000/svg">
+							    <circle id="redcircle" cx="25" cy="25" r="25" fill="#1874CD" />
+							</svg>
+							<br />
 						</div>
-						<h3 class="pizza">6 x Pizza Salami L</h3>
-						<h3 class="pizza">2 x Pizza Regina XXL</h3>
-						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
-
-
-				</a></li>
-				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
-					class="ui-li-count">12</span></li>
-				<li><a href="index.html"> 
-				
-				<div style="float: left;  margin:0px;">
-				<img class="stage-icon"
-						id="detail_image_url"
-						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-						style="width: 84px; height: 84px; " />
-						<br />
-						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						<div style="float: left;">
+							<h3 class="pizza">6 x Pizza Salami L</h3>
+							<h3 class="pizza">2 x Pizza Regina XXL</h3>
+							<h3 class="pizza">4 x Pizza Margaritha XL</h3>
 						</div>
-						<h3 class="pizza">6 x Pizza Salami L</h3>
-
-
-				</a></li>
-				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
-					class="ui-li-count">12</span></li>
-				<li><a href="index.html"> 
-				
-				<div style="float: left;  margin:0px;">
-				<img class="stage-icon"
-						id="detail_image_url"
-						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-						style="width: 84px; height: 84px; " />
-						<br />
-						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						<div style="float: right;">
+							<div class="orderTime">12 min</div>
 						</div>
-						<h3 class="pizza">6 x Pizza Salami L</h3>
-						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
-
-
 				</a></li>
-				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
-					class="ui-li-count">12</span></li>
-				<li><a href="index.html"> 
 				
-				<div style="float: left;  margin:0px;">
-				<img class="stage-icon"
-						id="detail_image_url"
-						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-						style="width: 84px; height: 84px; " />
-						<br />
-						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+				<li data-role="list-divider">Oberbiberger Str. 10, München <span
+					class="ui-li-count" style="font-size:1.1em;">57,68 &euro;</span>
+				</li>
+				<li style="background-color: #0000ff;"><a href="index.html">
+
+						<div style="float: left; margin: 0px; padding-right: 0.5em; height:50px">
+							<svg height="60px" width="60px" xmlns="http://www.w3.org/2000/svg">
+							    <circle id="redcircle" cx="25" cy="25" r="25" fill="#1874CD" />
+							</svg>
+							<br />
 						</div>
-						<h3 class="pizza">6 x Pizza Salami L</h3>
-						<h3 class="pizza">2 x Pizza Regina XXL</h3>
-						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
-
-
+						<div style="float: left;">
+							<h3 class="pizza">6 x Pizza Salami L</h3>
+							<h3 class="pizza">2 x Pizza Regina XXL</h3>
+							<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+						</div>
+						<div style="float: right;">
+							<div class="orderTime">12 min</div>
+						</div>
 				</a></li>
-				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
-					class="ui-li-count">12</span></li>
-				<li><a href="index.html"> 
 				
-				<div style="float: left;  margin:0px;">
-				<img class="stage-icon"
-						id="detail_image_url"
-						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-						style="width: 84px; height: 84px; " />
-						<br />
-						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+				<li data-role="list-divider">Oberbiberger Str. 10, München <span
+					class="ui-li-count" style="font-size:1.1em;">57,68 &euro;</span>
+				</li>
+				<li style="background-color: #0000ff;"><a href="index.html">
+
+						<div style="float: left; margin: 0px; padding-right: 0.5em; height:50px">
+							<svg height="60px" width="60px" xmlns="http://www.w3.org/2000/svg">
+							    <circle id="redcircle" cx="25" cy="25" r="25" fill="#1874CD" />
+							</svg>
+							<br />
 						</div>
-						<h3 class="pizza">6 x Pizza Salami L</h3>
-						<h3 class="pizza">2 x Pizza Regina XXL</h3>
-						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
-
-
+						<div style="float: left;">
+							<h3 class="pizza">6 x Pizza Salami L</h3>
+							<h3 class="pizza">2 x Pizza Regina XXL</h3>
+							<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+						</div>
+						<div style="float: right;">
+							<div class="orderTime">12 min</div>
+						</div>
 				</a></li>
+				
+				<li data-role="list-divider">Oberbiberger Str. 10, München <span
+					class="ui-li-count" style="font-size:1.1em;">57,68 &euro;</span>
+				</li>
+				<li style="background-color: #0000ff;"><a href="index.html">
+
+						<div style="float: left; margin: 0px; padding-right: 0.5em; height:50px">
+							<svg height="60px" width="60px" xmlns="http://www.w3.org/2000/svg">
+							    <circle id="redcircle" cx="25" cy="25" r="25" fill="#1874CD" />
+							</svg>
+							<br />
+						</div>
+						<div style="float: left;">
+							<h3 class="pizza">6 x Pizza Salami L</h3>
+							<h3 class="pizza">2 x Pizza Regina XXL</h3>
+							<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+						</div>
+						<div style="float: right;">
+							<div class="orderTime">12 min</div>
+						</div>
+				</a></li>
+				
+				<li data-role="list-divider">Oberbiberger Str. 10, München <span
+					class="ui-li-count" style="font-size:1.1em;">57,68 &euro;</span>
+				</li>
+				<li style="background-color: #0000ff;"><a href="index.html">
+
+						<div style="float: left; margin: 0px; padding-right: 0.5em; height:50px">
+							<svg height="60px" width="60px" xmlns="http://www.w3.org/2000/svg">
+							    <circle id="redcircle" cx="25" cy="25" r="25" fill="#1874CD" />
+							</svg>
+							<br />
+						</div>
+						<div style="float: left;">
+							<h3 class="pizza">6 x Pizza Salami L</h3>
+							<h3 class="pizza">2 x Pizza Regina XXL</h3>
+							<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+						</div>
+						<div style="float: right;">
+							<div class="orderTime">12 min</div>
+						</div>
+				</a></li>
+				
+				
+				
+				
 
 			</ul>
 		</div>
