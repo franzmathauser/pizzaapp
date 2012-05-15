@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.services.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,14 +9,15 @@ import javax.ejb.Stateless;
 import edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal;
 import edu.hm.lip.pizza.api.object.enums.Size;
 import edu.hm.lip.pizza.api.object.resources.Order;
-import edu.hm.lip.pizza.api.object.resources.OrderLine;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
+import edu.hm.lip.pizza.internal.manager.OrderStageManager;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrderLine;
+import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**
@@ -56,26 +58,27 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 	{
 
 		EntityOrder eOrder = OrderConverter.convertServiceToEntityOrder( order );
-
 		eOrder.setCustomer( customerDAOBean.create( eOrder.getCustomer() ) );
 
 		int i = 0;
-		for (OrderLine orderLine : order.getOrderLines())
+		for (EntityOrderLine eOrderLine : eOrder.getOrderLines())
 		{
 
 			EntityProductConfiguration eProductConfiguration = productConfigurationDAOBean.getProductConfiguration(
-					orderLine.getProductId(), convertStringSizeToSize( orderLine.getSize() ) );
-
-			EntityOrderLine eOrderLine = eOrder.getOrderLines().get( i++ );
+					order.getOrderLines().get( i++ ).getProductId(), eOrderLine.getProductConfiguration().getSize() );
 
 			eOrderLine.setOrder( eOrder );
-
 			eOrderLine.setProductConfiguration( eProductConfiguration );
 		}
-
+		
+		List<EntityOrderStage> stages =  new ArrayList<EntityOrderStage>();
+		EntityOrderStage eOrderStage = OrderStageManager.fistStage();
+		eOrderStage.setOrder( eOrder );
+		stages.add( eOrderStage );
+		eOrder.setStages( stages );
+		
 		eOrder = orderDAOBean.create( eOrder );
-		// return OrderConverter.convertEntityToServiceOrder( eOrder );
-		return null;
+		return OrderConverter.convertEntityToServiceOrder( eOrder );
 	}
 
 	/**

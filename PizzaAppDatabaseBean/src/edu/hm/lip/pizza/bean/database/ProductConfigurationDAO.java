@@ -14,7 +14,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
-public class ProductConfigurationDAOLocal extends AbstractBean implements IProductConfigurationDAOLocal
+public class ProductConfigurationDAO extends AbstractBean implements IProductConfigurationDAOLocal
 {
 
 	@PersistenceContext( unitName = "PizzaAppManager" )

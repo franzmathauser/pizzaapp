@@ -1,15 +1,22 @@
 package edu.hm.lip.pizza.bean.database;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
+import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
+import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**
  * @author Franz Mathauser
@@ -20,6 +27,9 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 
 	@PersistenceContext( unitName = "PizzaAppManager" )
 	private EntityManager em;
+
+	@EJB
+	IProductConfigurationDAOLocal productConfigurationDAO;
 
 	/**
 	 * {@inheritDoc}
@@ -39,6 +49,7 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#readAll()
 	 */
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityProduct> readAll()
 	{
@@ -65,6 +76,26 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	@Override
 	public EntityProduct update( EntityProduct entityProduct )
 	{
+		List<EntityProductConfiguration> productConfigurations = new ArrayList<EntityProductConfiguration>();
+
+		for (EntityProductConfiguration productConfiguration : entityProduct.getConfigurations())
+		{
+			EntityProductConfiguration eProductConfiguration = productConfigurationDAO.getProductConfiguration(
+					entityProduct.getId(), productConfiguration.getSize() );
+
+			// ProductConfiguration in Datenbank
+			if (eProductConfiguration != null)
+			{
+				eProductConfiguration.setPrice( productConfiguration.getPrice() );
+				productConfigurations.add( eProductConfiguration );
+			}
+			else
+			{
+				productConfigurations.add( productConfiguration );
+			}
+
+		}
+		entityProduct.setConfigurations( productConfigurations );
 		entityProduct = em.merge( entityProduct );
 		em.flush();
 		return entityProduct;
