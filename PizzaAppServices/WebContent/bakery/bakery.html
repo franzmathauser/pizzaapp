@@ -39,7 +39,7 @@ html,body {
 	.right-content {
 		float: right;
 		width: 50%;
-		height : 590px;
+		height: 590px;
 		overflow: auto;
 	}
 }
@@ -48,15 +48,22 @@ html,body {
 	width: 100%;
 	height: 420px;
 }
- 
+
 .stage-icon {
-	padding-left: 5px;
-	padding-top: 0.5em;
 }
 
 .time {
 	font-size: 3em;
 	text-align: right;
+}
+
+.driverName{
+font-size:1.7em;
+}
+
+.pizza {
+	font-size: 1.7em;
+	margin:0.2em;
 }
 </style>
 
@@ -96,178 +103,135 @@ html,body {
 		</div>
 		<!-- /header -->
 
-<!-- 		<div data-role=""> -->
+		<!-- 		<div data-role=""> -->
 
 
-			<div class="left-content">
+		<div class="left-content">
 
-				<div id="map_canvas"></div>
-				<ul data-role="listview" data-theme="d">
-					<li data-role="list-divider">Fahrer</li>
-					<li>
-						<div class="ui-grid-b">
-							<div class="ui-block-a">Fahrer 1</div>
-							<div class="ui-block-b">
-								<img src="img/stack-2.png" />
-							</div>
-							<div class="time ui-block-c">ca. 4:59</div>
+			<div id="map_canvas"></div>
+			<ul data-role="listview" data-theme="d">
+				<li data-role="list-divider">Fahrer</li>
+				<li>
+					<div class="ui-grid-b">
+						<div class="ui-block-a driverName">Fahrer 1</div>
+						<div class="ui-block-b">
+							<img src="img/stack-2.png" />
 						</div>
-					</li>
-					<li>
+						<div class="time ui-block-c">ca. 4:59</div>
+					</div>
+				</li>
+				<li>
 
-						<div class="ui-grid-b">
-							<div class="ui-block-a">Fahrer 2</div>
-							<div class="ui-block-b">
-								<img src="img/stack-5.png" />
-							</div>
-							<div class="time ui-block-c">ca. 4:59</div>
+					<div class="ui-grid-b">
+						<div class="ui-block-a driverName">Fahrer 2</div>
+						<div class="ui-block-b">
+							<img src="img/stack-5.png" />
 						</div>
-					</li>
+						<div class="time ui-block-c">ca. 4:59</div>
+					</div>
+				</li>
 
-				</ul>
-			</div>
-
-			<div class="right-content">
-				<!-- 				<h3>Bestellungen</h3> -->
-				<ul data-role="listview" data-theme="d" data-divider-theme="d">
-					<li data-role="list-divider">Friday, October 8, 2010 <span
-						class="ui-li-count">2</span></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-					<li><a href="index.html"> <img class="stage-icon"
-							id="detail_image_url"
-							src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
-							style="width: 84px; height: 84px; float: left;" />
-							<h3>Stephen Weber</h3>
-							<p>
-								<strong>You've been invited to a meeting at Filament
-									Group in Boston, MA</strong>
-							</p>
-							<p>Hey Stephen, if you're available at 10am tomorrow, we've
-								got a meeting with the jQuery team.</p>
-							<p class="ui-li-aside">
-								<strong>6:24</strong>PM
-							</p>
-
-					</a></li>
-
-				</ul>
-			</div>
-
+			</ul>
 		</div>
-		<!-- /content -->
 
-<!-- 	</div> -->
+		<div class="right-content">
+			<!-- 				<h3>Bestellungen</h3> -->
+			<ul data-role="listview" data-theme="d" data-divider-theme="d">
+				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
+					class="ui-li-count">12</span></li>
+				<li><a href="index.html"> 
+				
+				<div style="float: left;  margin:0px;">
+				<img class="stage-icon"
+						id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; " />
+						<br />
+						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						</div>
+						<h3 class="pizza">6 x Pizza Salami L</h3>
+						<h3 class="pizza">2 x Pizza Regina XXL</h3>
+						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+
+
+				</a></li>
+				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
+					class="ui-li-count">12</span></li>
+				<li><a href="index.html"> 
+				
+				<div style="float: left;  margin:0px;">
+				<img class="stage-icon"
+						id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; " />
+						<br />
+						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						</div>
+						<h3 class="pizza">6 x Pizza Salami L</h3>
+
+
+				</a></li>
+				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
+					class="ui-li-count">12</span></li>
+				<li><a href="index.html"> 
+				
+				<div style="float: left;  margin:0px;">
+				<img class="stage-icon"
+						id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; " />
+						<br />
+						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						</div>
+						<h3 class="pizza">6 x Pizza Salami L</h3>
+						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+
+
+				</a></li>
+				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
+					class="ui-li-count">12</span></li>
+				<li><a href="index.html"> 
+				
+				<div style="float: left;  margin:0px;">
+				<img class="stage-icon"
+						id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; " />
+						<br />
+						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						</div>
+						<h3 class="pizza">6 x Pizza Salami L</h3>
+						<h3 class="pizza">2 x Pizza Regina XXL</h3>
+						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+
+
+				</a></li>
+				<li data-role="list-divider">Oberbiberger Str. 10, München (59,30 &euro;)<span
+					class="ui-li-count">12</span></li>
+				<li><a href="index.html"> 
+				
+				<div style="float: left;  margin:0px;">
+				<img class="stage-icon"
+						id="detail_image_url"
+						src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
+						style="width: 84px; height: 84px; " />
+						<br />
+						<div style="font-size:0.9em; text-align: center">57,68 &euro;</div>
+						</div>
+						<h3 class="pizza">6 x Pizza Salami L</h3>
+						<h3 class="pizza">2 x Pizza Regina XXL</h3>
+						<h3 class="pizza">4 x Pizza Margaritha XL</h3>
+
+
+				</a></li>
+
+			</ul>
+		</div>
+
+	</div>
+	<!-- /content -->
+
+	<!-- 	</div> -->
 	<!-- /page products -->
 
 </body>
