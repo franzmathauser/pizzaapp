@@ -170,13 +170,13 @@ public class ProductConfiguration extends AbstractRessourceObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "ProductConfiguration [id=" + id + ", size=" + size + ", price=" + price + ", product=" + product
+				+ ", orderLines=" + orderLines + "]";
 	}
 
 }

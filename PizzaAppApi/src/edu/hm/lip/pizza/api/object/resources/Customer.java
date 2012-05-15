@@ -329,13 +329,14 @@ public class Customer extends AbstractRessourceObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "Customer [id=" + id + ", gender=" + gender + ", company=" + company + ", department=" + department
+				+ ", lastname=" + lastname + ", forename=" + forename + ", street=" + street + ", zipcode=" + zipcode + ", city="
+				+ city + ", level=" + level + ", phone=" + phone + ", email=" + email + "]";
 	}
 
 }

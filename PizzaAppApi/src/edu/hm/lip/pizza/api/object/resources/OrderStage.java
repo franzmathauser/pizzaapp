@@ -147,13 +147,12 @@ public class OrderStage extends AbstractRessourceObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "OrderStage [id=" + id + ", stage=" + stage + ", createDate=" + createDate + ", order=" + order + "]";
 	}
 
 }

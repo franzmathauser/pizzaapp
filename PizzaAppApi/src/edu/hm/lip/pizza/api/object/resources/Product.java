@@ -223,13 +223,13 @@ public class Product extends AbstractRessourceObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "Product [id=" + id + ", name=" + name + ", priceL=" + priceL + ", priceXL=" + priceXL + ", priceXXL=" + priceXXL
+				+ ", description=" + description + ", imageUrl=" + imageUrl + "]";
 	}
 
 }
