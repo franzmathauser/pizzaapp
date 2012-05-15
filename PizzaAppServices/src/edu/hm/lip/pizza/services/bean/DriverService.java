@@ -11,16 +11,15 @@ import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
 
-
 /**
  * @author Franz Mathauser, Stefan Wörner
- *
  */
 @Stateless
 public class DriverService implements IDriverServiceLocal
 {
+
 	@EJB
-	IDriverDAOLocal driverDAO;
+	private IDriverDAOLocal driverDAO;
 
 	/**
 	 * {@inheritDoc}
