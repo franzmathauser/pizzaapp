@@ -11,7 +11,7 @@ import edu.hm.lip.pizza.domain.MatrixContainerAdapter.Measurements;
 import edu.hm.lip.pizza.domain.Path;
 import edu.hm.lip.pizza.domain.google.GoogleDistanceMatrix;
 import edu.hm.lip.pizza.service.DistanceMatrixBroker;
-import edu.hm.lip.pizza.tsp.TspPermuation;
+import edu.hm.lip.pizza.tsp.TspPermutation;
 import edu.hm.lip.pizza.tsp.TspSolver;
 
 /**
@@ -55,7 +55,7 @@ final class Main
 
 		System.out.println( matrix );
 
-		TspSolver solver = new TspPermuation( matrix, tspPaths );
+		TspSolver solver = new TspPermutation( matrix, tspPaths );
 		System.out.println( "\n" + solver.solve() );
 
 	}

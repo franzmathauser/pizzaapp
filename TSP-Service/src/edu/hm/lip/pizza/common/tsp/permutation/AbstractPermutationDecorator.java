@@ -10,16 +10,27 @@ import edu.hm.lip.pizza.domain.Path;
  * 
  * @author Franz Mathauser
  */
-public abstract class PermutationDecorator implements Permutation
+public abstract class AbstractPermutationDecorator implements Permutation
 {
 
+	/**
+	 *
+	 */
 	protected final Permutation decoratedPermutation;
 
-	public PermutationDecorator( Permutation decoratedPermutation )
+	/**
+	 * @param decoratedPermutation
+	 */
+	public AbstractPermutationDecorator( Permutation decoratedPermutation )
 	{
 		this.decoratedPermutation = decoratedPermutation;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.common.tsp.permutation.Permutation#permute(java.util.List)
+	 */
 	@Override
 	public List<Path> permute( List<Edge> edges )
 	{

@@ -11,6 +11,10 @@ import edu.hm.lip.pizza.domain.Path;
 public interface Permutation
 {
 
-	public List<Path> permute( List<Edge> edges );
+	/**
+	 * @param edges
+	 * @return
+	 */
+	List<Path> permute( List<Edge> edges );
 
 }

@@ -32,6 +32,9 @@ public class DistanceMatrixBroker
 
 	private final List<Address> destinations;
 
+	/**
+	 * @param destinations
+	 */
 	public DistanceMatrixBroker( List<Address> destinations )
 	{
 		this.destinations = destinations;
@@ -41,20 +44,20 @@ public class DistanceMatrixBroker
 	 * Abfrage der GoogleDistanceApi nach DistanceMatrix Daten.
 	 * 
 	 * @return GoogleDistanceMatrix representation of request
-	 * @throws IOException fehler beim lesen des JSON-Response
+	 * @throws IOException
+	 *             fehler beim lesen des JSON-Response
 	 */
 	public GoogleDistanceMatrix requestDistanceMatrix() throws IOException
 	{
-
-		String origins = "&origins=" + convertDestinations();
-		String destinations = "&destinations=" + convertDestinations();
+		String originsParam = "&origins=" + convertDestinations();
+		String destinationsParam = "&destinations=" + convertDestinations();
 
 		ClientConfig config = new DefaultClientConfig();
 		Client c = Client.create( config );
 
 		WebResource r = c
 				.resource( "http://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&language=de-DE&sensor=false"
-						+ origins + destinations );
+						+ originsParam + destinationsParam );
 		System.out.println( r.toString() );
 
 		String responseString = r.accept( MediaType.APPLICATION_JSON_TYPE ).get( String.class );
@@ -62,7 +65,6 @@ public class DistanceMatrixBroker
 		GoogleDistanceMatrix response = new ObjectMapper().readValue( responseString, GoogleDistanceMatrix.class );
 
 		return response;
-
 	}
 
 	/**

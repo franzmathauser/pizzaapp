@@ -21,8 +21,11 @@ import edu.hm.lip.pizza.domain.Path;
 public class RoundTripPermutation implements PermutationManager
 {
 
-	List<Edge> instanceList;
+	private List<Edge> instanceList;
 
+	/**
+	 * @param addressList
+	 */
 	public RoundTripPermutation( List<Address> addressList )
 	{
 		instanceList = new ArrayList<Edge>();
@@ -34,17 +37,16 @@ public class RoundTripPermutation implements PermutationManager
 			instanceList.add( new Edge( i, address ) );
 			i++;
 		}
-
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * {@inheritDoc}
+	 * 
 	 * @see edu.hm.lip.pizza.common.tsp.PermutationManager#getPaths()
 	 */
 	@Override
 	public List<Path> getPaths()
 	{
-
 		Permutation p = new NoDuplicatesPermutation();
 		p = new AddOriginAsReturnpoint( p );
 		p = new RoundTripPermutations( p );
@@ -57,7 +59,6 @@ public class RoundTripPermutation implements PermutationManager
 		}
 
 		return permutedEdges;
-
 	}
 
 }

@@ -16,16 +16,24 @@ public class NoDuplicatesPermutation implements Permutation
 
 	private List<Path> permutations;
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.common.tsp.permutation.Permutation#permute(java.util.List)
+	 */
 	@Override
 	public List<Path> permute( List<Edge> edges )
 	{
-
 		permutations = new ArrayList<Path>();
 
 		generatePermutation( new ArrayList<Edge>(), edges );
 		return permutations;
 	}
 
+	/**
+	 * @param beginning
+	 * @param ending
+	 */
 	public void generatePermutation( List<Edge> beginning, List<Edge> ending )
 	{
 		if (ending.size() <= 1)
@@ -36,6 +44,7 @@ public class NoDuplicatesPermutation implements Permutation
 
 		}
 		else
+		{
 			for (int i = 0; i < ending.size(); i++)
 			{
 				try
@@ -54,6 +63,7 @@ public class NoDuplicatesPermutation implements Permutation
 					exception.printStackTrace();
 				}
 			}
+		}
 	}
 
 }

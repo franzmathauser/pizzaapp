@@ -20,7 +20,15 @@ public class MatrixContainerAdapter
 	 */
 	public enum Measurements
 	{
-		DISTANCE, DURATION
+		/**
+		 * Distanz.
+		 */
+		DISTANCE,
+
+		/**
+		 * Dauer.
+		 */
+		DURATION;
 	}
 
 	private final MatrixContainer<Integer> convertedMatrix;
@@ -41,8 +49,10 @@ public class MatrixContainerAdapter
 	/**
 	 * Convertierung der GoogleDistanceMatrix Representation in ein generisches Format.
 	 * 
-	 * @param distanceMatrix GoogleDistanceMatrix
-	 * @param measurement Messwerttyp
+	 * @param distanceMatrix
+	 *            GoogleDistanceMatrix
+	 * @param measurement
+	 *            Messwerttyp
 	 * @return gernerische DistanceMatrix
 	 */
 	private MatrixContainer<Integer> convertGoogleDistanceMatrix( GoogleDistanceMatrix distanceMatrix, Measurements measurement )
@@ -76,6 +86,9 @@ public class MatrixContainerAdapter
 		return returnMatrix;
 	}
 
+	/**
+	 * @return
+	 */
 	public MatrixContainer<Integer> getInstance()
 	{
 		return convertedMatrix;

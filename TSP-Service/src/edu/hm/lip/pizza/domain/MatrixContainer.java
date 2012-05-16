@@ -18,16 +18,29 @@ public class MatrixContainer<T>
 	 */
 	private Map<Integer, Map<Integer, T>> matrix;
 
+	/**
+	 * 
+	 */
 	public MatrixContainer()
 	{
 		matrix = new HashMap<Integer, Map<Integer, T>>();
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public T get( Integer x, Integer y )
 	{
 		return matrix.get( x ).get( y );
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 * @param value
+	 */
 	public void set( Integer x, Integer y, T value )
 	{
 		Map<Integer, T> column = matrix.get( x );
@@ -39,9 +52,13 @@ public class MatrixContainer<T>
 		}
 
 		column.put( y, value );
-
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString()
 	{

@@ -12,6 +12,9 @@ import edu.hm.lip.pizza.domain.Path;
 public interface PermutationManager
 {
 
+	/**
+	 * @return
+	 */
 	public List<Path> getPaths();
 
 }

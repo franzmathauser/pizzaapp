@@ -32,36 +32,74 @@ public class GoogleDistanceMatrix
 	@JsonProperty( "rows" )
 	private List<GoogleDistanceRow> distanceRows;
 
+	/**
+	 * Liefert das Attribut destinationAddresses.
+	 * 
+	 * @return destinationAddresses
+	 */
 	public List<String> getDestinationAddresses()
 	{
 		return destinationAddresses;
 	}
 
+	/**
+	 * Setzt das Attribut destinationAddresses.
+	 * 
+	 * @param destinationAddresses
+	 *            zu setzender Wert für das Attribut destinationAddresses
+	 */
 	public void setDestinationAddresses( List<String> destinationAddresses )
 	{
 		this.destinationAddresses = destinationAddresses;
 	}
 
+	/**
+	 * Liefert das Attribut originAddresses.
+	 * 
+	 * @return originAddresses
+	 */
 	public List<String> getOriginAddresses()
 	{
 		return originAddresses;
 	}
 
+	/**
+	 * Setzt das Attribut originAddresses.
+	 * 
+	 * @param originAddresses
+	 *            zu setzender Wert für das Attribut originAddresses
+	 */
 	public void setOriginAddresses( List<String> originAddresses )
 	{
 		this.originAddresses = originAddresses;
 	}
 
+	/**
+	 * Liefert das Attribut distanceRows.
+	 * 
+	 * @return distanceRows
+	 */
 	public List<GoogleDistanceRow> getDistanceRows()
 	{
 		return distanceRows;
 	}
 
+	/**
+	 * Setzt das Attribut distanceRows.
+	 * 
+	 * @param distanceRows
+	 *            zu setzender Wert für das Attribut distanceRows
+	 */
 	public void setDistanceRows( List<GoogleDistanceRow> distanceRows )
 	{
 		this.distanceRows = distanceRows;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString()
 	{

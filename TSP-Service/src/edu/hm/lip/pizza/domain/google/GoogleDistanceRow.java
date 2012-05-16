@@ -13,18 +13,34 @@ public class GoogleDistanceRow
 {
 
 	@JsonProperty( "elements" )
-	List<GoogleDistanceElement> elements;
+	private List<GoogleDistanceElement> elements;
 
+	/**
+	 * Liefert das Attribut elements.
+	 * 
+	 * @return elements
+	 */
 	public List<GoogleDistanceElement> getElements()
 	{
 		return elements;
 	}
 
+	/**
+	 * Setzt das Attribut elements.
+	 * 
+	 * @param elements
+	 *            zu setzender Wert für das Attribut elements
+	 */
 	public void setElements( List<GoogleDistanceElement> elements )
 	{
 		this.elements = elements;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString()
 	{

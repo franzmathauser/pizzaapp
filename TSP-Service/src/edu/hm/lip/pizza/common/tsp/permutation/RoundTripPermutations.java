@@ -11,14 +11,22 @@ import edu.hm.lip.pizza.domain.Path;
  * 
  * @author Franz Mathauser
  */
-public class RoundTripPermutations extends PermutationDecorator
+public class RoundTripPermutations extends AbstractPermutationDecorator
 {
 
+	/**
+	 * @param decoratedPermutation
+	 */
 	public RoundTripPermutations( Permutation decoratedPermutation )
 	{
 		super( decoratedPermutation );
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.common.tsp.permutation.AbstractPermutationDecorator#permute(java.util.List)
+	 */
 	@Override
 	public List<Path> permute( List<Edge> edges )
 	{
@@ -35,4 +43,5 @@ public class RoundTripPermutations extends PermutationDecorator
 		}
 		return returnPermutations;
 	}
+
 }

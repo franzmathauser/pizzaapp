@@ -10,18 +10,27 @@ import edu.hm.lip.pizza.domain.Path;
  * 
  * @author Franz Mathauser
  */
-public class AddOriginAsReturnpoint extends PermutationDecorator
+public class AddOriginAsReturnpoint extends AbstractPermutationDecorator
 {
 
+	/**
+	 * @param decoratedPermutation
+	 */
 	public AddOriginAsReturnpoint( Permutation decoratedPermutation )
 	{
 		super( decoratedPermutation );
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.common.tsp.permutation.AbstractPermutationDecorator#permute(java.util.List)
+	 */
 	@Override
 	public List<Path> permute( List<Edge> edges )
 	{
 		edges.add( edges.get( 0 ) );
 		return super.permute( edges );
 	}
+
 }

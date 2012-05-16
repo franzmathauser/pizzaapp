@@ -12,22 +12,41 @@ public class Edge
 
 	private final Address address;
 
+	/**
+	 * @param id
+	 * @param address
+	 */
 	public Edge( int id, Address address )
 	{
 		this.id = id;
 		this.address = address;
 	}
 
+	/**
+	 * Liefert das Attribut id.
+	 * 
+	 * @return id
+	 */
 	public int getId()
 	{
 		return id;
 	}
 
+	/**
+	 * Liefert das Attribut address.
+	 * 
+	 * @return address
+	 */
 	public Address getAddress()
 	{
 		return address;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString()
 	{
