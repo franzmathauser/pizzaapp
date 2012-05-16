@@ -5,9 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -29,7 +26,7 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	private EntityManager em;
 
 	@EJB
-	IProductConfigurationDAOLocal productConfigurationDAO;
+	private IProductConfigurationDAOLocal productConfigurationDAO;
 
 	/**
 	 * {@inheritDoc}
@@ -111,7 +108,6 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	{
 		em.remove( entityProduct );
 		em.flush();
-
 	}
 
 }

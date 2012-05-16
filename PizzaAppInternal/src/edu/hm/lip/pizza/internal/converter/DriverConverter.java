@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.hm.lip.pizza.api.object.resources.Driver;
-import edu.hm.lip.pizza.api.object.resources.OrderLine;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderLine;
 
 /**
  * Konverter-Klasse fuer Driver-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu

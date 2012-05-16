@@ -41,6 +41,7 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#readAll()
 	 */
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityOrder> readAll()
 	{

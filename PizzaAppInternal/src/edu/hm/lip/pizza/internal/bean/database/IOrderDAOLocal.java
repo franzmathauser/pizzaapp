@@ -25,7 +25,7 @@ public interface IOrderDAOLocal
 	void delete( EntityOrder entityOrder );
 
 	EntityOrderStage getCurrentStage( int id );
-	
+
 	List<EntityOrder> getUndeliveredOrders();
 
 }

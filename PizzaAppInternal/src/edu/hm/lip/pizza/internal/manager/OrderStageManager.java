@@ -7,9 +7,11 @@ import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
 
 /**
+ * Hilfsklasse für die Berechnung der einzelnen Bestellstati.
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
-public class OrderStageManager
+public final class OrderStageManager
 {
 
 	private OrderStageManager()
@@ -17,14 +19,25 @@ public class OrderStageManager
 
 	}
 
+	/**
+	 * Gibt den initialen Bestellstatus zurück.
+	 * 
+	 * @return Initialer Bestellstatus
+	 */
 	public static EntityOrderStage fistStage()
 	{
-		return next(null);
+		return next( null );
 	}
 
+	/**
+	 * Gibt den nächsten Bestellstatus basierend auf der übergebenen Liste zurück.
+	 * 
+	 * @param orderStages
+	 *            Liste der vorhandenen Bestellstati
+	 * @return Nächster Bestellstatus
+	 */
 	public static EntityOrderStage next( List<EntityOrderStage> orderStages )
 	{
-
 		EntityOrderStage eOrderStage = new EntityOrderStage();
 		eOrderStage.setCreateDate( new Date() );
 
@@ -54,8 +67,8 @@ public class OrderStageManager
 				eOrderStage.setStage( Stage.ORDERED );
 				break;
 		}
-		return eOrderStage;
 
+		return eOrderStage;
 	}
 
 }
