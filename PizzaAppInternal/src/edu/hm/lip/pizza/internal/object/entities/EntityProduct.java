@@ -2,6 +2,7 @@ package edu.hm.lip.pizza.internal.object.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
@@ -38,8 +41,7 @@ public class EntityProduct extends AbstractEntityObject
 
 	private String imageUrl;
 
-	@OneToMany( mappedBy = "product", fetch = FetchType.EAGER )
-	@Cascade( value = CascadeType.ALL )
+	@OneToMany( mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	private List<EntityProductConfiguration> configurations;
 
 	/**
@@ -155,8 +157,8 @@ public class EntityProduct extends AbstractEntityObject
 	@Override
 	public int hashCode()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return HashCodeBuilder.reflectionHashCode( INITIAL_NON_ZERO_ODD_NUMBER, MULTIPLIER_NON_ZERO_ODD_NUMBER, this, true,
+				this.getClass(), null );
 	}
 
 	/**
@@ -167,20 +169,23 @@ public class EntityProduct extends AbstractEntityObject
 	@Override
 	public boolean equals( Object obj )
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return EqualsBuilder.reflectionEquals( this, obj, true, this.getClass(), null );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ReflectionToStringBuilder rsb = new ReflectionToStringBuilder( this, ToStringStyle.SHORT_PREFIX_STYLE );
+		rsb.setAppendStatics( false );
+		rsb.setAppendTransients( true );
+		rsb.setUpToClass( this.getClass() );
+		rsb.setExcludeFieldNames( null );
+		return rsb.toString();
 	}
 
 }

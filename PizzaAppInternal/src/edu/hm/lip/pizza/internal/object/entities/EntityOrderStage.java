@@ -14,6 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
@@ -135,8 +140,8 @@ public class EntityOrderStage extends AbstractEntityObject
 	@Override
 	public int hashCode()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return HashCodeBuilder.reflectionHashCode( INITIAL_NON_ZERO_ODD_NUMBER, MULTIPLIER_NON_ZERO_ODD_NUMBER, this, true,
+				this.getClass(), new String[] { "order" } );
 	}
 
 	/**
@@ -147,20 +152,23 @@ public class EntityOrderStage extends AbstractEntityObject
 	@Override
 	public boolean equals( Object obj )
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return EqualsBuilder.reflectionEquals( this, obj, true, this.getClass(), new String[] { "order" } );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ReflectionToStringBuilder rsb = new ReflectionToStringBuilder( this, ToStringStyle.SHORT_PREFIX_STYLE );
+		rsb.setAppendStatics( false );
+		rsb.setAppendTransients( true );
+		rsb.setUpToClass( this.getClass() );
+		rsb.setExcludeFieldNames( new String[] { "order" } );
+		return rsb.toString();
 	}
 
 }

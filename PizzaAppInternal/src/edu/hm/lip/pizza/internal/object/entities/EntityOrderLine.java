@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.internal.object.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
@@ -32,12 +35,10 @@ public class EntityOrderLine extends AbstractEntityObject
 
 	private Integer quantity;
 
-	@ManyToOne( fetch = FetchType.LAZY )
-	@Cascade( value = CascadeType.ALL )
+	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	private EntityOrder order;
 
-	@ManyToOne( fetch = FetchType.LAZY )
-	@Cascade( value = CascadeType.ALL )
+	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	private EntityProductConfiguration productConfiguration;
 
 	/**
@@ -132,8 +133,8 @@ public class EntityOrderLine extends AbstractEntityObject
 	@Override
 	public int hashCode()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return HashCodeBuilder.reflectionHashCode( INITIAL_NON_ZERO_ODD_NUMBER, MULTIPLIER_NON_ZERO_ODD_NUMBER, this, true,
+				this.getClass(), new String[] { "order" } );
 	}
 
 	/**
@@ -144,20 +145,23 @@ public class EntityOrderLine extends AbstractEntityObject
 	@Override
 	public boolean equals( Object obj )
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return EqualsBuilder.reflectionEquals( this, obj, true, this.getClass(), new String[] { "order" } );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.basic.object.AbstractBasicObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ReflectionToStringBuilder rsb = new ReflectionToStringBuilder( this, ToStringStyle.SHORT_PREFIX_STYLE );
+		rsb.setAppendStatics( false );
+		rsb.setAppendTransients( true );
+		rsb.setUpToClass( this.getClass() );
+		rsb.setExcludeFieldNames( new String[] { "order" } );
+		return rsb.toString();
 	}
 
 }
