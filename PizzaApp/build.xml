@@ -16,7 +16,7 @@
 	<property name="application.name" value="PizzaApp" />
 	<property name="pizza_app.projectlist" value="PizzaAppInternal,PizzaAppDatabaseBean" />
 	<property name="pizza_app.war.projectlist" value="PizzaAppServices" />
-	<property name="pizza_app.api.projectlist" value="BasicApi,PizzaAppApi" />
+	<property name="pizza_app.api.projectlist" value="BasicApi,PizzaAppApi,TSP-Service" />
 
 	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
@@ -156,6 +156,8 @@
 			<fileset dir="${libraries.dir}/commons/lang" includes="commons-*-*.jar" />
 			<!-- <fileset dir="${libraries.dir}/commons/lang3" includes="commons-*-*.jar" /> -->
 			<fileset dir="${libraries.dir}/commons/logging" includes="commons-*-*.jar" />
+			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-client-*.jar" />
+			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-core-*.jar" />
 		</ear>
 	</target>
 

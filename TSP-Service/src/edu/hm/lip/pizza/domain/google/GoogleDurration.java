@@ -1,7 +1,7 @@
 package edu.hm.lip.pizza.domain.google;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Repräsentiert die Dauer oder Entfernung zweier Distanz-Punkte des Json-Response der GoogleMaps API.

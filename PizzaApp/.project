@@ -8,6 +8,7 @@
 		<project>PizzaAppApi</project>
 		<project>PizzaAppInternal</project>
 		<project>BasicApi</project>
+		<project>TSP-Service</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

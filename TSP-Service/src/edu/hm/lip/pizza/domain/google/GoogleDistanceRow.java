@@ -2,7 +2,7 @@ package edu.hm.lip.pizza.domain.google;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Repräsentiert eine Reihe der Distance-Matrix des Json-Response der GoogleMaps API.

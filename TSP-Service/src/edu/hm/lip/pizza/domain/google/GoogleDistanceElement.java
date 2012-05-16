@@ -1,6 +1,6 @@
 package edu.hm.lip.pizza.domain.google;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * Repräsentiert ein Distance-Element des Json-Response der GoogleMaps API.
