@@ -16,6 +16,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import edu.hm.lip.pizza.api.object.enums.Gender;
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
@@ -33,6 +35,16 @@ public class EntityCustomer extends AbstractEntityObject
 
 	private static final long serialVersionUID = 3895442825911877353L;
 
+	private static final String LASTNAME_EMPTY_ERROR_MSG = "Bitte geben sie einen Nachnamen an.";
+
+	private static final String FORENAME_EMPTY_ERROR_MSG = "Bitte geben sie einen Vornamen an.";
+
+	private static final String STREET_EMPTY_ERROR_MSG = "Bitte geben sie eine Straße an.";
+
+	private static final String CITY_EMPTY_ERROR_MSG = "Bitte geben sie einen Ort an.";
+
+	private static final String PHONE_VALIDATION_ERROR = "Bitte geben sie eine Telefonnummer an.";
+
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
@@ -44,18 +56,24 @@ public class EntityCustomer extends AbstractEntityObject
 
 	private String department;
 
+	@NotEmpty( message = LASTNAME_EMPTY_ERROR_MSG )
 	private String lastname;
 
+	@NotEmpty( message = FORENAME_EMPTY_ERROR_MSG )
 	private String forename;
 
+	@NotEmpty( message = STREET_EMPTY_ERROR_MSG )
 	private String street;
 
+	@Range( min = 10000, max = 99999 )
 	private String zipcode;
 
+	@NotEmpty( message = CITY_EMPTY_ERROR_MSG )
 	private String city;
 
 	private String level;
 
+	@NotEmpty( message = PHONE_VALIDATION_ERROR )
 	private String phone;
 
 	private String email;
