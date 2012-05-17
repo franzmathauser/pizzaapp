@@ -45,6 +45,8 @@ public class EntityCustomer extends AbstractEntityObject
 
 	private static final String PHONE_VALIDATION_ERROR = "Bitte geben sie eine Telefonnummer an.";
 
+	private static final String EMAIL_VALIDATION_ERROR = "Bitte geben sie eine Emailadresse an.";
+
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
@@ -76,6 +78,7 @@ public class EntityCustomer extends AbstractEntityObject
 	@NotEmpty( message = PHONE_VALIDATION_ERROR )
 	private String phone;
 
+	@NotEmpty( message = EMAIL_VALIDATION_ERROR )
 	private String email;
 
 	@OneToMany( mappedBy = "customer", fetch = FetchType.LAZY )
