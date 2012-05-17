@@ -1,37 +1,98 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-<title>Bakery</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="css/bakery.css" type="text/css">
-<script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
-<script>
-	$(document).ready(function() {
-		var map;
-	});
-</script>
+<meta charset="utf-8">
+<title>Pizza Mobile Shop</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="../css/jquery.mobile-1.1.0.min.css" />
+<script src="../js/jquery-1.7.1.min.js"></script>
+<script src="../js/jquery.mobile-1.1.0.min.js"></script>
+<script
+	src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+
+<!--  http://code.google.com/p/cookies/ -->
+<script src="../js/jquery.cookies.2.2.0.min.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
 <script type="text/javascript" src='js/stomp.js'></script>
 <script type="text/javascript" src='js/gpstracking.js'></script>
-<script type="text/javascript" src='js/bakery.js'></script>
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 
-<script>
-	$(document)
-			.ready(
-					function() {
-						var supported = ("WebSocket" in window);
-						if (!supported) {
-							var msg = "Your browser does not support Web Sockets. This example will not work properly.<br>";
-							msg += "Please use a Web Browser with Web Sockets support (WebKit or Google Chrome).";
-							$("#messages").html(msg);
-						}
-					});
-</script>
+<script type="text/javascript" src="../js/commons.js"></script>
+<script type="text/javascript" src="js/bakery.js"></script>
+
+<style type="text/css" media="screen">
+html,body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+/* wird erst bei einer mindestbreite von 600px angewandt. */
+@media all and (min-width:800px) {
+	.left-content {
+		float: left;
+		width: 49%;
+		text-align: left;
+		border-right: 1px solid;
+	}
+	.right-content {
+		float: right;
+		width: 50%;
+		height: 590px;
+		overflow: auto;
+	}
+}
+
+#map_canvas {
+	width: 100%;
+	height: 420px;
+}
+
+.stage-icon {
+	
+}
+
+.time {
+	font-size: 2em;
+	text-align: right;
+	margin-right: 0.15em;
+	float: right;
+}
+
+.driverName {
+	font-size: 2em;
+}
+
+.pizza {
+	font-size: 1.7em;
+	margin: 0.2em;
+}
+
+.orderTime {
+	color: #B8B8B8;
+	padding-right: 0.5em;
+}
+
+.driver .ui-grid-b div {
+	height: 64px;
+}
+
+.driver .ui-block-a,.driver .ui-block-b {
+	width: 50%;
+}
+
+.driver .ui-block-a img,.driver .ui-block-b img {
+	padding-right: 0.5em;
+}
+</style>
 
 <script>
 	jQuery(window).ready(
+
 			function() {
+				var map;
 
 				var myLatlng = new google.maps.LatLng(48.0972, 11.5265);
 				var myOptions = {
@@ -52,38 +113,86 @@
 			});
 </script>
 
-<style type="text/css" media="screen">
-#map_canvas {
-	width: 500px;
-	height: 500px;
-}
+<script>
+	$(document)
+			.ready(
+					function() {
+						var supported = ("WebSocket" in window);
+						if (!supported) {
+							var msg = "Your browser does not support Web Sockets. This example will not work properly.<br>";
+							msg += "Please use a Web Browser with Web Sockets support (WebKit or Google Chrome).";
+							$("#messages").html(msg);
+						}
+					});
+</script>
 
-#mapcontainer {
-	height: 500px;
-	background: #eee;
-}
-</style>
 </head>
+
+<!-- colors blue = #1874cd -->
+<!-- colors orange = #FFA500 -->
+<!-- colors grey = ##BEBEBE -->
+
 <body>
 
-	<div id="mapcontainer">
-		<div id="map_canvas">This will be a map</div>
-	</div>
+	<!-- Start of first page: #products -->
+	<div data-role="page" id="products" data-theme="e">
 
-<!-- 	<input type='hidden' name=url id='connect_url' -->
-<!-- 		value='ws://localhost:61614/stomp' /> -->
+		<div data-role="header" data-position="fixed">
+			<h1>Produkte</h1>
+		</div>
+		<!-- /header -->
+
+		<!-- 		<div data-role=""> -->
+
+
+		<div class="left-content">
+
+			<div id="map_canvas"></div>
+			<ul data-role="listview" data-theme="d">
+				<li data-role="list-divider">Fahrer</li>
+				<li>
+					<div class="driver ui-grid-b">
+						<div id="driver_line-0" class="ui-block-a"></div>
+						<div id="driver_line-1" class="ui-block-b"></div>
+					</div>
+				</li>
+				<li>
+					<div class="driver ui-grid-b">
+						<div id="driver_line-2" class="ui-block-a"></div>
+						<div id="driver_line-3" class="ui-block-b"></div>
+					</div>
+				</li>
+
+			</ul>
+		</div>
+
+		<div class="right-content">
+			<!-- 				<h3>Bestellungen</h3> -->
+			<ul id="order_list" data-role="listview" data-theme="d"
+				data-divider-theme="d">
+
+			</ul>
+		</div>
+
+	</div>
+	<!-- /content -->
+
+	<!-- 	</div> -->
+	<!-- /page products -->
+
+
 	<input type='hidden' id='connect_login' value="guest">
 	<input type='hidden' id='connect_passcode' type=password value="guest">
 	<input type='hidden' id='destination' value="/topic/test">
-
-	<div id="disconnect">
-		<form id='disconnect_form'>
-			<input type=submit id='disconnect_submit' value="Disconnect">
-		</form>
+	<div style="clear: both">
+		<div id="disconnect">
+			<form id='disconnect_form'>
+				<input type=submit id='disconnect_submit' value="Disconnect">
+			</form>
+		</div>
+		<div id="messages"></div>
+		<div id="debug"></div>
 	</div>
-	<div id="messages"></div>
-	<div id="debug"></div>
 
 </body>
 </html>
-
