@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.api.object.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -17,6 +18,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+
 
 /**
  * Resource für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie
@@ -42,6 +44,16 @@ public class Order extends AbstractRessourceObject
 	private List<OrderLine> orderLines;
 
 	private Customer customer;
+
+	@XmlElement( name = "current_stage" )
+	@JsonProperty( "current_stage" )
+	private String currentStage;
+
+	@XmlElement( name = "order_date" )
+	@JsonProperty( "order_date" )
+	private Date orderDate;
+	
+	private String price;
 
 	/**
 	 * Liefert das Attribut id.
@@ -125,6 +137,69 @@ public class Order extends AbstractRessourceObject
 	public void setCustomer( Customer customer )
 	{
 		this.customer = customer;
+	}
+
+	/**
+	 * Liefert das Attribut currentStage.
+	 * 
+	 * @return currentStage
+	 */
+	public String getCurrentStage()
+	{
+		return currentStage;
+	}
+
+	/**
+	 * Setzt das Attribut currentStage.
+	 * 
+	 * @param currentStage
+	 *            zu setzender Wert für das Attribut currentStage
+	 */
+	public void setCurrentStage( String currentStage )
+	{
+		this.currentStage = currentStage;
+	}
+
+	/**
+	 * Liefert das Attribut orderDate.
+	 * 
+	 * @return orderDate
+	 */
+	public Date getOrderDate()
+	{
+		return orderDate;
+	}
+
+	/**
+	 * Setzt das Attribut orderDate.
+	 * 
+	 * @param orderDate
+	 *            zu setzender Wert für das Attribut orderDate
+	 */
+	public void setOrderDate( Date orderDate )
+	{
+		this.orderDate = orderDate;
+	}
+
+	/**
+	 * Liefert das Attribut price.
+	 *
+	 * @return price
+	 */
+	public String getPrice()
+	{
+		return price;
+	}
+
+	/**
+	 * Setzt das Attribut price.
+	 *
+	 * @param price 
+	 * 			zu setzender Wert für das Attribut price
+	 */
+	public void setPrice( String price )
+	{
+		this.price = price;
 	}
 
 	/**

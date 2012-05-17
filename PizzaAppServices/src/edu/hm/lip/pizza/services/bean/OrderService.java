@@ -70,7 +70,7 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 		}
 
 		List<EntityOrderStage> stages = new ArrayList<EntityOrderStage>();
-		EntityOrderStage eOrderStage = OrderStageManager.fistStage();
+		EntityOrderStage eOrderStage = OrderStageManager.firstStage();
 		eOrderStage.setOrder( eOrder );
 		stages.add( eOrderStage );
 		eOrder.setStages( stages );

@@ -24,7 +24,7 @@ public final class OrderStageManager
 	 * 
 	 * @return Initialer Bestellstatus
 	 */
-	public static EntityOrderStage fistStage()
+	public static EntityOrderStage firstStage()
 	{
 		return next( null );
 	}
