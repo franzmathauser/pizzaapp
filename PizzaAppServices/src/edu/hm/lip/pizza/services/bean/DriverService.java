@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.services.bean;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -7,9 +8,13 @@ import javax.ejb.Stateless;
 
 import edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Driver;
+import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
+import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
+import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
+import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 
 /**
  * @author Franz Mathauser, Stefan Wörner
@@ -90,6 +95,35 @@ public class DriverService implements IDriverServiceLocal
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#createGPSData(int,
+	 *      edu.hm.lip.pizza.api.object.resources.GPSData)
+	 */
+	@Override
+	public Driver createGPSData( int id, GPSData gpsData )
+	{
+		if (gpsData.getDate() == null)
+		{
+			gpsData.setDate( new Date() );
+		}
+
+		EntityDriver eDriver = driverDAO.read( id );
+		if (eDriver != null)
+		{
+			List<EntityGPSData> gpsDatas = eDriver.getGpsData();
+
+			EntityGPSData eGPSData = GPSDataConverter.convertServiceToEntityGPSData( gpsData );
+			eGPSData.setDriver( eDriver );
+			gpsDatas.add( eGPSData );
+			eDriver.setGpsData( gpsDatas );
+			driverDAO.update( eDriver );
+		}
+
+		return DriverConverter.convertEntityToServiceDriver( eDriver );
 	}
 
 }

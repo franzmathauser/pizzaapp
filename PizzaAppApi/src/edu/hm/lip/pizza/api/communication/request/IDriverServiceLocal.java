@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import edu.hm.lip.pizza.api.object.resources.Driver;
+import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
 
 /**
@@ -93,5 +94,18 @@ public interface IDriverServiceLocal
 	@DELETE
 	@Path( "{dId}/orders/{oId}" )
 	void remove( @PathParam( "dId" ) int dId, @PathParam( "oId" ) int oId );
+
+	/**
+	 * Erzeuge einen neuen GPS-Datensatz für Fahrer.
+	 * 
+	 * @param id
+	 *            Fahreridentifikation
+	 * @param gpsData
+	 *            GPS-Datum
+	 * @return Fahrer
+	 */
+	@POST
+	@Path( "{id}/geodata" )
+	Driver createGPSData( @PathParam( "id" ) int id, GPSData gpsData );
 
 }
