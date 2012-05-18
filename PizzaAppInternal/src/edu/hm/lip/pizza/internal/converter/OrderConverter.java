@@ -43,7 +43,7 @@ public final class OrderConverter
 		order.setNote( eOrder.getNote() );
 		List<EntityOrderStage> eOrderStages = eOrder.getStages();
 
-		order.setCurrentStage( eOrderStages.get( eOrderStages.size() - 1 ).toString() );
+		order.setCurrentStage( eOrderStages.get( eOrderStages.size() - 1 ).getStage().toString() );
 		order.setOrderDate( eOrderStages.get( 0 ).getCreateDate() );
 		order.setOrderLines( OrderLineConverter.convertEntityToServiceOrderLineList( eOrder.getOrderLines() ) );
 		order.setCustomer( CustomerConverter.convertEntityToServiceCustomer( eOrder.getCustomer() ) );

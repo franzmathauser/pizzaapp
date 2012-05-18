@@ -63,6 +63,9 @@ public final class OrderStageManager
 			case IN_DELIVERY:
 				eOrderStage.setStage( Stage.DELIVERED );
 				break;
+			case DELIVERED:
+				eOrderStage = null;
+				break;
 			default:
 				eOrderStage.setStage( Stage.ORDERED );
 				break;

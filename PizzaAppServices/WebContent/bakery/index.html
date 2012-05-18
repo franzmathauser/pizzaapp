@@ -18,7 +18,9 @@
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 
 <script type="text/javascript" src='js/stomp.js'></script>
+<script type="text/javascript" src='js/activeMQConnector.js'></script>
 <script type="text/javascript" src='js/gpstracking.js'></script>
+<script type="text/javascript" src='js/ordertracking.js'></script>
 
 <script type="text/javascript" src="../js/commons.js"></script>
 <script type="text/javascript" src="js/bakery.js"></script>
@@ -89,10 +91,12 @@ html,body {
 </style>
 
 <script>
+var map;
+
 	jQuery(window).ready(
 
 			function() {
-				var map;
+				
 
 				var myLatlng = new google.maps.LatLng(48.0972, 11.5265);
 				var myOptions = {
@@ -139,6 +143,7 @@ html,body {
 
 		<div data-role="header" data-position="fixed">
 			<h1>Produkte</h1>
+			<div id="messages"></div>
 		</div>
 		<!-- /header -->
 
@@ -179,18 +184,38 @@ html,body {
 
 	<!-- 	</div> -->
 	<!-- /page products -->
+	
+	<div data-role="page" id="moveToDriver" data-theme="e">
 
-
-	<input type='hidden' id='connect_login' value="guest">
-	<input type='hidden' id='connect_passcode' type=password value="guest">
-	<input type='hidden' id='destination' value="/topic/test">
-	<div style="clear: both">
-		<div id="disconnect">
-			<form id='disconnect_form'>
-				<input type=submit id='disconnect_submit' value="Disconnect">
-			</form>
+		<div data-role="header">
+			<h1>Entfernen</h1>
 		</div>
-		<div id="messages"></div>
+		<!-- /header -->
+
+		<div data-role="content">
+			<h2>Artikel aus Warenkorb entfernen?</h2>
+			<p>Wollen sie wirklich diesen Artikel entfernen?</p>
+			<br />
+			<input type="text" id="del_row" name="del_row" readonly="readonly" style="display: none;"/>
+			
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a">
+					<a id="confirm_deleteCartItem" href="#cart" data-role="button" data-icon="check"
+						data-inline="true" data-theme="b">Raus damit!</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#cart" data-role="button" data-icon="delete"
+						data-inline="true" data-theme="b" style="float: right;">Nein</a>
+				</div>
+			</fieldset>
+		</div>
+		<!-- /content -->
+	</div>
+	<!-- /page popup -->
+	
+
+	<div style="clear: both">
+		
 		<div id="debug"></div>
 	</div>
 

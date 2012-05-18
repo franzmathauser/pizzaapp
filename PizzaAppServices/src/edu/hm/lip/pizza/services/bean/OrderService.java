@@ -127,4 +127,28 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal#create(int)
+	 */
+	@Override
+	public Order createNextOrderStage( int id )
+	{
+		EntityOrder eOrder = orderDAOBean.read( id );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
+
+		EntityOrderStage nextStage = OrderStageManager.next( eOrderStages );
+		if (nextStage != null)
+		{
+			nextStage.setOrder( eOrder );
+
+			eOrderStages.add( nextStage );
+
+			orderDAOBean.update( eOrder );
+		}
+
+		return OrderConverter.convertEntityToServiceOrder( eOrder );
+	}
+
 }
