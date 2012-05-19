@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    
-    <string name="app_name">PizzaApp - Driver</string><string name="configHeading">Map Config</string>
-    <string name="configTrack">Enable Tracking</string><string name="configFollow">Follow my Position</string><string name="configRoute">Show Route</string>
-    <string name="configTraffic">Show Traffic Info</string>
-    
-    <color name="config_bg">#CC000000</color>
-    <string name="menuAppConfig">App Config</string>
-    <string name="menuHelp">Help</string>
-    <string name="menuAbout">About</string>
-    <string name="imgDescCurrentLocation">Go to my current Location</string>
-    <string name="imgDescMapMode">Switch Map Mode</string>
-    <string name="imgDescLoadRoute">Load Route from Server</string>
+    <string name="app_name">PizzaApp - Driver</string>
+
+    <!-- Main Activity -->
+
+    <string name="main_bt_currentlocation_imgdesc">Go to my current Location</string>
+    <string name="main_bt_mapmode_imgdesc">Switch Map Mode</string>
+    <string name="main_bt_loadroute_imgdesc">Load Route from Server</string>
+
+    <!-- Map Behavior -->
+
+    <string name="mapbehavior_content_heading_text">Map Behaviors</string>
+    <string name="mapbehavior_content_trackme_key">track_me</string>
+    <string name="mapbehavior_content_trackme_text">Enable Tracking</string>
+    <string name="mapbehavior_content_followme_key">follow_me</string>
+    <string name="mapbehavior_content_followme_text">Follow my Position</string>
+    <string name="mapbehavior_content_showroute_key">show_route</string>
+    <string name="mapbehavior_content_showroute_text">Show Route</string>
+    <string name="mapbehavior_content_showtraffic_key">show_traffic_info</string>
+    <string name="mapbehavior_content_showtraffic_text">Show Traffic Info</string>
+
+    <color name="mapbehavior_bg">#CC000000</color>
+
+    <!-- Menu -->
+
+    <string name="menu_preferences_title">Preferences</string>
+    <string name="menu_help_title">Help</string>
+    <string name="menu_about_title">About</string>
+
+    <!-- Preferences Activity -->
+
+    <string name="pref_summary_prefix_text">Current value:</string>
+    <string name="pref_summary_notset_text">Unspecified</string>
+    <string name="pref_category_server_title">Server Configuration</string>
+    <string name="pref_category_server_hostname_key">server_hostname</string>
+    <string name="pref_category_server_hostname_title">Hostname</string>
+    <string name="pref_category_server_hostname_dialogtitle">Type in the Server Hostname</string>
+    <string name="pref_category_server_port_key">server_port</string>
+    <string name="pref_category_server_port_title">Port</string>
+    <string name="pref_category_server_port_dialogtitle">Type in the Server Port</string>
+    <string name="pref_category_driver_title">Driver Configuration</string>
+    <string name="pref_category_driver_id_key">driver_id</string>
+    <string name="pref_category_driver_id_title">Name</string>
+    <string name="pref_category_driver_id_dialogtitle">Select a Driver</string>
     
 
 </resources>

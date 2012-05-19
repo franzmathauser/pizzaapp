@@ -7,7 +7,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -16,18 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
-import edu.hm.lip.pizza.driver.ConfigStore;
-import edu.hm.lip.pizza.driver.PreferencesConstants;
+import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.listener.DriverLocationListener;
 
 /**
- * Diese Klasse repräsentiert die Hauptaktivität der Applikation. Sie beinhaltet die Kartenansicht und hat am rechten
- * Rand einen Slider für die Kartenkonfiguration.
+ * Diese Klasse repräsentiert die Haupt-Activity der Applikation. Sie beinhaltet die Kartenansicht und hat am rechten
+ * Rand einen Slider für die konfiguration des Kartenverhaltens.
  * 
  * @author Stefan Wörner
  */
-public class Map extends MapActivity
+public class MainActivity extends MapActivity
 {
 
 	private MapView m_mapView;
@@ -54,14 +53,14 @@ public class Map extends MapActivity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.main );
 
-		// initial load of the application preferences
-		loadPreferences();
+		// Preferences auslesen und wiederherstellen
+		restoreMapBehaviorPreferences();
 
 		// *********************************************************
 		// * Map View **********************************************
 		// *********************************************************
 		// get the map view
-		m_mapView = (MapView) findViewById( R.id.mapview );
+		m_mapView = (MapView) findViewById( R.id.main_mapview_id );
 		// enable ZoomControls
 		m_mapView.setBuiltInZoomControls( true );
 
@@ -71,7 +70,7 @@ public class Map extends MapActivity
 		// get the location manager service
 		m_locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 		// if tracking function is enabled, register all required location listener
-		if (ConfigStore.getTrackEnabled())
+		if (PreferencesStore.getTrackMePreference())
 		{
 			registerLocationListener();
 		}
@@ -134,9 +133,6 @@ public class Map extends MapActivity
 	protected void onStart()
 	{
 		super.onStart();
-
-		// load or restore application preferences from preferences store
-		loadPreferences();
 	}
 
 	/**
@@ -148,9 +144,6 @@ public class Map extends MapActivity
 	protected void onStop()
 	{
 		super.onStop();
-
-		// store application preferences in preferences file
-		savePreferences();
 	}
 
 	/**
@@ -194,7 +187,13 @@ public class Map extends MapActivity
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
-		getMenuInflater().inflate( R.menu.app_menu, menu );
+		// Menü erstellen
+		getMenuInflater().inflate( R.menu.menu, menu );
+
+		// Intent für das Preferences Menü setzen
+		Intent preferencesIntent = new Intent( getApplicationContext(), PreferencesActivity.class );
+		menu.findItem( R.id.menu_preferences_id ).setIntent( preferencesIntent );
+
 		return super.onCreateOptionsMenu( menu );
 	}
 
@@ -208,15 +207,18 @@ public class Map extends MapActivity
 	{
 		switch (item.getItemId())
 		{
-			case R.id.menuAbout:
+			case R.id.menu_about_id:
 				// startActivity( new Intent( this, About.class ) );
 				return true;
-			case R.id.menuHelp:
+
+			case R.id.menu_help_id:
 				// startActivity( new Intent( this, Help.class ) );
 				return true;
-			case R.id.menuAppConfig:
-				// startActivity( new Intent( this, AppConfig.class ) );
+
+			case R.id.menu_preferences_id:
+				startActivity( item.getIntent() );
 				return true;
+
 			default:
 				return super.onOptionsItemSelected( item );
 		}
@@ -229,15 +231,15 @@ public class Map extends MapActivity
 	 * @param view
 	 *            Die View von welcher das Event gefeuert wurde
 	 */
-	public void configClickHandler( View view )
+	public void mapbehaviorClickHandler( View view )
 	{
 		CheckBox cb = (CheckBox) findViewById( view.getId() );
 
 		switch (view.getId())
 		{
-			case R.id.configTrack:
+			case R.id.mapbehavior_content_trackme_id:
 				// store track configuration in the config store
-				ConfigStore.setTrackEnabled( cb.isChecked() );
+				PreferencesStore.setTrackMePreference( cb.isChecked() );
 
 				if (cb.isChecked())
 				{
@@ -249,19 +251,19 @@ public class Map extends MapActivity
 				}
 				break;
 
-			case R.id.configFollow:
+			case R.id.mapbehavior_content_followme_id:
 				// store follow configuration in the config store
-				ConfigStore.setFollowEnabled( cb.isChecked() );
+				PreferencesStore.setFollowMePreference( cb.isChecked() );
 				break;
 
-			case R.id.configRoute:
+			case R.id.mapbehavior_content_showroute_id:
 				// store route configuration in the config store
-				ConfigStore.setRouteEnabled( cb.isChecked() );
+				PreferencesStore.setShowRoutePreference( cb.isChecked() );
 				break;
 
-			case R.id.configTraffic:
+			case R.id.mapbehavior_content_showtraffic_id:
 				// store traffic configuration in the config store
-				ConfigStore.setTrafficEnabled( cb.isChecked() );
+				PreferencesStore.setShowTrafficPreference( cb.isChecked() );
 				// enable/disable traffic information on the map
 				m_mapView.setTraffic( cb.isChecked() );
 				break;
@@ -271,53 +273,19 @@ public class Map extends MapActivity
 		}
 	}
 
-	/**
-	 * List alle Applikationseinstellungen aus dem Application Prefernce File aus und stellt die Konfiguration
-	 * entsprechend wieder her.
-	 */
-	private void loadPreferences()
+	private void restoreMapBehaviorPreferences()
 	{
-		// get the shared prefences settings for our application
-		SharedPreferences settings = getSharedPreferences( PreferencesConstants.FILENAME, MODE_PRIVATE );
+		// MapBehaviors Checkboxen auslesen
+		CheckBox cboxTrack = (CheckBox) findViewById( R.id.mapbehavior_content_trackme_id );
+		CheckBox cboxFollow = (CheckBox) findViewById( R.id.mapbehavior_content_followme_id );
+		CheckBox cboxRoute = (CheckBox) findViewById( R.id.mapbehavior_content_showroute_id );
+		CheckBox cboxTraffic = (CheckBox) findViewById( R.id.mapbehavior_content_showtraffic_id );
 
-		// read preferences from file
-		boolean trackEnabled = settings.getBoolean( PreferencesConstants.TRACK_CONFIG, true );
-		boolean followEnabled = settings.getBoolean( PreferencesConstants.FOLLOW_CONFIG, false );
-		boolean routeEnabled = settings.getBoolean( PreferencesConstants.ROUTE_CONFIG, false );
-		boolean trafficEnabled = settings.getBoolean( PreferencesConstants.TRAFFIC_CONFIG, false );
-
-		// store preferences in configuration store
-		ConfigStore.restoreInstance( trackEnabled, followEnabled, routeEnabled, trafficEnabled );
-
-		// get the configuration checkboxes
-		CheckBox cboxTrack = (CheckBox) findViewById( R.id.configTrack );
-		CheckBox cboxFollow = (CheckBox) findViewById( R.id.configFollow );
-		CheckBox cboxRoute = (CheckBox) findViewById( R.id.configRoute );
-		CheckBox cboxTraffic = (CheckBox) findViewById( R.id.configTraffic );
-
-		// restore the configuration checkbox values
-		cboxTrack.setChecked( trackEnabled );
-		cboxFollow.setChecked( followEnabled );
-		cboxRoute.setChecked( routeEnabled );
-		cboxTraffic.setChecked( trafficEnabled );
-	}
-
-	/**
-	 * Speichert alle Applikationseinstellungen im Application Prefernce File.
-	 */
-	private void savePreferences()
-	{
-		// get the shared prefences settings for our application and save changes by the editor
-		SharedPreferences settings = getSharedPreferences( PreferencesConstants.FILENAME, MODE_PRIVATE );
-		SharedPreferences.Editor editor = settings.edit();
-
-		editor.putBoolean( PreferencesConstants.TRACK_CONFIG, ConfigStore.getTrackEnabled() );
-		editor.putBoolean( PreferencesConstants.FOLLOW_CONFIG, ConfigStore.getFollowEnabled() );
-		editor.putBoolean( PreferencesConstants.ROUTE_CONFIG, ConfigStore.getRouteEnabled() );
-		editor.putBoolean( PreferencesConstants.TRAFFIC_CONFIG, ConfigStore.getTrafficEnabled() );
-
-		// finally commit the edits
-		editor.commit();
+		// Konfiguration wiederherstellen
+		cboxTrack.setChecked( PreferencesStore.getTrackMePreference() );
+		cboxFollow.setChecked( PreferencesStore.getFollowMePreference() );
+		cboxRoute.setChecked( PreferencesStore.getShowRoutePreference() );
+		cboxTraffic.setChecked( PreferencesStore.getShowTrafficPreference() );
 	}
 
 	/**

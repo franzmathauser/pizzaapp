@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/configContent"
+    android:id="@+id/main_slider_mapbehavior_content_id"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
     <ScrollView
-        android:id="@+id/configScroller"
+        android:id="@+id/mapbehavior_id"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/config_bg" >
+        android:background="@color/mapbehavior_bg" >
 
         <LinearLayout
-            android:id="@+id/configMainLayout"
+            android:id="@+id/mapbehavior_content_id"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="left|top"
@@ -19,10 +19,10 @@
             android:padding="10dip" >
 
             <TextView
-                android:id="@+id/configHeading"
+                android:id="@+id/mapbehavior_content_heading_id"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/configHeading"
+                android:text="@string/mapbehavior_content_heading_text"
                 android:textSize="22dip" />
 
             <LinearLayout
@@ -32,11 +32,11 @@
                 android:paddingBottom="5dip" >
 
                 <CheckBox
-                    android:id="@+id/configTrack"
+                    android:id="@+id/mapbehavior_content_trackme_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="configClickHandler"
-                    android:text="@string/configTrack" />
+                    android:onClick="mapbehaviorClickHandler"
+                    android:text="@string/mapbehavior_content_trackme_text" />
             </LinearLayout>
 
             <LinearLayout
@@ -46,11 +46,11 @@
                 android:paddingBottom="5dip" >
 
                 <CheckBox
-                    android:id="@+id/configFollow"
+                    android:id="@+id/mapbehavior_content_followme_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="configClickHandler"
-                    android:text="@string/configFollow" />
+                    android:onClick="mapbehaviorClickHandler"
+                    android:text="@string/mapbehavior_content_followme_text" />
             </LinearLayout>
 
             <LinearLayout
@@ -60,11 +60,11 @@
                 android:paddingBottom="5dip" >
 
                 <CheckBox
-                    android:id="@+id/configRoute"
+                    android:id="@+id/mapbehavior_content_showroute_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="configClickHandler"
-                    android:text="@string/configRoute" />
+                    android:onClick="mapbehaviorClickHandler"
+                    android:text="@string/mapbehavior_content_showroute_text" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,11 +74,11 @@
                 android:paddingBottom="5dip" >
 
                 <CheckBox
-                    android:id="@+id/configTraffic"
+                    android:id="@+id/mapbehavior_content_showtraffic_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="configClickHandler"
-                    android:text="@string/configTraffic" />
+                    android:onClick="mapbehaviorClickHandler"
+                    android:text="@string/mapbehavior_content_showtraffic_text" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
