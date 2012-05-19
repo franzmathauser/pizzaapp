@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/pref_category_server_title" >
+        <EditTextPreference
+            android:key="@string/pref_category_server_hostname_key"
+            android:title="@string/pref_category_server_hostname_title"
+            android:dialogTitle="@string/pref_category_server_hostname_dialogtitle" />
+        <EditTextPreference
+            android:key="@string/pref_category_server_port_key"
+            android:title="@string/pref_category_server_port_title"
+            android:dialogTitle="@string/pref_category_server_port_dialogtitle" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/pref_category_driver_title" >
+        <ListPreference
+            android:key="@string/pref_category_driver_id_key"
+            android:title="@string/pref_category_driver_id_title"
+            android:dialogTitle="@string/pref_category_driver_id_dialogtitle" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
