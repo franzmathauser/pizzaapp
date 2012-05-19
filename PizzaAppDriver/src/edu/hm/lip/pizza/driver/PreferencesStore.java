@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 /**
+ * Klasse veraltet alle Preferences der PizzaApp. Hierzu zählen u.a. die MapBehavior Einstellungen, sowie die
+ * Einstellungen im Hauptmenü.
+ * 
  * @author Stefan Wörner
  */
 public final class PreferencesStore

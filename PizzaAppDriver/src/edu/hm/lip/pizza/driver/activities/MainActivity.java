@@ -59,17 +59,17 @@ public class MainActivity extends MapActivity
 		// *********************************************************
 		// * Map View **********************************************
 		// *********************************************************
-		// get the map view
+		// MapView auslesen
 		m_mapView = (MapView) findViewById( R.id.main_mapview_id );
-		// enable ZoomControls
+		// Default ZoomControls aktivieren
 		m_mapView.setBuiltInZoomControls( true );
 
 		// *********************************************************
 		// * Location Manager **************************************
 		// *********************************************************
-		// get the location manager service
+		// LocationManager auslesen
 		m_locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
-		// if tracking function is enabled, register all required location listener
+		// Falls die TrackMe Funktion aktiviert ist, müssen alle benötigten LocationListener registriert werden
 		if (PreferencesStore.getTrackMePreference())
 		{
 			registerLocationListener();
@@ -91,13 +91,13 @@ public class MainActivity extends MapActivity
 		// *********************************************************
 		// * Map Controller ****************************************
 		// *********************************************************
-		// get the map controller
+		// MapController auslesen
 		m_mapController = m_mapView.getController();
-		// set zoom level to 18 (1 means world view - range from 1 to 21)
+		// Zoom Level festlegen. Wird initial auf 18 festgelegt (1 bedeutet Weltansicht - Bereich von 1 bis 21)
 		m_mapController.setZoom( 18 );
-		// get last know location of the gps location provider for the initial map extent
+		// Für den initialen MapExtent die letzte bekannte Koordinate über den GPS Provider auslesen
 		Location lastLocation = m_locationManager.getLastKnownLocation( LocationManager.GPS_PROVIDER );
-		// if last known location exists go to that point
+		// Falls eine Koordinate existiert, dann GeoPoint erzeugen und auf diesen zentrieren.
 		if (lastLocation != null)
 		{
 			int lat = (int) (lastLocation.getLatitude() * 1E6);
@@ -120,7 +120,7 @@ public class MainActivity extends MapActivity
 	{
 		super.onDestroy();
 
-		// unregister location listener
+		// LocationListener deregistrieren
 		m_locationManager.removeUpdates( m_mapLocationListener );
 	}
 
@@ -238,7 +238,7 @@ public class MainActivity extends MapActivity
 		switch (view.getId())
 		{
 			case R.id.mapbehavior_content_trackme_id:
-				// store track configuration in the config store
+				// Neue TrackMe Einstellung über den PreferencesStore speichern
 				PreferencesStore.setTrackMePreference( cb.isChecked() );
 
 				if (cb.isChecked())
@@ -252,19 +252,19 @@ public class MainActivity extends MapActivity
 				break;
 
 			case R.id.mapbehavior_content_followme_id:
-				// store follow configuration in the config store
+				// Neue FollowMe Einstellung über den PreferencesStore speichern
 				PreferencesStore.setFollowMePreference( cb.isChecked() );
 				break;
 
 			case R.id.mapbehavior_content_showroute_id:
-				// store route configuration in the config store
+				// Neue ShowRoute Einstellung über den PreferencesStore speichern
 				PreferencesStore.setShowRoutePreference( cb.isChecked() );
 				break;
 
 			case R.id.mapbehavior_content_showtraffic_id:
-				// store traffic configuration in the config store
+				// Neue ShowTraffic Einstellung über den PreferencesStore speichern
 				PreferencesStore.setShowTrafficPreference( cb.isChecked() );
-				// enable/disable traffic information on the map
+				// Verkehrsinformationen ein- bzw. ausschalten
 				m_mapView.setTraffic( cb.isChecked() );
 				break;
 
@@ -303,9 +303,9 @@ public class MainActivity extends MapActivity
 		}
 		else
 		{
-			// create new MapLocationListener to get notifications concerning the current location
+			// Neuen MapLocationListener erzeugen um Positionsänderungen mitzubekommen
 			m_mapLocationListener = new DriverLocationListener( this, m_mapView );
-			// register location listener for updates using the GPS Provider
+			// LocationListener für Updates über den GPS Provider registrieren
 			// TODO finetuning für minDistance und minTime
 			m_locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, m_mapLocationListener );
 		}
@@ -316,7 +316,7 @@ public class MainActivity extends MapActivity
 	 */
 	private void unregisterLocationListener()
 	{
-		// unregister location listener
+		// LocationListener deregistrieren
 		m_locationManager.removeUpdates( m_mapLocationListener );
 	}
 }

@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 /**
+ * PizzaApp Klasse.
+ * 
  * @author Stefan Wörner
  */
 public class DriverApp extends Application
@@ -24,7 +26,9 @@ public class DriverApp extends Application
 	}
 
 	/**
-	 * @return
+	 * Statische Methode um applikationsweit an den AppliakationContext zu kommen.
+	 * 
+	 * @return ApplicationContext
 	 */
 	public static Context getAppContext()
 	{

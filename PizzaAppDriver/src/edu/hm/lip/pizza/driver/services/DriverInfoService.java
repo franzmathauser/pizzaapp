@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 
 /**
+ * Service-Klasse welche die Fahrerinformationen vom Backend holt.
+ * 
  * @author Stefan Wörner
  */
 public class DriverInfoService extends IntentService
