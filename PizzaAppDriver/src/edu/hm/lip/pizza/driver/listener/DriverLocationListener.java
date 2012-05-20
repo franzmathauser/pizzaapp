@@ -1,6 +1,13 @@
 package edu.hm.lip.pizza.driver.listener;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.StringEntity;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
@@ -13,11 +20,17 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
-import edu.hm.lip.pizza.driver.ConfigStore;
+import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
+import edu.hm.lip.pizza.driver.exceptions.HostnameNotSetException;
+import edu.hm.lip.pizza.driver.exceptions.HttpStatusCodeException;
+import edu.hm.lip.pizza.driver.objects.resources.GPSData;
 import edu.hm.lip.pizza.driver.overlays.DriverOverlay;
+import edu.hm.lip.pizza.driver.util.HttpConnector;
+import edu.hm.lip.pizza.driver.util.JsonMapper;
 
 /**
  * LocationListener für die aktuelle Position des Fahrers auf der Karte. Es wird immer nur die aktuelle Position
@@ -89,10 +102,55 @@ public class DriverLocationListener implements LocationListener
 			currentLocationOverlay.populateOverlay();
 
 			// Wenn Follow-Feature eingeschaltet ist ...
-			if (ConfigStore.getFollowEnabled())
+			if (PreferencesStore.getFollowMePreference())
 			{
 				// ... dann karte auf aktuelle Position zentrieren
 				m_mapView.getController().animateTo( currentLocation );
+			}
+		}
+
+		// TODO Server Request asynchron -> Service
+
+		try
+		{
+			GPSData gpsData = new GPSData();
+			gpsData.setLat( location.getLatitude() );
+			gpsData.setLon( location.getLongitude() );
+
+			HttpEntity entity = new StringEntity( JsonMapper.toJSON( gpsData ) );
+
+			String driverId = PreferencesStore.getDriverIdPreference();
+
+			if (StringUtils.isBlank( driverId ))
+			{
+				// TODO Throw Exception
+			}
+
+			StringBuilder path = new StringBuilder();
+			path.append( "drivers/" ).append( driverId ).append( "/gpsdata" );
+
+			HttpConnector.doPostRequest( path.toString(), MediaType.APPLICATION_JSON, entity, MediaType.APPLICATION_JSON );
+		}
+		catch (HostnameNotSetException e)
+		{
+			// TODO Notification!
+			// TODO Tracking abschalten?
+			return;
+		}
+		catch (HttpStatusCodeException e)
+		{
+			// TODO Notification!
+			// TODO Tracking abschalten?
+			Log.e( this.getClass().getName(), e.getMessage() );
+		}
+		catch (IOException e)
+		{
+			// TODO Benutzerbenachrichtigung
+			Log.e( this.getClass().getName(), e.getMessage() );
+
+			for (StackTraceElement element : e.getStackTrace())
+			{
+				Log.e( this.getClass().getName(), element.toString() );
 			}
 		}
 	}

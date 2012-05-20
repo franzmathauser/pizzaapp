@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE project>
 
-<project name="HM.EDU: Generate PizzaApp (Development Build)" default="deploy" basedir=".">
+<project name="HM.EDU: Generate PizzaApp (Global Build)" default="complete-build" basedir=".">
 
 	<!-- set global properties for this build -->
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
@@ -19,8 +19,14 @@
 		</classpath>
 	</taskdef>
 
+	<target name="complete-build" depends="build,deploy" />
+
+	<target name="build">
+		<ant dir="${root.dir}/PizzaApp" target="complete-build" />
+		<ant dir="${root.dir}/PizzaAppDriver" target="complete-build" />
+	</target>
+
 	<target name="deploy">
-		<ant dir="." target="complete-build" />
 		<if>
 			<equals arg1="${jboss.version}" arg2="7" />
 			<then>
@@ -34,7 +40,6 @@
 				</copy>
 			</else>
 		</if>
-		<ant dir="." target="final-clean" />
 	</target>
 
 </project>

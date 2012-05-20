@@ -10,9 +10,6 @@
 <script src="../js/jquery-1.7.1.min.js"></script>
 <script	src="../js/jquery.mobile-1.1.0.min.js"></script>
 <script	src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
-<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="../js/jquery.metadata.js"></script>
-
 
 <!--  http://code.google.com/p/cookies/ -->
 <script src="../js/jquery.cookies.2.2.0.min.js" ></script>
@@ -20,7 +17,6 @@
 <script type="text/javascript" src="../js/commons.js"></script>
 <script type="text/javascript" src="js/products.js"></script>
 <script type="text/javascript" src="js/cart.js"></script>
-
 
 <style type="text/css" media="screen">
 #detail_name {
@@ -36,16 +32,6 @@
 #detail_price_l,#detail_price_xl,#detail_price_xxl {
 	font-size: 0.8em;
 	font-weight: normal;
-}
-
-label.error {
-	color: red;
-	font-style: italic;
-}
-
-input.error {
-	color: red;
-	font-style: italic;
 }
 </style>
 
@@ -191,7 +177,7 @@ input.error {
 		<div data-role="header" data-position="fixed">
 			<a href="#cart" data-icon="back">Zur&uuml;ck</a>
 			<h1>Kundendaten</h1>
-			<a  id="lnk_orderPreview" href="#orderPreview" data-icon="check" data-theme="b"
+			<a href="#orderPreview" data-icon="check" data-theme="b"
 				class="ui-btn-right">Weiter</a>
 		</div>
 		<!-- /header -->
@@ -209,25 +195,23 @@ input.error {
 				</div>
 				<div data-role="fieldcontain">
 					<label for="lastname">Nachname *</label> <input type="text"
-						name="lastname" id="lastname" value="" data-mini="true" 
-						class="{required:true, messages:{required:'Bitte geben sie einen Nachnamen an.'}}"/>
+						name="lastname" id="lastname" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="forename">Vorname *</label> <input type="text"
-						name="forename" id="forename" value="" data-mini="true" 
-						class="{required:true, messages:{required:'Bitte geben sie einen Vornamen an.'}}"/>
+						name="forename" id="forename" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="street">Stra&szlig;e *</label> <input type="text"
-						name="street" id="street" value="" data-mini="true" class="{required:true, messages:{required:'Bitte geben sie eine Straße an.'}}" />
+						name="street" id="street" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="zipcode">PLZ *</label> <input type="text" name="zipcode"
-						id="zipcode" value="" data-mini="true" class="{required:true, minlength:5, maxlength:5, messages:{required:'Bitte geben sie eine PLZ an.', minlength:'Bitte geben sie eine 5-stellige PLZ an.', maxlength:'Bitte geben sie eine 5-stellige PLZ an.'}}"/>
+						id="zipcode" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="city">Ort *</label> <input type="text" name="city"
-						id="city" value="" data-mini="true" class="{required:true, messages:{required:'Bitte geben sie einen Ort an.'}}"/>
+						id="city" value="" data-mini="true" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="city">Hinterhof/ Etage</label>
@@ -236,12 +220,12 @@ input.error {
 
 				<div data-role="fieldcontain">
 					<label for="phone">Telefon *</label> <input type="text" name="phone"
-						id="phone" value="" data-mini="true" class="{required:true, messages:{required:'Bitte geben sie ihre Telefonnummer an.'}}"/>
+						id="phone" value="" data-mini="true" />
 				</div>
 
 				<div data-role="fieldcontain">
 					<label for="email">E-Mail *</label> <input type="text" name="email"
-						id="email" value="" data-mini="true" class="{required:true, email:true, messages:{required:'Bitte geben sie eine Emailadresse an.', email:'Bitte geben sie eine gültige Emailadresse an.'}}" />
+						id="email" value="" data-mini="true" />
 				</div>
 
 				<div data-role="fieldcontain">
@@ -266,7 +250,7 @@ input.error {
 		<div data-role="header" data-position="fixed">
 			<a href="#customerForm" data-icon="back">Zur&uuml;ck</a>
 			<h1>Bestell&uuml;bersicht</h1>
-			<a id="lnk_ordered" href="#" data-icon="check" data-theme="b"
+			<a href="#ordered" data-icon="check" data-theme="b"
 				class="ui-btn-right">Abschicken</a>
 		</div>
 		<!-- /header -->
@@ -392,29 +376,6 @@ input.error {
 		<!-- /content -->
 	</div>
 	<!-- /page popup -->
-	
-	
-	<div data-role="page" id="order_error" data-theme="e">
-
-		<div data-role="header">
-			<h1>Fehler</h1>
-		</div>
-		<!-- /header -->
-
-		<div data-role="content">
-			<h2>Fehler</h2>
-			<p>Es ist ein Fehler bei der übermittlung der Daten aufgetreten, bitte überprüfen sie ihre Daten und versuchen es nochmal.</p>
-			<br />
-			<a href="#" data-role="button" data-rel="back" data-theme="c">Zur&uuml;ck</a>
-
-		</div>
-		<!-- /content -->
-	</div>
-	<!-- /page popup -->
-
-
-<a id='lnk_orderError' href="#order_error" data-rel="dialog" data-transition="pop" style='display:none;'></a>
-<a id='lnk_orderSuccess' href="#ordered" data-rel="page" style='display:none;'></a>
 
 </body>
 </html>

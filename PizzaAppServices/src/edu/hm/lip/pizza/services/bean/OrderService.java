@@ -70,7 +70,7 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 		}
 
 		List<EntityOrderStage> stages = new ArrayList<EntityOrderStage>();
-		EntityOrderStage eOrderStage = OrderStageManager.firstStage();
+		EntityOrderStage eOrderStage = OrderStageManager.fistStage();
 		eOrderStage.setOrder( eOrder );
 		stages.add( eOrderStage );
 		eOrder.setStages( stages );
@@ -125,30 +125,6 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 	{
 		return OrderConverter.convertEntityToServiceOrderList( orderDAOBean.getUndeliveredOrders() );
 
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal#create(int)
-	 */
-	@Override
-	public Order createNextOrderStage( int id )
-	{
-		EntityOrder eOrder = orderDAOBean.read( id );
-		List<EntityOrderStage> eOrderStages = eOrder.getStages();
-
-		EntityOrderStage nextStage = OrderStageManager.next( eOrderStages );
-		if (nextStage != null)
-		{
-			nextStage.setOrder( eOrder );
-
-			eOrderStages.add( nextStage );
-
-			orderDAOBean.update( eOrder );
-		}
-
-		return OrderConverter.convertEntityToServiceOrder( eOrder );
 	}
 
 }

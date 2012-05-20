@@ -57,6 +57,30 @@ public class DriverService implements IDriverServiceLocal
 	@Override
 	public Driver find( int id )
 	{
+		return DriverConverter.convertEntityToServiceDriver( driverDAO.read( id ) );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#update(int,
+	 *      edu.hm.lip.pizza.api.object.resources.Driver)
+	 */
+	@Override
+	public Driver update( int id, Driver driver )
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#remove(int)
+	 */
+	@Override
+	public Driver remove( int id )
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -76,10 +100,11 @@ public class DriverService implements IDriverServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#getOrders(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#addOrder(int,
+	 *      edu.hm.lip.pizza.api.object.resources.Order)
 	 */
 	@Override
-	public List<Order> getOrders( int id )
+	public List<Order> addOrder( int id, Order order )
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -88,10 +113,10 @@ public class DriverService implements IDriverServiceLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#remove(int, int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#removeOrder(int, int)
 	 */
 	@Override
-	public void remove( int dId, int oId )
+	public void removeOrder( int driverId, int orderId )
 	{
 		// TODO Auto-generated method stub
 
@@ -104,7 +129,7 @@ public class DriverService implements IDriverServiceLocal
 	 *      edu.hm.lip.pizza.api.object.resources.GPSData)
 	 */
 	@Override
-	public Driver createGPSData( int id, GPSData gpsData )
+	public void createGPSData( int id, GPSData gpsData )
 	{
 		if (gpsData.getDate() == null)
 		{
@@ -122,8 +147,6 @@ public class DriverService implements IDriverServiceLocal
 			eDriver.setGpsData( gpsDatas );
 			driverDAO.update( eDriver );
 		}
-
-		return DriverConverter.convertEntityToServiceDriver( eDriver );
 	}
 
 }

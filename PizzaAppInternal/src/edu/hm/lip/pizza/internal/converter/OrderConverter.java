@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.hm.lip.pizza.api.object.resources.Order;
-import edu.hm.lip.pizza.api.object.resources.OrderLine;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderLine;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
 
 /**
  * Konverter-Klasse fuer Order-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu
@@ -41,26 +38,10 @@ public final class OrderConverter
 
 		order.setId( eOrder.getId() );
 		order.setNote( eOrder.getNote() );
-		List<EntityOrderStage> eOrderStages = eOrder.getStages();
-
-		order.setCurrentStage( eOrderStages.get( eOrderStages.size() - 1 ).getStage().toString() );
-		order.setOrderDate( eOrderStages.get( 0 ).getCreateDate() );
 		order.setOrderLines( OrderLineConverter.convertEntityToServiceOrderLineList( eOrder.getOrderLines() ) );
 		order.setCustomer( CustomerConverter.convertEntityToServiceCustomer( eOrder.getCustomer() ) );
 
-		order.setPrice( sumPrices( eOrder.getOrderLines() ).toString() );
-
 		return order;
-	}
-
-	private static Double sumPrices( List<EntityOrderLine> orderLines )
-	{
-		Double sum = 0.0;
-		for (EntityOrderLine orderLine : orderLines)
-		{
-			sum += orderLine.getQuantity() * orderLine.getProductConfiguration().getPrice();
-		}
-		return sum;
 	}
 
 	/**

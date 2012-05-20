@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,7 +21,7 @@ import edu.hm.lip.pizza.api.object.resources.Order;
 /**
  * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 @Path( "/drivers" )
@@ -61,6 +62,30 @@ public interface IDriverServiceLocal
 	Driver find( @PathParam( "id" ) int id );
 
 	/**
+	 * Aktualisiert einen Fahrer.
+	 * 
+	 * @param id
+	 *            Fahreridentifikator
+	 * @param driver
+	 *            Fahrer
+	 * @return Aktualisierter Fahrer
+	 */
+	@PUT
+	@Path( "{id}" )
+	Driver update( @PathParam( "id" ) int id, Driver driver );
+
+	/**
+	 * Löscht den Fahrer.
+	 * 
+	 * @param id
+	 *            Fahreridentifikator
+	 * @return Aktualisierter Fahrer
+	 */
+	@DELETE
+	@Path( "{id}" )
+	Driver remove( @PathParam( "id" ) int id );
+
+	/**
 	 * Liste der auszuliefernden Bestellungen in optimierter Reihenfolge für einen Fahrer mit id.
 	 * 
 	 * @param id
@@ -73,39 +98,40 @@ public interface IDriverServiceLocal
 	List<Order> getRoute( @PathParam( "id" ) int id );
 
 	/**
-	 * Fügt eine Bestellungen einem Fahrer hinzu.
+	 * Fügt einem Fahrer eine Bestellung hinzu.
 	 * 
 	 * @param id
 	 *            Fahreridentifikation
+	 * @param order
+	 *            Bestellung
 	 * @return Bestellungsliste
 	 */
 	@POST
 	@Path( "{id}/orders" )
-	List<Order> getOrders( @PathParam( "id" ) int id );
+	List<Order> addOrder( @PathParam( "id" ) int id, Order order );
 
 	/**
 	 * Entferne zugeordnete Bestellung von Fahrer.
 	 * 
-	 * @param dId
+	 * @param driverId
 	 *            Fahreridentifikation
-	 * @param oId
+	 * @param orderId
 	 *            Bestellungsidentifikation
 	 */
 	@DELETE
 	@Path( "{dId}/orders/{oId}" )
-	void remove( @PathParam( "dId" ) int dId, @PathParam( "oId" ) int oId );
+	void removeOrder( @PathParam( "dId" ) int driverId, @PathParam( "oId" ) int orderId );
 
 	/**
-	 * Erzeuge einen neuen GPS-Datensatz für Fahrer.
+	 * Fügt einem Fahrer neue GPS-Daten hinzu.
 	 * 
 	 * @param id
 	 *            Fahreridentifikation
 	 * @param gpsData
-	 *            GPS-Datum
-	 * @return Fahrer
+	 *            GPS-Daten
 	 */
 	@POST
-	@Path( "{id}/geodata" )
-	Driver createGPSData( @PathParam( "id" ) int id, GPSData gpsData );
+	@Path( "{id}/gpsdata" )
+	void createGPSData( @PathParam( "id" ) int id, GPSData gpsData );
 
 }

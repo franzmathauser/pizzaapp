@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import edu.hm.lip.pizza.api.object.resources.Order;
-import edu.hm.lip.pizza.api.object.resources.OrderStage;
 
 /**
  * REST-Service für die Bestelldomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
@@ -88,16 +87,5 @@ public interface IOrderServiceLocal
 	@GET
 	@Path( "/undelivered" )
 	List<Order> getUndeliveredOrders();
-
-	/**
-	 * Führt Bestellung in die nächste Stage über.
-	 * 
-	 * @param id
-	 *            Bestellidentifikator
-	 * @return Bestellung mit neuer Stage
-	 */
-	@POST
-	@Path( "{id}/stages" )
-	Order createNextOrderStage( @PathParam( "id" ) int id );
 
 }

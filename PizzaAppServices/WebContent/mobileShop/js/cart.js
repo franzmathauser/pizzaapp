@@ -78,13 +78,10 @@ function addOrder(data) {
 			// TODO remove reset cart in cookie
 			// refresh cart
 			console.log('sent order to server');
-			$("#lnk_orderSuccess").click();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 //			errorMessage('Product create error: ' + textStatus);
 			console.error('order count not be saved');
-			$("#lnk_orderError").click();
-			
 		}
 	});
 }
@@ -137,8 +134,8 @@ $(document).ready(function() {
 		refreshCart();
 	});
 
-	$('#lnk_ordered').click(function() {
-		
+	$('a[href="#ordered"]').click(function() {
+
 		var note = $('#note').val();
 		var orderLines = $.cookies.get('cart');
 

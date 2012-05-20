@@ -125,11 +125,6 @@ $(document).ready(function() {
     });
 
 	$('a[href~="#orderPreview"]').click(function() {
-		
-		if(!$('#customer_form').valid()){
-			
-			return false;
-		}
 
 		var lastname = $('#lastname').val();
 		var forename = $('#forename').val();
