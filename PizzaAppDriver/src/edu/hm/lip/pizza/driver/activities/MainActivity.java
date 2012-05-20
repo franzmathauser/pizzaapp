@@ -225,6 +225,39 @@ public class MainActivity extends MapActivity
 	}
 
 	/**
+	 * Handler für Click Events des MapMode Buttons auf der Karte.
+	 * 
+	 * @param view
+	 *            Die View von welcher das Event gefeuert wurde
+	 */
+	public void mapModeClickHandler( View view )
+	{
+		m_mapView.setSatellite( !m_mapView.isSatellite() );
+	}
+
+	/**
+	 * Handler für Click Events des CurrentLocation Buttons auf der Karte.
+	 * 
+	 * @param view
+	 *            Die View von welcher das Event gefeuert wurde
+	 */
+	public void currentLocationClickHandler( View view )
+	{
+
+	}
+
+	/**
+	 * Handler für Click Events des LoadRoute Buttons auf der Karte.
+	 * 
+	 * @param view
+	 *            Die View von welcher das Event gefeuert wurde
+	 */
+	public void loadRouteClickHandler( View view )
+	{
+
+	}
+
+	/**
 	 * Handler für Click Events in der Kartenkonfiguration. Wenn ein Configuration Item (z.B. Track, Follow, ...)
 	 * selektiert oder deselektiert wird, wird diese Methode aufgerufen um das Event abzuarbeiten.
 	 * 

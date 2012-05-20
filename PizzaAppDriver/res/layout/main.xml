@@ -21,8 +21,9 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:contentDescription="@string/main_bt_mapmode_imgdesc"
+        android:onClick="mapModeClickHandler"
         android:src="@android:drawable/ic_menu_mapmode" />
-    
+
     <ImageButton
         android:id="@+id/main_bt_currentlocation_id"
         android:layout_width="wrap_content"
@@ -32,8 +33,9 @@
         android:layout_marginTop="60dp"
         android:background="#00000000"
         android:contentDescription="@string/main_bt_currentlocation_imgdesc"
+        android:onClick="currentLocationClickHandler"
         android:src="@android:drawable/ic_menu_mylocation" />
-    
+
     <ImageButton
         android:id="@+id/main_bt_loadroute_id"
         android:layout_width="wrap_content"
@@ -43,6 +45,7 @@
         android:layout_marginTop="110dp"
         android:background="#00000000"
         android:contentDescription="@string/main_bt_loadroute_imgdesc"
+        android:onClick="loadRouteClickHandler"
         android:src="@android:drawable/ic_menu_set_as" />
 
     <SlidingDrawer
