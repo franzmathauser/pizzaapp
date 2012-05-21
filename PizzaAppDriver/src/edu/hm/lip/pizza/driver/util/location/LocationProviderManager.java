@@ -100,40 +100,9 @@ public final class LocationProviderManager
 	public void registerLocationListener()
 	{
 		// Falls die TrackMe Funktion aktiviert ist, müssen alle benötigten LocationListener registriert werden
-		if (PreferencesStore.getTrackMePreference())
+		if (PreferencesStore.getTrackMePreference() && isProviderAvailable())
 		{
-			if (!m_locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER )
-					&& !m_locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER ))
-			{
-				AlertDialog.Builder builder = new AlertDialog.Builder( m_context );
-				builder.setMessage( R.string.provider_disabled_message ).setCancelable( false );
-				builder.setPositiveButton( R.string.provider_disabled_bt_positive, new DialogInterface.OnClickListener()
-				{
-
-					public void onClick( DialogInterface dialog, int id )
-					{
-						dialog.cancel();
-						Intent intent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS );
-						m_context.startActivity( intent );
-					}
-				} );
-				builder.setNegativeButton( R.string.provider_disabled_bt_negative, new DialogInterface.OnClickListener()
-				{
-
-					public void onClick( DialogInterface dialog, int id )
-					{
-						if (m_context instanceof Activity)
-						{
-							PreferencesStore.setTrackMePreference( Boolean.FALSE );
-							((Activity) m_context).finish();
-						}
-					}
-				} );
-
-				AlertDialog alert = builder.create();
-				alert.show();
-			}
-			else
+			if (!m_locationListeners.contains( m_gpsLocationListener ))
 			{
 				// LocationListener für Updates über den GPS Provider registrieren
 				m_locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
@@ -145,7 +114,10 @@ public final class LocationProviderManager
 				// GPS LocationListener in Liste der LocationListener aufnehmen
 				m_locationListeners.add( m_gpsLocationListener );
 				Log.d( LocationProviderManager.class.getSimpleName(), "registered gps location listener" );
+			}
 
+			if (!m_locationListeners.contains( m_networkLocationListener ))
+			{
 				// LocationListener für Updates über den NETWORK Provider registrieren
 				m_locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,
 						AppConstants.LOCATION_NOTIFICATION_MIN_TIME, AppConstants.LOCATION_NOTIFICATION_MIN_DISTANCE,
@@ -172,6 +144,50 @@ public final class LocationProviderManager
 			Log.d( LocationProviderManager.class.getSimpleName(), "unregistered location listener" );
 		}
 		m_locationListeners.clear();
+	}
+
+	private boolean isProviderAvailable()
+	{
+		if (!m_locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER )
+				&& !m_locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER ))
+		{
+			// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
+			AlertDialog.Builder builder = new AlertDialog.Builder( m_context );
+			builder.setMessage( R.string.provider_disabled_message ).setCancelable( false );
+			builder.setPositiveButton( R.string.provider_disabled_bt_positive, new DialogInterface.OnClickListener()
+			{
+
+				public void onClick( DialogInterface dialog, int id )
+				{
+					// Wenn OK Button geklickt wird, dann wird die Konfigurationsseite für die Location Settings
+					// aufgerufen
+					dialog.cancel();
+					Intent intent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS );
+					m_context.startActivity( intent );
+				}
+			} );
+			builder.setNegativeButton( R.string.provider_disabled_bt_negative, new DialogInterface.OnClickListener()
+			{
+
+				public void onClick( DialogInterface dialog, int id )
+				{
+					// Wenn Exit Button geklickt wird, wird die Applikation beendet und die TrackMe Preference auf false
+					// gesetzt
+					if (m_context instanceof Activity)
+					{
+						PreferencesStore.setTrackMePreference( Boolean.FALSE );
+						((Activity) m_context).finish();
+					}
+				}
+			} );
+
+			// Hinweisdialog anzeigen
+			builder.create().show();
+			return false;
+		}
+
+		// Es ist mindestens ein Provider verfügbar
+		return true;
 	}
 
 }
