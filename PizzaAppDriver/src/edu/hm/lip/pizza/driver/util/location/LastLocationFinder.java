@@ -1,5 +1,7 @@
 package edu.hm.lip.pizza.driver.util.location;
 
+import com.google.android.maps.GeoPoint;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -142,5 +144,28 @@ public final class LastLocationFinder
 		}
 
 		return lastLocation;
+	}
+
+	/**
+	 * Gibt die letzte bekannte Position zurück oder NULL falls nichts gefunden wurde.
+	 * 
+	 * @return letzte bekannte Position als GeoPoint
+	 */
+	public GeoPoint getLastLocationAsGeoPoint()
+	{
+		Location lastLocation = getLastLocation();
+
+		if (lastLocation != null)
+		{
+			// Auslesen der Koordinaten
+			int lat = (int) (lastLocation.getLatitude() * 1E6);
+			int lon = (int) (lastLocation.getLongitude() * 1E6);
+			// GeoPoint mit Koordinaten erzeugen
+			return new GeoPoint( lat, lon );
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

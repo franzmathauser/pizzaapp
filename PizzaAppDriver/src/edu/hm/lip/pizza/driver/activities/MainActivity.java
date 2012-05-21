@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.driver.activities;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
@@ -220,7 +222,25 @@ public class MainActivity extends MapActivity
 	 */
 	public void currentLocationClickHandler( View view )
 	{
-		// TODO CurrentLocation Click Handler
+		GeoPoint currentLocation = LocationDrawer.getCurrentLocation();
+
+		if (currentLocation != null)
+		{
+			m_mapController.animateTo( currentLocation );
+			return;
+		}
+
+		currentLocation = LastLocationFinder.getInstance( this ).getLastLocationAsGeoPoint();
+
+		if (currentLocation != null)
+		{
+			m_mapController.animateTo( currentLocation );
+			return;
+		}
+		else
+		{
+			Toast.makeText( this, "no location available", Toast.LENGTH_SHORT ).show();
+		}
 	}
 
 	/**
