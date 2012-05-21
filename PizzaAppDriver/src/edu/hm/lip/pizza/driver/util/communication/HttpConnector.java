@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.util;
+package edu.hm.lip.pizza.driver.util.communication;
 
 import java.io.IOException;
 
@@ -75,9 +75,22 @@ public final class HttpConnector
 
 		// GetRequest absenden und Response entgegennehmen
 		HttpResponse response = httpClient.execute( getRequest );
+		Log.d( HttpConnector.class.getSimpleName(), "Connecting to: " + url.toString() );
 
 		// Auf erwarteten StatusCode prüfen
-		if (response.getStatusLine().getStatusCode() != 200)
+		if (response.getStatusLine().getStatusCode() >= 400)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append( "GetRequest - status code was: " );
+			sb.append( response.getStatusLine().getStatusCode() );
+			sb.append( " (" );
+			sb.append( response.getStatusLine().getReasonPhrase() );
+			sb.append( ") for address: " );
+			sb.append( url.toString() );
+
+			throw new HttpStatusCodeException( sb.toString() );
+		}
+		else if (response.getStatusLine().getStatusCode() != 200)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.append( "GetRequest: status code was: " );
@@ -86,18 +99,6 @@ public final class HttpConnector
 
 			// TODO 200er Statuscodes prüfen
 			Log.w( HttpConnector.class.getName(), sb.toString() );
-		}
-		if (response.getStatusLine().getStatusCode() >= 400)
-		{
-			StringBuilder sb = new StringBuilder();
-			sb.append( "ERROR GetRequest - status code was: " );
-			sb.append( response.getStatusLine().getStatusCode() );
-			sb.append( " (" );
-			sb.append( response.getStatusLine().getReasonPhrase() );
-			sb.append( ") for address: " );
-			sb.append( url.toString() );
-
-			throw new HttpStatusCodeException( sb.toString() );
 		}
 
 		// Verbindung wieder schließen
@@ -155,9 +156,22 @@ public final class HttpConnector
 
 		// GetRequest absenden und Response entgegennehmen
 		HttpResponse response = httpClient.execute( postRequest );
+		Log.d( HttpConnector.class.getSimpleName(), "Connecting to: " + url.toString() );
 
 		// Auf erwarteten StatusCode prüfen
-		if (response.getStatusLine().getStatusCode() != 201)
+		if (response.getStatusLine().getStatusCode() >= 400)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append( "PutRequest - status code: " );
+			sb.append( response.getStatusLine().getStatusCode() );
+			sb.append( " (" );
+			sb.append( response.getStatusLine().getReasonPhrase() );
+			sb.append( ") for address: " );
+			sb.append( url.toString() );
+
+			throw new HttpStatusCodeException( sb.toString() );
+		}
+		else if (response.getStatusLine().getStatusCode() != 201)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.append( "PutRequest: status code was: " );
@@ -166,18 +180,6 @@ public final class HttpConnector
 
 			// TODO 200er Statuscodes prüfen
 			Log.w( HttpConnector.class.getName(), sb.toString() );
-		}
-		if (response.getStatusLine().getStatusCode() >= 400)
-		{
-			StringBuilder sb = new StringBuilder();
-			sb.append( "ERROR PutRequest - status code: " );
-			sb.append( response.getStatusLine().getStatusCode() );
-			sb.append( " (" );
-			sb.append( response.getStatusLine().getReasonPhrase() );
-			sb.append( ") for address: " );
-			sb.append( url.toString() );
-
-			throw new HttpStatusCodeException( sb.toString() );
 		}
 
 		// Verbindung wieder schließen

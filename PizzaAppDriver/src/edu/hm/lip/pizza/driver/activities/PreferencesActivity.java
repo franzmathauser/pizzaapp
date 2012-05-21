@@ -23,8 +23,8 @@ import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.exceptions.HostnameNotSetException;
 import edu.hm.lip.pizza.driver.exceptions.HttpStatusCodeException;
 import edu.hm.lip.pizza.driver.objects.resources.Driver;
-import edu.hm.lip.pizza.driver.util.HttpConnector;
-import edu.hm.lip.pizza.driver.util.JsonMapper;
+import edu.hm.lip.pizza.driver.util.communication.HttpConnector;
+import edu.hm.lip.pizza.driver.util.communication.JsonMapper;
 
 /**
  * Diese Klasse repräsentiert die Einstellungs-Activity der Applikation.
@@ -131,7 +131,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	private void loadDynamicPreferences()
 	{
 		// TODO Server Request asynchron -> Service
-
 		List<Driver> drivers = null;
 
 		try
@@ -154,16 +153,16 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 		catch (HttpStatusCodeException e)
 		{
 			// TODO Benachrichtigung oder ignorieren?
-			Log.e( this.getClass().getName(), e.getMessage() );
+			Log.e( this.getClass().getSimpleName(), e.getMessage() );
 		}
 		catch (IOException e)
 		{
 			// TODO Benutzerbenachrichtigung
-			Log.e( this.getClass().getName(), e.getMessage() );
+			Log.e( this.getClass().getSimpleName(), e.getMessage() );
 
 			for (StackTraceElement element : e.getStackTrace())
 			{
-				Log.e( this.getClass().getName(), element.toString() );
+				Log.e( this.getClass().getSimpleName(), element.toString() );
 			}
 		}
 

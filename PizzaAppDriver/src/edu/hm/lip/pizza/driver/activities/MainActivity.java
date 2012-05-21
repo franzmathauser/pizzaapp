@@ -1,15 +1,12 @@
 package edu.hm.lip.pizza.driver.activities;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +15,9 @@ import android.widget.CheckBox;
 
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.listener.DriverLocationListener;
+import edu.hm.lip.pizza.driver.util.location.LastLocationFinder;
+import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
+import edu.hm.lip.pizza.driver.util.location.LocationProviderManager;
 
 /**
  * Diese Klasse repräsentiert die Haupt-Activity der Applikation. Sie beinhaltet die Kartenansicht und hat am rechten
@@ -33,14 +32,10 @@ public class MainActivity extends MapActivity
 
 	private MapController m_mapController;
 
+	private MyLocationOverlay m_myLocationOverlay;
+
 	// private Button m_configHandle;
 	// private SlidingDrawer m_configSlider;
-
-	private LocationManager m_locationManager;
-
-	private DriverLocationListener m_mapLocationListener;
-
-	private MyLocationOverlay m_myLocationOverlay;
 
 	/**
 	 * {@inheritDoc}
@@ -53,58 +48,25 @@ public class MainActivity extends MapActivity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.main );
 
+		// MapView auslesen
+		m_mapView = (MapView) findViewById( R.id.main_mapview_id );
+		// MapController auslesen
+		m_mapController = m_mapView.getController();
+		// MyLocationOverlay erzeugen um Kompass auf der Karte anzuzeigen
+		m_myLocationOverlay = new MyLocationOverlay( this, m_mapView );
+
 		// Preferences auslesen und wiederherstellen
 		restoreMapBehaviorPreferences();
 
-		// *********************************************************
-		// * Map View **********************************************
-		// *********************************************************
-		// MapView auslesen
-		m_mapView = (MapView) findViewById( R.id.main_mapview_id );
 		// Default ZoomControls aktivieren
 		m_mapView.setBuiltInZoomControls( true );
+		// Zoom Level festlegen. Wird initial auf 18 festgelegt (1 bedeutet Weltansicht - Bereich von 1 bis 21)
+		m_mapController.setZoom( 18 );
 
-		// *********************************************************
-		// * Location Manager **************************************
-		// *********************************************************
-		// LocationManager auslesen
-		m_locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
-		// Falls die TrackMe Funktion aktiviert ist, müssen alle benötigten LocationListener registriert werden
-		if (PreferencesStore.getTrackMePreference())
-		{
-			registerLocationListener();
-		}
-
-		// *********************************************************
-		// * Map Overlays ******************************************
-		// *********************************************************
-		m_myLocationOverlay = new MyLocationOverlay( this, m_mapView );
+		// Kompass auf Karte ablegen
 		m_myLocationOverlay.enableCompass();
 		m_myLocationOverlay.disableMyLocation();
 		m_mapView.getOverlays().add( m_myLocationOverlay );
-
-		// m_mapLocationOverlay = new MapLocationOverlay( this, m_mapView );
-		// m_mapLocationOverlay.enableCompass();
-		// m_mapLocationOverlay.enableMyLocation();
-		// m_mapView.getOverlays().add( m_mapLocationOverlay );
-
-		// *********************************************************
-		// * Map Controller ****************************************
-		// *********************************************************
-		// MapController auslesen
-		m_mapController = m_mapView.getController();
-		// Zoom Level festlegen. Wird initial auf 18 festgelegt (1 bedeutet Weltansicht - Bereich von 1 bis 21)
-		m_mapController.setZoom( 18 );
-		// Für den initialen MapExtent die letzte bekannte Koordinate über den GPS Provider auslesen
-		Location lastLocation = m_locationManager.getLastKnownLocation( LocationManager.GPS_PROVIDER );
-		// Falls eine Koordinate existiert, dann GeoPoint erzeugen und auf diesen zentrieren.
-		if (lastLocation != null)
-		{
-			int lat = (int) (lastLocation.getLatitude() * 1E6);
-			int lng = (int) (lastLocation.getLongitude() * 1E6);
-			GeoPoint point = new GeoPoint( lat, lng );
-			m_mapController.animateTo( point );
-		}
 
 		// m_configHandle = (Button) findViewById( R.id.configHandle );
 		// m_configSlider = (SlidingDrawer) findViewById( R.id.configSlider );
@@ -120,8 +82,14 @@ public class MainActivity extends MapActivity
 	{
 		super.onDestroy();
 
+		// TODO in onStop kopieren, wenn Server Kommunikation über Service erfolgt?
 		// LocationListener deregistrieren
-		m_locationManager.removeUpdates( m_mapLocationListener );
+		LocationProviderManager.getInstance( this, m_mapView ).unregisterLocationListener();
+
+		// Utility-Klassen löschen
+		LocationDrawer.destroyInstance();
+		LocationProviderManager.destroyInstance();
+		LastLocationFinder.destroyInstance();
 	}
 
 	/**
@@ -133,6 +101,15 @@ public class MainActivity extends MapActivity
 	protected void onStart()
 	{
 		super.onStart();
+
+		// Alle benötigten LocationListener registrieren
+		LocationProviderManager.getInstance( this, m_mapView ).registerLocationListener();
+
+		// Letzte bekannte Position auslesen
+		Location lastLocation = LastLocationFinder.getInstance( this ).getLastLocation();
+
+		// Letzte bekannte Position zeichnen lassen
+		LocationDrawer.getInstance( this, m_mapView ).updateCurrentLocation( lastLocation, true );
 	}
 
 	/**
@@ -243,7 +220,7 @@ public class MainActivity extends MapActivity
 	 */
 	public void currentLocationClickHandler( View view )
 	{
-
+		// TODO CurrentLocation Click Handler
 	}
 
 	/**
@@ -254,7 +231,7 @@ public class MainActivity extends MapActivity
 	 */
 	public void loadRouteClickHandler( View view )
 	{
-
+		// TODO CurrentLocation Click Handler
 	}
 
 	/**
@@ -273,14 +250,13 @@ public class MainActivity extends MapActivity
 			case R.id.mapbehavior_content_trackme_id:
 				// Neue TrackMe Einstellung über den PreferencesStore speichern
 				PreferencesStore.setTrackMePreference( cb.isChecked() );
-
 				if (cb.isChecked())
 				{
-					registerLocationListener();
+					LocationProviderManager.getInstance( this, m_mapView ).registerLocationListener();
 				}
 				else
 				{
-					unregisterLocationListener();
+					LocationProviderManager.getInstance( this, m_mapView ).unregisterLocationListener();
 				}
 				break;
 
@@ -321,35 +297,4 @@ public class MainActivity extends MapActivity
 		cboxTraffic.setChecked( PreferencesStore.getShowTrafficPreference() );
 	}
 
-	/**
-	 * Registriert alle benötigten Location Listener, bzw. zeigt einen Fehlerdialog an, falls die Provider deaktiviert
-	 * sind.
-	 */
-	private void registerLocationListener()
-	{
-		if (!m_locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ))
-		{
-			// TODO tell user that provider is required for application to work
-			// TODO open dialog (ok, cancel)
-			// TODO on cancel: close application (destroy)
-			// TODO on ok: go to provider enable config page
-		}
-		else
-		{
-			// Neuen MapLocationListener erzeugen um Positionsänderungen mitzubekommen
-			m_mapLocationListener = new DriverLocationListener( this, m_mapView );
-			// LocationListener für Updates über den GPS Provider registrieren
-			// TODO finetuning für minDistance und minTime
-			m_locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, m_mapLocationListener );
-		}
-	}
-
-	/**
-	 * Deregistriert alle Location Listener.
-	 */
-	private void unregisterLocationListener()
-	{
-		// LocationListener deregistrieren
-		m_locationManager.removeUpdates( m_mapLocationListener );
-	}
 }

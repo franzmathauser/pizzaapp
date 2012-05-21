@@ -1,36 +1,18 @@
 package edu.hm.lip.pizza.driver.listener;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.entity.StringEntity;
-
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import edu.hm.lip.pizza.driver.PreferencesStore;
-import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.exceptions.HostnameNotSetException;
-import edu.hm.lip.pizza.driver.exceptions.HttpStatusCodeException;
-import edu.hm.lip.pizza.driver.objects.resources.GPSData;
-import edu.hm.lip.pizza.driver.overlays.DriverOverlay;
-import edu.hm.lip.pizza.driver.util.HttpConnector;
-import edu.hm.lip.pizza.driver.util.JsonMapper;
+import edu.hm.lip.pizza.driver.AppConstants;
+import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
 
 /**
  * LocationListener für die aktuelle Position des Fahrers auf der Karte. Es wird immer nur die aktuelle Position
@@ -45,9 +27,11 @@ public class DriverLocationListener implements LocationListener
 
 	private MapView m_mapView;
 
-	private static GeoPoint currentLocation = null;
+	private LocationManager m_locationManager;
 
-	private static DriverOverlay currentLocationOverlay = null;
+	private static long m_lastLocationTime = Long.MAX_VALUE;
+
+	private static float m_lastLocationAccuracy = Float.MIN_VALUE;
 
 	/**
 	 * Konstruktor.
@@ -61,6 +45,7 @@ public class DriverLocationListener implements LocationListener
 	{
 		m_mapView = mapView;
 		m_context = context;
+		m_locationManager = (LocationManager) context.getSystemService( Context.LOCATION_SERVICE );
 	}
 
 	/**
@@ -71,88 +56,101 @@ public class DriverLocationListener implements LocationListener
 	@Override
 	public void onLocationChanged( Location location )
 	{
-		// Auslesen der aktuellen Koordinaten
-		int lat = (int) (location.getLatitude() * 1E6);
-		int lon = (int) (location.getLongitude() * 1E6);
-		// GeoPoint mit aktuellen Koordinaten erzeugen
-		currentLocation = new GeoPoint( lat, lon );
+		Log.d( this.getClass().getSimpleName(), "location: " + location.getLatitude() + "|" + location.getLongitude() );
+		Log.d( this.getClass().getSimpleName(), "location time: " + location.getTime() );
+		Log.d( this.getClass().getSimpleName(), "location accuracy: " + location.getAccuracy() );
 
-		if (m_mapView != null)
+		// Wenn gespeicherter Positionszeitstempel und gespeicherte Positionsgenauigkeit nicht mehr den Anfangswert
+		// besitzen muss eine genauere Prüfung durchgeführt werden
+		if (m_lastLocationTime != Long.MAX_VALUE && m_lastLocationAccuracy != Float.MIN_VALUE)
 		{
-			List<Overlay> mapOverlays = m_mapView.getOverlays();
-
-			// Prüfen ob das Overlay für die aktuelle Position ungleich null ist und bereits auf der Karte vorhanden ist
-			if (currentLocationOverlay != null && mapOverlays.contains( currentLocationOverlay ))
+			// Wenn der neue Positionszeitstempel älter als der letzte verarbeitete Zeitstempel ist, dann
+			// Positionsänderung ignorieren
+			if (location.getTime() < m_lastLocationTime)
 			{
-				// ... wenn vorhanden, dann von der Karte entfernen, da immer nur die aktuelle Position angezeigt werden
-				// soll und keine Historie
-				mapOverlays.remove( currentLocationOverlay );
+				Log.d( this.getClass().getSimpleName(), "location time too old" );
+				return;
 			}
 
-			// Markersymbol erzeugen welches auf der Karte für die aktuelle Position gezeichnet werden soll
-			Drawable marker = m_context.getResources().getDrawable( R.drawable.car );
-			// OverlayItem erzeugen für die aktuelle Position und angebe von Metadaten (Titel und Inhalt)
-			OverlayItem overlayItem = new OverlayItem( currentLocation, "title", "snippet" ); // TODO Metadaten!
-			// LocationOverlay erzeugen mit ausgewähltem Markerysmbol und erzeugtem OverlayItem
-			currentLocationOverlay = new DriverOverlay( marker, m_context );
-			currentLocationOverlay.setOverlay( overlayItem );
-
-			// Overlay für die aktuelle Position auf die Karte bringen
-			mapOverlays.add( currentLocationOverlay );
-			currentLocationOverlay.populateOverlay();
-
-			// Wenn Follow-Feature eingeschaltet ist ...
-			if (PreferencesStore.getFollowMePreference())
+			// Wenn der neue Positionszeitstempel abzüglich des Tolleranzbereichs älter als der letzte verarbeitete
+			// Zeitstempel ist und die neue Positionsgenauigkeit ungenauer ist, dann Positionsänderung ignorieren
+			if (location.getTime() - AppConstants.TIME_TOLERANCE < m_lastLocationTime
+					&& location.getAccuracy() > m_lastLocationAccuracy + AppConstants.ACCURACY_TOLERANCE)
 			{
-				// ... dann karte auf aktuelle Position zentrieren
-				m_mapView.getController().animateTo( currentLocation );
+				Log.d( this.getClass().getSimpleName(), "location accuracy too inaccurate" );
+				return;
 			}
 		}
+		// Wenn gespeicherter Positionszeitstempel und gespeicherte Positionsgenauigkeit noch den Anfangswert
+		// besitzen muss eine genauere Prüfung durchgeführt werden
+		else if (m_lastLocationTime == Long.MAX_VALUE && m_lastLocationAccuracy == Float.MIN_VALUE)
+		{
+			// Letzte bekannte Position vom GPS Provider anfordern
+			Location lastGpsLocation = m_locationManager.getLastKnownLocation( LocationManager.GPS_PROVIDER );
+
+			// Wenn GPS Positionszeitstempel neuer ist als der neue Positionszeitstempel abzüglich der Toleranz,
+			// dann GPS Position verwenden
+			if (lastGpsLocation.getTime() > location.getTime() - AppConstants.TIME_TOLERANCE)
+			{
+				location = lastGpsLocation;
+				Log.d( this.getClass().getSimpleName(), "using newer gps location for initial positioning" );
+				Log.d( this.getClass().getSimpleName(),
+						"gps location: " + lastGpsLocation.getLatitude() + "|" + lastGpsLocation.getLongitude() );
+				Log.d( this.getClass().getSimpleName(), "gps location time: " + lastGpsLocation.getTime() );
+				Log.d( this.getClass().getSimpleName(), "gps location accuracy: " + lastGpsLocation.getAccuracy() );
+			}
+		}
+
+		m_lastLocationTime = location.getTime();
+		m_lastLocationAccuracy = location.getAccuracy();
+
+		// Neue Location zeichnen lassen
+		LocationDrawer.getInstance( m_context, m_mapView ).updateCurrentLocation( location );
 
 		// TODO Server Request asynchron -> Service
-
-		try
-		{
-			GPSData gpsData = new GPSData();
-			gpsData.setLat( location.getLatitude() );
-			gpsData.setLon( location.getLongitude() );
-
-			HttpEntity entity = new StringEntity( JsonMapper.toJSON( gpsData ) );
-
-			String driverId = PreferencesStore.getDriverIdPreference();
-
-			if (StringUtils.isBlank( driverId ))
-			{
-				// TODO Throw Exception
-			}
-
-			StringBuilder path = new StringBuilder();
-			path.append( "drivers/" ).append( driverId ).append( "/gpsdata" );
-
-			HttpConnector.doPostRequest( path.toString(), MediaType.APPLICATION_JSON, entity, MediaType.APPLICATION_JSON );
-		}
-		catch (HostnameNotSetException e)
-		{
-			// TODO Notification!
-			// TODO Tracking abschalten?
-			return;
-		}
-		catch (HttpStatusCodeException e)
-		{
-			// TODO Notification!
-			// TODO Tracking abschalten?
-			Log.e( this.getClass().getName(), e.getMessage() );
-		}
-		catch (IOException e)
-		{
-			// TODO Benutzerbenachrichtigung
-			Log.e( this.getClass().getName(), e.getMessage() );
-
-			for (StackTraceElement element : e.getStackTrace())
-			{
-				Log.e( this.getClass().getName(), element.toString() );
-			}
-		}
+		// try
+		// {
+		// GPSData gpsData = new GPSData();
+		// gpsData.setLat( location.getLatitude() );
+		// gpsData.setLon( location.getLongitude() );
+		//
+		// HttpEntity entity = new StringEntity( JsonMapper.toJSON( gpsData ) );
+		//
+		// String driverId = PreferencesStore.getDriverIdPreference();
+		//
+		// if (StringUtils.isBlank( driverId ))
+		// {
+		// // TODO Throw Exception
+		// }
+		//
+		// StringBuilder path = new StringBuilder();
+		// path.append( "drivers/" ).append( driverId ).append( "/gpsdata" );
+		//
+		// HttpConnector.doPostRequest( path.toString(), MediaType.APPLICATION_JSON, entity, MediaType.APPLICATION_JSON
+		// );
+		// }
+		// catch (HostnameNotSetException e)
+		// {
+		// // TODO Notification!
+		// // TODO Tracking abschalten?
+		// return;
+		// }
+		// catch (HttpStatusCodeException e)
+		// {
+		// // TODO Notification!
+		// // TODO Tracking abschalten?
+		// Log.e( this.getClass().getSimpleName(), e.getMessage() );
+		// }
+		// catch (IOException e)
+		// {
+		// // TODO Benutzerbenachrichtigung
+		// Log.e( this.getClass().getSimpleName(), e.getMessage() );
+		//
+		// for (StackTraceElement element : e.getStackTrace())
+		// {
+		// Log.e( this.getClass().getSimpleName(), element.toString() );
+		// }
+		// }
 	}
 
 	/**
@@ -163,11 +161,17 @@ public class DriverLocationListener implements LocationListener
 	@Override
 	public void onProviderDisabled( String provider )
 	{
-		Toast.makeText( m_context, provider + " disabled", Toast.LENGTH_SHORT ).show();
-		// TODO tell user that provider is required for application to work
-		// TODO open dialog (ok, cancel)
-		// TODO on cancel: close application (destroy)
-		// TODO on ok: go to provider enable config page
+		// LocationProviderManager manager = LocationProviderManager.getInstance( m_context, m_mapView );
+		//
+		// // Wenn der deaktivierte Provider dem aktuell verwendeten Provider entspricht, dann muss deregistriert werden
+		// // und ggf. dem Benutzer ein Dialog angezeit werden, dass Provider für das Tracking benötigt werden
+		// if (!manager.getCurrentProvider().equals( provider ) && LocationManager.GPS_PROVIDER.equals( provider ))
+		// {
+		// manager.unregisterLocationListener();
+		// Log.d( this.getClass().getSimpleName(), provider + "disabled -> unregistered" );
+		// }
+
+		Toast.makeText( m_context, provider + " provider disabled.", Toast.LENGTH_SHORT ).show();
 	}
 
 	/**
@@ -178,8 +182,17 @@ public class DriverLocationListener implements LocationListener
 	@Override
 	public void onProviderEnabled( String provider )
 	{
-		Toast.makeText( m_context, provider + " enabled", Toast.LENGTH_SHORT ).show();
-		// TODO reactivate all registrations?
+		// LocationProviderManager manager = LocationProviderManager.getInstance( m_context, m_mapView );
+		//
+		// // Wenn der aktivierte Provider nicht dem aktuell verwendeten Provider entspricht und der aktivierte Provider
+		// // der GPS Provider ist, dann auf den GPS Provider wechseln
+		// if (!manager.getCurrentProvider().equals( provider ) && LocationManager.GPS_PROVIDER.equals( provider ))
+		// {
+		// manager.switchProvider();
+		// Log.d( this.getClass().getSimpleName(), provider + "enabled -> using it now" );
+		// }
+
+		Toast.makeText( m_context, provider + " provider enabled.", Toast.LENGTH_SHORT ).show();
 	}
 
 	/**
@@ -210,4 +223,5 @@ public class DriverLocationListener implements LocationListener
 				break;
 		}
 	}
+
 }

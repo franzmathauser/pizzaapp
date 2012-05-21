@@ -44,6 +44,11 @@
     <string name="pref_category_driver_id_key">driver_id</string>
     <string name="pref_category_driver_id_title">Name</string>
     <string name="pref_category_driver_id_dialogtitle">Select a Driver</string>
-    
+
+    <!-- Location Provider -->
+
+    <string name="provider_disabled_message">Please let us determine your position!</string>
+    <string name="provider_disabled_bt_positive">Activate</string>
+    <string name="provider_disabled_bt_negative">Exit</string>
 
 </resources>

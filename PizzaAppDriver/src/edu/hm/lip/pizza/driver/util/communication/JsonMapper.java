@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.util;
+package edu.hm.lip.pizza.driver.util.communication;
 
 import java.io.IOException;
 import java.io.InputStream;
