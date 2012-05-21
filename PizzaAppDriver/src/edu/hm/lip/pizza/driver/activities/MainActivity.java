@@ -222,21 +222,26 @@ public class MainActivity extends MapActivity
 	 */
 	public void currentLocationClickHandler( View view )
 	{
+		// letzte gezeichnete Position auslesen
 		GeoPoint currentLocation = LocationDrawer.getCurrentLocation();
 
+		// Falls verfügbar, dann zentrieren
 		if (currentLocation != null)
 		{
 			m_mapController.animateTo( currentLocation );
 			return;
 		}
 
+		// ... sonst letzte bekannte Position suchen
 		currentLocation = LastLocationFinder.getInstance( this ).getLastLocationAsGeoPoint();
 
+		// Falls verfügbar, dann zentrieren
 		if (currentLocation != null)
 		{
 			m_mapController.animateTo( currentLocation );
 			return;
 		}
+		// ... sonst Fehler melden
 		else
 		{
 			Toast.makeText( this, "no location available", Toast.LENGTH_SHORT ).show();
