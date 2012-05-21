@@ -115,8 +115,8 @@ public final class LastLocationFinder
 		// Sonst wenn GPS Positionen verfügbar ist -> verwenden
 		else if (lastGpsLocation != null)
 		{
-			Toast.makeText( m_context, "unable to get last known location", Toast.LENGTH_SHORT ).show();
-			Log.d( this.getClass().getSimpleName(), "unable to get last known location" );
+			Log.d( this.getClass().getSimpleName(), "gps location time: " + lastGpsLocation.getTime() );
+			Log.d( this.getClass().getSimpleName(), "gps location accuracy: " + lastGpsLocation.getAccuracy() );
 
 			Toast.makeText( m_context, "used gps provider for last known location", Toast.LENGTH_SHORT ).show();
 			Log.d( this.getClass().getSimpleName(), "used gps provider for last known location" );
