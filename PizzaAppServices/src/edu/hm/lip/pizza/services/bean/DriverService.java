@@ -5,14 +5,17 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Driver;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
+import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
+import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 
@@ -20,6 +23,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
+@Interceptors(DriverGPSActiveMQInterceptor.class)
 public class DriverService implements IDriverServiceLocal
 {
 
@@ -129,6 +133,7 @@ public class DriverService implements IDriverServiceLocal
 	 *      edu.hm.lip.pizza.api.object.resources.GPSData)
 	 */
 	@Override
+	@DriverGPSActiveMQInterceptorMethodSelector
 	public void createGPSData( int id, GPSData gpsData )
 	{
 		if (gpsData.getDate() == null)
