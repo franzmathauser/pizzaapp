@@ -20,7 +20,7 @@ var refreshCart = function() {
 								+ product.id
 								+ '">'
 								+ '<a href="#detail">'
-								+ '<img	src="'
+								+ '<img	src="/productImages/'
 								+ product.image_url
 								+ '" style="width: 84px; height: 84px;" />'
 								+ '<h3>'
@@ -40,7 +40,7 @@ var refreshCart = function() {
 								+ i + '" >Artikel l&ouml;schen</a></li>');
 
 		$('#previewProductList').prepend(
-				'<li class="orderedProducts">' + '<img	src="'
+				'<li class="orderedProducts">' + '<img	src="/productImages/'
 						+ product.image_url
 						+ '" style="width: 84px; height: 84px;" />' + '<h3>'
 						+ quantity + ' x ' + product.name + ' '

@@ -32,7 +32,7 @@ function renderDetails(obj) {
 	$('#detail_price_xl').html(euro(obj.price_xl));
 	$('#detail_price_xxl').html(euro(obj.price_xxl));
 	$('#detail_description').html(obj.description);
-	$('#detail_image_url').attr('src', obj.image_url);
+	$('#detail_image_url').attr('src', '/productImages/'+obj.image_url);
 
 }
 
@@ -48,7 +48,7 @@ function renderProductList(data) {
 		$('#product_list').append(
 				'<li class="product" product_id="' + data[i].id
 						+ '"><a href="#detail" data-icon="arrow-r">'
-						+ '<img	src="' + data[i].image_url
+						+ '<img	src="/productImages/' + data[i].image_url
 						+ '" style="width: 84px; height: 84px;" />' + '<h3>'
 						+ data[i].name + '</h3>' + '<p>ab ' + euro(data[i].price_l)
 						+ '</p>' + '</a>' + '</li>');

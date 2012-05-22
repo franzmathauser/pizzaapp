@@ -99,7 +99,7 @@ function renderList(data) {
 						'<tr id="'
 								+ data[i].id
 								+ '">'
-								+ '<td><img src="'+data[i].image_url+'" style="width: 100px; height: 100px" /></td>'
+								+ '<td><img src="/productImages/'+data[i].image_url+'" style="width: 100px; height: 100px" /></td>'
 								+ '<td>'
 								+ data[i].name
 								+ '</td>'
