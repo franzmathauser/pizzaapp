@@ -82,6 +82,7 @@ var productsBaseURL = getBaseURL() + "/products";
 var driversBaseURL = getBaseURL() + "/drivers";
 
 var products = new Array();
+var drivers = new Array();
 
 function findAllProducts() {
 	$.ajax({
@@ -182,6 +183,7 @@ function renderOrders(data) {
 function renderDrivers(data) {
 	for ( var i = 0; i < data.length; i++) {
 		var driver = data[i];
+		drivers[driver.id] = driver;
 		var html = '<span class="driverName">' + driver.name + '</span>'
 				+ '<img src="img/stack-2.png" style="float: left" />'
 				+ '<div class="time">ca. 4:59</div>';

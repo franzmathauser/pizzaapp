@@ -3,6 +3,10 @@ package edu.hm.lip.pizza.internal.interceptor;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import javax.ws.rs.core.MediaType;
+
+import org.jboss.resteasy.client.ClientRequest;
+import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
@@ -15,6 +19,8 @@ import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSe
 @Interceptor
 public class DriverGPSActiveMQInterceptor
 {
+
+	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/driverlocation?type=topic";
 
 	/**
 	 * Interceptor Methode führt die den eigentlichen Call zunächst aus und überprüft ob es sich bei der Methode um die
@@ -35,19 +41,34 @@ public class DriverGPSActiveMQInterceptor
 		if (ctx.getMethod().getAnnotation( DriverGPSActiveMQInterceptorMethodSelector.class ) != null)
 		{
 			int id = (Integer) parameters[0];
-			GPSData gpsdata = (GPSData) parameters[1];
+			GPSData gpsData = (GPSData) parameters[1];
+
+			String input = "body=" + createRequestJSONObject( id, gpsData );
+
+			ClientRequest request = new ClientRequest( ACTIVEMQ_BASE_URL );
+			request.body( MediaType.APPLICATION_FORM_URLENCODED, input );
+
+			ClientResponse response = request.post();
+
+			response.getStatus();
+
 		}
 
-//		try
-//		{
-//
-//		}
-//		catch (Exception e)
-//		{
-//			return null;
-//		}
-
 		return ret;
+	}
+
+	private String createRequestJSONObject( int driverId, GPSData gpsData )
+	{
+		StringBuilder jsonObject = new StringBuilder();
+
+		jsonObject.append( "{" );
+		jsonObject.append( "\"id\":" + driverId + "," );
+		jsonObject.append( "\"lat\":" + gpsData.getLat() + "," );
+		jsonObject.append( "\"lon\":" + gpsData.getLon() );
+		jsonObject.append( "}" );
+
+		return jsonObject.toString();
+
 	}
 
 }

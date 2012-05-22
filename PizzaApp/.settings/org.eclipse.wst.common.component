@@ -37,5 +37,8 @@
         <dependent-module archiveName="TSP-Service.jar" deploy-path="/" handle="module:/resource/TSP-Service/TSP-Service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="commons-httpclient-3.1.jar" deploy-path="/" handle="module:/classpath/lib/BasicLibraries/commons/commons-httpclient-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

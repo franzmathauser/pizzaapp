@@ -1,26 +1,32 @@
 var carImage = 'img/pizzaauto.png';
-var driver = new Array();
+var driver_obj = new Array();
 
 function driverLocationTopic(obj) {
 	var index = obj.id;
 	pos = new google.maps.LatLng(obj.lat, obj.lon);
 
-	if (typeof driver[index] !== 'undefined' && driver[index] !== null) {
-		driver[index].setPosition(pos);
+	if (typeof driver_obj[index] !== 'undefined' && driver_obj[index] !== null) {
+		driver_obj[index].setPosition(pos);
 	} else {
 
-		driver[index] = new google.maps.Marker({
+		driver_obj[index] = new google.maps.Marker({
 			position : pos,
-			title : obj.name,
+			title : drivers[obj.id].name,
 			icon : carImage,
 			map : map
 		});
 
-		driver[index].setMap(map);
+		driver_obj[index].setMap(map);
 	}
 
-	driver[index].setPosition(pos);
-	map.setCenter(pos);
+	driver_obj[index].setPosition(pos);
+	
+	var bounds = new google.maps.LatLngBounds( );
+	for (var key in driver_obj){
+		bounds.extend( driver_obj[key].getPosition() );
+	}
+	map.fitBounds (bounds);
+	
 }
 
 $(document).ready(function() {

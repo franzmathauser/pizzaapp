@@ -23,7 +23,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
-@Interceptors(DriverGPSActiveMQInterceptor.class)
+@Interceptors( DriverGPSActiveMQInterceptor.class )
 public class DriverService implements IDriverServiceLocal
 {
 
