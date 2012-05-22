@@ -88,4 +88,15 @@ public interface IOrderServiceLocal
 	@Path( "/undelivered" )
 	List<Order> getUndeliveredOrders();
 
+	/**
+	 * Führt Bestellung in die nächste Stage über.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 * @return Bestellung mit neuer Stage
+	 */
+	@POST
+	@Path( "{id}/stages" )
+	Order createNextOrderStage( @PathParam( "id" ) int id );
+
 }

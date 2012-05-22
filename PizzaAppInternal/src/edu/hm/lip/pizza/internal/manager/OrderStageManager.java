@@ -24,7 +24,7 @@ public final class OrderStageManager
 	 * 
 	 * @return Initialer Bestellstatus
 	 */
-	public static EntityOrderStage fistStage()
+	public static EntityOrderStage firstStage()
 	{
 		return next( null );
 	}
@@ -62,6 +62,9 @@ public final class OrderStageManager
 				break;
 			case IN_DELIVERY:
 				eOrderStage.setStage( Stage.DELIVERED );
+				break;
+			case DELIVERED:
+				eOrderStage = null;
 				break;
 			default:
 				eOrderStage.setStage( Stage.ORDERED );

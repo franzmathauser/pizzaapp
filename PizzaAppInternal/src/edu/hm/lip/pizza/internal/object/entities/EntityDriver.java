@@ -2,6 +2,7 @@ package edu.hm.lip.pizza.internal.object.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Cascade;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
 
@@ -36,7 +38,8 @@ public class EntityDriver extends AbstractEntityObject
 
 	private String name;
 
-	@OneToMany( mappedBy = "driver", fetch = FetchType.LAZY )
+	@OneToMany( mappedBy = "driver", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	
 	private List<EntityGPSData> gpsData;
 
 	@OneToMany( mappedBy = "driver", fetch = FetchType.LAZY )
