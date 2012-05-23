@@ -188,13 +188,27 @@ function renderDrivers(data) {
 				+ '<img src="img/stack-2.png" style="float: left" />'
 				+ '<div class="time">ca. 4:59</div>';
 		$('#driver_line-' + i).html(html);
+		
+		// add to driver_list
+		$('#driver_list').prepend('<li id="driver-button-'
+				+driver.id
+				+'" driver_id="'
+				+ driver.id
+				+'">'
+				+'<a href="#" data-role="button" data-rel="dialog" data-transition="slidedown" data-theme="b">'
+				+ driver.name
+				+'</a>'
+				+'</li>'
+				);
+		
+		$("#driver-button-"+driver.id).click(function() {
+			alert('driver_id: ' + $(this).attr('driver_id'));
+			alert('order_id: ' + $('#clicked_order').val());
+		});
 	}
 }
 
 function orderLineClickHandler(order_id) {
-	
-	$.mobile.changePage('#moveToDriver',{ transition: "slidedown"});
-	return false;
 	
 	$.ajax({
 		type : 'POST',
@@ -203,6 +217,10 @@ function orderLineClickHandler(order_id) {
 		success : function(data) {
 			$('#order_monitor-' + data.id).attr('fill',
 					colorMapper(data.current_stage));
+			if(data.current_stage == 'IN_DELIVERY'){
+				$.mobile.changePage('#moveToDriver',{ transition: "slidedown"});
+				$('#clicked_order').val(order_id);
+			}
 		}
 	});
 }

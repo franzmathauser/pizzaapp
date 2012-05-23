@@ -94,11 +94,9 @@ html,body {
 	margin-top: 0;
 }
 
-.ui-dialog .ui-header, 
-.ui-dialog .ui-content, 
-.ui-dialog .ui-footer { 
-	max-width: 500px; 
-	margin: 10% auto 15px auto; 
+.ui-dialog .ui-header,.ui-dialog .ui-content,.ui-dialog .ui-footer {
+	max-width: 500px;
+	margin: 0px auto 15px auto;
 }
 </style>
 
@@ -154,7 +152,6 @@ html,body {
 
 		<div data-role="header" data-position="fixed">
 			<h1>Bestellungsverwaltung</h1>
-			<div id="messages" style="display: none"></div>
 		</div>
 		<!-- /header -->
 
@@ -202,19 +199,38 @@ html,body {
 
 		<div data-role="content" data-theme="a">
 			<h3>Fahrer auswählen:</h3>
-			<a href="dialog-success.html" data-role="button" data-rel="dialog"
-				data-transition="slidedown" data-theme="b">Email</a>
-			 <a
-				href="index.html" data-role="button" data-rel="back" data-theme="a">Cancel</a>
+			<ul id="driver_list">
+				<li><a href="index.html" data-role="button" data-rel="back"
+					data-theme="a">Cancel</a></li>
+			</ul>
 		</div>
 	</div>
 
 
+	<!-- Start of first page: #products -->
+	<div data-role="page" id="debug" data-theme="e">
 
-	<div style="clear: both">
+		<div data-role="header" data-position="fixed">
+			<h1>Debug</h1>
+		</div>
+		<!-- /header -->
 
-		<div id="debug"></div>
+		<div>
+			<input type="hidden" id="clicked_order" readonly="readonly" />
+			<div id="debug"></div>
+			<div id="messages" style="display: none"></div>
+
+		</div>
+
 	</div>
+
+	<!-- /content -->
+
+	<!-- 	</div> -->
+	<!-- /page products -->
+
+
+
 
 </body>
 </html>
