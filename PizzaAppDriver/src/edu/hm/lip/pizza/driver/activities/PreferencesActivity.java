@@ -1,13 +1,16 @@
 package edu.hm.lip.pizza.driver.activities;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpResponse;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -16,23 +19,22 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
-import android.util.Log;
 
 import edu.hm.lip.pizza.driver.PreferencesConstants;
+import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.exceptions.HostnameNotSetException;
-import edu.hm.lip.pizza.driver.exceptions.HttpStatusCodeException;
 import edu.hm.lip.pizza.driver.objects.resources.Driver;
-import edu.hm.lip.pizza.driver.util.communication.HttpConnector;
-import edu.hm.lip.pizza.driver.util.communication.JsonMapper;
+import edu.hm.lip.pizza.driver.services.DriverInfoService;
 
 /**
  * Diese Klasse repräsentiert die Einstellungs-Activity der Applikation.
  * 
  * @author Stefan Wörner
  */
-public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener
+public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener // ,IDriverInfoUpdateListener
 {
+
+	private ProgressDialog m_driverInfoProgressDialog;
 
 	/**
 	 * {@inheritDoc}
@@ -50,9 +52,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 
 		// Preference aus XML-Datei hinzufügen
 		addPreferencesFromResource( R.xml.preferences );
-
-		// Dynamische Preferences initialisieren
-		initializeDynamicPreferences();
 	}
 
 	/**
@@ -65,6 +64,9 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	{
 		super.onResume();
 
+		// Dynamische Preferences (neu) laden
+		loadDynamicPreferences();
+
 		// Über alle Preferences iterieren ...
 		for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++)
 		{
@@ -72,11 +74,13 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 			updatePreferenceSummary( getPreferenceScreen().getPreference( i ) );
 		}
 
-		// Dynamische Preferences (neu) laden
-		loadDynamicPreferences();
-
 		// Für Änderungen an den Einstellungen registrieren, um ggf. die Summary anzupassen
 		getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener( this );
+
+		// BroadcastReceiver für DriverInfo Service registrieren
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction( DriverInfoService.TRANSACTION_DONE );
+		registerReceiver( m_driverInfoReceiver, intentFilter );
 	}
 
 	/**
@@ -91,6 +95,9 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 
 		// Deregistrieren des PreferenceChangeListeners
 		getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener( this );
+
+		// BroadcastReceiver für DriverInfo Service deregistrieren
+		unregisterReceiver( m_driverInfoReceiver );
 	}
 
 	/**
@@ -102,89 +109,57 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	@Override
 	public void onSharedPreferenceChanged( SharedPreferences sharedPreferences, String key )
 	{
-		Preference preference = findPreference( key );
+		// Prüfen ob die Fahrerliste aktuelisiert wurde, falls ja muss der key auf den der PreferenceList umgesetzt
+		// werden
+		if (getString( R.string.pref_category_driver_list_key ).equals( key ))
+		{
+			// updateDriverListPreference();
+			// PreferencesStore.setSelectedDriverIdPreference( "" );
+			return;
+		}
 
-		// updateSummary Methode aufrufen um ggf. Werte zu aktualisieren
-		updatePreferenceSummary( preference );
-
-		if (getString( R.string.pref_category_server_hostname_key ).equals( preference.getKey() )
-				|| getString( R.string.pref_category_server_port_key ).equals( preference.getKey() ))
+		// Falls Hostname oder Port geändert wurde muss nachgeschaut werden ob neue/andere Fahrer verfügbar sind
+		if (getString( R.string.pref_category_server_hostname_key ).equals( key )
+				|| getString( R.string.pref_category_server_port_key ).equals( key ))
 		{
 			loadDynamicPreferences();
 		}
-	}
 
-	private void initializeDynamicPreferences()
-	{
-		// Driver ListPreference auslesen
-		ListPreference driverPref = (ListPreference) findPreference( getString( R.string.pref_category_driver_id_key ) );
-
-		// Dummy-Werte erzeugen (Leer)
-		String[] driverIds = new String[0];
-		String[] driverNames = new String[0];
-
-		// Werte in der ListPreference ablegen
-		driverPref.setEntryValues( driverIds );
-		driverPref.setEntries( driverNames );
+		// updateSummary Methode aufrufen um ggf. Werte zu aktualisieren
+		updatePreferenceSummary( findPreference( key ) );
 	}
 
 	private void loadDynamicPreferences()
 	{
-		// TODO Server Request asynchron -> Service
-		List<Driver> drivers = null;
+		updateDriverListPreference();
 
-		try
-		{
-			// Pfad zusammenbauen
-			StringBuilder path = new StringBuilder();
-			path.append( "drivers" );
+		Intent intent = new Intent( this, DriverInfoService.class );
+		startService( intent );
 
-			// GetRequest absetzen
-			HttpResponse response = HttpConnector.doGetRequest( path.toString(), MediaType.APPLICATION_JSON );
+		m_driverInfoProgressDialog = ProgressDialog.show( this, getString( R.string.service_check_connection_title ),
+				getString( R.string.service_check_connection_message ) );
+	}
 
-			// Liste mit Driver Objekten erzeugen
-			drivers = JsonMapper.fromJSONArray( response.getEntity().getContent(), Driver.class );
-		}
-		catch (HostnameNotSetException e)
-		{
-			// TODO Benachrichtigung oder ignorieren?
-			return;
-		}
-		catch (HttpStatusCodeException e)
-		{
-			// TODO Benachrichtigung oder ignorieren?
-			Log.e( this.getClass().getSimpleName(), e.getMessage() );
-		}
-		catch (IOException e)
-		{
-			// TODO Benutzerbenachrichtigung
-			Log.e( this.getClass().getSimpleName(), e.getMessage() );
+	private void updateDriverListPreference()
+	{
+		List<Driver> drivers = PreferencesStore.getDriverListPreference();
 
-			for (StackTraceElement element : e.getStackTrace())
-			{
-				Log.e( this.getClass().getSimpleName(), element.toString() );
-			}
+		// Driver ListPreference auslesen
+		ListPreference driverPref = (ListPreference) findPreference( getString( R.string.pref_category_driver_id_key ) );
+
+		String[] driverIds = new String[drivers.size()];
+		String[] driverNames = new String[drivers.size()];
+
+		// Entries und EntryValues befüllen
+		for (int i = 0; i < drivers.size(); i++)
+		{
+			driverIds[i] = drivers.get( i ).getId().toString();
+			driverNames[i] = drivers.get( i ).getName();
 		}
 
-		if (drivers != null)
-		{
-			// Driver ListPreference auslesen
-			ListPreference driverPref = (ListPreference) findPreference( getString( R.string.pref_category_driver_id_key ) );
-
-			String[] driverIds = new String[drivers.size()];
-			String[] driverNames = new String[drivers.size()];
-
-			// Entries und EntryValues befüllen
-			for (int i = 0; i < drivers.size(); i++)
-			{
-				driverIds[i] = drivers.get( i ).getId().toString();
-				driverNames[i] = drivers.get( i ).getName();
-			}
-
-			// Werte in der ListPreference ablegen
-			driverPref.setEntryValues( driverIds );
-			driverPref.setEntries( driverNames );
-		}
+		// Werte in der ListPreference ablegen
+		driverPref.setEntryValues( driverIds );
+		driverPref.setEntries( driverNames );
 	}
 
 	private void updatePreferenceSummary( Preference preference )
@@ -236,4 +211,66 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 			}
 		}
 	}
+
+	private BroadcastReceiver m_driverInfoReceiver = new BroadcastReceiver()
+	{
+
+		@Override
+		public void onReceive( Context context, Intent intent )
+		{
+			if (intent == null)
+			{
+				return;
+			}
+
+			// Status auslesen
+			boolean successful = intent.getBooleanExtra( DriverInfoService.SUCCESSFUL_EXTRA, false );
+
+			if (successful)
+			{
+				// Auslesen ob Ansicht aktualisiert werden muss
+				boolean refresh = intent.getBooleanExtra( DriverInfoService.REFRESH_EXTRA, false );
+
+				if (refresh)
+				{
+					// Fahrerliste aktualisieren
+					updateDriverListPreference();
+					// Ausgewählten Fahrer zurücksetzen
+					((ListPreference) findPreference( getString( R.string.pref_category_driver_id_key ) )).setValue( null );
+				}
+
+				// Progress Dialog schließen
+				m_driverInfoProgressDialog.dismiss();
+			}
+			else
+			{
+				// Progress Dialog schließen
+				m_driverInfoProgressDialog.dismiss();
+
+				// Fehlermeldung auslesen
+				String message = intent.getStringExtra( DriverInfoService.ERROR_MSG_EXTRA );
+				// Fehlermeldung anzeigen
+				showErrorDialog( message );
+			}
+		}
+	};
+
+	private void showErrorDialog( String message )
+	{
+		// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+		builder.setMessage( message ).setCancelable( false );
+		builder.setPositiveButton( R.string.service_errordialog_bt_ok, new DialogInterface.OnClickListener()
+		{
+
+			public void onClick( DialogInterface dialog, int id )
+			{
+				// Wenn OK Button geklickt wird, Dialog schließen
+				dialog.cancel();
+			}
+		} );
+		// Hinweisdialog anzeigen
+		builder.create().show();
+	}
+
 }

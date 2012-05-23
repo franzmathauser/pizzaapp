@@ -21,4 +21,14 @@ public final class PreferencesConstants
 	 */
 	public static final String FILENAME = "PizzaAppDriver_PrefFile";
 
+	/**
+	 * Trenner für die Fahrer Attribute bei der Serialisierung der Preferences.
+	 */
+	public static final String DRIVER_ATTRIBUTE_SEPERATOR = "|";
+
+	/**
+	 * Trenner für die Fahrer bei der Serialisierung der Preferences.
+	 */
+	public static final String DRIVER_SEPERATOR = "~";
+
 }

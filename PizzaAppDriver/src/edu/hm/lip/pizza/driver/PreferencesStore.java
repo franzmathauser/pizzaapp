@@ -1,8 +1,15 @@
 package edu.hm.lip.pizza.driver;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import edu.hm.lip.pizza.driver.objects.resources.Driver;
 
 /**
  * Klasse veraltet alle Preferences der PizzaApp. Hierzu zählen u.a. die MapBehavior Einstellungen, sowie die
@@ -203,7 +210,7 @@ public final class PreferencesStore
 	 * 
 	 * @return driverId Preference
 	 */
-	public static String getDriverIdPreference()
+	public static String getSelectedDriverIdPreference()
 	{
 		return getPreferences().getString( DriverApp.getAppContext().getString( R.string.pref_category_driver_id_key ), "" );
 	}
@@ -214,9 +221,71 @@ public final class PreferencesStore
 	 * @param driverIdPreference
 	 *            Zu setzender Wert für die DriverId Preference
 	 */
-	public static void setDriverIdPreference( String driverIdPreference )
+	public static void setSelectedDriverIdPreference( String driverIdPreference )
 	{
 		setPrefernces( DriverApp.getAppContext().getString( R.string.pref_category_driver_id_key ), driverIdPreference );
+	}
+
+	/**
+	 * Liefert die DriverList Preference.
+	 * 
+	 * @return driverList Preference
+	 */
+	public static List<Driver> getDriverListPreference()
+	{
+		// Return Liste initialisieren
+		List<Driver> driversListPreference = new ArrayList<Driver>();
+
+		// Preferences auslesen
+		String storedDriversPreference = getPreferences().getString(
+				DriverApp.getAppContext().getString( R.string.pref_category_driver_list_key ), "" );
+
+		// Wenn Preferences vorhanden sind, dann parsen
+		if (StringUtils.isNotBlank( storedDriversPreference ))
+		{
+			for (String storedDriver : StringUtils.split( storedDriversPreference, PreferencesConstants.DRIVER_SEPERATOR ))
+			{
+				String[] storedDriverAttributes = StringUtils.split( storedDriver,
+						PreferencesConstants.DRIVER_ATTRIBUTE_SEPERATOR );
+
+				Driver driver = new Driver();
+				driver.setId( Integer.parseInt( storedDriverAttributes[0] ) );
+				driver.setName( storedDriverAttributes[1] );
+
+				driversListPreference.add( driver );
+			}
+		}
+
+		return driversListPreference;
+	}
+
+	/**
+	 * Setzt die DriverList Preference.
+	 * 
+	 * @param driverListPreference
+	 *            Zu setzender Wert für die DriverList Preference
+	 */
+	public static void setDriverListPreference( List<Driver> driverListPreference )
+	{
+		// Wenn Liste null ist, dann ignorieren und Verarbeitung abbrechen
+		if (driverListPreference == null)
+		{
+			return;
+		}
+
+		// Driver für Speicherung "serialisieren"
+		StringBuilder sb = new StringBuilder();
+		for (Driver driver : driverListPreference)
+		{
+			if (StringUtils.isNotBlank( driver.getId().toString() ) && StringUtils.isNotBlank( driver.getName() ))
+			{
+				sb.append( driver.getId() ).append( PreferencesConstants.DRIVER_ATTRIBUTE_SEPERATOR ).append( driver.getName() );
+				sb.append( PreferencesConstants.DRIVER_SEPERATOR );
+			}
+		}
+		sb.deleteCharAt( sb.length() - 1 );
+
+		setPrefernces( DriverApp.getAppContext().getString( R.string.pref_category_driver_list_key ), sb.toString() );
 	}
 
 }

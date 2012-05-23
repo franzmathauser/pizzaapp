@@ -43,7 +43,7 @@ public class DriverLocationService extends IntentService
 	 */
 	public DriverLocationService()
 	{
-		super( DriverLocationService.class.getSimpleName() );
+		super( DriverLocationService.class.getName() );
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class DriverLocationService extends IntentService
 
 			HttpEntity entity = new StringEntity( JsonMapper.toJSON( gpsData ) );
 
-			String driverId = PreferencesStore.getDriverIdPreference();
+			String driverId = PreferencesStore.getSelectedDriverIdPreference();
 
 			if (StringUtils.isBlank( driverId ))
 			{

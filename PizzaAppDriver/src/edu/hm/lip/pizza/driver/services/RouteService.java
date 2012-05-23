@@ -16,7 +16,7 @@ public class RouteService extends IntentService
 	 */
 	public RouteService()
 	{
-		super( "RouteService" );
+		super( RouteService.class.getName() );
 	}
 
 	/**

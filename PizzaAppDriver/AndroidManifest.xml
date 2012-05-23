@@ -36,7 +36,13 @@
         <activity android:name=".activities.PreferencesActivity" />
 
         <service
+            android:name=".services.DriverInfoService"
+            android:enabled="true" />
+        <service
             android:name=".services.DriverLocationService"
+            android:enabled="true" />
+        <service
+            android:name=".services.RouteService"
             android:enabled="true" />
 
         <uses-library android:name="com.google.android.maps" />

@@ -44,11 +44,20 @@
     <string name="pref_category_driver_id_key">driver_id</string>
     <string name="pref_category_driver_id_title">Name</string>
     <string name="pref_category_driver_id_dialogtitle">Select a Driver</string>
-
+    <string name="pref_category_driver_list_key">driver_list</string>
     <!-- Location Provider -->
 
     <string name="provider_disabled_message">Please let us determine your position!</string>
     <string name="provider_disabled_bt_positive">Activate</string>
     <string name="provider_disabled_bt_negative">Exit</string>
+
+    <!-- DriverInfo Service -->
+
+    <string name="service_hostname_not_set_message">Please specify the server configuration! (hostname and port)</string>
+    <string name="service_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
+    <string name="service_connection_failed_message">Server connection failed!</string>
+    <string name="service_check_connection_title">Please wait!</string>
+    <string name="service_check_connection_message">Checking server connection…</string>
+    <string name="service_errordialog_bt_ok">OK</string>
 
 </resources>
