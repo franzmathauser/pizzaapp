@@ -28,4 +28,9 @@ public final class ApiConstants
 	 * Datumsformatierungs-String.
 	 */
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+
+	/**
+	 * BASE64 Encodierte Benutzer, Passwort Credentials. Erlaubt den Zugriff auf die ActiveMQ via HTTP
+	 */
+	public static final String ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 = "YWRtaW46bGlwLnBpenphYXBwLmFjdGl2ZW1xYWRtaW4=";
 }

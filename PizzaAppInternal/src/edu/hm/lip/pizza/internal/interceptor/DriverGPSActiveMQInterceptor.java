@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
+import edu.hm.lip.pizza.api.object.ApiConstants;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
 
@@ -21,8 +22,6 @@ public class DriverGPSActiveMQInterceptor
 {
 
 	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/driverlocation?type=topic";
-
-	private static final String ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 = "YWRtaW46bGlwLnBpenphYXBwLmFjdGl2ZW1xYWRtaW4=";
 
 	/**
 	 * Interceptor Methode führt die den eigentlichen Call zunächst aus und überprüft ob es sich bei der Methode um die
@@ -48,7 +47,7 @@ public class DriverGPSActiveMQInterceptor
 			String input = "body=" + createRequestJSONObject( id, gpsData );
 
 			ClientRequest request = new ClientRequest( ACTIVEMQ_BASE_URL );
-			request.header( "Authorization", "BASIC " + ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 );
+			request.header( "Authorization", "BASIC " + ApiConstants.ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 );
 			request.body( MediaType.APPLICATION_FORM_URLENCODED, input );
 
 			ClientResponse<String> response = request.post( String.class );
