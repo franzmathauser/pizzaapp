@@ -32,10 +32,10 @@ final class Main
 	 * 
 	 * @param args
 	 *            String argumente (werden nicht ausgewertet)
-	 * @throws IOException
+	 * @throws Exception
 	 *             falls beim lesen des JSONS ein Fehler auftritt
 	 */
-	public static void main( String[] args ) throws IOException
+	public static void main( String[] args ) throws Exception
 	{
 
 		List<Address> destinationList = new ArrayList<Address>();

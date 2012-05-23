@@ -7,11 +7,8 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
+import org.jboss.resteasy.client.ClientRequest;
+import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.domain.Address;
 import edu.hm.lip.pizza.domain.google.GoogleDistanceMatrix;
@@ -44,27 +41,38 @@ public class DistanceMatrixBroker
 	 * Abfrage der GoogleDistanceApi nach DistanceMatrix Daten.
 	 * 
 	 * @return GoogleDistanceMatrix representation of request
-	 * @throws IOException
-	 *             fehler beim lesen des JSON-Response
+	 * @throws Exception 
 	 */
-	public GoogleDistanceMatrix requestDistanceMatrix() throws IOException
+	public GoogleDistanceMatrix requestDistanceMatrix() throws Exception
 	{
 		String originsParam = "&origins=" + convertDestinations();
 		String destinationsParam = "&destinations=" + convertDestinations();
 
-		ClientConfig config = new DefaultClientConfig();
-		Client c = Client.create( config );
+		// ClientConfig config = new DefaultClientConfig();
+		// Client c = Client.create( config );
+		//
+		// WebResource r = c
+		// .resource( "http://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&language=de-DE&sensor=false"
+		// + originsParam + destinationsParam );
+		// System.out.println( r.toString() );
+		//
+		// String responseString = r.accept( MediaType.APPLICATION_JSON_TYPE ).get( String.class );
+		//
+		// GoogleDistanceMatrix response = new ObjectMapper().readValue( responseString, GoogleDistanceMatrix.class );
 
-		WebResource r = c
-				.resource( "http://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&language=de-DE&sensor=false"
-						+ originsParam + destinationsParam );
-		System.out.println( r.toString() );
+		ClientRequest request = new ClientRequest( "http://maps.googleapis.com/maps/api/distancematrix/"
+				+ "json?mode=driving&language=de-DE&sensor=false" + originsParam + destinationsParam );
+		request.accept( MediaType.APPLICATION_JSON );
+		ClientResponse<String> response = request.get( String.class );
 
-		String responseString = r.accept( MediaType.APPLICATION_JSON_TYPE ).get( String.class );
+		if (response.getStatus() != 200)
+		{
+			throw new RuntimeException( "Failed : HTTP error code : " + response.getStatus() );
+		}
 
-		GoogleDistanceMatrix response = new ObjectMapper().readValue( responseString, GoogleDistanceMatrix.class );
+		GoogleDistanceMatrix matrix = new ObjectMapper().readValue( response.getEntity(), GoogleDistanceMatrix.class );
 
-		return response;
+		return matrix;
 	}
 
 	/**

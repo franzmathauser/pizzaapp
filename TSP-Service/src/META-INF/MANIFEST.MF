@@ -1,4 +1,2 @@
 Manifest-Version: 1.0
-Class-Path: jersey-core-1.12.jar 
- jersey-client-1.12.jar
 
