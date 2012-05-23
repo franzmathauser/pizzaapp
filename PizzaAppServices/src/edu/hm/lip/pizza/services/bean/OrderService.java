@@ -23,6 +23,8 @@ import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**
+ * REST-Service für die Bestelldomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Stateless
