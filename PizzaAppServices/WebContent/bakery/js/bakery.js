@@ -192,6 +192,10 @@ function renderDrivers(data) {
 }
 
 function orderLineClickHandler(order_id) {
+	
+	$.mobile.changePage('#moveToDriver',{ transition: "slidedown"});
+	return false;
+	
 	$.ajax({
 		type : 'POST',
 		url : ordersBaseURL + '/' + order_id + '/stages',

@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pizza Mobile Shop</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,15 +89,25 @@ html,body {
 .driver .ui-block-a img,.driver .ui-block-b img {
 	padding-right: 0.5em;
 }
+
+.ui-dialog.dialog-actionsheet .ui-dialog-contain {
+	margin-top: 0;
+}
+
+.ui-dialog .ui-header, 
+.ui-dialog .ui-content, 
+.ui-dialog .ui-footer { 
+	max-width: 500px; 
+	margin: 10% auto 15px auto; 
+}
 </style>
 
 <script>
-var map;
+	var map;
 
 	jQuery(window).ready(
 
 			function() {
-				
 
 				var myLatlng = new google.maps.LatLng(48.0972, 11.5265);
 				var myOptions = {
@@ -143,7 +154,7 @@ var map;
 
 		<div data-role="header" data-position="fixed">
 			<h1>Bestellungsverwaltung</h1>
-			<div id="messages" style="display:none"></div>
+			<div id="messages" style="display: none"></div>
 		</div>
 		<!-- /header -->
 
@@ -184,38 +195,24 @@ var map;
 
 	<!-- 	</div> -->
 	<!-- /page products -->
-	
-	<div data-role="page" id="moveToDriver" data-theme="e">
 
-		<div data-role="header">
-			<h1>Entfernen</h1>
-		</div>
-		<!-- /header -->
 
-		<div data-role="content">
-			<h2>Artikel aus Warenkorb entfernen?</h2>
-			<p>Wollen sie wirklich diesen Artikel entfernen?</p>
-			<br />
-			<input type="text" id="del_row" name="del_row" readonly="readonly" style="display: none;"/>
-			
-			<fieldset class="ui-grid-a">
-				<div class="ui-block-a">
-					<a id="confirm_deleteCartItem" href="#cart" data-role="button" data-icon="check"
-						data-inline="true" data-theme="b">Raus damit!</a>
-				</div>
-				<div class="ui-block-b">
-					<a href="#cart" data-role="button" data-icon="delete"
-						data-inline="true" data-theme="b" style="float: right;">Nein</a>
-				</div>
-			</fieldset>
+	<div id="moveToDriver" data-role="dialog" class="dialog-actionsheet">
+
+
+		<div data-role="content" data-theme="a">
+			<h3>Fahrer auswählen:</h3>
+			<a href="dialog-success.html" data-role="button" data-rel="dialog"
+				data-transition="slidedown" data-theme="b">Email</a>
+			 <a
+				href="index.html" data-role="button" data-rel="back" data-theme="a">Cancel</a>
 		</div>
-		<!-- /content -->
 	</div>
-	<!-- /page popup -->
-	
+
+
 
 	<div style="clear: both">
-		
+
 		<div id="debug"></div>
 	</div>
 
