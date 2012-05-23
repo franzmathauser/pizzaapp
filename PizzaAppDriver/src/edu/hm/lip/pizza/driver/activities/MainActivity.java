@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -112,6 +113,9 @@ public class MainActivity extends MapActivity
 
 		// Letzte bekannte Position zeichnen lassen
 		LocationDrawer.getInstance( this, m_mapView ).updateCurrentLocation( lastLocation, true );
+
+		// Bildschirmschoner solange die Activity aktiv ist ausschalten (Gilt nur für diese Activity!!)
+		getWindow().addFlags( LayoutParams.FLAG_KEEP_SCREEN_ON );
 	}
 
 	/**
@@ -123,6 +127,9 @@ public class MainActivity extends MapActivity
 	protected void onStop()
 	{
 		super.onStop();
+
+		// Bildschirmschoner wieder einschalten
+		getWindow().clearFlags( LayoutParams.FLAG_KEEP_SCREEN_ON );
 	}
 
 	/**
