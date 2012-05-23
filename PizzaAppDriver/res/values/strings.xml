@@ -8,6 +8,7 @@
     <string name="main_bt_currentlocation_imgdesc">Go to my current Location</string>
     <string name="main_bt_mapmode_imgdesc">Switch Map Mode</string>
     <string name="main_bt_loadroute_imgdesc">Load Route from Server</string>
+    <string name="main_bt_senddelivered_imgdesc">Send delivered State to Server</string>
 
     <!-- Map Behavior -->
 

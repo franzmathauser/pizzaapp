@@ -22,7 +22,7 @@
         android:background="#00000000"
         android:contentDescription="@string/main_bt_mapmode_imgdesc"
         android:onClick="mapModeClickHandler"
-        android:src="@android:drawable/ic_menu_mapmode" />
+        android:src="@drawable/ic_map_mapmode" />
 
     <ImageButton
         android:id="@+id/main_bt_currentlocation_id"
@@ -34,19 +34,43 @@
         android:background="#00000000"
         android:contentDescription="@string/main_bt_currentlocation_imgdesc"
         android:onClick="currentLocationClickHandler"
-        android:src="@android:drawable/ic_menu_mylocation" />
+        android:src="@drawable/ic_map_goto_my_location" />
 
-    <ImageButton
-        android:id="@+id/main_bt_loadroute_id"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="110dp"
-        android:background="#00000000"
-        android:contentDescription="@string/main_bt_loadroute_imgdesc"
-        android:onClick="loadRouteClickHandler"
-        android:src="@android:drawable/ic_menu_set_as" />
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="10dp" >
+
+        <ImageButton
+            android:id="@+id/main_bt_loadroute_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:contentDescription="@string/main_bt_loadroute_imgdesc"
+            android:onClick="loadRouteClickHandler"
+            android:src="@drawable/ic_map_load_route" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp" >
+
+        <ImageButton
+            android:id="@+id/main_bt_senddelivered_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:contentDescription="@string/main_bt_senddelivered_imgdesc"
+            android:onClick="sendDeliveredClickHandler"
+            android:src="@drawable/ic_map_send_delivered" />
+    </FrameLayout>
 
     <SlidingDrawer
         android:id="@+id/main_slider_mapbehavior_id"

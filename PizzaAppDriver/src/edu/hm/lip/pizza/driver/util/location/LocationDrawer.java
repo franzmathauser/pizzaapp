@@ -139,7 +139,7 @@ public final class LocationDrawer
 			}
 
 			// Markersymbol erzeugen welches auf der Karte für die aktuelle Position gezeichnet werden soll
-			Drawable marker = m_context.getResources().getDrawable( R.drawable.car );
+			Drawable marker = m_context.getResources().getDrawable( R.drawable.ic_location_tracker );
 			// OverlayItem erzeugen für die aktuelle Position und angebe von Metadaten (Titel und Inhalt)
 			OverlayItem overlayItem = new OverlayItem( m_currentLocation, "title", "snippet" ); // TODO Metadaten!
 			// LocationOverlay erzeugen mit ausgewähltem Markerysmbol und erzeugtem OverlayItem

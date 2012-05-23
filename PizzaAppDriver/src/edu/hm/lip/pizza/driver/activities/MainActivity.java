@@ -265,6 +265,17 @@ public class MainActivity extends MapActivity
 	{
 		// TODO CurrentLocation Click Handler
 	}
+	
+	/**
+	 * Handler für Click Events des SendDelivered Buttons auf der Karte.
+	 * 
+	 * @param view
+	 *            Die View von welcher das Event gefeuert wurde
+	 */
+	public void sendDeliveredClickHandler( View view )
+	{
+		// TODO CurrentLocation Click Handler
+	}
 
 	/**
 	 * Handler für Click Events in der Kartenkonfiguration. Wenn ein Configuration Item (z.B. Track, Follow, ...)
