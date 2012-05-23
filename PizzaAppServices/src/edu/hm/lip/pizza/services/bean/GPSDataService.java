@@ -14,6 +14,8 @@ import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 
 /**
+ * REST-Service für die GPS-Datendomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Stateless

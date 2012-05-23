@@ -13,6 +13,8 @@ import edu.hm.lip.pizza.internal.converter.CustomerConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
 
 /**
+ * REST-Service für die Kundendomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Stateless

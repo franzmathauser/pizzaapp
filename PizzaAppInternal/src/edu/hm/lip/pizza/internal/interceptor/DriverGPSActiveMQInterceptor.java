@@ -34,7 +34,7 @@ public class DriverGPSActiveMQInterceptor
 	 *             Exception
 	 */
 	@AroundInvoke
-	public Object modifyGreeting( InvocationContext ctx ) throws Exception
+	public Object gpsDataInterception( InvocationContext ctx ) throws Exception
 	{
 		Object[] parameters = ctx.getParameters();
 		Object ret = ctx.proceed();
