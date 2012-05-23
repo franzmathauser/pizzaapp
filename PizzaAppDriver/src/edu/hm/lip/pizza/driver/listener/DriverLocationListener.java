@@ -100,7 +100,7 @@ public class DriverLocationListener implements LocationListener
 
 				// Wenn GPS Positionszeitstempel neuer ist als der neue Positionszeitstempel abzüglich der Toleranz,
 				// dann GPS Position verwenden
-				if (lastGpsLocation.getTime() > location.getTime() - AppConstants.TIME_TOLERANCE)
+				if (lastGpsLocation != null && lastGpsLocation.getTime() > location.getTime() - AppConstants.TIME_TOLERANCE)
 				{
 					location = lastGpsLocation;
 					Log.d( this.getClass().getSimpleName(), "using newer gps location for initial positioning" );
