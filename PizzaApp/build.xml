@@ -156,8 +156,8 @@
 			<fileset dir="${libraries.dir}/commons/lang" includes="commons-*-*.jar" />
 			<!-- <fileset dir="${libraries.dir}/commons/lang3" includes="commons-*-*.jar" /> -->
 			<fileset dir="${libraries.dir}/commons/logging" includes="commons-*-*.jar" />
-			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-client-*.jar" />
-			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-core-*.jar" />
+<!-- 			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-client-*.jar" /> -->
+<!-- 			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-core-*.jar" /> -->
 		</ear>
 	</target>
 
