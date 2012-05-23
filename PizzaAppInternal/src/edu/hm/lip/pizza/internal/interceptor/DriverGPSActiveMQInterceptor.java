@@ -36,8 +36,8 @@ public class DriverGPSActiveMQInterceptor
 	public Object modifyGreeting( InvocationContext ctx ) throws Exception
 	{
 		Object[] parameters = ctx.getParameters();
-
 		Object ret = ctx.proceed();
+
 		if (ctx.getMethod().getAnnotation( DriverGPSActiveMQInterceptorMethodSelector.class ) != null)
 		{
 			int id = (Integer) parameters[0];
@@ -48,10 +48,12 @@ public class DriverGPSActiveMQInterceptor
 			ClientRequest request = new ClientRequest( ACTIVEMQ_BASE_URL );
 			request.body( MediaType.APPLICATION_FORM_URLENCODED, input );
 
-			ClientResponse response = request.post();
+			ClientResponse<String> response = request.post( String.class );
 
-			response.getStatus();
-
+			if (response.getStatus() >= 400)
+			{
+				throw new RuntimeException( "Failed : HTTP error code : " + response.getStatus() );
+			}
 		}
 
 		return ret;
@@ -68,7 +70,6 @@ public class DriverGPSActiveMQInterceptor
 		jsonObject.append( "}" );
 
 		return jsonObject.toString();
-
 	}
 
 }

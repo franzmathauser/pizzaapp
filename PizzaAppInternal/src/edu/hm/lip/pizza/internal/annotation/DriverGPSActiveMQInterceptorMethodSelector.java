@@ -7,11 +7,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Annotation welche an Methoden angebracht wird die vom
+ * {@link edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor} berücksichtigt werden sollen.
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
+@Documented
 @Retention( RetentionPolicy.RUNTIME )
 @Target( value = ElementType.METHOD )
-@Documented
 public @interface DriverGPSActiveMQInterceptorMethodSelector
 {
 
