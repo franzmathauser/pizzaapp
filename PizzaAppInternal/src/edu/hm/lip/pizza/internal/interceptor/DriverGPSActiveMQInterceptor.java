@@ -22,6 +22,8 @@ public class DriverGPSActiveMQInterceptor
 
 	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/driverlocation?type=topic";
 
+	private static final String ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 = "YWRtaW46bGlwLnBpenphYXBwLmFjdGl2ZW1xYWRtaW4=";
+
 	/**
 	 * Interceptor Methode führt die den eigentlichen Call zunächst aus und überprüft ob es sich bei der Methode um die
 	 * Annotierte Methode handelt. Die erhaltenen GPS-Daten werden in die ActiveMQ als JSON-Objekt versand.
@@ -46,6 +48,7 @@ public class DriverGPSActiveMQInterceptor
 			String input = "body=" + createRequestJSONObject( id, gpsData );
 
 			ClientRequest request = new ClientRequest( ACTIVEMQ_BASE_URL );
+			request.header( "Authorization", "BASIC " + ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 );
 			request.body( MediaType.APPLICATION_FORM_URLENCODED, input );
 
 			ClientResponse<String> response = request.post( String.class );
