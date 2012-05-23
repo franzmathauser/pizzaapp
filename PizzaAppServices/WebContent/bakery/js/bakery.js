@@ -43,7 +43,7 @@ function countup() {
 		}
 		// output += seconds;
 
-		eval("$('#orderTime-" + i + "').text(output);");
+		$('#orderTime-' + i).text(output);
 	});
 
 	setTimeout('countup()', 5000);
@@ -187,7 +187,7 @@ function renderDrivers(data) {
 		var html = '<span class="driverName">' + driver.name + '</span>'
 				+ '<img src="img/stack-2.png" style="float: left" />'
 				+ '<div class="time">ca. 4:59</div>';
-		eval('$("#driver_line-' + i + '").html(html)');
+		$('#driver_line-' + i).html(html);
 	}
 }
 

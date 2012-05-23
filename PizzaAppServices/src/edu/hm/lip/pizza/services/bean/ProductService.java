@@ -13,6 +13,8 @@ import edu.hm.lip.pizza.internal.converter.ProductConverter;
 import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
 
 /**
+ * REST-Service für die Produktdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Stateless

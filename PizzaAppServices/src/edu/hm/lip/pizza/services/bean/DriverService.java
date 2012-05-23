@@ -20,6 +20,8 @@ import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 
 /**
+ * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless

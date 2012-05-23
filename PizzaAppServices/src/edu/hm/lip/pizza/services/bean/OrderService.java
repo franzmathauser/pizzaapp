@@ -5,14 +5,17 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Order;
+import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelector;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
+import edu.hm.lip.pizza.internal.interceptor.OrderActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.manager.OrderStageManager;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrderLine;
@@ -20,9 +23,12 @@ import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
 import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
 
 /**
+ * REST-Service für die Bestelldomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * 
  * @author Franz Mathauser
  */
 @Stateless
+@Interceptors(OrderActiveMQInterceptor.class)
 public class OrderService extends AbstractBean implements IOrderServiceLocal
 {
 
@@ -52,6 +58,7 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 	 * @see edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal#create(edu.hm.lip.pizza.api.object.resources.Order)
 	 */
 	@Override
+	@OrderActiveMQInterceptorMethodSelector
 	public Order create( Order order )
 	{
 
