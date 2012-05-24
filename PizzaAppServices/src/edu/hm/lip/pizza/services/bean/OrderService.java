@@ -7,7 +7,10 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal;
+import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelector;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
@@ -156,6 +159,21 @@ public class OrderService extends AbstractBean implements IOrderServiceLocal
 		}
 
 		return OrderConverter.convertEntityToServiceOrder( eOrder );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal#getNextOrderStage(int)
+	 */
+	@Override
+	public String getNextOrderStage( int id )
+	{
+		EntityOrder eOrder = orderDAOBean.read( id );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
+		EntityOrderStage nextStage = OrderStageManager.next( eOrderStages );
+
+		return "{\"nextStage\": " + nextStage.getStage().name() + "}";
 	}
 
 }

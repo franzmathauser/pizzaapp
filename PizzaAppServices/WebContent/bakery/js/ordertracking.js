@@ -5,7 +5,7 @@ function ordersTopic(order) {
 	$('#order_list:visible').listview('refresh');
 	$('li[order_id|="'+order.id+'"]').click(
 		function(){
-		orderLineClickHandler(order.id);
+		orderLineClickHandler(order.id, $(this).attr('order_stage'));
 	});
 }
 

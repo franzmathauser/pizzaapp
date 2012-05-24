@@ -8,16 +8,20 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal;
+import edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Driver;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
+import edu.hm.lip.pizza.api.object.resources.OrderId;
 import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
+import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
+import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
 
 /**
  * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
@@ -32,6 +36,12 @@ public class DriverService implements IDriverServiceLocal
 	@EJB
 	private IDriverDAOLocal driverDAO;
 
+	@EJB
+	private IOrderDAOLocal orderDAO;
+	
+	@EJB
+	private IOrderServiceLocal orderService;
+	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -110,10 +120,16 @@ public class DriverService implements IDriverServiceLocal
 	 *      edu.hm.lip.pizza.api.object.resources.Order)
 	 */
 	@Override
-	public List<Order> addOrder( int id, Order order )
+	public void addOrder( int id, OrderId orderId )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		EntityDriver driver = driverDAO.read( id );
+		EntityOrder order = orderDAO.read( orderId.getId() );
+		order.setDriver( driver );
+		orderDAO.update( order );
+		
+		//set next order stage
+		orderService.createNextOrderStage( orderId.getId() );
+		
 	}
 
 	/**

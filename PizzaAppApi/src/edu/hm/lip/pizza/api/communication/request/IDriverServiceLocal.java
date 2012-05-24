@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import edu.hm.lip.pizza.api.object.resources.Driver;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
+import edu.hm.lip.pizza.api.object.resources.OrderId;
 
 /**
  * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
@@ -102,13 +103,12 @@ public interface IDriverServiceLocal
 	 * 
 	 * @param id
 	 *            Fahreridentifikation
-	 * @param order
-	 *            Bestellung
-	 * @return Bestellungsliste
+	 * @param orderId
+	 *            Bestellungsidentifikator
 	 */
 	@POST
 	@Path( "{id}/orders" )
-	List<Order> addOrder( @PathParam( "id" ) int id, Order order );
+	void addOrder( @PathParam( "id" ) int id, OrderId orderId );
 
 	/**
 	 * Entferne zugeordnete Bestellung von Fahrer.

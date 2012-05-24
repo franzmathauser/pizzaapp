@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.api.object.resources.Order;
 
 /**
@@ -98,5 +99,16 @@ public interface IOrderServiceLocal
 	@POST
 	@Path( "{id}/stages" )
 	Order createNextOrderStage( @PathParam( "id" ) int id );
+
+	/**
+	 * Führt Bestellung in die nächste Stage über.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 * @return Bestellung mit neuer Stage
+	 */
+	@GET
+	@Path( "{id}/stages" )
+	String getNextOrderStage( @PathParam( "id" ) int id );
 
 }
