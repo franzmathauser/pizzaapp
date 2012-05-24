@@ -46,6 +46,7 @@
     <string name="pref_category_driver_id_title">Name</string>
     <string name="pref_category_driver_id_dialogtitle">Select a Driver</string>
     <string name="pref_category_driver_list_key">driver_list</string>
+
     <!-- Location Provider -->
 
     <string name="provider_disabled_message">Please let us determine your position!</string>
@@ -60,5 +61,9 @@
     <string name="service_check_connection_title">Please wait!</string>
     <string name="service_check_connection_message">Checking server connection…</string>
     <string name="service_errordialog_bt_ok">OK</string>
+
+    <!-- SplashScreen Activity -->
+
+    <string name="splash_img_logo_imgdesc">PizzaApp</string>
 
 </resources>
