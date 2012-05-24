@@ -193,7 +193,9 @@ function renderDrivers(data) {
 		var driver = data[i];
 		drivers[driver.id] = driver;
 		var html = '<span class="driverName">' + driver.name + '</span>'
-				+ '<img src="img/stack-2.png" style="float: left" />'
+				+ '<img id="driver_tank-'+
+				+ driver.id
+				+ '" src="img/stack-2.png" style="float: left" />'
 				+ '<div class="time">ca. 4:59</div>';
 		$('#driver_line-' + i).html(html);
 
@@ -215,6 +217,7 @@ function renderDrivers(data) {
 			
 			driverButtonClickHandler(driver_id, order_id);
 		});
+		updateDriverTank(driver.id);
 	}
 }
 
@@ -257,7 +260,9 @@ function driverButtonClickHandler(driver_id, order_id){
 		data : json,
 		success : function(data) {
 			
-			getUndeliveredOrders();
+			getUndeliveredOrders(driver_id);
+			
+			updateDriverTank(driver_id);
 			
 			$.mobile.changePage('#bakery', {
 				transition : "fade"
@@ -269,11 +274,54 @@ function driverButtonClickHandler(driver_id, order_id){
 	
 }
 
+function updateDriverTank(driver_id){
+	
+	
+	$.ajax({
+		type : 'GET',
+		url : driversBaseURL + '/' + driver_id + '/orders',
+		contentType : "application/json", // data type of response,
+		success : function(orders) {
+			
+			var countOrders = 0;
+			var imageString;
+			if(orders != null){
+				countOrders = orders.length;
+			}
+			
+			switch (countOrders) {
+			case 0:
+			    imageString = "stack-0.png";
+			    break;
+			case 1:
+			    imageString = "stack-1.png";
+			    break;
+			case 2:
+			    imageString = "stack-2.png";
+			    break;
+			case 3:
+			    imageString = "stack-3.png";
+			    break;
+			case 4:
+			    imageString = "stack-4.png";
+			    break;
+			default:
+			    imageString = "stack-5.png";
+			    break;
+			}
+			
+			$('#driver_tank-' + driver_id).attr('src','img/'+imageString);
+		}
+	});
+	
+}
+
 $(document).ready(function() {
 	countup();
 	countdown();
 	findAllProducts();
 	findAllDrivers();
+	
 	
 	$(document).bind("pageshow", function() {
 		if ($("#order_list:visible").length) {
