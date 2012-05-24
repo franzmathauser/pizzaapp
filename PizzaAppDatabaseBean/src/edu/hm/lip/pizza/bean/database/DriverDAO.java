@@ -7,9 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
+import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
 
 /**
  * @author Franz Mathauser
@@ -80,6 +82,21 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	{
 		em.remove( entityDriver );
 		em.flush();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#getUndeliverdOrders(int)
+	 */
+	@Override
+	public List<EntityOrder> getUndeliverdOrders( int id )
+	{
+		Query query = em.createQuery(
+				"SELECT o FROM EntityOrder o where o.driver.id = :driver_id and not exists (from EntityOrderStage as s where s.order = o "
+						+ "AND s.stage = " + Stage.DELIVERED.ordinal() + ")", EntityOrder.class );
+		query.setParameter( "driver_id", id );
+		return query.getResultList();
 	}
 
 }

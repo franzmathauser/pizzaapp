@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.api.object.resources.Driver;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
@@ -133,5 +134,16 @@ public interface IDriverServiceLocal
 	@POST
 	@Path( "{id}/gpsdata" )
 	void createGPSData( @PathParam( "id" ) int id, GPSData gpsData );
+
+	/**
+	 * Liste der auszuliefernden Bestellungen in optimierter Reihenfolge für einen Fahrer mit id.
+	 * 
+	 * @param id
+	 *            Fahreridentifikation
+	 * @return Bestellungsliste
+	 */
+	@GET
+	@Path( "{id}/orders" )
+	List<Order> getUndeliveredOrders( @PathParam( "id" ) int id);
 
 }

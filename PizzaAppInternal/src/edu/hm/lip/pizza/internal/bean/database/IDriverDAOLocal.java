@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
+import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
 
 /**
  * @author Franz Mathauser
@@ -22,4 +23,6 @@ public interface IDriverDAOLocal
 	EntityDriver update( EntityDriver entityDriver );
 
 	void delete( EntityDriver entityDriver );
+	
+	List<EntityOrder> getUndeliverdOrders(int id);
 }

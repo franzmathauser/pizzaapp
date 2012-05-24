@@ -18,6 +18,7 @@ import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
+import edu.hm.lip.pizza.internal.converter.OrderConverter;
 import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
@@ -170,6 +171,18 @@ public class DriverService implements IDriverServiceLocal
 			eDriver.setGpsData( gpsDatas );
 			driverDAO.update( eDriver );
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#getUndeliveredOrders(int)
+	 */
+	@Override
+	public List<Order> getUndeliveredOrders( int id )
+	{
+		List<EntityOrder> eOrderList = driverDAO.getUndeliverdOrders( id );
+		return OrderConverter.convertEntityToServiceOrderList( eOrderList );
 	}
 
 }
