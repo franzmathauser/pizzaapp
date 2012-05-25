@@ -20,13 +20,21 @@ function driverLocationTopic(obj) {
 	}
 
 	driver_obj[index].setPosition(pos);
-	
-	var bounds = new google.maps.LatLngBounds( );
-	for (var key in driver_obj){
-		bounds.extend( driver_obj[key].getPosition() );
+
+	var bounds = new google.maps.LatLngBounds();
+	for ( var key in driver_obj) {
+		bounds.extend(driver_obj[key].getPosition());
 	}
-	map.fitBounds (bounds);
+
+	// set maximal zoom level to 15
+	var listener = google.maps.event.addListener(map, "idle", function() {
+		if (map.getZoom() > 15)
+			map.setZoom(15);
+		google.maps.event.removeListener(listener);
+	});
 	
+	map.fitBounds(bounds);
+
 }
 
 $(document).ready(function() {
