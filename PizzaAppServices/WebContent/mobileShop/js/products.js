@@ -1,4 +1,4 @@
-var productsBaseURL = getBaseURL()+"/products";
+var productsBaseURL = getBaseURL() + "/products";
 
 var products = new Array();
 
@@ -32,13 +32,12 @@ function renderDetails(obj) {
 	$('#detail_price_xl').html(euro(obj.price_xl));
 	$('#detail_price_xxl').html(euro(obj.price_xxl));
 	$('#detail_description').html(obj.description);
-	$('#detail_image_url').attr('src', '/productImages/'+obj.image_url);
+	$('#detail_image_url').attr('src', '/productImages/' + obj.image_url);
 
 }
 
 function renderProductList(data) {
 
-	
 	if (data == null)
 		return false;
 
@@ -50,8 +49,8 @@ function renderProductList(data) {
 						+ '"><a href="#detail" data-icon="arrow-r">'
 						+ '<img	src="/productImages/' + data[i].image_url
 						+ '" style="width: 84px; height: 84px;" />' + '<h3>'
-						+ data[i].name + '</h3>' + '<p>ab ' + euro(data[i].price_l)
-						+ '</p>' + '</a>' + '</li>');
+						+ data[i].name + '</h3>' + '<p>ab '
+						+ euro(data[i].price_l) + '</p>' + '</a>' + '</li>');
 	}
 
 	$('#product_list:visible').listview('refresh');
@@ -61,17 +60,17 @@ function renderProductList(data) {
 		var id = row.attr('product_id');
 
 		renderDetails(products[id]);
-		$.cookies.set('detail_product_id', id);
+		localStorage.detail_product_id = id;
 
 	});
 
-	var last_product_id = $.cookies.get('detail_product_id');
-	if(last_product_id != null){
+	var last_product_id = localStorage.detail_product_id;
+	if (last_product_id != null) {
 		renderDetails(products[last_product_id]);
 	}
-	
+
 	refreshCart();
-	
+
 	if ($("#cart_list:visible").length) {
 		$('#cart_list').listview('refresh');
 	}
@@ -80,15 +79,15 @@ function renderProductList(data) {
 	}
 }
 
-function initCookieValues() {
-	
-	var lastname = $.cookies.get('lastname');
-	var forename = $.cookies.get('forename');
-	var zipcode = $.cookies.get('zipcode');
-	var street = $.cookies.get('street');
-	var city = $.cookies.get('city');
-	var email = $.cookies.get('email');
-	var phone = $.cookies.get('phone');
+function initLocalStorageValues() {
+
+	var lastname = localStorage.lastname;
+	var forename = localStorage.forename;
+	var zipcode = localStorage.zipcode;
+	var street = localStorage.street;
+	var city = localStorage.city;
+	var email = localStorage.email;
+	var phone = localStorage.phone;
 
 	if (lastname != null) {
 		$('#lastname').val(lastname);
@@ -113,21 +112,20 @@ function initCookieValues() {
 	}
 }
 
-
 $(document).ready(function() {
 
 	findAll();
 
-	$(document).bind("pageshow", function(){
-        if($("#product_list:visible").length){
-            $('#product_list').listview('refresh');
-        }
-    });
+	$(document).bind("pageshow", function() {
+		if ($("#product_list:visible").length) {
+			$('#product_list').listview('refresh');
+		}
+	});
 
 	$('a[href~="#orderPreview"]').click(function() {
-		
-		if(!$('#customer_form').valid()){
-			
+
+		if (!$('#customer_form').valid()) {
+
 			return false;
 		}
 
@@ -145,17 +143,15 @@ $(document).ready(function() {
 		$('#customer_data_email').html(email);
 		$('#customer_data_phone').html(phone);
 
-		
-		$.cookies.set('forename', forename);
-		$.cookies.set('lastname', lastname);
-		$.cookies.set('street', street);
-		$.cookies.set('zipcode', zipcode);
-		$.cookies.set('city', city);
-		$.cookies.set('email', email);
-		$.cookies.set('phone', phone);
+		localStorage.forename = forename;
+		localStorage.lastname = lastname;
+		localStorage.street = street;
+		localStorage.zipcode = zipcode;
+		localStorage.city = city;
+		localStorage.email = email;
+		localStorage.phone = phone;
 	});
 
-	initCookieValues();
-	
+	initLocalStorageValues();
 
 });

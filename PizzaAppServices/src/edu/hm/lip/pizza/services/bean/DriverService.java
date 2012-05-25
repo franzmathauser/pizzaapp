@@ -14,7 +14,6 @@ import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.api.object.resources.OrderId;
 import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
-import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
@@ -32,7 +31,7 @@ import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
  */
 @Stateless
 @Interceptors( DriverGPSActiveMQInterceptor.class )
-public class DriverService extends AbstractBean implements IDriverServiceLocal
+public class DriverService implements IDriverServiceLocal
 {
 
 	@EJB
@@ -40,10 +39,10 @@ public class DriverService extends AbstractBean implements IDriverServiceLocal
 
 	@EJB
 	private IOrderDAOLocal orderDAO;
-
+	
 	@EJB
 	private IOrderServiceLocal orderService;
-
+	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -128,10 +127,10 @@ public class DriverService extends AbstractBean implements IDriverServiceLocal
 		EntityOrder order = orderDAO.read( orderId.getId() );
 		order.setDriver( driver );
 		orderDAO.update( order );
-
-		// set next order stage
+		
+		//set next order stage
 		orderService.createNextOrderStage( orderId.getId() );
-
+		
 	}
 
 	/**

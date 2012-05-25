@@ -1,7 +1,12 @@
-var orderssBaseURL = getBaseURL()+"/orders";
+var orderssBaseURL = getBaseURL() + "/orders";
 
 var refreshCart = function() {
-	var cart = $.cookies.get('cart');
+	var cart;
+	if (localStorage.cart == null) {
+		cart = new Array();
+	} else {
+		cart = JSON.parse(localStorage.cart);
+	}
 	var cart_size = cart.length;
 	$('#cart_list li').remove();
 	$('#previewProductList li.orderedProducts').remove();
@@ -59,12 +64,11 @@ var refreshCart = function() {
 		var id = row.attr('product_id');
 
 		renderDetails(products[id]);
-		$.cookies.set('detail_product_id', id);
+		localStorage.detail_product_id = id;
 
 	});
 
 };
-
 
 function addOrder(data) {
 	console.log('addOrder');
@@ -75,30 +79,32 @@ function addOrder(data) {
 		dataType : "json",
 		data : data,
 		success : function(data, textStatus, jqXHR) {
-			// TODO remove reset cart in cookie
+			// TODO remove reset cart in localstore
 			// refresh cart
 			console.log('sent order to server');
 			$("#lnk_orderSuccess").click();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-//			errorMessage('Product create error: ' + textStatus);
+			// errorMessage('Product create error: ' + textStatus);
 			console.error('order count not be saved');
 			$("#lnk_orderError").click();
-			
+
 		}
 	});
 }
 
 $(document).ready(function() {
 
-	var cart = $.cookies.get('cart');
-	if (cart == null) {
+	var cart;
+	if (localStorage.cart == null) {
 		cart = new Array();
-		$.cookies.set('cart', cart);
+		localStorage.cart = JSON.stringify(cart);
+	} else {
+		cart = JSON.parse(localStorage.cart);
 	}
 
 	$('#add_to_cart').click(function() {
-		var cart = $.cookies.get('cart');
+		var cart = JSON.parse(localStorage.cart);
 		var cart_size = cart.length;
 
 		var product_id = $('#detail_product_id').val();
@@ -117,14 +123,14 @@ $(document).ready(function() {
 				'size' : size,
 				'quantity' : 1
 			};
-		$.cookies.set('cart', cart);
+		localStorage.cart = JSON.stringify(cart);
 	});
 
 	$('a[href="#cart"]').click(refreshCart);
 
 	$('#confirm_deleteCartItem').click(function() {
 		var del_row = parseInt($('#del_row').val());
-		var cart = $.cookies.get('cart');
+		var cart = JSON.parse(localStorage.cart);
 		var cart_new = new Array();
 		var j = 0;
 		for ( var i = 0; i < cart.length; i++) {
@@ -133,14 +139,14 @@ $(document).ready(function() {
 			}
 		}
 
-		$.cookies.set('cart', cart_new);
+		localStorage.cart = JSON.stringify(cart_new);
 		refreshCart();
 	});
 
 	$('#lnk_ordered').click(function() {
-		
+
 		var note = $('#note').val();
-		var orderLines = $.cookies.get('cart');
+		var orderLines = JSON.parse(localStorage.cart);
 
 		var json = JSON.stringify({
 			"customer" : {
@@ -159,7 +165,7 @@ $(document).ready(function() {
 			"note" : note,
 			"order_lines" : orderLines
 		});
-		
+
 		console.log(json);
 		addOrder(json);
 	});
