@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,6 +22,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import edu.hm.lip.pizza.api.object.enumeration.Size;
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+import edu.hm.lip.pizza.internal.object.query.ProductConfigurationQueryConstants;
 
 /**
  * Entität für die Produkt-Konfiguration. Es werden alle benötigten Produkt-Konfigurations-Information in dieser Klasse
@@ -29,6 +32,8 @@ import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
  */
 @Entity
 @Table( name = "product_configuration" )
+@NamedQueries( { @NamedQuery(	name = ProductConfigurationQueryConstants.PRODUCT_CONFIG_BY_PRODUCT_AND_SIZE,
+								query = ProductConfigurationQueryConstants.PRODUCT_CONFIG_BY_PRODUCT_AND_SIZE_QUERY ) } )
 public class EntityProductConfiguration extends AbstractEntityObject
 {
 

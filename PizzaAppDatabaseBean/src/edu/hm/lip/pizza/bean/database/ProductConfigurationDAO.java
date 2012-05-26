@@ -3,12 +3,13 @@ package edu.hm.lip.pizza.bean.database;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import edu.hm.lip.pizza.api.object.enumeration.Size;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
+import edu.hm.lip.pizza.internal.object.query.ProductConfigurationQueryConstants;
 
 /**
  * Bean für den Datenbankzugriff auf die ProductConfiguration Entität.
@@ -31,11 +32,11 @@ public class ProductConfigurationDAO extends AbstractBean implements IProductCon
 	@Override
 	public EntityProductConfiguration getProductConfiguration( Integer productId, Size size )
 	{
-		Query query = em.createQuery( "from EntityProductConfiguration where product_id = :product_id and size = :size",
-				EntityProductConfiguration.class );
+		TypedQuery<EntityProductConfiguration> query = em.createNamedQuery(
+				ProductConfigurationQueryConstants.PRODUCT_CONFIG_BY_PRODUCT_AND_SIZE, EntityProductConfiguration.class );
 		query.setParameter( "product_id", productId );
 		query.setParameter( "size", size );
-		return (EntityProductConfiguration) query.getSingleResult();
+		return query.getSingleResult();
 	}
 
 }

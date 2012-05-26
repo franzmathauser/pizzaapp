@@ -5,11 +5,12 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
+import edu.hm.lip.pizza.internal.object.query.GPSDataQueryConstants;
 
 /**
  * Bean für den Datenbankzugriff auf die GPSData Entität.
@@ -41,11 +42,10 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#readAll()
 	 */
-	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityGPSData> readAll()
 	{
-		Query query = em.createQuery( "SELECT g FROM EntityGPSData g", EntityGPSData.class );
+		TypedQuery<EntityGPSData> query = em.createNamedQuery( GPSDataQueryConstants.GET_ALL_GPSDATA, EntityGPSData.class );
 		return query.getResultList();
 	}
 

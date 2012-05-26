@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,6 +19,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+import edu.hm.lip.pizza.internal.object.query.DriverQueryConstants;
 
 /**
  * Entität für die Fahrer. Es werden alle benötigten Fahrer-Information in dieser Klasse gehalten, wie beispielsweise
@@ -26,6 +29,8 @@ import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
  */
 @Entity
 @Table( name = "driver" )
+@NamedQueries( { @NamedQuery(	name = DriverQueryConstants.GET_ALL_DRIVERS,
+								query = DriverQueryConstants.GET_ALL_DRIVERS_QUERY ) } )
 public class EntityDriver extends AbstractEntityObject
 {
 

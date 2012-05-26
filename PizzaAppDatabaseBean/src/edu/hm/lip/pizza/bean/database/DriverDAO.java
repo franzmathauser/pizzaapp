@@ -5,13 +5,15 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
+import edu.hm.lip.pizza.internal.object.query.DriverQueryConstants;
+import edu.hm.lip.pizza.internal.object.query.OrderQueryConstants;
 
 /**
  * Bean für den Datenbankzugriff auf die Driver Entität.
@@ -43,11 +45,10 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#readAll()
 	 */
-	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityDriver> readAll()
 	{
-		Query query = em.createQuery( "SELECT d FROM EntityDriver d", EntityDriver.class );
+		TypedQuery<EntityDriver> query = em.createNamedQuery( DriverQueryConstants.GET_ALL_DRIVERS, EntityDriver.class );
 		return query.getResultList();
 	}
 
@@ -92,14 +93,12 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#getUndeliverdOrders(int)
 	 */
-	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityOrder> getUndeliverdOrders( int id )
 	{
-		Query query = em.createQuery(
-				"SELECT o FROM EntityOrder o where o.driver.id = :driver_id and not exists (from EntityOrderStage as s where s.order = o "
-						+ "AND s.stage = " + Stage.DELIVERED.ordinal() + ")", EntityOrder.class );
+		TypedQuery<EntityOrder> query = em.createNamedQuery( OrderQueryConstants.ORDERS_BY_DRIVER_AND_STAGE, EntityOrder.class );
 		query.setParameter( "driver_id", id );
+		query.setParameter( "stage", Stage.DELIVERED );
 		return query.getResultList();
 	}
 

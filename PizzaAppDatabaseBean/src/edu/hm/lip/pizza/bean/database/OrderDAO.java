@@ -5,13 +5,14 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
+import edu.hm.lip.pizza.internal.object.query.OrderQueryConstants;
 
 /**
  * Bean für den Datenbankzugriff auf die Order Entität.
@@ -43,11 +44,10 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#readAll()
 	 */
-	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityOrder> readAll()
 	{
-		Query query = em.createQuery( "SELECT o FROM EntityOrder o", EntityOrder.class );
+		TypedQuery<EntityOrder> query = em.createNamedQuery( OrderQueryConstants.GET_ALL_ORDERS, EntityOrder.class );
 		return query.getResultList();
 	}
 
@@ -105,13 +105,11 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#getUndeliveredTasks()
 	 */
-	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityOrder> getUndeliveredOrders()
 	{
-		Query query = em.createQuery(
-				"SELECT o FROM EntityOrder o where not exists (from EntityOrderStage as s where s.order = o AND s.stage = "
-						+ Stage.IN_DELIVERY.ordinal() + ")", EntityOrder.class );
+		TypedQuery<EntityOrder> query = em.createNamedQuery( OrderQueryConstants.ORDERS_BY_STAGE, EntityOrder.class );
+		query.setParameter( "stage", Stage.IN_DELIVERY );
 		return query.getResultList();
 	}
 

@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +20,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+import edu.hm.lip.pizza.internal.object.query.OrderQueryConstants;
 
 /**
  * Entität für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie
@@ -27,6 +30,11 @@ import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
  */
 @Entity
 @Table( name = "order_table" )
+@NamedQueries( {
+		@NamedQuery( name = OrderQueryConstants.GET_ALL_ORDERS, query = OrderQueryConstants.GET_ALL_ORDERS_QUERY ),
+		@NamedQuery( name = OrderQueryConstants.ORDERS_BY_STAGE, query = OrderQueryConstants.ORDERS_BY_STAGE_QUERY ),
+		@NamedQuery(	name = OrderQueryConstants.ORDERS_BY_DRIVER_AND_STAGE,
+						query = OrderQueryConstants.ORDERS_BY_DRIVER_AND_STAGE_QUERY ) } )
 public class EntityOrder extends AbstractEntityObject
 {
 

@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +23,7 @@ import org.hibernate.validator.constraints.Range;
 
 import edu.hm.lip.pizza.api.object.enumeration.Gender;
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+import edu.hm.lip.pizza.internal.object.query.CustomerQueryConstants;
 
 /**
  * Entität für die Kunden. Es werden alle benötigten Kunden-Information in dieser Klasse gehalten, wie beispielsweise
@@ -30,6 +33,8 @@ import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
  */
 @Entity
 @Table( name = "customer" )
+@NamedQueries( { @NamedQuery(	name = CustomerQueryConstants.GET_ALL_CUSTOMERS,
+								query = CustomerQueryConstants.GET_ALL_CUSTOMERS_QUERY ) } )
 public class EntityCustomer extends AbstractEntityObject
 {
 

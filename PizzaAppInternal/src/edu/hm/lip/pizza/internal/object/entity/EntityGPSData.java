@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
+import edu.hm.lip.pizza.internal.object.query.GPSDataQueryConstants;
 
 /**
  * Entität für die GPS-Daten eines Fahrers. Es werden alle benötigten Geo-Information in dieser Klasse gehalten, wie
@@ -27,6 +30,7 @@ import edu.hm.lip.pizza.internal.object.AbstractEntityObject;
  */
 @Entity
 @Table( name = "gps_data" )
+@NamedQueries( { @NamedQuery( name = GPSDataQueryConstants.GET_ALL_GPSDATA, query = GPSDataQueryConstants.GET_ALL_GPSDATA_QUERY ) } )
 public class EntityGPSData extends AbstractEntityObject
 {
 

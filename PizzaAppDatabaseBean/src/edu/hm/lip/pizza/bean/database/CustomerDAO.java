@@ -5,11 +5,12 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
+import edu.hm.lip.pizza.internal.object.query.CustomerQueryConstants;
 
 /**
  * Bean für den Datenbankzugriff auf die Customer Entität.
@@ -41,11 +42,10 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#readAll()
 	 */
-	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityCustomer> readAll()
 	{
-		Query query = em.createQuery( "SELECT c FROM EntityCustomer c", EntityCustomer.class );
+		TypedQuery<EntityCustomer> query = em.createNamedQuery( CustomerQueryConstants.GET_ALL_CUSTOMERS, EntityCustomer.class );
 		return query.getResultList();
 	}
 
