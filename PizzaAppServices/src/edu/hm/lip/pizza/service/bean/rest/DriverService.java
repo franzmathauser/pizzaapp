@@ -68,8 +68,8 @@ public class DriverService extends AbstractBean implements IDriverService
 	@Override
 	public Driver create( Driver driver )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		EntityDriver eDriver = DriverConverter.convertServiceToEntityDriver( driver );
+		return DriverConverter.convertEntityToServiceDriver( driverDAO.create( eDriver ) );
 	}
 
 	/**
