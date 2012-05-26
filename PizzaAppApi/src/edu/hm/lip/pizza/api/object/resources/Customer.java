@@ -53,10 +53,20 @@ public class Customer extends AbstractRessourceObject
 	private String phone;
 
 	private String email;
-	
+
 	private String lat;
-	
+
 	private String lon;
+
+	/**
+	 * Liefert die Adresse der Kunden als Stringzeile.
+	 * 
+	 * @return Adresse als String
+	 */
+	public String getAddressAsString()
+	{
+		return getStreet() + ", " + getZipcode() + " " + getCity();
+	}
 
 	/**
 	 * Liefert das Attribut id.
@@ -312,7 +322,7 @@ public class Customer extends AbstractRessourceObject
 
 	/**
 	 * Liefert das Attribut lat.
-	 *
+	 * 
 	 * @return lat
 	 */
 	public String getLat()
@@ -322,9 +332,9 @@ public class Customer extends AbstractRessourceObject
 
 	/**
 	 * Setzt das Attribut lat.
-	 *
-	 * @param lat 
-	 * 			zu setzender Wert für das Attribut lat
+	 * 
+	 * @param lat
+	 *            zu setzender Wert für das Attribut lat
 	 */
 	public void setLat( String lat )
 	{
@@ -333,7 +343,7 @@ public class Customer extends AbstractRessourceObject
 
 	/**
 	 * Liefert das Attribut lon.
-	 *
+	 * 
 	 * @return lon
 	 */
 	public String getLon()
@@ -343,9 +353,9 @@ public class Customer extends AbstractRessourceObject
 
 	/**
 	 * Setzt das Attribut lon.
-	 *
-	 * @param lon 
-	 * 			zu setzender Wert für das Attribut lon
+	 * 
+	 * @param lon
+	 *            zu setzender Wert für das Attribut lon
 	 */
 	public void setLon( String lon )
 	{

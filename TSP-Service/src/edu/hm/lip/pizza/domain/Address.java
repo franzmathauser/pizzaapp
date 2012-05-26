@@ -8,6 +8,8 @@ package edu.hm.lip.pizza.domain;
 public class Address
 {
 
+	private Integer id;
+
 	private String lat;
 
 	private String lng;
@@ -15,11 +17,35 @@ public class Address
 	private final String addressString;
 
 	/**
+	 * Liefert die Adresszeile als String.
+	 * 
 	 * @param addressString
+	 *            Stringrespräsentation der Adresse
 	 */
 	public Address( String addressString )
 	{
 		this.addressString = addressString;
+	}
+
+	/**
+	 * Liefert das Attribut id.
+	 * 
+	 * @return id
+	 */
+	public Integer getId()
+	{
+		return id;
+	}
+
+	/**
+	 * Setzt das Attribut id.
+	 * 
+	 * @param id
+	 *            zu setzender Wert für das Attribut id
+	 */
+	public void setId( Integer id )
+	{
+		this.id = id;
 	}
 
 	/**

@@ -95,7 +95,7 @@ public final class CustomerConverter
 			eCustomer.setLat( Double.parseDouble( customer.getLat() ) );
 			eCustomer.setLon( Double.parseDouble( customer.getLon() ) );
 		}
-		catch (NumberFormatException ex)
+		catch (Exception ex)
 		{
 			eCustomer.setLat( null );
 			eCustomer.setLon( null );

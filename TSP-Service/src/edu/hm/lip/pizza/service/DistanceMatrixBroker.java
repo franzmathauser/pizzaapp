@@ -1,6 +1,5 @@
 package edu.hm.lip.pizza.service;
 
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -30,7 +29,10 @@ public class DistanceMatrixBroker
 	private final List<Address> destinations;
 
 	/**
+	 * Liefert eine Liste der Adressdaten, die abgefragt werden.
+	 * 
 	 * @param destinations
+	 *            Adressdatensätze
 	 */
 	public DistanceMatrixBroker( List<Address> destinations )
 	{
@@ -41,24 +43,13 @@ public class DistanceMatrixBroker
 	 * Abfrage der GoogleDistanceApi nach DistanceMatrix Daten.
 	 * 
 	 * @return GoogleDistanceMatrix representation of request
-	 * @throws Exception 
+	 * @throws Exception
+	 *             wenn Google nicht erreichbar ist.
 	 */
 	public GoogleDistanceMatrix requestDistanceMatrix() throws Exception
 	{
 		String originsParam = "&origins=" + convertDestinations();
 		String destinationsParam = "&destinations=" + convertDestinations();
-
-		// ClientConfig config = new DefaultClientConfig();
-		// Client c = Client.create( config );
-		//
-		// WebResource r = c
-		// .resource( "http://maps.googleapis.com/maps/api/distancematrix/json?mode=driving&language=de-DE&sensor=false"
-		// + originsParam + destinationsParam );
-		// System.out.println( r.toString() );
-		//
-		// String responseString = r.accept( MediaType.APPLICATION_JSON_TYPE ).get( String.class );
-		//
-		// GoogleDistanceMatrix response = new ObjectMapper().readValue( responseString, GoogleDistanceMatrix.class );
 
 		ClientRequest request = new ClientRequest( "http://maps.googleapis.com/maps/api/distancematrix/"
 				+ "json?mode=driving&language=de-DE&sensor=false" + originsParam + destinationsParam );

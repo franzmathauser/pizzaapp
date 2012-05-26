@@ -10,6 +10,7 @@ import javax.interceptor.Interceptors;
 import edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal;
 import edu.hm.lip.pizza.api.communication.request.IOrderServiceLocal;
 import edu.hm.lip.pizza.api.object.resources.Driver;
+import edu.hm.lip.pizza.api.object.resources.DriverRoute;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.api.object.resources.OrderId;
@@ -23,6 +24,7 @@ import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
 import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
+import edu.hm.lip.pizza.service.manager.DriverRouteManager;
 
 /**
  * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
@@ -39,10 +41,13 @@ public class DriverService implements IDriverServiceLocal
 
 	@EJB
 	private IOrderDAOLocal orderDAO;
-	
+
 	@EJB
 	private IOrderServiceLocal orderService;
 	
+	@EJB
+	private DriverRouteManager driverRouteManager;
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -108,10 +113,9 @@ public class DriverService implements IDriverServiceLocal
 	 * @see edu.hm.lip.pizza.api.communication.request.IDriverServiceLocal#getRoute(int)
 	 */
 	@Override
-	public List<Order> getRoute( int id )
+	public DriverRoute getRoute( int id )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return driverRouteManager.getRoute( id );
 	}
 
 	/**
@@ -127,10 +131,10 @@ public class DriverService implements IDriverServiceLocal
 		EntityOrder order = orderDAO.read( orderId.getId() );
 		order.setDriver( driver );
 		orderDAO.update( order );
-		
-		//set next order stage
+
+		// set next order stage
 		orderService.createNextOrderStage( orderId.getId() );
-		
+
 	}
 
 	/**

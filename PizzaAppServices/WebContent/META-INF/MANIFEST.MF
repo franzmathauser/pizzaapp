@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Class-Path: BasicApi.jar 
  PizzaAppApi.jar 
- PizzaAppInternal.jar
+ PizzaAppInternal.jar 
+ TSP-Service.jar
 

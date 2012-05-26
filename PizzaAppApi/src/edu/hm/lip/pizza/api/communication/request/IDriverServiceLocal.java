@@ -14,8 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import edu.hm.lip.pizza.api.object.enums.Stage;
 import edu.hm.lip.pizza.api.object.resources.Driver;
+import edu.hm.lip.pizza.api.object.resources.DriverRoute;
 import edu.hm.lip.pizza.api.object.resources.GPSData;
 import edu.hm.lip.pizza.api.object.resources.Order;
 import edu.hm.lip.pizza.api.object.resources.OrderId;
@@ -97,7 +97,7 @@ public interface IDriverServiceLocal
 	@GET
 	@Path( "{id}/route" )
 	@QueryParam( "" )
-	List<Order> getRoute( @PathParam( "id" ) int id );
+	DriverRoute getRoute( @PathParam( "id" ) int id );
 
 	/**
 	 * Fügt einem Fahrer eine Bestellung hinzu.

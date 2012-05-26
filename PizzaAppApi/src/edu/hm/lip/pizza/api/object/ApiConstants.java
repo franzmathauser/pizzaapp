@@ -33,4 +33,14 @@ public final class ApiConstants
 	 * BASE64 Encodierte Benutzer, Passwort Credentials. Erlaubt den Zugriff auf die ActiveMQ via HTTP
 	 */
 	public static final String ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 = "YWRtaW46bGlwLnBpenphYXBwLmFjdGl2ZW1xYWRtaW4=";
+
+	/**
+	 * Längengrad-Koordinate des Pizza-Shops.
+	 */
+	public static final Double PIZZA_STORE_ORIGIN_LAT = 48.0972;
+
+	/**
+	 * Breitengrad-Koordinate des Pizza-Shops.
+	 */
+	public static final Double PIZZA_STORE_ORIGIN_LON = 11.5265;
 }

@@ -20,7 +20,7 @@ public class Path
 	private Long cost;
 
 	/**
-	 * 
+	 * Erzeugt einen neuen Pfad.
 	 */
 	public Path()
 	{
@@ -28,7 +28,20 @@ public class Path
 	}
 
 	/**
+	 * Liefert das Attribut edges.
+	 * 
+	 * @return edges
+	 */
+	public List<Edge> getEdges()
+	{
+		return edges;
+	}
+
+	/**
+	 * Liefert eine Liste mit Ecken.
+	 * 
 	 * @param list
+	 *            Ecken-Liste
 	 */
 	public Path( ArrayList<Edge> list )
 	{
@@ -39,7 +52,10 @@ public class Path
 	}
 
 	/**
+	 * Fügt eine neue Ecke hinzu.
+	 * 
 	 * @param edge
+	 *            Ecke
 	 */
 	public void addEdge( Edge edge )
 	{
@@ -47,8 +63,11 @@ public class Path
 	}
 
 	/**
+	 * Liefert eine Ecke anhand des Index.
+	 * 
 	 * @param index
-	 * @return
+	 *            Indexwert
+	 * @return Ecke
 	 */
 	public Edge getEdge( int index )
 	{
@@ -56,7 +75,9 @@ public class Path
 	}
 
 	/**
-	 * @return
+	 * Liefert die Anzahl der Ecken.
+	 * 
+	 * @return Eckenanzahl
 	 */
 	public int size()
 	{
@@ -64,7 +85,9 @@ public class Path
 	}
 
 	/**
-	 * @return
+	 * Liefert die Kosten beim durchlauf des Pfades.
+	 * 
+	 * @return Pfadkosten (DURRATION [seconds], DISTANCE [meters])
 	 */
 	public Long getCost()
 	{
@@ -72,7 +95,10 @@ public class Path
 	}
 
 	/**
+	 * Setzt die Pfadkosten.
+	 * 
 	 * @param cost
+	 *            Pfadkosten (DURRATION [seconds], DISTANCE [meters])
 	 */
 	public void setCost( Long cost )
 	{
