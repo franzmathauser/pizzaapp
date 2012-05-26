@@ -1,11 +1,13 @@
 #Organize Import Order
-#Fri May 04 17:57:59 CEST 2012
+#Sat May 26 21:47:49 CEST 2012
 9=\#android
 8=android
 7=\#com
 6=com
 5=\#org
+13=\#junit
 4=org
+12=junit
 3=\#javax
 11=\#edu
 2=javax
