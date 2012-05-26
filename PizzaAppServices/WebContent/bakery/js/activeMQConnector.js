@@ -1,6 +1,6 @@
 var activeMQClients = new Array();
 
-function connectActiveMQ(destination, messageHandler) {
+function connectActiveMQ(destination, messageHandler, errorHandler) {
 
 	var client;
 	var url = 'ws://' + window.location.hostname + ':61614/stomp';
@@ -11,7 +11,7 @@ function connectActiveMQ(destination, messageHandler) {
 
 	// this allows to display debug logs directly on the web page
 	client.debug = function(str) {
-		$("#debug").append(str + "\n");
+		$("#debug").append(str + "<br />");
 	};
 	// the client is notified when it is connected to the server.
 	var onconnect = function(frame) {
@@ -26,9 +26,11 @@ function connectActiveMQ(destination, messageHandler) {
 			messageHandler(obj);
 		});
 	};
-	client.connect(login, passcode, onconnect);
+	client.connect(login, passcode, onconnect, errorHandler);
 	activeMQClients[activeMQClients.length] = client;
 }
+
+
 
 function disconnectActiveMQ() {
 

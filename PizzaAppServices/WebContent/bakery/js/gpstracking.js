@@ -32,12 +32,19 @@ function driverLocationTopic(obj) {
 			map.setZoom(17);
 		google.maps.event.removeListener(listener);
 	});
-	
+
 	map.fitBounds(bounds);
 
 }
 
-$(document).ready(function() {
-
-	connectActiveMQ('/topic/driverlocation', driverLocationTopic)
-});
+$(document).ready(
+		function() {
+			var topic = '/topic/driverlocation';
+			
+			var driverLocationActiveMQErrorHandler = function() {
+				connectActiveMQ(topic, driverLocationTopic,
+						driverLocationActiveMQErrorHandler);
+			};
+			connectActiveMQ(topic, driverLocationTopic,
+					driverLocationActiveMQErrorHandler);
+		});

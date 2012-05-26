@@ -11,5 +11,12 @@ function ordersTopic(order) {
 
 $(document).ready(function() {
 
-	connectActiveMQ('/topic/orders', ordersTopic);
+	var orderTopic = '/topic/orders';
+	
+	var ordersActiveMQErrorHandler = function() {
+		connectActiveMQ(orderTopic, driverLocationTopic,
+				ordersActiveMQErrorHandler);
+	};
+	connectActiveMQ(orderTopic, driverLocationTopic,
+			ordersActiveMQErrorHandler);
 });
