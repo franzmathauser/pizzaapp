@@ -48,6 +48,15 @@ public final class CustomerConverter
 		customer.setPhone( eCustomer.getPhone() );
 		customer.setEmail( eCustomer.getEmail() );
 
+		if (eCustomer.getLat() != null)
+		{
+			customer.setLat( Double.toString( eCustomer.getLat() ) );
+		}
+		if (eCustomer.getLon() != null)
+		{
+			customer.setLon( Double.toString( eCustomer.getLon() ) );
+		}
+
 		return customer;
 	}
 
@@ -79,6 +88,18 @@ public final class CustomerConverter
 		eCustomer.setLevel( customer.getLevel() );
 		eCustomer.setPhone( customer.getPhone() );
 		eCustomer.setEmail( customer.getEmail() );
+
+		// check if both lat/lon can be parsed
+		try
+		{
+			eCustomer.setLat( Double.parseDouble( customer.getLat() ) );
+			eCustomer.setLon( Double.parseDouble( customer.getLon() ) );
+		}
+		catch (NumberFormatException ex)
+		{
+			eCustomer.setLat( null );
+			eCustomer.setLon( null );
+		}
 
 		return eCustomer;
 	}

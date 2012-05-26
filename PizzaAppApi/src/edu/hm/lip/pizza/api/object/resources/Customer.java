@@ -53,6 +53,10 @@ public class Customer extends AbstractRessourceObject
 	private String phone;
 
 	private String email;
+	
+	private String lat;
+	
+	private String lon;
 
 	/**
 	 * Liefert das Attribut id.
@@ -304,6 +308,48 @@ public class Customer extends AbstractRessourceObject
 	public void setEmail( String email )
 	{
 		this.email = email;
+	}
+
+	/**
+	 * Liefert das Attribut lat.
+	 *
+	 * @return lat
+	 */
+	public String getLat()
+	{
+		return lat;
+	}
+
+	/**
+	 * Setzt das Attribut lat.
+	 *
+	 * @param lat 
+	 * 			zu setzender Wert für das Attribut lat
+	 */
+	public void setLat( String lat )
+	{
+		this.lat = lat;
+	}
+
+	/**
+	 * Liefert das Attribut lon.
+	 *
+	 * @return lon
+	 */
+	public String getLon()
+	{
+		return lon;
+	}
+
+	/**
+	 * Setzt das Attribut lon.
+	 *
+	 * @param lon 
+	 * 			zu setzender Wert für das Attribut lon
+	 */
+	public void setLon( String lon )
+	{
+		this.lon = lon;
 	}
 
 	/**
