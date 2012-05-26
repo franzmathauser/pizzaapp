@@ -3,8 +3,8 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.resources.GPSData;
-import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
+import edu.hm.lip.pizza.api.object.resource.GPSData;
+import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
  * Konverter-Klasse fuer GPSData-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu

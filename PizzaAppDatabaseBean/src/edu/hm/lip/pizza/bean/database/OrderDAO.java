@@ -7,11 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import edu.hm.lip.pizza.api.object.enums.Stage;
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
 
 /**
  * @author Franz Mathauser
@@ -26,7 +26,7 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#create(edu.hm.lip.pizza.internal.object.entities.EntityOrder)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
 	 */
 	@Override
 	public EntityOrder create( EntityOrder entityOrder )
@@ -63,7 +63,7 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#update(edu.hm.lip.pizza.internal.object.entities.EntityOrder)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
 	 */
 	@Override
 	public EntityOrder update( EntityOrder entityOrder )
@@ -76,7 +76,7 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#delete(edu.hm.lip.pizza.internal.object.entities.EntityOrder)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
 	 */
 	@Override
 	public void delete( EntityOrder entityOrder )

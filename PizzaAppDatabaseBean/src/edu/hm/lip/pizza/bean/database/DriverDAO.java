@@ -7,11 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import edu.hm.lip.pizza.api.object.enums.Stage;
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
+import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
 
 /**
  * @author Franz Mathauser
@@ -26,7 +26,7 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#create(edu.hm.lip.pizza.internal.object.entities.EntityDriver)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityDriver)
 	 */
 	@Override
 	public EntityDriver create( EntityDriver entityDriver )
@@ -62,7 +62,7 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#update(edu.hm.lip.pizza.internal.object.entities.EntityDriver)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityDriver)
 	 */
 	@Override
 	public EntityDriver update( EntityDriver entityDriver )
@@ -75,7 +75,7 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#delete(edu.hm.lip.pizza.internal.object.entities.EntityDriver)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityDriver)
 	 */
 	@Override
 	public void delete( EntityDriver entityDriver )

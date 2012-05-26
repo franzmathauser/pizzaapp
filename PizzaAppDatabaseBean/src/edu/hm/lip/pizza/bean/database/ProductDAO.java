@@ -12,8 +12,8 @@ import javax.persistence.Query;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
-import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
+import edu.hm.lip.pizza.internal.object.entity.EntityProduct;
+import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
  * @author Franz Mathauser

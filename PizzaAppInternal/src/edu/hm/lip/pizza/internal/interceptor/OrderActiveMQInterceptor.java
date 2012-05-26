@@ -12,7 +12,7 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.api.object.ApiConstants;
-import edu.hm.lip.pizza.api.object.resources.Order;
+import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelector;
 
 /**

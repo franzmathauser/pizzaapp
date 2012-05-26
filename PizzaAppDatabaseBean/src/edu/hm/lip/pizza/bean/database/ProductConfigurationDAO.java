@@ -5,10 +5,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import edu.hm.lip.pizza.api.object.enums.Size;
+import edu.hm.lip.pizza.api.object.enumeration.Size;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
+import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
  * @author Franz Mathauser, Stefan Wörner
@@ -24,7 +24,7 @@ public class ProductConfigurationDAO extends AbstractBean implements IProductCon
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal#getProductConfiguration(java.lang.Integer,
-	 *      edu.hm.lip.pizza.api.object.enums.Size)
+	 *      edu.hm.lip.pizza.api.object.enumeration.Size)
 	 */
 	@Override
 	public EntityProductConfiguration getProductConfiguration( Integer product, Size size )

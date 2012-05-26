@@ -3,8 +3,8 @@ package edu.hm.lip.pizza.internal.manager;
 import java.util.Date;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.enums.Stage;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
 
 /**
  * Hilfsklasse für die Berechnung der einzelnen Bestellstati.

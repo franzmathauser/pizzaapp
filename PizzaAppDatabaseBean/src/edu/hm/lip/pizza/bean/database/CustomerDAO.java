@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
+import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
 
 /**
  * @author Franz Mathauser

@@ -3,10 +3,10 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.resources.Order;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderLine;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrderStage;
+import edu.hm.lip.pizza.api.object.resource.Order;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrderLine;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
 
 /**
  * Konverter-Klasse fuer Order-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu

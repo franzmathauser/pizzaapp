@@ -2,17 +2,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.common.tsp.PermutationManager;
-import edu.hm.lip.pizza.common.tsp.RoundTripPermutation;
-import edu.hm.lip.pizza.domain.Address;
-import edu.hm.lip.pizza.domain.MatrixContainer;
-import edu.hm.lip.pizza.domain.MatrixContainerAdapter;
-import edu.hm.lip.pizza.domain.MatrixContainerAdapter.Measurements;
-import edu.hm.lip.pizza.domain.Path;
-import edu.hm.lip.pizza.domain.google.GoogleDistanceMatrix;
-import edu.hm.lip.pizza.service.DistanceMatrixBroker;
 import edu.hm.lip.pizza.tsp.TspPermutation;
 import edu.hm.lip.pizza.tsp.TspSolver;
+import edu.hm.lip.pizza.tsp.common.PermutationManager;
+import edu.hm.lip.pizza.tsp.common.RoundTripPermutation;
+import edu.hm.lip.pizza.tsp.domain.Address;
+import edu.hm.lip.pizza.tsp.domain.MatrixContainer;
+import edu.hm.lip.pizza.tsp.domain.MatrixContainerAdapter;
+import edu.hm.lip.pizza.tsp.domain.Path;
+import edu.hm.lip.pizza.tsp.domain.MatrixContainerAdapter.Measurements;
+import edu.hm.lip.pizza.tsp.domain.google.GoogleDistanceMatrix;
+import edu.hm.lip.pizza.tsp.service.DistanceMatrixBroker;
 
 /**
  * Dieses Beispiel zeigt wie der TSP-Solver eingesetzt werden kann.

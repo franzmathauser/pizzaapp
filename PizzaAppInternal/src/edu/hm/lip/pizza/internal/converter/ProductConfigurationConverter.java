@@ -1,7 +1,7 @@
 package edu.hm.lip.pizza.internal.converter;
 
-import edu.hm.lip.pizza.api.object.resources.ProductConfiguration;
-import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
+import edu.hm.lip.pizza.api.object.resource.ProductConfiguration;
+import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
  * Konverter-Klasse fuer ProcuctConfiguration-Objekte, um zwischen dem Service-Datenmodell und dem

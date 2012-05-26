@@ -2,8 +2,8 @@ package edu.hm.lip.pizza.tsp;
 
 import java.util.List;
 
-import edu.hm.lip.pizza.domain.MatrixContainer;
-import edu.hm.lip.pizza.domain.Path;
+import edu.hm.lip.pizza.tsp.domain.MatrixContainer;
+import edu.hm.lip.pizza.tsp.domain.Path;
 
 /**
  * Solves The TSP-Problem through Permutation of Paths.

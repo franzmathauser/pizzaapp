@@ -3,8 +3,8 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.resources.Driver;
-import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
+import edu.hm.lip.pizza.api.object.resource.Driver;
+import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
 
 /**
  * Konverter-Klasse fuer Driver-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu

@@ -1,6 +1,6 @@
 package edu.hm.lip.pizza.tsp;
 
-import edu.hm.lip.pizza.domain.Path;
+import edu.hm.lip.pizza.tsp.domain.Path;
 
 /**
  * Das Problem des Handlungsreisenden (auch Rundreiseproblem, engl. Traveling Salesman Problem oder Traveling

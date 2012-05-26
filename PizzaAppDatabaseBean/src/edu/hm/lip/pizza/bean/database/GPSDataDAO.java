@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
-import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
+import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
  * @author Franz Mathauser
@@ -24,7 +24,7 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#create(edu.hm.lip.pizza.internal.object.entities.EntityGPSData)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityGPSData)
 	 */
 	@Override
 	public EntityGPSData create( EntityGPSData entityGPSData )
@@ -60,7 +60,7 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#update(edu.hm.lip.pizza.internal.object.entities.EntityGPSData)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityGPSData)
 	 */
 	@Override
 	public EntityGPSData update( EntityGPSData entityGPSData )
@@ -73,7 +73,7 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#delete(edu.hm.lip.pizza.internal.object.entities.EntityGPSData)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityGPSData)
 	 */
 	@Override
 	public void delete( EntityGPSData entityGPSData )

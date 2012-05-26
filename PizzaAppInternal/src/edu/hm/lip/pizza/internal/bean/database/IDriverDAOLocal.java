@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import edu.hm.lip.pizza.internal.object.entities.EntityDriver;
-import edu.hm.lip.pizza.internal.object.entities.EntityOrder;
+import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
 
 /**
  * @author Franz Mathauser

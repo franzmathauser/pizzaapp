@@ -3,8 +3,8 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.resources.Customer;
-import edu.hm.lip.pizza.internal.object.entities.EntityCustomer;
+import edu.hm.lip.pizza.api.object.resource.Customer;
+import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
 
 /**
  * Konverter-Klasse fuer Customer-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu

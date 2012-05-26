@@ -3,10 +3,10 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.enums.Size;
-import edu.hm.lip.pizza.api.object.resources.Product;
-import edu.hm.lip.pizza.internal.object.entities.EntityProduct;
-import edu.hm.lip.pizza.internal.object.entities.EntityProductConfiguration;
+import edu.hm.lip.pizza.api.object.enumeration.Size;
+import edu.hm.lip.pizza.api.object.resource.Product;
+import edu.hm.lip.pizza.internal.object.entity.EntityProduct;
+import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
  * Konverter-Klasse fuer Product-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu

@@ -9,7 +9,7 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.api.object.ApiConstants;
-import edu.hm.lip.pizza.api.object.resources.GPSData;
+import edu.hm.lip.pizza.api.object.resource.GPSData;
 import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
 
 /**

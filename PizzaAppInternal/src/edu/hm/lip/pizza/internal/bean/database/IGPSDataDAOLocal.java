@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import edu.hm.lip.pizza.internal.object.entities.EntityGPSData;
+import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
  * @author Franz Mathauser
