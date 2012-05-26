@@ -22,12 +22,18 @@ body,html {
 <body>
 
 		<div id="heatmapArea"></div>
-
+<script type="text/javascript">
+var map;
+var heatmap;
+</script>
 	<script type="text/javascript" src="js/heatmap.js"></script>
 	<script type="text/javascript" src="js/heatmap-gmaps.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="../js/commons.js"></script>
+	<script type="text/javascript" src="js/heatmapdata.js"></script>
 	<script type="text/javascript">
-		var map;
-		var heatmap;
+		
+		
 
 		window.onload = function() {
 
@@ -56,27 +62,7 @@ body,html {
 				"opacity" : 60
 			});
 
-			var staticData = {
-				max : 3,
-				data : [ {
-					lat : 48.1478470707551,
-					lng : 11.557245118713379,
-					count : 1
-				}, {
-					lat : 47.731010795533955,
-					lng : 11.867637634277344,
-					count : 1
-				}, {
-					lat : 48.043316157282035,
-					lng : 11.61855697631836,
-					count : 1
-				} ]
-			};
-
-		 	// Die Daten dürfen nicht zu früh gesetzt werden, da die lat/lng - pixel projektion ansonsten nicht funktioniert
-			google.maps.event.addListenerOnce(map, "idle", function() {
-				heatmap.setDataSet(staticData);
-			});
+			
 		};
 	</script>
 </body>

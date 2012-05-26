@@ -42,7 +42,7 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	@Override
 	public List<EntityCustomer> readAll()
 	{
-		Query query = em.createQuery( "SELECT c FROM EntitCustomery c", EntityCustomer.class );
+		Query query = em.createQuery( "SELECT c FROM EntityCustomer c", EntityCustomer.class );
 		return query.getResultList();
 	}
 
