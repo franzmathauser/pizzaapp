@@ -14,6 +14,8 @@ import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
 
 /**
+ * Bean für den Datenbankzugriff auf die Order Entität.
+ * 
  * @author Franz Mathauser
  */
 @Stateless
@@ -29,11 +31,11 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
 	 */
 	@Override
-	public EntityOrder create( EntityOrder entityOrder )
+	public EntityOrder create( EntityOrder order )
 	{
-		em.persist( entityOrder );
+		em.persist( order );
 		em.flush();
-		return entityOrder;
+		return order;
 	}
 
 	/**
@@ -66,11 +68,11 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
 	 */
 	@Override
-	public EntityOrder update( EntityOrder entityOrder )
+	public EntityOrder update( EntityOrder order )
 	{
-		entityOrder = em.merge( entityOrder );
+		order = em.merge( order );
 		em.flush();
-		return entityOrder;
+		return order;
 	}
 
 	/**
@@ -79,9 +81,9 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
 	 */
 	@Override
-	public void delete( EntityOrder entityOrder )
+	public void delete( EntityOrder order )
 	{
-		em.remove( entityOrder );
+		em.remove( order );
 		em.flush();
 
 	}

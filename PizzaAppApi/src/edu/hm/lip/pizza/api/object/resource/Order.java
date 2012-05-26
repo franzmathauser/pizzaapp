@@ -19,7 +19,6 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 
-
 /**
  * Resource für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie
  * beispielsweise der zugehörige Kunde, der Fahrer der die Bestellung ausfährt, die Bestelldetails (Einzelprodukte).
@@ -52,7 +51,7 @@ public class Order extends AbstractRessourceObject
 	@XmlElement( name = "order_date" )
 	@JsonProperty( "order_date" )
 	private Date orderDate;
-	
+
 	private String price;
 
 	/**
@@ -183,7 +182,7 @@ public class Order extends AbstractRessourceObject
 
 	/**
 	 * Liefert das Attribut price.
-	 *
+	 * 
 	 * @return price
 	 */
 	public String getPrice()
@@ -193,9 +192,9 @@ public class Order extends AbstractRessourceObject
 
 	/**
 	 * Setzt das Attribut price.
-	 *
-	 * @param price 
-	 * 			zu setzender Wert für das Attribut price
+	 * 
+	 * @param price
+	 *            zu setzender Wert für das Attribut price
 	 */
 	public void setPrice( String price )
 	{

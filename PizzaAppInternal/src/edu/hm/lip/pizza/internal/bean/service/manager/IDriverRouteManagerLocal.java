@@ -5,6 +5,8 @@ import javax.ejb.Local;
 import edu.hm.lip.pizza.api.object.resource.DriverRoute;
 
 /**
+ * Interface für die Manager Bean der Fahrerroute.
+ * 
  * @author Stefan Wörner
  */
 @Local

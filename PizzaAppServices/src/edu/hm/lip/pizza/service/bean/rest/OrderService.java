@@ -116,7 +116,6 @@ public class OrderService extends AbstractBean implements IOrderService
 	public void remove( int id )
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -140,7 +139,6 @@ public class OrderService extends AbstractBean implements IOrderService
 	public List<Order> getUndeliveredOrders()
 	{
 		return OrderConverter.convertEntityToServiceOrderList( orderDAOBean.getUndeliveredOrders() );
-
 	}
 
 	/**

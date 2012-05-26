@@ -147,7 +147,6 @@ public class DriverService extends AbstractBean implements IDriverService
 	public void removeOrder( int driverId, int orderId )
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	/**

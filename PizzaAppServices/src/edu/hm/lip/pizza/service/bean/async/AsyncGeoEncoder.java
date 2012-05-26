@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
+import edu.hm.basic.logging.BasicLogger;
 import edu.hm.lip.pizza.api.object.resource.Customer;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.bean.service.async.IAsyncGeoEncoder;
@@ -25,6 +26,8 @@ import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
 public class AsyncGeoEncoder implements IAsyncGeoEncoder
 {
 
+	private static final String URL = "http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false";
+
 	@EJB
 	private ICustomerDAOLocal customerDAOBean;
 
@@ -39,11 +42,11 @@ public class AsyncGeoEncoder implements IAsyncGeoEncoder
 	{
 		Customer customer = CustomerConverter.convertEntityToServiceCustomer( eCustomer );
 		String address = customer.getAddressAsString();
-		ClientRequest request = new ClientRequest( "http://maps.googleapis.com/maps/api/geocode/json?address=" + address
-				+ "&sensor=false" );
+		ClientRequest request = new ClientRequest( String.format( URL, address ) );
 		request.accept( MediaType.APPLICATION_JSON );
 
 		ClientResponse<String> response;
+
 		try
 		{
 			response = request.get( String.class );
@@ -61,7 +64,7 @@ public class AsyncGeoEncoder implements IAsyncGeoEncoder
 		catch (Exception e)
 		{
 			// lat und lon konnten nicht gefunden werden und werden nicht in die Datenbank geschrieben
+			BasicLogger.logError( this.getClass().getName(), e.getMessage() );
 		}
 	}
-
 }

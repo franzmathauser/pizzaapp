@@ -7,19 +7,53 @@ import javax.ejb.Local;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
- * @author Franz Mathauser
+ * Interface der Bean für den Datenbankzugriff auf die GPSData Entität.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 public interface IGPSDataDAOLocal
 {
 
-	EntityGPSData create( EntityGPSData entityGPSData );
+	/**
+	 * Estellt ein neues GPS-Datum in der Datenbank.
+	 * 
+	 * @param gpsData
+	 *            Zu erstellendes GPS-Datum
+	 * @return Erstelltes GPS-Datum
+	 */
+	EntityGPSData create( EntityGPSData gpsData );
 
+	/**
+	 * Liest alle GPS-Daten aus der Datenbank aus.
+	 * 
+	 * @return Liste mit allen GPS-Daten
+	 */
 	List<EntityGPSData> readAll();
 
+	/**
+	 * Liest ein GPS-Datum anhand des GPS-Datumsidentifikators aus der Datenbank aus.
+	 * 
+	 * @param id
+	 *            GPS-Datumsidentifikator
+	 * @return GPS-Datum
+	 */
 	EntityGPSData read( int id );
 
-	EntityGPSData update( EntityGPSData entityGPSData );
+	/**
+	 * Aktualisiert ein GPS-Datum in der Datenbank.
+	 * 
+	 * @param gpsData
+	 *            Zu aktualisierendes GPS-Datum
+	 * @return Aktualisertes GPS-Datum
+	 */
+	EntityGPSData update( EntityGPSData gpsData );
 
-	void delete( EntityGPSData entityGPSData );
+	/**
+	 * Entfernt ein GPS-Datum aus der Datenbank.
+	 * 
+	 * @param gpsData
+	 *            Zu entfernendes GPS-Datum
+	 */
+	void delete( EntityGPSData gpsData );
 }

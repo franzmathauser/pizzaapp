@@ -12,6 +12,8 @@ import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
 
 /**
+ * Bean für den Datenbankzugriff auf die Customer Entität.
+ * 
  * @author Franz Mathauser
  */
 @Stateless
@@ -27,11 +29,11 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#create(edu.hm.lip.pizza.api.object.ressources.Customer)
 	 */
 	@Override
-	public EntityCustomer create( EntityCustomer entityCustomer )
+	public EntityCustomer create( EntityCustomer customer )
 	{
-		em.persist( entityCustomer );
+		em.persist( customer );
 		em.flush();
-		return entityCustomer;
+		return customer;
 	}
 
 	/**
@@ -39,6 +41,7 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#readAll()
 	 */
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityCustomer> readAll()
 	{
@@ -63,11 +66,11 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#update(edu.hm.lip.pizza.api.object.ressources.Customer)
 	 */
 	@Override
-	public EntityCustomer update( EntityCustomer entityCustomer )
+	public EntityCustomer update( EntityCustomer customer )
 	{
-		entityCustomer = em.merge( entityCustomer );
+		customer = em.merge( customer );
 		em.flush();
-		return entityCustomer;
+		return customer;
 	}
 
 	/**
@@ -76,11 +79,10 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#delete(edu.hm.lip.pizza.api.object.ressources.Customer)
 	 */
 	@Override
-	public void delete( EntityCustomer entityCustomer )
+	public void delete( EntityCustomer customer )
 	{
-		em.remove( entityCustomer );
+		em.remove( customer );
 		em.flush();
-
 	}
 
 }

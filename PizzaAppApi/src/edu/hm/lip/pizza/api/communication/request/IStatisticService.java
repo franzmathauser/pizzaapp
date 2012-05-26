@@ -28,6 +28,6 @@ public interface IStatisticService
 	 */
 	@GET
 	@Path( "heatmap" )
-	public Heatmap findAllHeatmapData();
+	Heatmap findAllHeatmapData();
 
 }

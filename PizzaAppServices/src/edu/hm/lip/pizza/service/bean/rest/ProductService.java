@@ -55,7 +55,6 @@ public class ProductService extends AbstractBean implements IProductService
 	@Override
 	public Product find( int id )
 	{
-
 		EntityProduct eProduct = productDAOBean.read( id );
 		return ProductConverter.convertEntityToServiceProduct( eProduct );
 	}
@@ -87,7 +86,6 @@ public class ProductService extends AbstractBean implements IProductService
 		{
 			productDAOBean.delete( eProduct );
 		}
-
 	}
 
 }

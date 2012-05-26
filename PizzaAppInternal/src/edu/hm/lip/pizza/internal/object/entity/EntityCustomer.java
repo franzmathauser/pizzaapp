@@ -83,9 +83,9 @@ public class EntityCustomer extends AbstractEntityObject
 
 	@OneToMany( mappedBy = "customer", fetch = FetchType.LAZY )
 	private List<EntityOrder> orders;
-	
+
 	private Double lat;
-	
+
 	private Double lon;
 
 	/**
@@ -363,7 +363,7 @@ public class EntityCustomer extends AbstractEntityObject
 
 	/**
 	 * Liefert das Attribut lat.
-	 *
+	 * 
 	 * @return lat
 	 */
 	public Double getLat()
@@ -373,9 +373,9 @@ public class EntityCustomer extends AbstractEntityObject
 
 	/**
 	 * Setzt das Attribut lat.
-	 *
-	 * @param lat 
-	 * 			zu setzender Wert für das Attribut lat
+	 * 
+	 * @param lat
+	 *            zu setzender Wert für das Attribut lat
 	 */
 	public void setLat( Double lat )
 	{
@@ -384,7 +384,7 @@ public class EntityCustomer extends AbstractEntityObject
 
 	/**
 	 * Liefert das Attribut lon.
-	 *
+	 * 
 	 * @return lon
 	 */
 	public Double getLon()
@@ -394,9 +394,9 @@ public class EntityCustomer extends AbstractEntityObject
 
 	/**
 	 * Setzt das Attribut lon.
-	 *
-	 * @param lon 
-	 * 			zu setzender Wert für das Attribut lon
+	 * 
+	 * @param lon
+	 *            zu setzender Wert für das Attribut lon
 	 */
 	public void setLon( Double lon )
 	{

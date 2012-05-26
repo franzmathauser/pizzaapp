@@ -14,6 +14,8 @@ import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
 
 /**
+ * Bean für den Datenbankzugriff auf die Driver Entität.
+ * 
  * @author Franz Mathauser
  */
 @Stateless
@@ -29,11 +31,11 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityDriver)
 	 */
 	@Override
-	public EntityDriver create( EntityDriver entityDriver )
+	public EntityDriver create( EntityDriver driver )
 	{
-		em.persist( entityDriver );
+		em.persist( driver );
 		em.flush();
-		return entityDriver;
+		return driver;
 	}
 
 	/**
@@ -41,6 +43,7 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#readAll()
 	 */
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityDriver> readAll()
 	{
@@ -65,11 +68,11 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityDriver)
 	 */
 	@Override
-	public EntityDriver update( EntityDriver entityDriver )
+	public EntityDriver update( EntityDriver driver )
 	{
-		entityDriver = em.merge( entityDriver );
+		driver = em.merge( driver );
 		em.flush();
-		return entityDriver;
+		return driver;
 	}
 
 	/**
@@ -78,9 +81,9 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityDriver)
 	 */
 	@Override
-	public void delete( EntityDriver entityDriver )
+	public void delete( EntityDriver driver )
 	{
-		em.remove( entityDriver );
+		em.remove( driver );
 		em.flush();
 	}
 
@@ -89,6 +92,7 @@ public class DriverDAO extends AbstractBean implements IDriverDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal#getUndeliverdOrders(int)
 	 */
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityOrder> getUndeliverdOrders( int id )
 	{

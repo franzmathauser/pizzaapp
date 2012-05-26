@@ -86,7 +86,6 @@ public class CustomerService extends AbstractBean implements ICustomerService
 		{
 			customerDAOBean.delete( eCustomer );
 		}
-
 	}
 
 }

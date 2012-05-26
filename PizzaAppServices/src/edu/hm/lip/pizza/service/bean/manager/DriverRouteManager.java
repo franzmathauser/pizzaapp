@@ -22,8 +22,8 @@ import edu.hm.lip.pizza.tsp.domain.Address;
 import edu.hm.lip.pizza.tsp.domain.Edge;
 import edu.hm.lip.pizza.tsp.domain.MatrixContainer;
 import edu.hm.lip.pizza.tsp.domain.MatrixContainerAdapter;
-import edu.hm.lip.pizza.tsp.domain.Path;
 import edu.hm.lip.pizza.tsp.domain.MatrixContainerAdapter.Measurements;
+import edu.hm.lip.pizza.tsp.domain.Path;
 import edu.hm.lip.pizza.tsp.domain.google.GoogleDistanceMatrix;
 import edu.hm.lip.pizza.tsp.service.DistanceMatrixBroker;
 

@@ -24,7 +24,7 @@ import edu.hm.lip.pizza.api.object.enumeration.RouteState;
  * @author Franz Mathauser, Stefan Wörner
  */
 @XmlRootElement( name = "DriverRoute" )
-@JsonSerialize( include = Inclusion.NON_NULL)
+@JsonSerialize( include = Inclusion.NON_NULL )
 @Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
 @Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
 public class DriverRoute extends AbstractRessourceObject
@@ -41,7 +41,7 @@ public class DriverRoute extends AbstractRessourceObject
 	private Long meassurementValue;
 
 	private List<Order> orders;
-	
+
 	private RouteState status;
 
 	/**
@@ -151,7 +151,7 @@ public class DriverRoute extends AbstractRessourceObject
 
 	/**
 	 * Liefert das Attribut status.
-	 *
+	 * 
 	 * @return status
 	 */
 	public RouteState getStatus()
@@ -161,9 +161,9 @@ public class DriverRoute extends AbstractRessourceObject
 
 	/**
 	 * Setzt das Attribut status.
-	 *
-	 * @param status 
-	 * 			zu setzender Wert für das Attribut status
+	 * 
+	 * @param status
+	 *            zu setzender Wert für das Attribut status
 	 */
 	public void setStatus( RouteState status )
 	{

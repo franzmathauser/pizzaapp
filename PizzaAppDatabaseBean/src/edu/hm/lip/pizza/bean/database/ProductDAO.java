@@ -16,6 +16,8 @@ import edu.hm.lip.pizza.internal.object.entity.EntityProduct;
 import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
+ * Bean für den Datenbankzugriff auf die Product Entität.
+ * 
  * @author Franz Mathauser
  */
 @Stateless
@@ -34,11 +36,11 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#create(edu.hm.lip.pizza.api.object.ressources.Product)
 	 */
 	@Override
-	public EntityProduct create( EntityProduct entityProduct )
+	public EntityProduct create( EntityProduct product )
 	{
-		em.persist( entityProduct );
+		em.persist( product );
 		em.flush();
-		return entityProduct;
+		return product;
 	}
 
 	/**
@@ -71,14 +73,14 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#update(edu.hm.lip.pizza.api.object.ressources.Product)
 	 */
 	@Override
-	public EntityProduct update( EntityProduct entityProduct )
+	public EntityProduct update( EntityProduct product )
 	{
 		List<EntityProductConfiguration> productConfigurations = new ArrayList<EntityProductConfiguration>();
 
-		for (EntityProductConfiguration productConfiguration : entityProduct.getConfigurations())
+		for (EntityProductConfiguration productConfiguration : product.getConfigurations())
 		{
 			EntityProductConfiguration eProductConfiguration = productConfigurationDAO.getProductConfiguration(
-					entityProduct.getId(), productConfiguration.getSize() );
+					product.getId(), productConfiguration.getSize() );
 
 			// ProductConfiguration in Datenbank
 			if (eProductConfiguration != null)
@@ -92,10 +94,10 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 			}
 
 		}
-		entityProduct.setConfigurations( productConfigurations );
-		entityProduct = em.merge( entityProduct );
+		product.setConfigurations( productConfigurations );
+		product = em.merge( product );
 		em.flush();
-		return entityProduct;
+		return product;
 	}
 
 	/**
@@ -104,9 +106,9 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#delete(edu.hm.lip.pizza.api.object.ressources.Product)
 	 */
 	@Override
-	public void delete( EntityProduct entityProduct )
+	public void delete( EntityProduct product )
 	{
-		em.remove( entityProduct );
+		em.remove( product );
 		em.flush();
 	}
 

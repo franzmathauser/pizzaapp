@@ -15,7 +15,6 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
-import edu.hm.lip.pizza.api.object.enumeration.Gender;
 
 /**
  * Resource für die Heatmap GPS-Daten. Es werden alle benötigten Lat/Lon-Information in dieser Klasse gehalten
@@ -38,25 +37,25 @@ public class GPSData extends AbstractRessourceObject
 	private Double lon;
 
 	/**
-	 * Erzeugt ein GPS-Datum mit lat/lon koordinaten.
-	 * 
-	 * @param lat
-	 *            latitude
-	 * @param lon
-	 *            longitue
-	 */
-	public GPSData( Double lat, Double lon )
-	{
-		this.lat = lat;
-		this.lon = lon;
-	}
-
-	/**
 	 * Default Konstruktor.
 	 */
 	public GPSData()
 	{
 
+	}
+
+	/**
+	 * Erzeugt ein GPS-Datum mit lat/lon koordinaten.
+	 * 
+	 * @param latitude
+	 *            latitude
+	 * @param longitude
+	 *            longitue
+	 */
+	public GPSData( Double latitude, Double longitude )
+	{
+		this.lat = latitude;
+		this.lon = longitude;
 	}
 
 	/**

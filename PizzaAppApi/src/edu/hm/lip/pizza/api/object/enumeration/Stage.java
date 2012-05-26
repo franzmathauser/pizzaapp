@@ -31,4 +31,5 @@ public enum Stage
 	 * Bestellung wurde ausgefahren.
 	 */
 	DELIVERED;
+
 }

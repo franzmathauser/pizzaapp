@@ -15,4 +15,5 @@ public enum RouteState
 	 * optimale Route konnte wurde nicht berechnet.
 	 */
 	TSP_ERROR;
+
 }

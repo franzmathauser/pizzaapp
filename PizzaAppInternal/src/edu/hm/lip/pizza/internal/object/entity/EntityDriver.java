@@ -38,7 +38,6 @@ public class EntityDriver extends AbstractEntityObject
 	private String name;
 
 	@OneToMany( mappedBy = "driver", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-	
 	private List<EntityGPSData> gpsData;
 
 	@OneToMany( mappedBy = "driver", fetch = FetchType.LAZY )

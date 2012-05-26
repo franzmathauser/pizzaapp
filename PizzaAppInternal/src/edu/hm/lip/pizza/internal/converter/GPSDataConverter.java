@@ -55,7 +55,7 @@ public final class GPSDataConverter
 		eGPSData.setLat( gpsData.getLat() );
 		eGPSData.setLon( gpsData.getLon() );
 		eGPSData.setDate( gpsData.getDate() );
-		//eGPSData.setDriver( DriverConverter.convertServiceToEntityDriver( gpsData.getDriver() ) );
+		// eGPSData.setDriver( DriverConverter.convertServiceToEntityDriver( gpsData.getDriver() ) );
 
 		return eGPSData;
 	}

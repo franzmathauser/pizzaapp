@@ -11,6 +11,8 @@ import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
+ * Bean für den Datenbankzugriff auf die ProductConfiguration Entität.
+ * 
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
@@ -27,11 +29,11 @@ public class ProductConfigurationDAO extends AbstractBean implements IProductCon
 	 *      edu.hm.lip.pizza.api.object.enumeration.Size)
 	 */
 	@Override
-	public EntityProductConfiguration getProductConfiguration( Integer product, Size size )
+	public EntityProductConfiguration getProductConfiguration( Integer productId, Size size )
 	{
 		Query query = em.createQuery( "from EntityProductConfiguration where product_id = :product_id and size = :size",
 				EntityProductConfiguration.class );
-		query.setParameter( "product_id", product );
+		query.setParameter( "product_id", productId );
 		query.setParameter( "size", size );
 		return (EntityProductConfiguration) query.getSingleResult();
 	}

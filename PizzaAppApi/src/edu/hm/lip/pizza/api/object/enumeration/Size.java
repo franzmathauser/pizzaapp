@@ -21,4 +21,5 @@ public enum Size
 	 * Pizzagröße XXL.
 	 */
 	XXL;
+
 }

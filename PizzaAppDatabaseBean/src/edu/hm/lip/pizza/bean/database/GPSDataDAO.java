@@ -12,6 +12,8 @@ import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
+ * Bean für den Datenbankzugriff auf die GPSData Entität.
+ * 
  * @author Franz Mathauser
  */
 @Stateless
@@ -27,11 +29,11 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityGPSData)
 	 */
 	@Override
-	public EntityGPSData create( EntityGPSData entityGPSData )
+	public EntityGPSData create( EntityGPSData gpsData )
 	{
-		em.persist( entityGPSData );
+		em.persist( gpsData );
 		em.flush();
-		return entityGPSData;
+		return gpsData;
 	}
 
 	/**
@@ -39,6 +41,7 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	 * 
 	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#readAll()
 	 */
+	@SuppressWarnings( "unchecked" )
 	@Override
 	public List<EntityGPSData> readAll()
 	{
@@ -63,11 +66,11 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityGPSData)
 	 */
 	@Override
-	public EntityGPSData update( EntityGPSData entityGPSData )
+	public EntityGPSData update( EntityGPSData gpsData )
 	{
-		entityGPSData = em.merge( entityGPSData );
+		gpsData = em.merge( gpsData );
 		em.flush();
-		return entityGPSData;
+		return gpsData;
 	}
 
 	/**
@@ -76,11 +79,10 @@ public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal
 	 * @see edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityGPSData)
 	 */
 	@Override
-	public void delete( EntityGPSData entityGPSData )
+	public void delete( EntityGPSData gpsData )
 	{
-		em.remove( entityGPSData );
+		em.remove( gpsData );
 		em.flush();
-
 	}
 
 }

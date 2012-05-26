@@ -6,19 +6,23 @@ import edu.hm.lip.pizza.api.object.enumeration.Size;
 import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 
 /**
- * @author Franz Mathauser
+ * Interface der Bean für den Datenbankzugriff auf die ProductConfiguration Entität.
+ * 
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 public interface IProductConfigurationDAOLocal
 {
 
 	/**
-	 * @param product
+	 * Liest die Produktkonfiguration aus der Datenbank aus.
+	 * 
+	 * @param productId
 	 *            Produktidentifikator
 	 * @param size
 	 *            Produktgröße
 	 * @return Produktkonfiguration
 	 */
-	EntityProductConfiguration getProductConfiguration( Integer product, Size size );
+	EntityProductConfiguration getProductConfiguration( Integer productId, Size size );
 
 }
