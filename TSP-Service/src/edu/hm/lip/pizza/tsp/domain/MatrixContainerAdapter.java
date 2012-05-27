@@ -57,7 +57,6 @@ public class MatrixContainerAdapter
 	 */
 	private MatrixContainer<Integer> convertGoogleDistanceMatrix( GoogleDistanceMatrix distanceMatrix, Measurements measurement )
 	{
-
 		MatrixContainer<Integer> returnMatrix = new MatrixContainer<Integer>();
 
 		int x = 0;
@@ -87,7 +86,9 @@ public class MatrixContainerAdapter
 	}
 
 	/**
-	 * @return
+	 * Liefert die Instanz des MatrixContainers.
+	 * 
+	 * @return MatrixContainer
 	 */
 	public MatrixContainer<Integer> getInstance()
 	{
