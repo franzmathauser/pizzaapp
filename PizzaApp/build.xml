@@ -94,11 +94,11 @@
 
 	<target name="run-checkstyle" description="Checks the style of source code using checkstyle">
 		<echo message="Checking source code style" />
-		<mkdir dir="${build.env.dist.dir}/checkstyle" />
+		<mkdir dir="${checkstyle.output.dir}" />
 		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
 			<fileset dir="${root.dir}/${project.name}/${src.dir.default}" includes="**/*.java" />
 			<formatter type="plain" />
-			<formatter type="xml" toFile="${build.env.dist.dir}/checkstyle/results_${project.name}.xml" />
+			<formatter type="xml" toFile="${checkstyle.output.dir}/results_${project.name}.xml" />
 		</checkstyle>
 	</target>
 
@@ -106,7 +106,7 @@
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
 		<javac fork="${compile.fork}" srcdir="${root.dir}/${project.name}/${src.dir.default}" destdir="${build.dir}/${project.name}"
-			verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
+			verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}" encoding="${compile.encoding}">
 			<classpath>
 				<path refid="lib.path" />
 			</classpath>

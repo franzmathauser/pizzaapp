@@ -75,12 +75,13 @@
 
 	<target name="run-test" description="Runs the JUnit Tests">
 		<echo message="Starting JUnit tests" />
-		<mkdir dir="${build.env.dist.dir}/junit/tests" />
-		<mkdir dir="${build.env.dist.dir}/junit/report" />
+		<mkdir dir="${junit.tests.output.dir}" />
+		<mkdir dir="${junit.report.output.dir}" />
 		<junit fork="true" showoutput="true" printsummary="true" haltonfailure="false" haltonerror="false">
+			<jvmarg value="-Dfile.encoding=${junit.execution.encoding}"/>
 			<classpath refid="lib.junit.path" />
 
-			<batchtest fork="yes" todir="${build.env.dist.dir}/junit/tests" haltonfailure="false" haltonerror="false">
+			<batchtest fork="yes" todir="${junit.tests.output.dir}" haltonfailure="false" haltonerror="false">
 				<fileset dir="${src.dir.default}">
 					<include name="**/*Test.java" />
 					<exclude name="**/Abstract*Test.java" />
@@ -91,11 +92,11 @@
 			</batchtest>
 		</junit>
 
-		<junitreport todir="${build.env.dist.dir}/junit/tests">
-			<fileset dir="${build.env.dist.dir}/junit/tests">
+		<junitreport todir="${junit.tests.output.dir}">
+			<fileset dir="${junit.tests.output.dir}">
 				<include name="TEST-*.xml" />
 			</fileset>
-			<report format="frames" todir="${build.env.dist.dir}/junit/report" />
+			<report format="frames" todir="${junit.report.output.dir}" />
 		</junitreport>
 	</target>
 
