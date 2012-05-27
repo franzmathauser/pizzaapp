@@ -1,9 +1,16 @@
 var carImage = 'img/pizzaauto.png';
 var driver_obj = new Array();
 
-function driverLocationTopic(obj) {
-	var index = obj.id;
-	pos = new google.maps.LatLng(obj.lat, obj.lon);
+/**
+ * Updated die Google-Maps Karte mit den neuen GPS-Daten des Fahrers. Es der
+ * Zoom-Level der Karte wird so eingestellt, dass sich alle Fahrer im sichtbaren
+ * bereich der Karte befinden.
+ * 
+ * @param driverLocation
+ */
+function driverLocationTopic(driverLocation) {
+	var index = driverLocation.id;
+	pos = new google.maps.LatLng(driverLocation.lat, driverLocation.lon);
 
 	if (typeof driver_obj[index] !== 'undefined' && driver_obj[index] !== null) {
 		driver_obj[index].setPosition(pos);
@@ -11,7 +18,7 @@ function driverLocationTopic(obj) {
 
 		driver_obj[index] = new google.maps.Marker({
 			position : pos,
-			title : drivers[obj.id].name,
+			title : drivers[driverLocation.id].name,
 			icon : carImage,
 			map : map
 		});
@@ -36,15 +43,3 @@ function driverLocationTopic(obj) {
 	map.fitBounds(bounds);
 
 }
-
-$(document).ready(
-		function() {
-			var topic = '/topic/driverlocation';
-			
-			var driverLocationActiveMQErrorHandler = function() {
-				connectActiveMQ(topic, driverLocationTopic,
-						driverLocationActiveMQErrorHandler);
-			};
-			connectActiveMQ(topic, driverLocationTopic,
-					driverLocationActiveMQErrorHandler);
-		});

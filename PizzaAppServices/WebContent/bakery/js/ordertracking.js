@@ -8,15 +8,3 @@ function ordersTopic(order) {
 		orderLineClickHandler(order.id, $(this).attr('order_stage'));
 	});
 }
-
-$(document).ready(function() {
-
-	var orderTopic = '/topic/orders';
-	
-	var ordersActiveMQErrorHandler = function() {
-		connectActiveMQ(orderTopic, driverLocationTopic,
-				ordersActiveMQErrorHandler);
-	};
-	connectActiveMQ(orderTopic, driverLocationTopic,
-			ordersActiveMQErrorHandler);
-});

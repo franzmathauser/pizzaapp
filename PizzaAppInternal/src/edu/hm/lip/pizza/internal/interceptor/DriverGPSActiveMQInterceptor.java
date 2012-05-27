@@ -1,15 +1,21 @@
 package edu.hm.lip.pizza.internal.interceptor;
 
+import java.io.IOException;
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.api.object.ApiConstants;
+import edu.hm.lip.pizza.api.object.enumeration.MessageType;
+import edu.hm.lip.pizza.api.object.resource.DriverLocation;
 import edu.hm.lip.pizza.api.object.resource.GPSData;
+import edu.hm.lip.pizza.api.object.resource.MessageContainer;
 import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
 
 /**
@@ -21,7 +27,7 @@ import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSe
 public class DriverGPSActiveMQInterceptor
 {
 
-	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/driverlocation?type=topic";
+	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/pizzaapp?type=topic";
 
 	/**
 	 * Interceptor Methode führt die den eigentlichen Call zunächst aus und überprüft ob es sich bei der Methode um die
@@ -61,17 +67,23 @@ public class DriverGPSActiveMQInterceptor
 		return ret;
 	}
 
-	private String createRequestJSONObject( int driverId, GPSData gpsData )
+	private String createRequestJSONObject( int driverId, GPSData gpsData ) throws IOException
 	{
-		StringBuilder jsonObject = new StringBuilder();
 
-		jsonObject.append( "{" );
-		jsonObject.append( "\"id\":" + driverId + "," );
-		jsonObject.append( "\"lat\":" + gpsData.getLat() + "," );
-		jsonObject.append( "\"lon\":" + gpsData.getLon() );
-		jsonObject.append( "}" );
+		DriverLocation driverLocation = new DriverLocation();
+		driverLocation.setDriverId( driverId );
+		driverLocation.setLat( gpsData.getLat() );
+		driverLocation.setLon( gpsData.getLon() );
 
-		return jsonObject.toString();
+		ObjectMapper mapper = new ObjectMapper();
+		MessageContainer message = new MessageContainer();
+		message.setMessage( driverLocation );
+		message.setMessageType( MessageType.DRIVER_LOCATION );
+
+		String jsonOrder = mapper.writeValueAsString( message );
+
+		return jsonOrder;
+
 	}
 
 }

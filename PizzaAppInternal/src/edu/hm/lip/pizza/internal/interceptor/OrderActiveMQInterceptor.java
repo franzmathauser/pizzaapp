@@ -12,6 +12,8 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.api.object.ApiConstants;
+import edu.hm.lip.pizza.api.object.enumeration.MessageType;
+import edu.hm.lip.pizza.api.object.resource.MessageContainer;
 import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelector;
 
@@ -25,7 +27,7 @@ import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelect
 public class OrderActiveMQInterceptor
 {
 
-	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/orders?type=topic";
+	private static final String ACTIVEMQ_BASE_URL = "http://localhost:8161/demo/message/pizzaapp?type=topic";
 
 	/**
 	 * Interceptor Methode führt die den eigentlichen Call zunächst aus und überprüft ob es sich bei der Methode um die
@@ -76,7 +78,12 @@ public class OrderActiveMQInterceptor
 	private String createRequestJSONOrder( Order order ) throws IOException
 	{
 		ObjectMapper mapper = new ObjectMapper();
-		String jsonOrder = mapper.writeValueAsString( order );
+		
+		MessageContainer message = new MessageContainer();
+		message.setMessage( order );
+		message.setMessageType( MessageType.ORDER );
+		
+		String jsonOrder = mapper.writeValueAsString( message );
 
 		return jsonOrder;
 	}

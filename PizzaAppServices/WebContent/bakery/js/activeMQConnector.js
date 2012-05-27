@@ -1,8 +1,19 @@
 var activeMQClients = new Array();
+var client;
 
+/**
+ * Diese Methode verbindet sich über ein Websocket mit der ActiveMQ über das
+ * Stomp-Protokoll.
+ * 
+ * @param destination
+ *            subscriber Topic
+ * @param messageHandler
+ *            Handling bei eingehenden Nachrichten
+ * @param errorHandler
+ *            Fehler Callback
+ */
 function connectActiveMQ(destination, messageHandler, errorHandler) {
-	var debugMessage = 0;
-	var client;
+
 	var url = 'ws://' + window.location.hostname + ':61614/stomp';
 	var login = 'guest';
 	var passcode = 'password';
@@ -11,29 +22,31 @@ function connectActiveMQ(destination, messageHandler, errorHandler) {
 
 	// this allows to display debug logs directly on the web page
 	client.debug = function(str) {
-		if(debugMessage % 10 == 0)
-			$("#debug").html('');
-		
-		debugMessage++;
-		$("#debug").append(str + "<br />");
+		if (debug) {
+			$("#messages").append(str + "<br />");
+		}
 	};
 	// the client is notified when it is connected to the server.
 	var onconnect = function(frame) {
 		client.debug("connected to Stomp");
-		$('#disconnect').fadeIn();
 
 		// is called on new message
 		client.subscribe(destination, function(message) {
-			//$("#messages").append("<p>" + message.body + "</p>\n");
+			if (debug == true) {
+				$("#messages").append("<p>" + message.body + "</p>\n");
+			}
+
 			obj = jQuery.parseJSON(message.body);
 			// call Handler to postprocess message
 			messageHandler(obj);
 		});
+
+		// starte heartbeat
+		setTimeout('heartbeat()', 5000);
 	};
 	client.connect(login, passcode, onconnect, errorHandler);
-	activeMQClients[activeMQClients.length] = client;
 
-	return client;
+	activeMQClients[activeMQClients.length] = client;
 }
 
 function disconnectActiveMQ() {
@@ -43,26 +56,46 @@ function disconnectActiveMQ() {
 	});
 }
 
-var heartbeatTopicEvent = function heartbeatTopic() {
-	heartbeatClient.send('/topic/heartbeat', null, '{}');
-	setTimeout("heartbeatTopicEvent()", 5000);
-};
+/**
+ * Message Handler, wenn eine neue Nachricht im Topic "pizzaapp" eingeht.
+ * 
+ * @param messageContainer
+ *            Nachrichten-Container
+ */
+function pizzaAppTopic(messageContainer) {
 
-$(document).ready(
-		function() {
+	if (messageContainer == null || messageContainer.messageType == null) {
+		return;
+	}
 
-			function doNothing(obj) {
-			}
-			;
+	var message = messageContainer.message;
 
-			var heartbeatActiveMQErrorHandler = function() {
-				heartbeatClient = connectActiveMQ('/topic/heartbeat', doNothing,
-						heartbeatActiveMQErrorHandler);
-			};
+	switch (messageContainer.messageType) {
+	case 'DRIVER_LOCATION':
+		driverLocationTopic(message);
+		break;
+	case 'DRIVER_ARRIVAL_TIME':
+		alert('Driver Arrival Time');
+		break;
+	case 'ORDER':
+		ordersTopic(message);
+		break;
+	case 'HEARTBEAT':
+		setTimeout("heartbeat()", 5000);
+		break;
+	default:
+		alert('No message handling');
+		break;
+	}
 
-			heartbeatClient = connectActiveMQ('/topic/heartbeat', doNothing,
-					heartbeatActiveMQErrorHandler);
+}
 
-			setTimeout("heartbeatTopicEvent()", 5000);
+$(document).ready(function() {
+	var topic = '/topic/pizzaapp';
 
-		});
+	var pizzaAppActiveMQErrorHandler = function() {
+		connectActiveMQ(topic, pizzaAppTopic, pizzaAppActiveMQErrorHandler);
+	};
+	connectActiveMQ(topic, pizzaAppTopic, pizzaAppActiveMQErrorHandler);
+
+});

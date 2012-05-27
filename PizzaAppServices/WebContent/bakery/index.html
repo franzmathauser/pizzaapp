@@ -15,11 +15,17 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 
+
+<script type="text/javascript">
+	var debug = false;
+</script>
+
 <script type="text/javascript" src='js/stomp.js'></script>
-<script type="text/javascript" src='js/activeMQConnector.js'></script>
 <script type="text/javascript" src='js/gpstracking.js'></script>
 <script type="text/javascript" src='js/ordertracking.js'></script>
 <script type="text/javascript" src='js/indelivery.js'></script>
+<script type="text/javascript" src='js/heartbeat.js'></script>
+<script type="text/javascript" src='js/activeMQConnector.js'></script>
 
 <script type="text/javascript" src="../js/commons.js"></script>
 <script type="text/javascript" src="js/bakery.js"></script>
@@ -77,8 +83,9 @@ html,body {
 }
 
 .driver img {
-padding-left:20px
+	padding-left: 20px
 }
+
 .driver .ui-grid-b div {
 	height: 64px;
 }
@@ -148,7 +155,7 @@ padding-left:20px
 
 <body>
 
-	<!-- Start of first page: #products -->
+	<!-- Start of first page: #bakery -->
 	<div data-role="page" id="bakery" data-theme="e">
 
 		<div data-role="header" data-position="fixed">
@@ -192,7 +199,7 @@ padding-left:20px
 	<!-- /content -->
 
 	<!-- 	</div> -->
-	<!-- /page products -->
+	<!-- /page bakery -->
 
 
 	<div id="moveToDriver" data-role="dialog" class="dialog-actionsheet">
@@ -208,7 +215,7 @@ padding-left:20px
 	</div>
 
 
-	<!-- Start of first page: #products -->
+	<!-- Start of first page: #debug -->
 	<div data-role="page" id="debug" data-theme="e">
 
 		<div data-role="header" data-position="fixed">
@@ -218,8 +225,7 @@ padding-left:20px
 
 		<div>
 			<input type="hidden" id="clicked_order" readonly="readonly" />
-			<div id="debug"></div>
-			<div id="messages" style="display: none"></div>
+			<div id="messages"></div>
 
 		</div>
 
@@ -228,10 +234,7 @@ padding-left:20px
 	<!-- /content -->
 
 	<!-- 	</div> -->
-	<!-- /page products -->
-
-
-
+	<!-- /page debug -->
 
 </body>
 </html>
