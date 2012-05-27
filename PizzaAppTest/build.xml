@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE project>
 
-<project name="HM.EDU: Test PizzaApp" default="complete-test" basedir=".">
+<project name="HM.EDU: Generate PizzaApp Test" default="complete-build" basedir=".">
 
 	<!-- set global properties for this build -->
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
@@ -35,15 +35,6 @@
 					<include name="modules/**/*.jar" />
 				</fileset>
 			</path>
-
-			<path id="lib.junit.path">
-				<fileset dir="${libraries.dir}">
-					<include name="**/*.jar" />
-				</fileset>
-				<fileset dir="${jboss7.dir}">
-					<include name="modules/org/jboss/resteasy/**/*.jar" />
-				</fileset>
-			</path>
 		</then>
 		<else>
 			<path id="lib.path">
@@ -58,19 +49,10 @@
 					<include name="server/${jboss6.server.name}/deployers/**/*.jar" />
 				</fileset>
 			</path>
-
-			<path id="lib.junit.path">
-				<fileset dir="${libraries.dir}">
-					<include name="**/*.jar" />
-				</fileset>
-				<fileset dir="${jboss6.dir}">
-					<include name="server/${jboss6.server.name}/deployers/resteasy.deployer/**/*.jar" />
-				</fileset>
-			</path>
 		</else>
 	</if>
 
-	<target name="complete-test" description="Tests the PizzaApp API" depends="print-config,clean,compile,create-jar,run-checkstyle,run-test" />
+	<target name="complete-build" description="Builds the PizzaApp Tests" depends="print-config,clean,compile,create-jar,run-checkstyle" />
 
 	<target name="print-config">
 		<echo message="USER_HOME: ${user.home}" />
@@ -109,7 +91,8 @@
 	<target name="compile" description="Compiles the resources">
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
-		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}" debug="${compile.debug}" includeantruntime="${compile.antruntime}">
+		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}"
+			debug="${compile.debug}" includeantruntime="${compile.antruntime}">
 			<classpath>
 				<path refid="lib.path" />
 			</classpath>
@@ -130,32 +113,6 @@
 			</fileset>
 		</jar>
 		<copy file="${build.dir}/${project.name}.jar" todir="${libraries.cache.dir}" />
-	</target>
-
-	<target name="run-test" description="Runs the JUnit Tests">
-		<echo message="Starting JUnit tests" />
-		<mkdir dir="${build.env.dist.dir}/junit/tests" />
-		<mkdir dir="${build.env.dist.dir}/junit/report" />
-		<junit fork="true" showoutput="true" printsummary="true" haltonfailure="false" haltonerror="false">
-			<classpath refid="lib.junit.path" />
-
-			<batchtest fork="yes" todir="${build.env.dist.dir}/junit/tests" haltonfailure="false" haltonerror="false">
-				<fileset dir="${src.dir.default}">
-					<include name="**/*Test.java" />
-					<exclude name="**/Abstract*Test.java" />
-				</fileset>
-
-				<formatter type="plain" />
-				<formatter type="xml" />
-			</batchtest>
-		</junit>
-
-		<junitreport todir="${build.env.dist.dir}/junit/tests">
-			<fileset dir="${build.env.dist.dir}/junit/tests">
-				<include name="TEST-*.xml" />
-			</fileset>
-			<report format="frames" todir="${build.env.dist.dir}/junit/report" />
-		</junitreport>
 	</target>
 
 </project>

@@ -19,11 +19,24 @@
 		</classpath>
 	</taskdef>
 
-	<target name="complete-build" depends="build,deploy" />
+	<target name="undeploy">
+		<if>
+			<equals arg1="${jboss.version}" arg2="7" />
+			<then>
+				<delete file="${jboss7.deploy.dir}/PizzaApp.ear" failonerror="true" />
+			</then>
+			<else>
+				<delete file="${jboss6.deploy.dir}/PizzaApp.ear" failonerror="true" />
+			</else>
+		</if>
+	</target>
+
+	<target name="complete-build" depends="undeploy,build,deploy" />
 
 	<target name="build">
 		<ant dir="${root.dir}/PizzaApp" target="complete-build" />
 		<ant dir="${root.dir}/PizzaAppDriver" target="complete-build" />
+		<ant dir="${root.dir}/PizzaAppTest" target="complete-build" />
 	</target>
 
 	<target name="deploy">
