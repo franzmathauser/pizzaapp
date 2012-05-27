@@ -1,7 +1,7 @@
 var activeMQClients = new Array();
 
 function connectActiveMQ(destination, messageHandler, errorHandler) {
-
+	var debugMessage = 0;
 	var client;
 	var url = 'ws://' + window.location.hostname + ':61614/stomp';
 	var login = 'guest';
@@ -11,6 +11,10 @@ function connectActiveMQ(destination, messageHandler, errorHandler) {
 
 	// this allows to display debug logs directly on the web page
 	client.debug = function(str) {
+		if(debugMessage % 10 == 0)
+			$("#debug").html('');
+		
+		debugMessage++;
 		$("#debug").append(str + "<br />");
 	};
 	// the client is notified when it is connected to the server.
@@ -20,7 +24,7 @@ function connectActiveMQ(destination, messageHandler, errorHandler) {
 
 		// is called on new message
 		client.subscribe(destination, function(message) {
-			$("#messages").append("<p>" + message.body + "</p>\n");
+			//$("#messages").append("<p>" + message.body + "</p>\n");
 			obj = jQuery.parseJSON(message.body);
 			// call Handler to postprocess message
 			messageHandler(obj);
@@ -28,9 +32,9 @@ function connectActiveMQ(destination, messageHandler, errorHandler) {
 	};
 	client.connect(login, passcode, onconnect, errorHandler);
 	activeMQClients[activeMQClients.length] = client;
+
+	return client;
 }
-
-
 
 function disconnectActiveMQ() {
 
@@ -38,3 +42,27 @@ function disconnectActiveMQ() {
 		val.disconnect();
 	});
 }
+
+var heartbeatTopicEvent = function heartbeatTopic() {
+	heartbeatClient.send('/topic/heartbeat', null, '{}');
+	setTimeout("heartbeatTopicEvent()", 5000);
+};
+
+$(document).ready(
+		function() {
+
+			function doNothing(obj) {
+			}
+			;
+
+			var heartbeatActiveMQErrorHandler = function() {
+				heartbeatClient = connectActiveMQ('/topic/heartbeat', doNothing,
+						heartbeatActiveMQErrorHandler);
+			};
+
+			heartbeatClient = connectActiveMQ('/topic/heartbeat', doNothing,
+					heartbeatActiveMQErrorHandler);
+
+			setTimeout("heartbeatTopicEvent()", 5000);
+
+		});
