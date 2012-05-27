@@ -28,7 +28,7 @@ public abstract class AbstractTest
 	/**
 	 * Server-Port.
 	 */
-	protected static final String PORT = "8080";
+	protected static final String PORT = "80";
 
 	/**
 	 * Liefert die URL für REST-Calls.
