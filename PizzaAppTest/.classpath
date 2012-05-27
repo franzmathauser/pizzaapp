@@ -3,5 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/BasicLibraries/testing/junit/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/BasicLibraries/commons/lang/commons-lang-2.6.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BasicApi"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PizzaAppApi"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TSP-Service"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 6.x Runtime"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
