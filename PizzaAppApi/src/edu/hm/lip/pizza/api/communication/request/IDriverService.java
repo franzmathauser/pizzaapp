@@ -81,11 +81,10 @@ public interface IDriverService
 	 * 
 	 * @param id
 	 *            Fahreridentifikator
-	 * @return Aktualisierter Fahrer
 	 */
 	@DELETE
 	@Path( "{id}" )
-	Driver remove( @PathParam( "id" ) int id );
+	void remove( @PathParam( "id" ) int id );
 
 	/**
 	 * Liste der auszuliefernden Bestellungen in optimierter Reihenfolge für einen Fahrer mit id.

@@ -10,7 +10,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
  * Konverter-Klasse fuer Driver-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu
  * konvertieren.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class DriverConverter
 {
@@ -29,6 +29,11 @@ public final class DriverConverter
 	 */
 	public static Driver convertEntityToServiceDriver( EntityDriver eDriver )
 	{
+		if (eDriver == null)
+		{
+			return null;
+		}
+
 		Driver driver = new Driver();
 		driver.setId( eDriver.getId() );
 		driver.setName( eDriver.getName() );
@@ -44,6 +49,11 @@ public final class DriverConverter
 	 */
 	public static EntityDriver convertServiceToEntityDriver( Driver driver )
 	{
+		if (driver == null)
+		{
+			return null;
+		}
+
 		EntityDriver eDriver = new EntityDriver();
 		eDriver.setId( driver.getId() );
 		eDriver.setName( driver.getName() );

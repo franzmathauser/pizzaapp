@@ -92,8 +92,13 @@ public class DriverService extends AbstractBean implements IDriverService
 	@Override
 	public Driver update( int id, Driver driver )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (id != driver.getId())
+		{
+			return null;
+		}
+
+		EntityDriver eDriver = driverDAO.update( DriverConverter.convertServiceToEntityDriver( driver ) );
+		return DriverConverter.convertEntityToServiceDriver( eDriver );
 	}
 
 	/**
@@ -102,10 +107,10 @@ public class DriverService extends AbstractBean implements IDriverService
 	 * @see edu.hm.lip.pizza.api.communication.request.IDriverService#remove(int)
 	 */
 	@Override
-	public Driver remove( int id )
+	public void remove( int id )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		EntityDriver eDriver = driverDAO.read( id );
+		driverDAO.delete( eDriver );
 	}
 
 	/**
@@ -135,7 +140,6 @@ public class DriverService extends AbstractBean implements IDriverService
 
 		// set next order stage
 		orderService.createNextOrderStage( orderId.getId() );
-
 	}
 
 	/**
