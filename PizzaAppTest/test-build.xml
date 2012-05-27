@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE project>
 
-<project name="HM.EDU: Test PizzaApp" default="complete-test" basedir=".">
+<project name="HM.EDU: Run PizzaApp TestSuite" default="complete-test" basedir=".">
 
 	<!-- set global properties for this build -->
 	<property name="config.dir" value="../BuildAndDeployEnvironment" />
@@ -26,7 +26,7 @@
 	<if>
 		<equals arg1="${jboss.version}" arg2="7" />
 		<then>
-			<path id="lib.junit.path">
+			<path id="lib.path">
 				<fileset dir="${libraries.dir}">
 					<include name="**/*.jar" />
 				</fileset>
@@ -36,11 +36,19 @@
 			</path>
 		</then>
 		<else>
-			<path id="lib.junit.path">
+			<path id="lib.path">
 				<fileset dir="${libraries.dir}">
 					<include name="**/*.jar" />
 				</fileset>
 				<fileset dir="${jboss6.dir}">
+					<!--
+					<include name="common/**/*.jar" />
+					<include name="lib/**/*.jar" />
+					<include name="client/*.jar" />
+					<include name="server/${jboss6.server.name}/lib/**/*.jar" />
+					<include name="server/${jboss6.server.name}/deployers/**/*.jar" />
+					-->
+					<include name="client/*.jar" />
 					<include name="server/${jboss6.server.name}/deployers/resteasy.deployer/**/*.jar" />
 				</fileset>
 			</path>
@@ -79,7 +87,7 @@
 		<mkdir dir="${junit.report.output.dir}" />
 		<junit fork="true" showoutput="true" printsummary="true" haltonfailure="false" haltonerror="false">
 			<jvmarg value="-Dfile.encoding=${junit.execution.encoding}"/>
-			<classpath refid="lib.junit.path" />
+			<classpath refid="lib.path" />
 
 			<batchtest fork="yes" todir="${junit.tests.output.dir}" haltonfailure="false" haltonerror="false">
 				<fileset dir="${src.dir.default}">

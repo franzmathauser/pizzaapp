@@ -51,11 +51,15 @@
 					<include name="**/*.jar" />
 				</fileset>
 				<fileset dir="${jboss6.dir}">
+					<!--
 					<include name="common/**/*.jar" />
 					<include name="lib/**/*.jar" />
 					<include name="client/*.jar" />
 					<include name="server/${jboss6.server.name}/lib/**/*.jar" />
 					<include name="server/${jboss6.server.name}/deployers/**/*.jar" />
+					-->
+					<include name="client/*.jar" />
+					<include name="server/${jboss6.server.name}/deployers/resteasy.deployer/**/*.jar" />
 				</fileset>
 			</path>
 		</else>
@@ -100,6 +104,18 @@
 			<formatter type="plain" />
 			<formatter type="xml" toFile="${checkstyle.output.dir}/results_${project.name}.xml" />
 		</checkstyle>
+	</target>
+
+	<target name="generate-javadoc" description="Generates the JavaDoc">
+		<echo message="Generating JavaDoc" />
+		<javadoc packagenames="${root.dir}/${project.name}/${src.dir.default}" sourcepath="${root.dir}/${project.name}/${src.dir.default}"
+			destdir="${javadoc.output.dir}/${project.name}" encoding="${javadoc.execution.encoding}" docencoding="${javadoc.execution.encoding}"
+			charset="${javadoc.execution.encoding}">
+			<classpath refid="lib.path" />
+			<fileset dir="${root.dir}/${project.name}/${src.dir.default}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
 	</target>
 
 	<target name="compile" description="Compiles the resources">
@@ -156,8 +172,6 @@
 			<fileset dir="${libraries.dir}/commons/lang" includes="commons-*-*.jar" />
 			<!-- <fileset dir="${libraries.dir}/commons/lang3" includes="commons-*-*.jar" /> -->
 			<fileset dir="${libraries.dir}/commons/logging" includes="commons-*-*.jar" />
-<!-- 			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-client-*.jar" /> -->
-<!-- 			<fileset dir="${libraries.dir}/rest/jersey" includes="jersey-core-*.jar" /> -->
 		</ear>
 	</target>
 
@@ -179,11 +193,13 @@
 
 	<target name="loop-projects" description="Loop for each Application Project">
 		<antcall target="create-jar" />
+		<antcall target="generate-javadoc" />
 		<antcall target="run-checkstyle" />
 	</target>
 
 	<target name="loop-wars" description="Loop for each WAR">
 		<antcall target="create-war" />
+		<antcall target="generate-javadoc" />
 		<antcall target="run-checkstyle" />
 	</target>
 

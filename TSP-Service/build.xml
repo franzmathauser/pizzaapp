@@ -42,17 +42,21 @@
 					<include name="**/*.jar" />
 				</fileset>
 				<fileset dir="${jboss6.dir}">
+					<!--
 					<include name="common/**/*.jar" />
 					<include name="lib/**/*.jar" />
 					<include name="client/*.jar" />
 					<include name="server/${jboss6.server.name}/lib/**/*.jar" />
 					<include name="server/${jboss6.server.name}/deployers/**/*.jar" />
+					-->
+					<include name="client/*.jar" />
+					<include name="server/${jboss6.server.name}/deployers/resteasy.deployer/**/*.jar" />
 				</fileset>
 			</path>
 		</else>
 	</if>
 
-	<target name="complete-build" description="Builds the TSP Service" depends="print-config,clean,compile,create-jar,run-checkstyle" />
+	<target name="complete-build" description="Builds the TSP Service" depends="print-config,clean,compile,create-jar,generate-javadoc,run-checkstyle" />
 
 	<target name="print-config">
 		<echo message="USER_HOME: ${user.home}" />
@@ -76,9 +80,11 @@
 	<target name="clean" description="Clean up all temporary directories and files">
 		<echo message="Pre clean up build and dist directories" />
 		<delete dir="${build.dir}/${project.name}" failonerror="false" />
+		<delete dir="${javadoc.output.dir}/${project.name}" failonerror="false" />
+		<delete file="${checkstyle.output.dir}/results_${project.name}.xml" failonerror="false" />
 	</target>
 
-	<target name="run-checkstyle" description="Checks the style of source code using checkstyle">
+	<target name="run-checkstyle" description="Checks the style of source code using checkstyle" depends="clean">
 		<echo message="Checking source code style" />
 		<mkdir dir="${checkstyle.output.dir}" />
 		<checkstyle config="${config.dir}/eclipse/checkstyle.config.xml">
@@ -88,7 +94,18 @@
 		</checkstyle>
 	</target>
 
-	<target name="compile" description="Compiles the resources">
+	<target name="generate-javadoc" description="Generates the JavaDoc" depends="clean">
+		<echo message="Generating JavaDoc" />
+		<javadoc packagenames="${src.dir.default}" sourcepath="${src.dir.default}" destdir="${javadoc.output.dir}/${project.name}"
+			encoding="${javadoc.execution.encoding}" docencoding="${javadoc.execution.encoding}" charset="${javadoc.execution.encoding}">
+			<classpath refid="lib.path" />
+			<fileset dir="${src.dir.default}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="compile" description="Compiles the resources" depends="clean">
 		<echo message="Compile sources" />
 		<mkdir dir="${build.dir}/${project.name}" />
 		<javac fork="${compile.fork}" srcdir="${src.dir.default}" destdir="${build.dir}/${project.name}" verbose="${compile.verbose}"
