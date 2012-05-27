@@ -13,18 +13,22 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 public class TspPermutation implements TspSolver
 {
 
-	private final MatrixContainer<Integer> distanceMatrix;
+	private final MatrixContainer<Integer> m_distanceMatrix;
 
-	private final List<Path> pathList;
+	private final List<Path> m_pathList;
 
 	/**
+	 * Konstruktor.
+	 * 
 	 * @param distanceMatrix
+	 *            DistanceMatrix
 	 * @param pathList
+	 *            Pfade
 	 */
 	public TspPermutation( MatrixContainer<Integer> distanceMatrix, List<Path> pathList )
 	{
-		this.distanceMatrix = distanceMatrix;
-		this.pathList = pathList;
+		this.m_distanceMatrix = distanceMatrix;
+		this.m_pathList = pathList;
 	}
 
 	/**
@@ -39,14 +43,14 @@ public class TspPermutation implements TspSolver
 		Long minPathNumeric = new Long( 0 );
 		long pathNumeric = 0;
 
-		for (Path path : pathList)
+		for (Path path : m_pathList)
 		{
 			pathNumeric = 0;
 			for (int i = 0; i < path.size() - 1; i++)
 			{
 				Integer x = path.getEdge( i ).getId();
 				Integer y = path.getEdge( i + 1 ).getId();
-				pathNumeric += distanceMatrix.get( x, y );
+				pathNumeric += m_distanceMatrix.get( x, y );
 
 			}
 			// System.out.println(pathNumeric);

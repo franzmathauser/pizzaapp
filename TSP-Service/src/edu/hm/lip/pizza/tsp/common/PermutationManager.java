@@ -13,8 +13,10 @@ public interface PermutationManager
 {
 
 	/**
-	 * @return
+	 * Liefert alle möglichen Pfadde zurück.
+	 * 
+	 * @return Pfade
 	 */
-	public List<Path> getPaths();
+	List<Path> getPaths();
 
 }

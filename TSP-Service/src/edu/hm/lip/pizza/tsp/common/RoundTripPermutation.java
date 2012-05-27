@@ -24,7 +24,10 @@ public class RoundTripPermutation implements PermutationManager
 	private List<Edge> instanceList;
 
 	/**
+	 * Konstruktor.
+	 * 
 	 * @param addressList
+	 *            Addressliste
 	 */
 	public RoundTripPermutation( List<Address> addressList )
 	{

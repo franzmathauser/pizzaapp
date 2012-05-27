@@ -26,7 +26,7 @@ public class DistanceMatrixBroker
 	 */
 	public static final String DESTINATION_DELIMITER = "|";
 
-	private final List<Address> destinations;
+	private final List<Address> m_destinations;
 
 	/**
 	 * Liefert eine Liste der Adressdaten, die abgefragt werden.
@@ -36,7 +36,7 @@ public class DistanceMatrixBroker
 	 */
 	public DistanceMatrixBroker( List<Address> destinations )
 	{
-		this.destinations = destinations;
+		this.m_destinations = destinations;
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class DistanceMatrixBroker
 	{
 		StringBuilder sb = new StringBuilder();
 
-		for (Address destination : destinations)
+		for (Address destination : m_destinations)
 		{
 			sb.append( destination.getAddressString() + DESTINATION_DELIMITER );
 		}

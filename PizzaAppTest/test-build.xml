@@ -1,0 +1,103 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE project>
+
+<project name="HM.EDU: Test PizzaApp" default="complete-test" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="config.dir" value="../BuildAndDeployEnvironment" />
+
+	<!-- load global properties (user specific) -->
+	<property file="${user.home}/.ant/global-build.properties" />
+
+	<!-- load global properties (workspace specific) -->
+	<property file="${config.dir}/pizza_app/global-build.properties" />
+	<property file="${config.dir}/global-build.properties" />
+
+	<property name="project.name" value="PizzaAppTest" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${libraries.dir}/ant/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<taskdef resource="checkstyletask.properties" classpath="${libraries.dir}/ant/checkstyle-5.5-all.jar" />
+
+	<if>
+		<equals arg1="${jboss.version}" arg2="7" />
+		<then>
+			<path id="lib.junit.path">
+				<fileset dir="${libraries.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${jboss7.dir}">
+					<include name="modules/org/jboss/resteasy/**/*.jar" />
+				</fileset>
+			</path>
+		</then>
+		<else>
+			<path id="lib.junit.path">
+				<fileset dir="${libraries.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${jboss6.dir}">
+					<include name="server/${jboss6.server.name}/deployers/resteasy.deployer/**/*.jar" />
+				</fileset>
+			</path>
+		</else>
+	</if>
+
+	<target name="complete-test" description="Tests the PizzaApp API" depends="print-config,clean,run-test" />
+
+	<target name="print-config">
+		<echo message="USER_HOME: ${user.home}" />
+		<echo message="${ant.version}" />
+		<echo message="ANT_HOME: ${ant.home}" />
+		<echo message="${java.runtime.name} (build ${java.runtime.version})" />
+		<echo message="JAVA_HOME: ${java.home}" />
+
+		<echo message="JBoss Version: ${jboss.version}" />
+		<if>
+			<equals arg1="${jboss.version}" arg2="7" />
+			<then>
+				<echo message="JBoss Deploy-Dir: ${jboss7.deploy.dir}" />
+			</then>
+			<else>
+				<echo message="JBoss Deploy-Dir: ${jboss6.deploy.dir}" />
+			</else>
+		</if>
+	</target>
+
+	<target name="clean" description="Clean up all temporary directories and files">
+		<echo message="Pre clean up junit dist directories" />
+		<delete dir="${build.env.dist.dir}/junit" failonerror="false" />
+	</target>
+
+	<target name="run-test" description="Runs the JUnit Tests">
+		<echo message="Starting JUnit tests" />
+		<mkdir dir="${junit.tests.output.dir}" />
+		<mkdir dir="${junit.report.output.dir}" />
+		<junit fork="true" showoutput="true" printsummary="true" haltonfailure="false" haltonerror="false">
+			<jvmarg value="-Dfile.encoding=${junit.execution.encoding}"/>
+			<classpath refid="lib.junit.path" />
+
+			<batchtest fork="yes" todir="${junit.tests.output.dir}" haltonfailure="false" haltonerror="false">
+				<fileset dir="${src.dir.default}">
+					<include name="**/*Test.java" />
+					<exclude name="**/Abstract*Test.java" />
+				</fileset>
+
+				<formatter type="plain" />
+				<formatter type="xml" />
+			</batchtest>
+		</junit>
+
+		<junitreport todir="${junit.tests.output.dir}">
+			<fileset dir="${junit.tests.output.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${junit.report.output.dir}" />
+		</junitreport>
+	</target>
+
+</project>
