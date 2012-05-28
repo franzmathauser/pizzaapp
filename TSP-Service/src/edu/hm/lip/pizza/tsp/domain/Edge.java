@@ -15,15 +15,15 @@ public class Edge
 	/**
 	 * Erzeugt ein neues Edge-Objekt.
 	 * 
-	 * @param id
+	 * @param edgeId
 	 *            Identifikator
-	 * @param address
+	 * @param edgeAddress
 	 *            Adress-Objekt
 	 */
-	public Edge( int id, Address address )
+	public Edge( int edgeId, Address edgeAddress )
 	{
-		this.id = id;
-		this.address = address;
+		this.id = edgeId;
+		this.address = edgeAddress;
 	}
 
 	/**

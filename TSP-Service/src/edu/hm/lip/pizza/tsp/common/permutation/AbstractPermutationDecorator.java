@@ -16,7 +16,7 @@ public abstract class AbstractPermutationDecorator implements Permutation
 	/**
 	 * Dekorierte Permutation.
 	 */
-	protected final Permutation decoratedPermutation;
+	protected final Permutation m_decoratedPermutation;
 
 	/**
 	 * Erzeugt eine Kapselung einer Permutation. Decorator-Pattern
@@ -26,7 +26,7 @@ public abstract class AbstractPermutationDecorator implements Permutation
 	 */
 	public AbstractPermutationDecorator( Permutation decoratedPermutation )
 	{
-		this.decoratedPermutation = decoratedPermutation;
+		this.m_decoratedPermutation = decoratedPermutation;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public abstract class AbstractPermutationDecorator implements Permutation
 	@Override
 	public List<Path> permute( List<Edge> edges )
 	{
-		return decoratedPermutation.permute( edges );
+		return m_decoratedPermutation.permute( edges );
 	}
 
 }

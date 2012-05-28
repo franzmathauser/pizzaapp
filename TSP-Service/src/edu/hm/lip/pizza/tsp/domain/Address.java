@@ -19,12 +19,12 @@ public class Address
 	/**
 	 * Liefert die Adresszeile als String.
 	 * 
-	 * @param addressString
+	 * @param address
 	 *            Stringrespräsentation der Adresse
 	 */
-	public Address( String addressString )
+	public Address( String address )
 	{
-		this.addressString = addressString;
+		this.addressString = address;
 	}
 
 	/**
