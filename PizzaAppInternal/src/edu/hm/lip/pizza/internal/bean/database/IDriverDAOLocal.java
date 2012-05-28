@@ -59,8 +59,11 @@ public interface IDriverDAOLocal
 	void delete( EntityDriver driver );
 
 	/**
+	 * Liefert alle noch nicht ausgelieferten Bestellungen zu einem Fahrer.
+	 * 
 	 * @param id
-	 * @return
+	 *            Fahreridentifikation
+	 * @return Liste mit Bestellungen
 	 */
 	List<EntityOrder> getUndeliverdOrders( int id );
 }

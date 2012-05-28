@@ -15,7 +15,10 @@ public class RoundTripPermutations extends AbstractPermutationDecorator
 {
 
 	/**
+	 * Konstruktor.
+	 * 
 	 * @param decoratedPermutation
+	 *            Dekorierte Permuation
 	 */
 	public RoundTripPermutations( Permutation decoratedPermutation )
 	{

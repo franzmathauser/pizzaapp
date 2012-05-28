@@ -31,8 +31,12 @@ public class NoDuplicatesPermutation implements Permutation
 	}
 
 	/**
+	 * Rekursive Erzeugung möglicher Permuationen aus der Eckenliste.
+	 * 
 	 * @param beginning
+	 *            Leere Liste
 	 * @param ending
+	 *            Eckenliste
 	 */
 	public void generatePermutation( List<Edge> beginning, List<Edge> ending )
 	{

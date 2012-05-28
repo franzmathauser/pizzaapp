@@ -59,13 +59,18 @@ public interface IOrderDAOLocal
 	void delete( EntityOrder order );
 
 	/**
+	 * Liefter die aktuelle Stage einer Bestellung.
+	 * 
 	 * @param id
-	 * @return
+	 *            Bestellungsidentifikator
+	 * @return Bestellungs-Stage der Entity-Domäne.
 	 */
 	EntityOrderStage getCurrentStage( int id );
 
 	/**
-	 * @return
+	 * Liefert eine Liste mit allen unausgelieferten Bestellungen.
+	 * 
+	 * @return Liste von Bestellungen.
 	 */
 	List<EntityOrder> getUndeliveredOrders();
 
