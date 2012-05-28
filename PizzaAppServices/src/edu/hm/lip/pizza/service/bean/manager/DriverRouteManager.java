@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import edu.hm.basic.logging.BasicLogger;
 import edu.hm.lip.pizza.api.object.ApiConstants;
 import edu.hm.lip.pizza.api.object.enumeration.RouteState;
 import edu.hm.lip.pizza.api.object.resource.DriverRoute;
@@ -81,7 +82,8 @@ public class DriverRouteManager implements IDriverRouteManagerLocal
 
 			TspSolver solver = new TspPermutation( matrix, tspPaths );
 			Path path = solver.solve();
-			System.out.println( "Path: " + path );
+			BasicLogger.logInfo( this.getClass().getName(), "Path: " + path );
+			
 			for (Edge edge : path.getEdges())
 			{
 				Integer mappedOrderId = edge.getAddress().getId();
