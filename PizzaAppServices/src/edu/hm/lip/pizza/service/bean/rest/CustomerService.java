@@ -62,11 +62,17 @@ public class CustomerService extends AbstractBean implements ICustomerService
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerService#update(edu.hm.lip.pizza.api.object.resource.Customer)
+	 * @see edu.hm.lip.pizza.api.communication.request.ICustomerService#update(int,
+	 *      edu.hm.lip.pizza.api.object.resource.Customer)
 	 */
 	@Override
-	public Customer update( Customer customer )
+	public Customer update( int id, Customer customer )
 	{
+		if (id != customer.getId())
+		{
+			return null;
+		}
+
 		EntityCustomer eCustomer = CustomerConverter.convertServiceToEntityCustomer( customer );
 		customerDAOBean.update( eCustomer );
 

@@ -128,7 +128,7 @@ public class DriverService extends AbstractBean implements IDriverService
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.api.communication.request.IDriverService#addOrder(int,
-	 *      edu.hm.lip.pizza.api.object.resource.Order)
+	 *      edu.hm.lip.pizza.api.object.resource.OrderId)
 	 */
 	@Override
 	public void addOrder( int id, OrderId orderId )

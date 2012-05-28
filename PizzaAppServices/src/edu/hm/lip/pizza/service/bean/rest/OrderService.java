@@ -64,7 +64,6 @@ public class OrderService extends AbstractBean implements IOrderService
 	@Interceptors( OrderActiveMQInterceptor.class )
 	public Order create( Order order )
 	{
-
 		EntityOrder eOrder = OrderConverter.convertServiceToEntityOrder( order );
 		EntityCustomer eCustomer = customerDAOBean.create( eOrder.getCustomer() );
 		eOrder.setCustomer( eCustomer );
@@ -72,7 +71,6 @@ public class OrderService extends AbstractBean implements IOrderService
 		int i = 0;
 		for (EntityOrderLine eOrderLine : eOrder.getOrderLines())
 		{
-
 			EntityProductConfiguration eProductConfiguration = productConfigurationDAOBean.getProductConfiguration( order
 					.getOrderLines().get( i++ ).getProductId(), eOrderLine.getProductConfiguration().getSize() );
 
@@ -101,8 +99,7 @@ public class OrderService extends AbstractBean implements IOrderService
 	@Override
 	public Order find( int id )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return OrderConverter.convertEntityToServiceOrder( orderDAOBean.read( id ) );
 	}
 
 	/**
@@ -113,7 +110,8 @@ public class OrderService extends AbstractBean implements IOrderService
 	@Override
 	public void remove( int id )
 	{
-		// TODO Auto-generated method stub
+		EntityOrder eOrder = orderDAOBean.read( id );
+		orderDAOBean.delete( eOrder );
 	}
 
 	/**
@@ -142,7 +140,7 @@ public class OrderService extends AbstractBean implements IOrderService
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#create(int)
+	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#createNextOrderStage(int)
 	 */
 	@Override
 	public Order createNextOrderStage( int id )

@@ -62,11 +62,17 @@ public class ProductService extends AbstractBean implements IProductService
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IProductService#update(edu.hm.lip.pizza.api.object.resource.Product)
+	 * @see edu.hm.lip.pizza.api.communication.request.IProductService#update(int,
+	 *      edu.hm.lip.pizza.api.object.resource.Product)
 	 */
 	@Override
-	public Product update( Product product )
+	public Product update( int id, Product product )
 	{
+		if (id != product.getId())
+		{
+			return null;
+		}
+
 		EntityProduct eProduct = ProductConverter.convertServiceToEntityProduct( product );
 		productDAOBean.update( eProduct );
 

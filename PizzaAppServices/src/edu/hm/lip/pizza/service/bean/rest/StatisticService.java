@@ -27,7 +27,7 @@ public class StatisticService extends AbstractBean implements IStatisticService
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IStatisticService#findAllCustomerLocations()
+	 * @see edu.hm.lip.pizza.api.communication.request.IStatisticService#findAllHeatmapData()
 	 */
 	@Override
 	public Heatmap findAllHeatmapData()
