@@ -36,6 +36,8 @@ public class DriverRoute extends AbstractRessourceObject
 
 	private Double originLon;
 
+	private Long startTime;
+
 	private String meassurement;
 
 	private Long meassurementValue;
@@ -62,6 +64,27 @@ public class DriverRoute extends AbstractRessourceObject
 	public Double getOriginLon()
 	{
 		return originLon;
+	}
+
+	/**
+	 * Liefert das Attribut startTime.
+	 * 
+	 * @return startTime
+	 */
+	public Long getStartTime()
+	{
+		return startTime;
+	}
+
+	/**
+	 * Setzt das Attribut startTime.
+	 * 
+	 * @param startTime
+	 *            zu setzender Wert für das Attribut startTime
+	 */
+	public void setStartTime( Long startTime )
+	{
+		this.startTime = startTime;
 	}
 
 	/**

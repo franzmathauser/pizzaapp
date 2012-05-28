@@ -1,6 +1,7 @@
 package edu.hm.lip.pizza.service.bean.manager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -76,6 +77,8 @@ public class DriverRouteManager implements IDriverRouteManagerLocal
 
 		try
 		{
+			driverRoute.setStartTime( new Date().getTime() );
+
 			gDistanceMatrix = new DistanceMatrixBroker( destinationList ).requestDistanceMatrix();
 
 			MatrixContainer<Integer> matrix = new MatrixContainerAdapter( gDistanceMatrix, meassurement ).getInstance();
@@ -83,7 +86,7 @@ public class DriverRouteManager implements IDriverRouteManagerLocal
 			TspSolver solver = new TspPermutation( matrix, tspPaths );
 			Path path = solver.solve();
 			BasicLogger.logInfo( this.getClass().getName(), "Path: " + path );
-			
+
 			for (Edge edge : path.getEdges())
 			{
 				Integer mappedOrderId = edge.getAddress().getId();
