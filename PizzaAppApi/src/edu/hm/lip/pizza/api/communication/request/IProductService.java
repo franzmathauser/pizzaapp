@@ -61,13 +61,15 @@ public interface IProductService
 	/**
 	 * Überschreibe Produktdaten.
 	 * 
+	 * @param id
+	 *            Produktidentifikator
 	 * @param product
 	 *            Produkt
 	 * @return überschriebenes Produkt
 	 */
 	@PUT
 	@Path( "{id}" )
-	Product update( Product product );
+	Product update( @PathParam( "id" ) int id, Product product );
 
 	/**
 	 * Lösche Produkt anhand von id.

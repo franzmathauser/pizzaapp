@@ -61,13 +61,15 @@ public interface ICustomerService
 	/**
 	 * Überschreibe Kundendaten.
 	 * 
+	 * @param id
+	 *            Kundenidentifikator
 	 * @param customer
 	 *            Kunde
 	 * @return Kunde
 	 */
 	@PUT
 	@Path( "{id}" )
-	Customer update( Customer customer );
+	Customer update( @PathParam( "id" ) int id, Customer customer );
 
 	/**
 	 * Kunden löschen.
