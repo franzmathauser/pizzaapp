@@ -38,7 +38,7 @@ public class EntityOrderLine extends AbstractEntityObject
 	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	private EntityOrder order;
 
-	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+	@ManyToOne( fetch = FetchType.LAZY )
 	private EntityProductConfiguration productConfiguration;
 
 	/**
