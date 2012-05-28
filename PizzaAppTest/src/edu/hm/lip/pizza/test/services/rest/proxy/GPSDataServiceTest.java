@@ -17,7 +17,6 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testCreate()
 	 */
-	@Test
 	@Override
 	public void testCreate() throws Exception
 	{
