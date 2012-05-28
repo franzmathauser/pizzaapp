@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.hm.lip.pizza.api.object.enumeration.Gender;
 import edu.hm.lip.pizza.api.object.resource.Customer;
 import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 
@@ -163,6 +164,18 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// Kunde aktualisieren
 		// ==================================================
 		customerCreated.setLastname( customer.getLastname() + "_Updated" );
+		customerCreated.setForename( customer.getForename() + "_Updated" );
+		customerCreated.setCity( customer.getCity() + "_Updated" );
+		customerCreated.setCompany( customer.getCompany() + "_Updated" );
+		customerCreated.setDepartment( customer.getDepartment() + "_Updated" );
+		customerCreated.setEmail( customer.getEmail() + "_Updated" );
+		customerCreated.setGender( Gender.FEMALE );
+		customerCreated.setLevel( customer.getLevel() + "_Updated" );
+		customerCreated.setPhone( customer.getPhone() + "_Updated" );
+		customerCreated.setStreet( customer.getStreet() + "_Updated" );
+		customerCreated.setZipcode( "" + (Integer.parseInt( customer.getZipcode() ) + 10) );
+		customerCreated.setLat( customer.getLat() + "1" );
+		customerCreated.setLon( customer.getLon() + "1" );
 
 		Customer customerUpdated = getCustomerProxy().update( customerCreated.getId(), customerCreated );
 		Assert.assertNotNull( customerUpdated );

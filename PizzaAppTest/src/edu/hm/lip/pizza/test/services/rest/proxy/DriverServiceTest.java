@@ -163,6 +163,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// Fahrer aktualisieren
 		// ==================================================
 		driverCreated.setName( driver.getName() + "_Updated" );
+		// TODO update all attributes
 
 		Driver driverUpdated = getDriverProxy().update( driverCreated.getId(), driverCreated );
 		Assert.assertNotNull( driverUpdated );

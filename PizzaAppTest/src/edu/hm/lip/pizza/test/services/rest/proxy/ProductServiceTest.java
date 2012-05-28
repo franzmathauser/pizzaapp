@@ -163,6 +163,11 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// Produkt aktualisieren
 		// ==================================================
 		productCreated.setName( product.getName() + "_Updated" );
+		productCreated.setDescription( product.getDescription() + "_Updated" );
+		productCreated.setImageUrl( "updated_" + product.getImageUrl() );
+		productCreated.setPriceL( "" + (Double.parseDouble( product.getPriceL() ) + 1) );
+		productCreated.setPriceXL( "" + (Double.parseDouble( product.getPriceXL() ) + 1) );
+		productCreated.setPriceXXL( "" + (Double.parseDouble( product.getPriceXXL() ) + 1) );
 
 		Product productUpdated = getProductProxy().update( productCreated.getId(), productCreated );
 		Assert.assertNotNull( productUpdated );
