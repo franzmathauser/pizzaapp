@@ -3,8 +3,10 @@ package edu.hm.lip.pizza.test.services.rest.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
 import edu.hm.lip.pizza.api.object.resource.Customer;
-import edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest;
+import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 
 import junit.framework.Assert;
 
@@ -13,7 +15,7 @@ import junit.framework.Assert;
  * 
  * @author Stefan Wörner
  */
-public class CustomerServiceTest extends AbstractRestServiceTest
+public class CustomerServiceTest extends AbstractRestServiceProxyTest implements IRestServiceDefaultTestFunctions
 {
 
 	/**
@@ -21,6 +23,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testCreate()
 	 */
+	@Test
 	@Override
 	public void testCreate() throws Exception
 	{
@@ -35,7 +38,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 		log( this.getClass(), "Create", customerCreated.toString() );
 
 		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEqualsWithoutId( customerCreated, customer );
+		assertCustomerEquals( customerCreated, customer, false );
 
 		// ==================================================
 		// Kunde löschen
@@ -51,6 +54,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFindAll()
 	 */
+	@Test
 	@Override
 	public void testFindAll() throws Exception
 	{
@@ -64,7 +68,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 			Customer customerCreated = getCustomerProxy().create( customer );
 			Assert.assertNotNull( customerCreated );
 			Assert.assertNotNull( customerCreated.getId() );
-			assertCustomerEqualsWithoutId( customerCreated, customer );
+			assertCustomerEquals( customerCreated, customer, false );
 
 			customersCreated.add( customerCreated );
 		}
@@ -77,7 +81,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 
 		for (Customer customerFound : customersFound)
 		{
-			log( this.getClass(), "FindAll", customerFound.toString() );
+			log( this.getClass(), "Find_All", customerFound.toString() );
 		}
 
 		Assert.assertTrue( customersFound.size() >= customersCreated.size() );
@@ -103,6 +107,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFind()
 	 */
+	@Test
 	@Override
 	public void testFind() throws Exception
 	{
@@ -114,7 +119,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
 		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEqualsWithoutId( customerCreated, customer );
+		assertCustomerEquals( customerCreated, customer, false );
 
 		// ==================================================
 		// Kunde auslesen
@@ -140,6 +145,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testUpdate()
 	 */
+	@Test
 	@Override
 	public void testUpdate() throws Exception
 	{
@@ -151,7 +157,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
 		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEqualsWithoutId( customerCreated, customer );
+		assertCustomerEquals( customerCreated, customer, false );
 
 		// ==================================================
 		// Kunde aktualisieren
@@ -180,6 +186,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
 	 */
+	@Test
 	@Override
 	public void testRemove() throws Exception
 	{
@@ -191,7 +198,7 @@ public class CustomerServiceTest extends AbstractRestServiceTest
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
 		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEqualsWithoutId( customerCreated, customer );
+		assertCustomerEquals( customerCreated, customer, false );
 
 		// ==================================================
 		// Kunde löschen

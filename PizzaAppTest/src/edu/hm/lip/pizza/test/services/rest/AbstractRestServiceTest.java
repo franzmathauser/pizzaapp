@@ -4,24 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.jboss.resteasy.client.ProxyFactory;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
-import edu.hm.lip.pizza.api.communication.request.ICustomerService;
-import edu.hm.lip.pizza.api.communication.request.IDriverService;
-import edu.hm.lip.pizza.api.communication.request.IOrderService;
-import edu.hm.lip.pizza.api.communication.request.IProductService;
 import edu.hm.lip.pizza.api.object.enumeration.Gender;
+import edu.hm.lip.pizza.api.object.enumeration.Size;
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.api.object.resource.Customer;
 import edu.hm.lip.pizza.api.object.resource.Driver;
+import edu.hm.lip.pizza.api.object.resource.GPSData;
 import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.api.object.resource.OrderLine;
 import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.test.AbstractTest;
 
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 
 /**
  * Abstrakte Basisklasse für REST Service Tests.
@@ -31,7 +28,7 @@ import junit.framework.Assert;
 public abstract class AbstractRestServiceTest extends AbstractTest
 {
 
-	private static final int NUM_LIST_ELEMENTS = 3;
+	private static final int NUM_LIST_ELEMENTS = 5;
 
 	private static List<Driver> m_drivers = new ArrayList<Driver>();
 
@@ -40,6 +37,8 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	private static List<Product> m_products = new ArrayList<Product>();
 
 	private static List<Order> m_orders = new ArrayList<Order>();
+
+	private static List<GPSData> m_gpsData = new ArrayList<GPSData>();
 
 	/**
 	 * Initialisiert die Ressource Listen.
@@ -52,9 +51,9 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			Driver driver = new Driver();
 			driver.setId( null );
 			driver.setName( "TestDriver" + i );
-			// muss an entsprechender Stelle richtig gesetzt werden
+			// muss an entsprechender Stelle richtig gesetzt werden // TODO
 			driver.setOrders( null );
-			// muss an entsprechender Stelle richtig gesetzt werden
+			// muss an entsprechender Stelle richtig gesetzt werden // TODO
 			driver.setGpsData( null );
 			m_drivers.add( driver );
 
@@ -71,7 +70,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			customer.setPhone( "01234567" + i );
 			customer.setStreet( "TestStreet" + i );
 			customer.setZipcode( "1000" + i );
-			customer.setLat( "11." + i );
+			customer.setLat( "48." + i );
 			customer.setLon( "11." + i );
 			m_customers.add( customer );
 
@@ -91,13 +90,53 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			order.setCurrentStage( Stage.ORDERED );
 			// muss an entsprechender Stelle richtig gesetzt werden
 			order.setCustomer( null );
-			order.setOrderDate( new Date() );
+			// muss an entsprechender Stelle richtig gesetzt werden
+			order.setOrderDate( null );
 			// muss an entsprechender Stelle richtig gesetzt werden
 			order.setOrderLines( null );
 			// muss an entsprechender Stelle richtig gesetzt werden
 			order.setPrice( null );
 			m_orders.add( order );
+
+			GPSData gpsData = new GPSData();
+			gpsData.setId( null );
+			gpsData.setLat( Double.parseDouble( "48." + i ) );
+			gpsData.setLon( Double.parseDouble( "11." + i ) );
+			// muss an entsprechender Stelle richtig gesetzt werden // TODO
+			gpsData.setDriver( null );
+			// muss an entsprechender Stelle richtig gesetzt werden // TODO
+			gpsData.setDate( null );
+			m_gpsData.add( gpsData );
 		}
+	}
+
+	/**
+	 * Fügt der Order eine neue Orderline hinzu.
+	 * 
+	 * @param order
+	 *            Bestellung
+	 * @param product
+	 *            Produkt
+	 */
+	protected void addOrderLine( Order order, Product product )
+	{
+		if (order == null || product == null || product.getId() == null)
+		{
+			return;
+		}
+
+		OrderLine orderLine = new OrderLine();
+		orderLine.setId( null );
+		orderLine.setProductId( product.getId() );
+		orderLine.setQuantity( 2 );
+		orderLine.setSize( Size.L );
+
+		List<OrderLine> oderLines = new ArrayList<OrderLine>();
+		oderLines.add( orderLine );
+
+		order.setOrderLines( oderLines );
+		order.setPrice( "" + (Double.parseDouble( product.getPriceL() ) * 2) );
+		order.setOrderDate( new Date() );
 	}
 
 	/**
@@ -181,166 +220,224 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	}
 
 	/**
-	 * @return
+	 * Gibt ein GPS-Datum zurück.
+	 * 
+	 * @return GPS-Datum
 	 */
-	protected IDriverService getDriverProxy()
+	protected GPSData getGPSData()
 	{
-		return ProxyFactory.create( IDriverService.class, getRestUrl() );
+		return m_gpsData.get( 0 );
 	}
 
 	/**
-	 * @return
+	 * Gibt eine GPS-Datenliste zurück.
+	 * 
+	 * @return GPS-Datenliste
 	 */
-	protected ICustomerService getCustomerProxy()
+	protected List<GPSData> getGPSDataList()
 	{
-		return ProxyFactory.create( ICustomerService.class, getRestUrl() );
+		return m_gpsData;
 	}
 
 	/**
-	 * @return
+	 * Prüft Fahrer auf Gleichheit.
+	 * 
+	 * @param driverReceived
+	 *            Empfangener Fahrer
+	 * @param driverSent
+	 *            Gesendeter Fahrer
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
 	 */
-	protected IProductService getProductProxy()
+	protected void assertDriverEquals( Driver driverReceived, Driver driverSent, boolean assertId )
 	{
-		return ProxyFactory.create( IProductService.class, getRestUrl() );
-	}
-
-	/**
-	 * @return
-	 */
-	protected IOrderService getOrderProxy()
-	{
-		return ProxyFactory.create( IOrderService.class, getRestUrl() );
-	}
-
-	/**
-	 * @param driverCreated
-	 * @param driver
-	 */
-	protected void assertDriverEqualsWithoutId( Driver driverCreated, Driver driver )
-	{
-		Assert.assertEquals( driverCreated.getName(), driver.getName() );
-		Assert.assertEquals( driverCreated.getGpsData(), driver.getGpsData() );
-		Assert.assertEquals( driverCreated.getOrders(), driver.getOrders() );
-	}
-
-	/**
-	 * @param customerCreated
-	 * @param customer
-	 */
-	protected void assertCustomerEqualsWithoutId( Customer customerCreated, Customer customer )
-	{
-		Assert.assertEquals( customerCreated.getAddressAsString(), customer.getAddressAsString() );
-		Assert.assertEquals( customerCreated.getCity(), customer.getCity() );
-		Assert.assertEquals( customerCreated.getCompany(), customer.getCompany() );
-		Assert.assertEquals( customerCreated.getDepartment(), customer.getDepartment() );
-		Assert.assertEquals( customerCreated.getEmail(), customer.getEmail() );
-		Assert.assertEquals( customerCreated.getForename(), customer.getForename() );
-		Assert.assertEquals( customerCreated.getLastname(), customer.getLastname() );
-		Assert.assertEquals( customerCreated.getLat(), customer.getLat() );
-		Assert.assertEquals( customerCreated.getLon(), customer.getLon() );
-		Assert.assertEquals( customerCreated.getLevel(), customer.getLevel() );
-		Assert.assertEquals( customerCreated.getPhone(), customer.getPhone() );
-		Assert.assertEquals( customerCreated.getStreet(), customer.getStreet() );
-		Assert.assertEquals( customerCreated.getZipcode(), customer.getZipcode() );
-		Assert.assertEquals( customerCreated.getGender(), customer.getGender() );
-	}
-
-	/**
-	 * @param productCreated
-	 * @param product
-	 */
-	protected void assertProductEqualsWithoutId( Product productCreated, Product product )
-	{
-		Assert.assertEquals( productCreated.getName(), product.getName() );
-		Assert.assertEquals( productCreated.getDescription(), product.getDescription() );
-		Assert.assertEquals( productCreated.getImageUrl(), product.getImageUrl() );
-		Assert.assertEquals( Double.parseDouble( productCreated.getPriceL() ), Double.parseDouble( product.getPriceL() ) );
-		Assert.assertEquals( Double.parseDouble( productCreated.getPriceXL() ), Double.parseDouble( product.getPriceXL() ) );
-		Assert.assertEquals( Double.parseDouble( productCreated.getPriceXXL() ), Double.parseDouble( product.getPriceXXL() ) );
-	}
-
-	/**
-	 * @param orderCreated
-	 * @param order
-	 */
-	protected void assertOrderEqualsWithoutId( Order orderCreated, Order order )
-	{
-		Assert.assertEquals( orderCreated.getNote(), order.getNote() );
-		Assert.assertEquals( orderCreated.getPrice(), order.getPrice() );
-		Assert.assertEquals( orderCreated.getCurrentStage(), order.getCurrentStage() );
-		assertCustomerEqualsWithoutId( orderCreated.getCustomer(), order.getCustomer() );
-		Assert.assertTrue( orderCreated.getOrderDate().getTime() >= order.getOrderDate().getTime() );
-		assertOrderLinesEqualsWithoutId( orderCreated.getOrderLines(), order.getOrderLines() );
-	}
-
-	/**
-	 * @param orderLinesCreated
-	 * @param orderLines
-	 */
-	protected void assertOrderLinesEqualsWithoutId( List<OrderLine> orderLinesCreated, List<OrderLine> orderLines )
-	{
-		Assert.assertEquals( orderLinesCreated.size(), orderLines.size() );
-
-		for (int i = 0; i < orderLines.size(); i++)
+		if (assertId)
 		{
-			assertOrderLineEqualsWithoutId( orderLinesCreated.get( i ), orderLines.get( i ) );
+			Assert.assertEquals( driverReceived.getId(), driverSent.getId() );
+		}
+		Assert.assertEquals( driverReceived.getName(), driverSent.getName() );
+		Assert.assertEquals( driverReceived.getGpsData(), driverSent.getGpsData() );
+		Assert.assertEquals( driverReceived.getOrders(), driverSent.getOrders() );
+	}
+
+	/**
+	 * Prüft Kunden auf Gleichheit.
+	 * 
+	 * @param customerReceived
+	 *            Empfangener Kunde
+	 * @param customerSent
+	 *            Gesendeter Kunde
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 */
+	protected void assertCustomerEquals( Customer customerReceived, Customer customerSent, boolean assertId )
+	{
+		if (assertId)
+		{
+			Assert.assertEquals( customerReceived.getId(), customerSent.getId() );
+		}
+		Assert.assertEquals( customerReceived.getAddressAsString(), customerSent.getAddressAsString() );
+		Assert.assertEquals( customerReceived.getCity(), customerSent.getCity() );
+		Assert.assertEquals( customerReceived.getCompany(), customerSent.getCompany() );
+		Assert.assertEquals( customerReceived.getDepartment(), customerSent.getDepartment() );
+		Assert.assertEquals( customerReceived.getEmail(), customerSent.getEmail() );
+		Assert.assertEquals( customerReceived.getForename(), customerSent.getForename() );
+		Assert.assertEquals( customerReceived.getLastname(), customerSent.getLastname() );
+		Assert.assertEquals( customerReceived.getLat(), customerSent.getLat() );
+		Assert.assertEquals( customerReceived.getLon(), customerSent.getLon() );
+		Assert.assertEquals( customerReceived.getLevel(), customerSent.getLevel() );
+		Assert.assertEquals( customerReceived.getPhone(), customerSent.getPhone() );
+		Assert.assertEquals( customerReceived.getStreet(), customerSent.getStreet() );
+		Assert.assertEquals( customerReceived.getZipcode(), customerSent.getZipcode() );
+		Assert.assertEquals( customerReceived.getGender(), customerSent.getGender() );
+	}
+
+	/**
+	 * Prüft Produkt auf Gleichheit.
+	 * 
+	 * @param productReceived
+	 *            Empfangenes Produkt
+	 * @param productSend
+	 *            Gesendetes Produkt
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 */
+	protected void assertProductEquals( Product productReceived, Product productSend, boolean assertId )
+	{
+		if (assertId)
+		{
+			Assert.assertEquals( productReceived.getId(), productSend.getId() );
+		}
+		Assert.assertEquals( productReceived.getName(), productSend.getName() );
+		Assert.assertEquals( productReceived.getDescription(), productSend.getDescription() );
+		Assert.assertEquals( productReceived.getImageUrl(), productSend.getImageUrl() );
+		Assert.assertEquals( Double.parseDouble( productReceived.getPriceL() ), Double.parseDouble( productSend.getPriceL() ) );
+		Assert.assertEquals( Double.parseDouble( productReceived.getPriceXL() ), Double.parseDouble( productSend.getPriceXL() ) );
+		Assert.assertEquals( Double.parseDouble( productReceived.getPriceXXL() ), Double.parseDouble( productSend.getPriceXXL() ) );
+	}
+
+	/**
+	 * Prüft Bestellung auf Gleichheit. Für das Bestelldatum wird ein Zeitversatz von 2 Sekunden berücksichtigt.
+	 * 
+	 * @param orderReceived
+	 *            Empfangene Bestellung
+	 * @param orderSent
+	 *            Gesendete Bestellung
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 */
+	protected void assertOrderEquals( Order orderReceived, Order orderSent, boolean assertId )
+	{
+		if (assertId)
+		{
+			Assert.assertEquals( orderReceived.getId(), orderSent.getId() );
+		}
+		Assert.assertEquals( orderReceived.getNote(), orderSent.getNote() );
+		Assert.assertEquals( orderReceived.getPrice(), orderSent.getPrice() );
+		Assert.assertEquals( orderReceived.getCurrentStage(), orderSent.getCurrentStage() );
+		assertCustomerEquals( orderReceived.getCustomer(), orderSent.getCustomer(), false );
+		Assert.assertEquals( orderReceived.getOrderDate().getTime(), orderSent.getOrderDate().getTime(), 2000L );
+		assertOrderLinesEquals( orderReceived.getOrderLines(), orderSent.getOrderLines(), false );
+	}
+
+	/**
+	 * Prüft ob Bestellung in Liste enthalten ist. Für das Bestelldatum wird ein Zeitversatz von 2 Sekunden
+	 * berücksichtigt.
+	 * 
+	 * @param ordersReceived
+	 *            Empfangene Bestellungen
+	 * @param orderSent
+	 *            Gesendete Bestellung
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 */
+	protected void assertContainsOrder( List<Order> ordersReceived, Order orderSent, boolean assertId )
+	{
+		boolean contained = false;
+
+		for (Order orderReceived : ordersReceived)
+		{
+			try
+			{
+				if (assertId)
+				{
+					Assert.assertEquals( orderReceived.getId(), orderSent.getId() );
+				}
+				Assert.assertEquals( orderReceived.getNote(), orderSent.getNote() );
+				Assert.assertEquals( orderReceived.getPrice(), orderSent.getPrice() );
+				Assert.assertEquals( orderReceived.getCurrentStage(), orderSent.getCurrentStage() );
+				assertCustomerEquals( orderReceived.getCustomer(), orderSent.getCustomer(), false );
+				Assert.assertEquals( orderReceived.getOrderDate().getTime(), orderSent.getOrderDate().getTime(), 2000L );
+				assertOrderLinesEquals( orderReceived.getOrderLines(), orderSent.getOrderLines(), false );
+
+				contained = true;
+				break;
+			}
+			catch (AssertionFailedError e)
+			{
+				contained = false;
+			}
+		}
+
+		Assert.assertTrue( contained );
+	}
+
+	/**
+	 * Prüft Bestellzeilen auf Gleichheit.
+	 * 
+	 * @param orderLinesReceived
+	 *            Empfangene Bestellzeilen
+	 * @param orderLinesSent
+	 *            Gesendete Bestellzeilen
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 */
+	protected void assertOrderLinesEquals( List<OrderLine> orderLinesReceived, List<OrderLine> orderLinesSent, boolean assertId )
+	{
+		Assert.assertEquals( orderLinesReceived.size(), orderLinesSent.size() );
+
+		for (int i = 0; i < orderLinesSent.size(); i++)
+		{
+			assertOrderLineEquals( orderLinesReceived.get( i ), orderLinesSent.get( i ), assertId );
 		}
 	}
 
 	/**
-	 * @param orderLineCreated
-	 * @param orderLine
+	 * Prüft Bestellzeile auf Gleichheit.
+	 * 
+	 * @param orderLineReceived
+	 *            Empfangene Bestellzeile
+	 * @param orderLineSent
+	 *            Gesendete Bestellzeile
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertOrderLineEqualsWithoutId( OrderLine orderLineCreated, OrderLine orderLine )
+	protected void assertOrderLineEquals( OrderLine orderLineReceived, OrderLine orderLineSent, boolean assertId )
 	{
-		Assert.assertEquals( orderLineCreated.getProductId(), orderLine.getProductId() );
-		Assert.assertEquals( orderLineCreated.getQuantity(), orderLine.getQuantity() );
-		Assert.assertEquals( orderLineCreated.getSize(), orderLine.getSize() );
+		if (assertId)
+		{
+			Assert.assertEquals( orderLineReceived.getId(), orderLineSent.getId() );
+		}
+		Assert.assertEquals( orderLineReceived.getProductId(), orderLineSent.getProductId() );
+		Assert.assertEquals( orderLineReceived.getQuantity(), orderLineSent.getQuantity() );
+		Assert.assertEquals( orderLineReceived.getSize(), orderLineSent.getSize() );
 	}
 
 	/**
-	 * Testet die CREATE Funktion.
+	 * Prüft OrderStage String auf Gleichheit.
 	 * 
-	 * @throws Exception
-	 *             Testfehler
+	 * @param receivedString
+	 *            Empfangener OrderStage String
+	 * @param expectedStage
+	 *            Erwartete OrderStage
 	 */
-	@Test
-	public abstract void testCreate() throws Exception;
+	protected void assertOrderStage( String receivedString, Stage expectedStage )
+	{
+		Assert.assertNotNull( expectedStage );
+		Assert.assertNotNull( receivedString );
 
-	/**
-	 * Testet die FIND ALL Funktion.
-	 * 
-	 * @throws Exception
-	 *             Testfehler
-	 */
-	@Test
-	public abstract void testFindAll() throws Exception;
-
-	/**
-	 * Testet die FIND Funktion.
-	 * 
-	 * @throws Exception
-	 *             Testfehler
-	 */
-	@Test
-	public abstract void testFind() throws Exception;
-
-	/**
-	 * Testet die UPDATE Funktion.
-	 * 
-	 * @throws Exception
-	 *             Testfehler
-	 */
-	@Test
-	public abstract void testUpdate() throws Exception;
-
-	/**
-	 * Testet die REMOVE Funktion.
-	 * 
-	 * @throws Exception
-	 *             Testfehler
-	 */
-	@Test
-	public abstract void testRemove() throws Exception;
+		String expectedString = "{\"nextStage\": " + expectedStage.name() + "}";
+		Assert.assertEquals( receivedString, expectedString );
+	}
 
 }

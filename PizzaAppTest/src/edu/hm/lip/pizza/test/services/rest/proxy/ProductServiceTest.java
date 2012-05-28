@@ -3,8 +3,10 @@ package edu.hm.lip.pizza.test.services.rest.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
 import edu.hm.lip.pizza.api.object.resource.Product;
-import edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest;
+import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 
 import junit.framework.Assert;
 
@@ -13,7 +15,7 @@ import junit.framework.Assert;
  * 
  * @author Stefan Wörner
  */
-public class ProductServiceTest extends AbstractRestServiceTest
+public class ProductServiceTest extends AbstractRestServiceProxyTest implements IRestServiceDefaultTestFunctions
 {
 
 	/**
@@ -21,6 +23,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testCreate()
 	 */
+	@Test
 	@Override
 	public void testCreate() throws Exception
 	{
@@ -35,7 +38,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 		log( this.getClass(), "Create", productCreated.toString() );
 
 		Assert.assertNotNull( productCreated.getId() );
-		assertProductEqualsWithoutId( productCreated, product );
+		assertProductEquals( productCreated, product, false );
 
 		// ==================================================
 		// Produkt löschen
@@ -51,6 +54,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFindAll()
 	 */
+	@Test
 	@Override
 	public void testFindAll() throws Exception
 	{
@@ -64,7 +68,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 			Product productCreated = getProductProxy().create( product );
 			Assert.assertNotNull( productCreated );
 			Assert.assertNotNull( productCreated.getId() );
-			assertProductEqualsWithoutId( productCreated, product );
+			assertProductEquals( productCreated, product, false );
 
 			productsCreated.add( productCreated );
 		}
@@ -77,7 +81,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 
 		for (Product productFound : productsFound)
 		{
-			log( this.getClass(), "FindAll", productFound.toString() );
+			log( this.getClass(), "Find_All", productFound.toString() );
 		}
 
 		Assert.assertTrue( productsFound.size() >= productsCreated.size() );
@@ -103,6 +107,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFind()
 	 */
+	@Test
 	@Override
 	public void testFind() throws Exception
 	{
@@ -114,7 +119,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 		Product productCreated = getProductProxy().create( product );
 		Assert.assertNotNull( productCreated );
 		Assert.assertNotNull( productCreated.getId() );
-		assertProductEqualsWithoutId( productCreated, product );
+		assertProductEquals( productCreated, product, false );
 
 		// ==================================================
 		// Produkt auslesen
@@ -140,6 +145,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testUpdate()
 	 */
+	@Test
 	@Override
 	public void testUpdate() throws Exception
 	{
@@ -151,7 +157,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 		Product productCreated = getProductProxy().create( product );
 		Assert.assertNotNull( productCreated );
 		Assert.assertNotNull( productCreated.getId() );
-		assertProductEqualsWithoutId( productCreated, product );
+		assertProductEquals( productCreated, product, false );
 
 		// ==================================================
 		// Produkt aktualisieren
@@ -180,6 +186,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
 	 */
+	@Test
 	@Override
 	public void testRemove() throws Exception
 	{
@@ -191,7 +198,7 @@ public class ProductServiceTest extends AbstractRestServiceTest
 		Product productCreated = getProductProxy().create( product );
 		Assert.assertNotNull( productCreated );
 		Assert.assertNotNull( productCreated.getId() );
-		assertProductEqualsWithoutId( productCreated, product );
+		assertProductEquals( productCreated, product, false );
 
 		// ==================================================
 		// Produkt löschen

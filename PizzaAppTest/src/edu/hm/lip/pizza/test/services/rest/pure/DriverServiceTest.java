@@ -13,6 +13,7 @@ import org.junit.Test;
 import edu.hm.lip.pizza.api.object.resource.Driver;
 import edu.hm.lip.pizza.test.JsonMapper;
 import edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest;
+import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 
 import junit.framework.Assert;
 
@@ -21,7 +22,7 @@ import junit.framework.Assert;
  * 
  * @author Stefan Wörner
  */
-public class DriverServiceTest extends AbstractRestServiceTest
+public class DriverServiceTest extends AbstractRestServiceTest implements IRestServiceDefaultTestFunctions
 {
 
 	private ClientRequest getDriverClient( String path )
@@ -37,6 +38,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testCreate()
 	 */
+	@Test
 	@Override
 	public void testCreate() throws Exception
 	{
@@ -81,6 +83,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 	 * @throws Exception
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFindAll()
 	 */
+	@Test
 	@Override
 	public void testFindAll() throws Exception
 	{
@@ -119,7 +122,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 
 		for (Driver driverFound : driversFound)
 		{
-			log( this.getClass(), "FindAll", driverFound.toString() );
+			log( this.getClass(), "Find_All", driverFound.toString() );
 		}
 
 		Assert.assertTrue( driversFound.size() >= driversCreated.size() );
@@ -149,6 +152,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFind()
 	 */
+	@Test
 	@Override
 	public void testFind() throws Exception
 	{
@@ -202,6 +206,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testUpdate()
 	 */
+	@Test
 	@Override
 	public void testUpdate() throws Exception
 	{
@@ -261,6 +266,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
 	 */
+	@Test
 	@Override
 	public void testRemove() throws Exception
 	{
@@ -298,30 +304,45 @@ public class DriverServiceTest extends AbstractRestServiceTest
 		Assert.assertNull( driverFound );
 	}
 
+	/**
+	 * Testet die GET ROUTE Funktion.
+	 */
 	@Test
 	public void testGetRoute()
 	{
 
 	}
 
+	/**
+	 * Testet die ADD ORDER Funktion.
+	 */
 	@Test
 	public void testAddOrder()
 	{
 
 	}
 
+	/**
+	 * Testet die REMOVE ORDER Funktion.
+	 */
 	@Test
 	public void testRemoveOrder()
 	{
 
 	}
 
+	/**
+	 * Testet die CREATE GPS DATA Funktion.
+	 */
 	@Test
 	public void testCreateGPSData()
 	{
 
 	}
 
+	/**
+	 * Testet die GET UNDELIVERED ORDERS Funktion.
+	 */
 	@Test
 	public void testGetUndeliveredOrders()
 	{
