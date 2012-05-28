@@ -208,9 +208,68 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testUpdate()
 	 */
-	@Test
 	@Override
 	public void testUpdate() throws Exception
+	{
+		// Nicht implementiert!
+		return;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
+	 */
+	@Test
+	@Override
+	public void testRemove() throws Exception
+	{
+		// ==================================================
+		// Produkt anlegen
+		// ==================================================
+		Product product = getProduct();
+
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		// ==================================================
+		// Bestellung anlegen
+		// ==================================================
+		Order order = getOrder();
+		addOrderLine( order, productCreated );
+		order.setCustomer( getCustomer() );
+
+		Order orderCreated = getOrderProxy().create( order );
+		Assert.assertNotNull( orderCreated );
+		Assert.assertNotNull( orderCreated.getId() );
+		assertOrderEquals( orderCreated, order, false );
+
+		// ==================================================
+		// Bestellung löschen
+		// ==================================================
+		getOrderProxy().remove( orderCreated.getId() );
+
+		log( this.getClass(), "Remove", orderCreated.toString() );
+
+		Order orderFound = getOrderProxy().find( orderCreated.getId() );
+		Assert.assertNull( orderFound );
+
+		// ==================================================
+		// Produkt löschen
+		// ==================================================
+		getProductProxy().remove( productCreated.getId() );
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+	}
+
+	/**
+	 * Testet die CREATE NEXT ORDER STAGE Funktion.
+	 */
+	@Test
+	public void testCreateNextOrderStage()
 	{
 		// ==================================================
 		// Produkt anlegen
@@ -277,56 +336,6 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// Bestellung löschen
 		// ==================================================
 		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
-
-		// ==================================================
-		// Produkt löschen
-		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
-	 */
-	@Test
-	@Override
-	public void testRemove() throws Exception
-	{
-		// ==================================================
-		// Produkt anlegen
-		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
-
-		// ==================================================
-		// Bestellung anlegen
-		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
-
-		// ==================================================
-		// Bestellung löschen
-		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		log( this.getClass(), "Remove", orderCreated.toString() );
 
 		Order orderFound = getOrderProxy().find( orderCreated.getId() );
 		Assert.assertNull( orderFound );
