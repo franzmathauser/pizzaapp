@@ -13,8 +13,8 @@ import org.jboss.resteasy.client.ClientResponse;
 
 import edu.hm.lip.pizza.api.object.ApiConstants;
 import edu.hm.lip.pizza.api.object.enumeration.MessageType;
-import edu.hm.lip.pizza.api.object.resource.MessageContainer;
 import edu.hm.lip.pizza.api.object.resource.Order;
+import edu.hm.lip.pizza.api.object.resource.activemq.MessageContainer;
 
 /**
  * Interceptor Klasse pushed neue Bestelldaten an die Bestellverwaltung. Dies wird ermöglicht durch einen POST

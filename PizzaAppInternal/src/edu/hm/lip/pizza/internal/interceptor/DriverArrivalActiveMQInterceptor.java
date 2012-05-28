@@ -15,7 +15,7 @@ import edu.hm.lip.pizza.api.object.ApiConstants;
 import edu.hm.lip.pizza.api.object.enumeration.MessageType;
 import edu.hm.lip.pizza.api.object.resource.DriverArrival;
 import edu.hm.lip.pizza.api.object.resource.DriverRoute;
-import edu.hm.lip.pizza.api.object.resource.MessageContainer;
+import edu.hm.lip.pizza.api.object.resource.activemq.MessageContainer;
 
 /**
  * Interceptor Klasse pushed die Vorraussichtliche Ankunftszeit des Fahrers in die ActiveMQ.
