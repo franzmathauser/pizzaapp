@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
 Class-Path: BasicApi.jar 
+ TSP-Service.jar 
  commons-lang-2.6.jar
 

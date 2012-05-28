@@ -16,6 +16,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
 import edu.hm.lip.pizza.api.object.enumeration.RouteState;
+import edu.hm.lip.pizza.tsp.domain.MatrixContainerAdapter.Measurements;
 
 /**
  * Resource für eine Fahrer-Route. Es werden alle benötigten Routen-Information in dieser Klasse gehalten, wie
@@ -38,9 +39,9 @@ public class DriverRoute extends AbstractRessourceObject
 
 	private Long startTime;
 
-	private String meassurement;
+	private Measurements measurement;
 
-	private Long meassurementValue;
+	private Long measurementValue;
 
 	private List<Order> orders;
 
@@ -57,6 +58,17 @@ public class DriverRoute extends AbstractRessourceObject
 	}
 
 	/**
+	 * Setzt das Attribut originLat.
+	 * 
+	 * @param originLat
+	 *            zu setzender Wert für das Attribut originLat
+	 */
+	public void setOriginLat( Double originLat )
+	{
+		this.originLat = originLat;
+	}
+
+	/**
 	 * Liefert das Attribut originLon.
 	 * 
 	 * @return originLon
@@ -64,6 +76,17 @@ public class DriverRoute extends AbstractRessourceObject
 	public Double getOriginLon()
 	{
 		return originLon;
+	}
+
+	/**
+	 * Setzt das Attribut originLon.
+	 * 
+	 * @param originLon
+	 *            zu setzender Wert für das Attribut originLon
+	 */
+	public void setOriginLon( Double originLon )
+	{
+		this.originLon = originLon;
 	}
 
 	/**
@@ -88,23 +111,45 @@ public class DriverRoute extends AbstractRessourceObject
 	}
 
 	/**
-	 * Liefert das Attribut meassurement.
+	 * Liefert das Attribut measurement.
 	 * 
-	 * @return meassurement
+	 * @return measurement
 	 */
-	public String getMeassurement()
+	public Measurements getMeasurement()
 	{
-		return meassurement;
+		return measurement;
 	}
 
 	/**
-	 * Liefert das Attribut meassurementValue.
+	 * Setzt das Attribut measurement.
 	 * 
-	 * @return meassurementValue
+	 * @param measurement
+	 *            zu setzender Wert für das Attribut measurement
 	 */
-	public Long getMeassurementValue()
+	public void setMeasurement( Measurements measurement )
 	{
-		return meassurementValue;
+		this.measurement = measurement;
+	}
+
+	/**
+	 * Liefert das Attribut measurementValue.
+	 * 
+	 * @return measurementValue
+	 */
+	public Long getMeasurementValue()
+	{
+		return measurementValue;
+	}
+
+	/**
+	 * Setzt das Attribut measurementValue.
+	 * 
+	 * @param measurementValue
+	 *            zu setzender Wert für das Attribut measurementValue
+	 */
+	public void setMeasurementValue( Long measurementValue )
+	{
+		this.measurementValue = measurementValue;
 	}
 
 	/**
@@ -115,50 +160,6 @@ public class DriverRoute extends AbstractRessourceObject
 	public List<Order> getOrders()
 	{
 		return orders;
-	}
-
-	/**
-	 * Setzt das Attribut originLat.
-	 * 
-	 * @param originLat
-	 *            zu setzender Wert für das Attribut originLat
-	 */
-	public void setOriginLat( Double originLat )
-	{
-		this.originLat = originLat;
-	}
-
-	/**
-	 * Setzt das Attribut originLon.
-	 * 
-	 * @param originLon
-	 *            zu setzender Wert für das Attribut originLon
-	 */
-	public void setOriginLon( Double originLon )
-	{
-		this.originLon = originLon;
-	}
-
-	/**
-	 * Setzt das Attribut meassurement.
-	 * 
-	 * @param meassurement
-	 *            zu setzender Wert für das Attribut meassurement
-	 */
-	public void setMeassurement( String meassurement )
-	{
-		this.meassurement = meassurement;
-	}
-
-	/**
-	 * Setzt das Attribut meassurementValue.
-	 * 
-	 * @param meassurementValue
-	 *            zu setzender Wert für das Attribut meassurementValue
-	 */
-	public void setMeassurementValue( Long meassurementValue )
-	{
-		this.meassurementValue = meassurementValue;
 	}
 
 	/**

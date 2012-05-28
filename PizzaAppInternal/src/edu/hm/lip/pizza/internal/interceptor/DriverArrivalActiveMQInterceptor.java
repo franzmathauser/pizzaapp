@@ -79,7 +79,7 @@ public class DriverArrivalActiveMQInterceptor
 
 		DriverArrival driverArrival = new DriverArrival();
 		driverArrival.setDriverId( driverId );
-		driverArrival.setSeconds( driverRoute.getMeassurementValue() );
+		driverArrival.setSeconds( driverRoute.getMeasurementValue() );
 
 		ObjectMapper mapper = new ObjectMapper();
 		MessageContainer message = new MessageContainer();
@@ -89,7 +89,6 @@ public class DriverArrivalActiveMQInterceptor
 		String jsonOrder = mapper.writeValueAsString( message );
 
 		return jsonOrder;
-
 	}
 
 }

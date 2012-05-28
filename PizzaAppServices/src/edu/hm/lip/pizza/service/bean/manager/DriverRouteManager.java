@@ -100,8 +100,8 @@ public class DriverRouteManager implements IDriverRouteManagerLocal
 			}
 
 			driverRoute.setOrders( routeOrderList );
-			driverRoute.setMeassurement( meassurement.name() );
-			driverRoute.setMeassurementValue( path.getCost() );
+			driverRoute.setMeasurement( meassurement );
+			driverRoute.setMeasurementValue( path.getCost() );
 			driverRoute.setStatus( RouteState.TSP_SUCCESS );
 		}
 		catch (Exception e)
@@ -109,9 +109,10 @@ public class DriverRouteManager implements IDriverRouteManagerLocal
 			// optimale Route konnte nicht zugeordnet werden.
 			driverRoute.setStatus( RouteState.TSP_ERROR );
 			driverRoute.setOrders( OrderConverter.convertEntityToServiceOrderList( eOrderList ) );
-			driverRoute.setMeassurement( null );
+			driverRoute.setMeasurement( null );
 		}
 
 		return driverRoute;
 	}
+
 }
