@@ -22,7 +22,7 @@ public final class ApiConstants
 	/**
 	 * Konstante mit der Versionsnummer der Server-Anteile.
 	 */
-	public static final String VERSION = "0.010.0";
+	public static final String VERSION = "1.000.0";
 
 	/**
 	 * Datumsformatierungs-String.
