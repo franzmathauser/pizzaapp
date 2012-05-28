@@ -9,6 +9,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
@@ -21,6 +22,7 @@ import edu.hm.lip.pizza.api.object.enumeration.Gender;
  * 
  * @author Franz Mathauser, Stefan Wörner
  */
+@JsonIgnoreProperties( value = "addressAsString" )
 @XmlRootElement( name = "Customer" )
 @JsonSerialize( include = Inclusion.NON_NULL )
 @Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.TEXT_XML } )
