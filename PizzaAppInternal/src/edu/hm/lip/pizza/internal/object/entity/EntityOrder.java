@@ -33,6 +33,7 @@ import edu.hm.lip.pizza.internal.object.query.OrderQueryConstants;
 @NamedQueries( {
 		@NamedQuery( name = OrderQueryConstants.GET_ALL_ORDERS, query = OrderQueryConstants.GET_ALL_ORDERS_QUERY ),
 		@NamedQuery( name = OrderQueryConstants.ORDERS_BY_STAGE, query = OrderQueryConstants.ORDERS_BY_STAGE_QUERY ),
+		@NamedQuery( name = OrderQueryConstants.ORDERS_BY_STAGE_2, query = OrderQueryConstants.ORDERS_BY_STAGE_QUERY_2 ),
 		@NamedQuery(	name = OrderQueryConstants.ORDERS_BY_DRIVER_AND_STAGE,
 						query = OrderQueryConstants.ORDERS_BY_DRIVER_AND_STAGE_QUERY ) } )
 public class EntityOrder extends AbstractEntityObject

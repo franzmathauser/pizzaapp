@@ -44,5 +44,16 @@ public final class OrderQueryConstants
 	 */
 	public static final String ORDERS_BY_STAGE_QUERY = "SELECT o FROM EntityOrder o WHERE NOT EXISTS "
 			+ "(FROM EntityOrderStage AS s WHERE s.order = o AND s.stage = :stage)";
+	
+	/**
+	 * Name der "Bestellungen gefiltert Status"-Query (2 Stati).
+	 */
+	public static final String ORDERS_BY_STAGE_2 = "OrdersByStageQuery2";
+
+	/**
+	 * Bestellungen gefiltert Status.
+	 */
+	public static final String ORDERS_BY_STAGE_QUERY_2 = "SELECT o FROM EntityOrder o WHERE NOT EXISTS "
+			+ "(FROM EntityOrderStage AS s WHERE s.order = o AND (s.stage = :stage1 OR s.stage = :stage2))";
 
 }

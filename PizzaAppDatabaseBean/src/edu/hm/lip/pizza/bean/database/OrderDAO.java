@@ -108,8 +108,9 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	@Override
 	public List<EntityOrder> getUndeliveredOrders()
 	{
-		TypedQuery<EntityOrder> query = em.createNamedQuery( OrderQueryConstants.ORDERS_BY_STAGE, EntityOrder.class );
-		query.setParameter( "stage", Stage.IN_DELIVERY );
+		TypedQuery<EntityOrder> query = em.createNamedQuery( OrderQueryConstants.ORDERS_BY_STAGE_2, EntityOrder.class );
+		query.setParameter( "stage1", Stage.IN_DELIVERY );
+		query.setParameter( "stage2", Stage.DELIVERED );
 		return query.getResultList();
 	}
 
