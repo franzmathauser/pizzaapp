@@ -14,7 +14,10 @@ public class AddOriginAsReturnpoint extends AbstractPermutationDecorator
 {
 
 	/**
+	 * Erzeugt einen PermutationDecorator. siehe Decorator-Pattern.
+	 * 
 	 * @param decoratedPermutation
+	 *            Dekorierte Permuation
 	 */
 	public AddOriginAsReturnpoint( Permutation decoratedPermutation )
 	{

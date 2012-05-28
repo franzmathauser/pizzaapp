@@ -19,7 +19,7 @@ public class MatrixContainer<T>
 	private Map<Integer, Map<Integer, T>> matrix;
 
 	/**
-	 * 
+	 * Erzeugt ein neues MatrixContainer Objekt.
 	 */
 	public MatrixContainer()
 	{
@@ -27,9 +27,13 @@ public class MatrixContainer<T>
 	}
 
 	/**
+	 * Liefert den Inhalt der Koordinaten x, y.
+	 * 
 	 * @param x
+	 *            Zeile
 	 * @param y
-	 * @return
+	 *            Spalte
+	 * @return Inhalt des zweidimensionalen Conatiners
 	 */
 	public T get( Integer x, Integer y )
 	{
@@ -37,9 +41,14 @@ public class MatrixContainer<T>
 	}
 
 	/**
+	 * Bestückt einen Wert an die Koordinaten x, y.
+	 * 
 	 * @param x
+	 *            Zeile
 	 * @param y
+	 *            Spalte
 	 * @param value
+	 *            Wert
 	 */
 	public void set( Integer x, Integer y, T value )
 	{

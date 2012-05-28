@@ -13,8 +13,12 @@ public class Edge
 	private final Address address;
 
 	/**
+	 * Erzeugt ein neues Edge-Objekt.
+	 * 
 	 * @param id
+	 *            Identifikator
 	 * @param address
+	 *            Adress-Objekt
 	 */
 	public Edge( int id, Address address )
 	{

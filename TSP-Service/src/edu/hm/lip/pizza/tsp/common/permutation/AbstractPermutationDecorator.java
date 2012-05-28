@@ -14,12 +14,15 @@ public abstract class AbstractPermutationDecorator implements Permutation
 {
 
 	/**
-	 *
+	 * Dekorierte Permutation.
 	 */
 	protected final Permutation decoratedPermutation;
 
 	/**
+	 * Erzeugt eine Kapselung einer Permutation. Decorator-Pattern
+	 * 
 	 * @param decoratedPermutation
+	 *            Permutation-Objekt
 	 */
 	public AbstractPermutationDecorator( Permutation decoratedPermutation )
 	{
