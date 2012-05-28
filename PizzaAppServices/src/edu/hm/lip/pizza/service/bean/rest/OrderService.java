@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IOrderService;
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
@@ -122,8 +123,20 @@ public class OrderService extends AbstractBean implements IOrderService
 	@Override
 	public Order updateOrderToDelivered( int id )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		EntityOrder eOrder = orderDAOBean.read( id );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
+
+		EntityOrderStage nextStage = OrderStageManager.next( eOrderStages );
+		if (nextStage != null && nextStage.getStage() == Stage.DELIVERED)
+		{
+			nextStage.setOrder( eOrder );
+
+			eOrderStages.add( nextStage );
+
+			orderDAOBean.update( eOrder );
+		}
+
+		return OrderConverter.convertEntityToServiceOrder( eOrder );
 	}
 
 	/**
@@ -173,6 +186,10 @@ public class OrderService extends AbstractBean implements IOrderService
 		List<EntityOrderStage> eOrderStages = eOrder.getStages();
 		EntityOrderStage nextStage = OrderStageManager.next( eOrderStages );
 
+		if (nextStage == null)
+		{
+			return null;
+		}
 		return "{\"nextStage\": " + nextStage.getStage().name() + "}";
 	}
 
