@@ -27,7 +27,7 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#create(edu.hm.lip.pizza.api.object.ressources.Customer)
+	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityCustomer)
 	 */
 	@Override
 	public EntityCustomer create( EntityCustomer customer )
@@ -63,7 +63,7 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#update(edu.hm.lip.pizza.api.object.ressources.Customer)
+	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityCustomer)
 	 */
 	@Override
 	public EntityCustomer update( EntityCustomer customer )
@@ -76,7 +76,7 @@ public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#delete(edu.hm.lip.pizza.api.object.ressources.Customer)
+	 * @see edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityCustomer)
 	 */
 	@Override
 	public void delete( EntityCustomer customer )

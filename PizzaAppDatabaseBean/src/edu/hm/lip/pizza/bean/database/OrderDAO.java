@@ -103,7 +103,7 @@ public class OrderDAO extends AbstractBean implements IOrderDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#getUndeliveredTasks()
+	 * @see edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal#getUndeliveredOrders()
 	 */
 	@Override
 	public List<EntityOrder> getUndeliveredOrders()

@@ -34,7 +34,7 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#create(edu.hm.lip.pizza.api.object.ressources.Product)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#create(edu.hm.lip.pizza.internal.object.entity.EntityProduct)
 	 */
 	@Override
 	public EntityProduct create( EntityProduct product )
@@ -70,7 +70,7 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#update(edu.hm.lip.pizza.api.object.ressources.Product)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#update(edu.hm.lip.pizza.internal.object.entity.EntityProduct)
 	 */
 	@Override
 	public EntityProduct update( EntityProduct product )
@@ -103,7 +103,7 @@ public class ProductDAO extends AbstractBean implements IProductDAOLocal
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#delete(edu.hm.lip.pizza.api.object.ressources.Product)
+	 * @see edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal#delete(edu.hm.lip.pizza.internal.object.entity.EntityProduct)
 	 */
 	@Override
 	public void delete( EntityProduct product )

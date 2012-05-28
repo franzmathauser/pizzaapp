@@ -3,7 +3,6 @@ package edu.hm.lip.pizza.internal.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hm.lip.pizza.api.object.enumeration.Size;
 import edu.hm.lip.pizza.api.object.resource.OrderLine;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrderLine;
 import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
@@ -40,7 +39,7 @@ public final class OrderLineConverter
 		orderLine.setId( eOrderLine.getId() );
 		orderLine.setProductId( eOrderLine.getProductConfiguration().getProduct().getId() );
 		orderLine.setQuantity( eOrderLine.getQuantity() );
-		orderLine.setSize( eOrderLine.getProductConfiguration().getSize().toString().toLowerCase() );
+		orderLine.setSize( eOrderLine.getProductConfiguration().getSize() );
 		return orderLine;
 
 	}
@@ -62,23 +61,10 @@ public final class OrderLineConverter
 		EntityOrderLine eOrderLine = new EntityOrderLine();
 		eOrderLine.setId( orderLine.getId() );
 		eOrderLine.setQuantity( orderLine.getQuantity() );
+
 		EntityProductConfiguration eProductConfiguration = new EntityProductConfiguration();
+		eProductConfiguration.setSize( orderLine.getSize() );
 
-		Size size = null;
-		if (orderLine.getSize().toLowerCase().equals( "l" ))
-		{
-			size = Size.L;
-		}
-		else if (orderLine.getSize().toLowerCase().equals( "xl" ))
-		{
-			size = Size.XL;
-		}
-		else if (orderLine.getSize().toLowerCase().equals( "xxl" ))
-		{
-			size = Size.XXL;
-		}
-
-		eProductConfiguration.setSize( size );
 		eOrderLine.setProductConfiguration( eProductConfiguration );
 
 		return eOrderLine;
