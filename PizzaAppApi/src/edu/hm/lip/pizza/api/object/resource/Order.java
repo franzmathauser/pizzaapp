@@ -18,6 +18,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
 
 /**
  * Resource für die Bestellungen. Es werden alle benötigten Bestellungs-Information in dieser Klasse gehalten, wie
@@ -46,7 +47,7 @@ public class Order extends AbstractRessourceObject
 
 	@XmlElement( name = "current_stage" )
 	@JsonProperty( "current_stage" )
-	private String currentStage;
+	private Stage currentStage;
 
 	@XmlElement( name = "order_date" )
 	@JsonProperty( "order_date" )
@@ -143,7 +144,7 @@ public class Order extends AbstractRessourceObject
 	 * 
 	 * @return currentStage
 	 */
-	public String getCurrentStage()
+	public Stage getCurrentStage()
 	{
 		return currentStage;
 	}
@@ -154,7 +155,7 @@ public class Order extends AbstractRessourceObject
 	 * @param currentStage
 	 *            zu setzender Wert für das Attribut currentStage
 	 */
-	public void setCurrentStage( String currentStage )
+	public void setCurrentStage( Stage currentStage )
 	{
 		this.currentStage = currentStage;
 	}

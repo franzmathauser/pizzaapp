@@ -15,6 +15,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.lip.pizza.api.object.AbstractRessourceObject;
+import edu.hm.lip.pizza.api.object.enumeration.Size;
 
 /**
  * Resource für eine Bestellungszeile. Es werden alle benötigten Bestellzeilen-Information in dieser Klasse gehalten,
@@ -35,7 +36,7 @@ public class OrderLine extends AbstractRessourceObject
 
 	private Integer quantity;
 
-	private String size;
+	private Size size;
 
 	@XmlElement( name = "product_id" )
 	@JsonProperty( "product_id" )
@@ -88,7 +89,7 @@ public class OrderLine extends AbstractRessourceObject
 	 * 
 	 * @return size
 	 */
-	public String getSize()
+	public Size getSize()
 	{
 		return size;
 	}
@@ -99,7 +100,7 @@ public class OrderLine extends AbstractRessourceObject
 	 * @param size
 	 *            zu setzender Wert für das Attribut size
 	 */
-	public void setSize( String size )
+	public void setSize( Size size )
 	{
 		this.size = size;
 	}
