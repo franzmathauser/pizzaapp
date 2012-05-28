@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
- * REST-Service für die GPS-Datendomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
+ * REST-Service für die GPS-Datendomäne. Verfügbare Aktionen: GET, DELETE
  * 
  * @author Franz Mathauser
  */
@@ -38,34 +38,10 @@ public class GPSDataService extends AbstractBean implements IGPSDataService
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataService#create(edu.hm.lip.pizza.api.object.resource.GPSData)
+	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataService#findDriversLastPositions()
 	 */
 	@Override
-	public GPSData create( GPSData gpsData )
-	{
-		EntityGPSData eGPSData = gpsDataDAOBean.create( GPSDataConverter.convertServiceToEntityGPSData( gpsData ) );
-		return GPSDataConverter.convertEntityToServiceGPSData( eGPSData );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataService#findDriverPositions()
-	 */
-	@Override
-	public List<GPSData> findDriverPositions()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see edu.hm.lip.pizza.api.communication.request.IGPSDataService#findDriverPositions(int)
-	 */
-	@Override
-	public GPSData findDriverPositions( int id )
+	public List<GPSData> findDriversLastPositions()
 	{
 		// TODO Auto-generated method stub
 		return null;
