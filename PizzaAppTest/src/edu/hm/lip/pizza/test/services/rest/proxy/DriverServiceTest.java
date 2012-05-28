@@ -3,10 +3,8 @@ package edu.hm.lip.pizza.test.services.rest.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.resteasy.client.ProxyFactory;
 import org.junit.Test;
 
-import edu.hm.lip.pizza.api.communication.request.IDriverService;
 import edu.hm.lip.pizza.api.object.resource.Driver;
 import edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest;
 
@@ -19,11 +17,6 @@ import junit.framework.Assert;
  */
 public class DriverServiceTest extends AbstractRestServiceTest
 {
-
-	private IDriverService getDriverProxy()
-	{
-		return ProxyFactory.create( IDriverService.class, getRestUrl() );
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -44,7 +37,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 		log( this.getClass(), "Create", driverCreated.toString() );
 
 		Assert.assertNotNull( driverCreated.getId() );
-		Assert.assertEquals( driverCreated.getName(), driver.getName() );
+		assertDriverEqualsWithoutId( driverCreated, driver );
 
 		// ==================================================
 		// Fahrer löschen
@@ -73,7 +66,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 			Driver driverCreated = getDriverProxy().create( driver );
 			Assert.assertNotNull( driverCreated );
 			Assert.assertNotNull( driverCreated.getId() );
-			Assert.assertEquals( driverCreated.getName(), driver.getName() );
+			assertDriverEqualsWithoutId( driverCreated, driver );
 
 			driversCreated.add( driverCreated );
 		}
@@ -123,7 +116,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 		Driver driverCreated = getDriverProxy().create( driver );
 		Assert.assertNotNull( driverCreated );
 		Assert.assertNotNull( driverCreated.getId() );
-		Assert.assertEquals( driverCreated.getName(), driver.getName() );
+		assertDriverEqualsWithoutId( driverCreated, driver );
 
 		// ==================================================
 		// Fahrer auslesen
@@ -160,7 +153,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 		Driver driverCreated = getDriverProxy().create( driver );
 		Assert.assertNotNull( driverCreated );
 		Assert.assertNotNull( driverCreated.getId() );
-		Assert.assertEquals( driverCreated.getName(), driver.getName() );
+		assertDriverEqualsWithoutId( driverCreated, driver );
 
 		// ==================================================
 		// Fahrer aktualisieren
@@ -200,7 +193,7 @@ public class DriverServiceTest extends AbstractRestServiceTest
 		Driver driverCreated = getDriverProxy().create( driver );
 		Assert.assertNotNull( driverCreated );
 		Assert.assertNotNull( driverCreated.getId() );
-		Assert.assertEquals( driverCreated.getName(), driver.getName() );
+		assertDriverEqualsWithoutId( driverCreated, driver );
 
 		// ==================================================
 		// Fahrer löschen

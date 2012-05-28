@@ -30,7 +30,7 @@ public class TSPServiceTest extends AbstractTest
 	 * Testet die TSP-Service Library.
 	 * 
 	 * @throws Exception
-	 *             falls beim lesen des JSONS ein Fehler auftritt
+	 *             falls beim lesen des JSON-String ein Fehler auftritt
 	 */
 	@Test
 	public void testTSP() throws Exception
@@ -50,7 +50,7 @@ public class TSPServiceTest extends AbstractTest
 		GoogleDistanceMatrix gDistanceMatrix = new DistanceMatrixBroker( destinationList ).requestDistanceMatrix();
 		MatrixContainer<Integer> matrix = new MatrixContainerAdapter( gDistanceMatrix, Measurements.DURATION ).getInstance();
 
-		//System.out.println( matrix );
+		System.out.println( matrix );
 
 		TspSolver solver = new TspPermutation( matrix, tspPaths );
 		System.out.println( "\n" + solver.solve() );
