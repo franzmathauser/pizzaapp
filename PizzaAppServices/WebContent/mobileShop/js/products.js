@@ -2,6 +2,12 @@ var productsBaseURL = getBaseURL() + "/products";
 
 var products = new Array();
 
+/**
+ * REST-WS Call um ein Produkt anhand der Id zu finden.
+ * 
+ * @param id
+ *            Produktidentifikator
+ */
 function findById(id) {
 	$.ajax({
 		type : 'GET',
@@ -13,6 +19,9 @@ function findById(id) {
 	});
 }
 
+/**
+ * REST-WS Call liefert alle Produkte im JSON Format.
+ */
 function findAll() {
 	$.ajax({
 		type : 'GET',
@@ -22,6 +31,13 @@ function findAll() {
 	});
 }
 
+/**
+ * Befüllt die GUI mit Produktdetails.
+ * 
+ * @param obj
+ *            product Objekt
+ * @returns {Boolean} false, wenn param null ist
+ */
 function renderDetails(obj) {
 	if (obj == null)
 		return false;
@@ -35,7 +51,13 @@ function renderDetails(obj) {
 	$('#detail_image_url').attr('src', '/productImages/' + obj.image_url);
 
 }
-
+/**
+ * Befüllt eine Liste mit allen Produkten.
+ * 
+ * @param data
+ *            Produkt Liste als Array
+ * @returns {Boolean} false, falls param ist null
+ */
 function renderProductList(data) {
 
 	if (data == null)
@@ -79,6 +101,9 @@ function renderProductList(data) {
 	}
 }
 
+/**
+ * Lädt die Kundeneingaben aus der localStorage in das Benutzerinterface.
+ */
 function initLocalStorageValues() {
 
 	var lastname = localStorage.lastname;
@@ -112,6 +137,10 @@ function initLocalStorageValues() {
 	}
 }
 
+/**
+ * Initialer Call beim Refresh der Seite. Bootstrap initiale Werte, die für die
+ * Produktansicht benötigt werden.
+ */
 $(document).ready(function() {
 
 	findAll();

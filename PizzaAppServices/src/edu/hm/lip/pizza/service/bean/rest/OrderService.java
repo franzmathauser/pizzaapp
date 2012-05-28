@@ -9,7 +9,6 @@ import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IOrderService;
 import edu.hm.lip.pizza.api.object.resource.Order;
-import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelector;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.ICustomerDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
@@ -30,7 +29,6 @@ import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
  * @author Franz Mathauser
  */
 @Stateless
-@Interceptors( OrderActiveMQInterceptor.class )
 public class OrderService extends AbstractBean implements IOrderService
 {
 
@@ -63,7 +61,7 @@ public class OrderService extends AbstractBean implements IOrderService
 	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#create(edu.hm.lip.pizza.api.object.resource.Order)
 	 */
 	@Override
-	@OrderActiveMQInterceptorMethodSelector
+	@Interceptors( OrderActiveMQInterceptor.class )
 	public Order create( Order order )
 	{
 

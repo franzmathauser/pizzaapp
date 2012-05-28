@@ -14,7 +14,6 @@ import edu.hm.lip.pizza.api.object.resource.DriverRoute;
 import edu.hm.lip.pizza.api.object.resource.GPSData;
 import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.api.object.resource.OrderId;
-import edu.hm.lip.pizza.internal.annotation.DriverGPSActiveMQInterceptorMethodSelector;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IDriverDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
@@ -22,6 +21,7 @@ import edu.hm.lip.pizza.internal.bean.service.manager.IDriverRouteManagerLocal;
 import edu.hm.lip.pizza.internal.converter.DriverConverter;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
+import edu.hm.lip.pizza.internal.interceptor.DriverArrivalActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
@@ -33,7 +33,6 @@ import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
-@Interceptors( DriverGPSActiveMQInterceptor.class )
 public class DriverService extends AbstractBean implements IDriverService
 {
 
@@ -119,6 +118,7 @@ public class DriverService extends AbstractBean implements IDriverService
 	 * @see edu.hm.lip.pizza.api.communication.request.IDriverService#getRoute(int)
 	 */
 	@Override
+	@Interceptors( DriverArrivalActiveMQInterceptor.class )
 	public DriverRoute getRoute( int id )
 	{
 		return driverRouteManager.getRoute( id );
@@ -160,7 +160,7 @@ public class DriverService extends AbstractBean implements IDriverService
 	 *      edu.hm.lip.pizza.api.object.resource.GPSData)
 	 */
 	@Override
-	@DriverGPSActiveMQInterceptorMethodSelector
+	@Interceptors( DriverGPSActiveMQInterceptor.class )
 	public void createGPSData( int id, GPSData gpsData )
 	{
 		if (gpsData.getDate() == null)

@@ -49,6 +49,9 @@ function connectActiveMQ(destination, messageHandler, errorHandler) {
 	activeMQClients[activeMQClients.length] = client;
 }
 
+/**
+ * Schließt alle alle WebSocket-Connections zu diesem Topic.
+ */
 function disconnectActiveMQ() {
 
 	jQuery.each(activeMQClients, function(i, val) {
@@ -74,8 +77,8 @@ function pizzaAppTopic(messageContainer) {
 	case 'DRIVER_LOCATION':
 		driverLocationTopic(message);
 		break;
-	case 'DRIVER_ARRIVAL_TIME':
-		alert('Driver Arrival Time');
+	case 'DRIVER_ARRIVAL':
+		setDriverArrival(message);
 		break;
 	case 'ORDER':
 		ordersTopic(message);

@@ -14,7 +14,7 @@ public enum MessageType
 	/**
 	 * Ankunftszeit des Fahrers.
 	 */
-	DRIVER_ARRIVAL_TIME,
+	DRIVER_ARRIVAL,
 	/**
 	 * Neuer Besellungs-bon.
 	 */

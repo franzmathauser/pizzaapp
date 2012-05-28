@@ -15,7 +15,6 @@ import edu.hm.lip.pizza.api.object.ApiConstants;
 import edu.hm.lip.pizza.api.object.enumeration.MessageType;
 import edu.hm.lip.pizza.api.object.resource.MessageContainer;
 import edu.hm.lip.pizza.api.object.resource.Order;
-import edu.hm.lip.pizza.internal.annotation.OrderActiveMQInterceptorMethodSelector;
 
 /**
  * Interceptor Klasse pushed neue Bestelldaten an die Bestellverwaltung. Dies wird ermöglicht durch einen POST
@@ -45,23 +44,20 @@ public class OrderActiveMQInterceptor
 	{
 		Object ret = ctx.proceed();
 
-		if (ctx.getMethod().getAnnotation( OrderActiveMQInterceptorMethodSelector.class ) != null)
+		// use the database updated resource
+		Order order = (Order) ret;
+
+		String input = "body=" + createRequestJSONOrder( order );
+
+		ClientRequest request = new ClientRequest( ACTIVEMQ_BASE_URL );
+		request.header( "Authorization", "BASIC " + ApiConstants.ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 );
+		request.body( MediaType.APPLICATION_FORM_URLENCODED, input );
+
+		ClientResponse<String> response = request.post( String.class );
+
+		if (response.getStatus() >= 400)
 		{
-			// use the database updated resource
-			Order order = (Order) ret;
-
-			String input = "body=" + createRequestJSONOrder( order );
-
-			ClientRequest request = new ClientRequest( ACTIVEMQ_BASE_URL );
-			request.header( "Authorization", "BASIC " + ApiConstants.ACTIVEMQ_AUTHORIZATION_CREDENTIALS_BASE64 );
-			request.body( MediaType.APPLICATION_FORM_URLENCODED, input );
-
-			ClientResponse<String> response = request.post( String.class );
-
-			if (response.getStatus() >= 400)
-			{
-				throw new RuntimeException( "Failed : HTTP error code : " + response.getStatus() );
-			}
+			throw new RuntimeException( "Failed : HTTP error code : " + response.getStatus() );
 		}
 
 		return ret;
@@ -78,11 +74,11 @@ public class OrderActiveMQInterceptor
 	private String createRequestJSONOrder( Order order ) throws IOException
 	{
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		MessageContainer message = new MessageContainer();
 		message.setMessage( order );
 		message.setMessageType( MessageType.ORDER );
-		
+
 		String jsonOrder = mapper.writeValueAsString( message );
 
 		return jsonOrder;

@@ -1,23 +1,22 @@
-var end = new Date();
 var order_dates = new Array();
 
-end.setMinutes(end.getMinutes() + 2);
-
+/**
+ * Erzeugt einen zweistelligen Zahlen-String.
+ * 
+ * @param n
+ *            Number
+ * @returns führende Null, bei einstelliger Zahl.
+ */
 function toSt2(n) {
 	s = '';
 	if (n < 10)
 		s += '0';
 	return (s + n).toString();
 }
-function toSt3(n) {
-	s = '';
-	if (n < 10)
-		s += '00';
-	else if (n < 100)
-		s += '0';
-	return (s + n).toString();
-}
 
+/**
+ * Zählt die Läge der Produktbestellungen in die Höhe.
+ */
 function countup() {
 
 	jQuery.each(order_dates, function(i, val) {
@@ -49,33 +48,6 @@ function countup() {
 	setTimeout('countup()', 5000);
 
 }
-function countdown() {
-
-	d = new Date();
-	count = Math.floor(end.getTime() - d.getTime());
-	if (count > 0) {
-		count = Math.floor(count / 1000);
-		seconds = toSt2(count % 60);
-		count = Math.floor(count / 60);
-		minutes = toSt2(count % 60);
-		count = Math.floor(count / 60);
-		hours = toSt2(count % 24);
-
-		var output = '';
-
-		if (hours > 0) {
-			output += hours + ':';
-		}
-		if (minutes > 0 || hours > 0) {
-			output += minutes + ':';
-		}
-		output += seconds;
-
-		$('.time').text(output);
-
-		setTimeout('countdown()', 1000);
-	}
-}
 
 var ordersBaseURL = getBaseURL() + "/orders";
 var productsBaseURL = getBaseURL() + "/products";
@@ -84,6 +56,9 @@ var driversBaseURL = getBaseURL() + "/drivers";
 var products = new Array();
 var drivers = new Array();
 
+/**
+ * REST-WS Call Liefert alle Produkte.
+ */
 function findAllProducts() {
 	$.ajax({
 		type : 'GET',
@@ -98,6 +73,9 @@ function findAllProducts() {
 	});
 }
 
+/**
+ * REST WS Call Liefert alle unausgelieferten Produkte.
+ */
 function getUndeliveredOrders() {
 	$.ajax({
 		type : 'GET',
@@ -109,6 +87,9 @@ function getUndeliveredOrders() {
 	});
 }
 
+/**
+ * REST-WS Call Liefert alle Fahrer
+ */
 function findAllDrivers() {
 	$.ajax({
 		type : 'GET',
@@ -119,6 +100,13 @@ function findAllDrivers() {
 		}
 	});
 }
+/**
+ * Mapped einen Bestellstatus auf eine Farbe.
+ * 
+ * @param stage
+ *            Orderstage
+ * @returns {String} Stage-Farbe
+ */
 function colorMapper(stage) {
 	var color = '#BEBEBE';
 
@@ -130,6 +118,13 @@ function colorMapper(stage) {
 	return color;
 }
 
+/**
+ * Erzeugt HTML eines neuen Bestell-Bons.
+ * 
+ * @param order
+ *            Bestellung
+ * @returns {String} HTML to append
+ */
 function renderOrderLine(order) {
 	order_dates[order.id] = order.order_date;
 	var html = '<li data-role="list-divider">'
@@ -166,10 +161,17 @@ function renderOrderLine(order) {
 	return html;
 }
 
+/**
+ * Fügt alle aktuellen Bestellungen in die die GUI ein.
+ * 
+ * @param data
+ *            Bestellungs-Array
+ * @returns {Boolean} false, wenn param null ist.
+ */
 function renderOrders(data) {
 	if (data == null)
 		return false;
-	
+
 	$('#order_list li').remove();
 
 	for ( var i = 0; i < data.length; i++) {
@@ -178,7 +180,7 @@ function renderOrders(data) {
 
 		$('#order_list').append(html);
 	}
-	
+
 	$('#order_list:visible').listview('refresh');
 
 	$(".orderline").click(function() {
@@ -188,15 +190,21 @@ function renderOrders(data) {
 	});
 }
 
+/**
+ * Fügt alle Fahrer in die GUI ein.
+ * 
+ * @param data
+ *            Fahrer Array.
+ */
 function renderDrivers(data) {
 	for ( var i = 0; i < data.length; i++) {
 		var driver = data[i];
 		drivers[driver.id] = driver;
 		var html = '<span class="driverName">' + driver.name + '</span>'
-				+ '<img id="driver_tank-'+
-				+ driver.id
+				+ '<img id="driver_tank-' + +driver.id
 				+ '" src="img/stack-2.png" style="float: left" />'
-				+ '<div class="time">ca. 4:59</div>';
+				+ '<div id="driver_time-' + driver.id
+				+ '" class="time">ca. 4:59</div>';
 		$('#driver_line-' + i).html(html);
 
 		// add to driver_list
@@ -211,16 +219,25 @@ function renderDrivers(data) {
 								+ driver.name + '</a>' + '</li>');
 
 		$("#driver-button-" + driver.id).click(function() {
-			
+
 			var driver_id = $(this).attr('driver_id');
 			var order_id = $('#clicked_order').val();
-			
+
 			driverButtonClickHandler(driver_id, order_id);
 		});
 		updateDriverTank(driver.id);
 	}
 }
 
+/**
+ * Clickhandler der Bestellung. Wird ausgeführt wenn auf einen Bestellbon
+ * geklickt wird.
+ * 
+ * @param order_id
+ *            Bestellidentifikator
+ * @param order_stage
+ *            aktuelle Orderstage
+ */
 function orderLineClickHandler(order_id, order_stage) {
 
 	// switch bevor es zum ausliefern geht, muss der fahrer ausgewählt werden.
@@ -247,82 +264,96 @@ function orderLineClickHandler(order_id, order_stage) {
 	}
 }
 
-function driverButtonClickHandler(driver_id, order_id){
-	
+/**
+ * Clickhandler für die Zuordnung eines Fahrers zur Bestellung.
+ * 
+ * @param driver_id
+ *            Fahreridentifikator
+ * @param order_id
+ *            Bestellungsidentifikator
+ */
+function driverButtonClickHandler(driver_id, order_id) {
+
 	var json = JSON.stringify({
-			"id" : order_id
+		"id" : order_id
 	});
-	
+
 	$.ajax({
 		type : 'POST',
 		url : driversBaseURL + '/' + driver_id + '/orders',
 		contentType : "application/json", // data type of response,
 		data : json,
 		success : function(data) {
-			
+
 			getUndeliveredOrders(driver_id);
-			
+
 			updateDriverTank(driver_id);
-			
+
 			$.mobile.changePage('#bakery', {
 				transition : "fade"
 			});
-			
+
 		}
 	});
-	
-	
+
 }
 
-function updateDriverTank(driver_id){
-	
-	
+/**
+ * Liefert eine visuelle Repräsentation der Menge von zugeordneten Bestellungen
+ * zu einem Fahrer.
+ * 
+ * @param driver_id
+ *            Fahreridentifikator
+ */
+function updateDriverTank(driver_id) {
+
 	$.ajax({
 		type : 'GET',
 		url : driversBaseURL + '/' + driver_id + '/orders',
 		contentType : "application/json", // data type of response,
 		success : function(orders) {
-			
+
 			var countOrders = 0;
 			var imageString;
-			if(orders != null){
+			if (orders != null) {
 				countOrders = orders.length;
 			}
-			
+
 			switch (countOrders) {
 			case 0:
-			    imageString = "stack-0.png";
-			    break;
+				imageString = "stack-0.png";
+				break;
 			case 1:
-			    imageString = "stack-1.png";
-			    break;
+				imageString = "stack-1.png";
+				break;
 			case 2:
-			    imageString = "stack-2.png";
-			    break;
+				imageString = "stack-2.png";
+				break;
 			case 3:
-			    imageString = "stack-3.png";
-			    break;
+				imageString = "stack-3.png";
+				break;
 			case 4:
-			    imageString = "stack-4.png";
-			    break;
+				imageString = "stack-4.png";
+				break;
 			default:
-			    imageString = "stack-5.png";
-			    break;
+				imageString = "stack-5.png";
+				break;
 			}
-			
-			$('#driver_tank-' + driver_id).attr('src','img/'+imageString);
+
+			$('#driver_tank-' + driver_id).attr('src', 'img/' + imageString);
 		}
 	});
-	
+
 }
 
+/**
+ * Initialer Bootstrap zum Anzeigen der Bakery GUI.
+ */
 $(document).ready(function() {
 	countup();
-	countdown();
 	findAllProducts();
 	findAllDrivers();
-	
-	
+
 	$(document).bind("pageshow", function() {
 		if ($("#order_list:visible").length) {
 			$('#order_list').listview('refresh');
