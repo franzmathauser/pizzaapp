@@ -135,7 +135,7 @@ public interface IDriverService
 	void createGPSData( @PathParam( "id" ) int id, GPSData gpsData );
 
 	/**
-	 * Liste der auszuliefernden Bestellungen in optimierter Reihenfolge für einen Fahrer mit id.
+	 * Liste der noch nicht zugestellten Bestellungen des Fahrers.
 	 * 
 	 * @param id
 	 *            Fahreridentifikation
