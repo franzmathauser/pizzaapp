@@ -45,6 +45,27 @@ public class Heatmap extends AbstractRessourceObject
 	}
 
 	/**
+	 * Liefert das Attribut gpsDatas.
+	 * 
+	 * @return gpsDatas
+	 */
+	public List<GPSData> getGpsDatas()
+	{
+		return gpsDatas;
+	}
+
+	/**
+	 * Setzt das Attribut gpsDatas.
+	 * 
+	 * @param gpsDatas
+	 *            zu setzender Wert für das Attribut gpsDatas
+	 */
+	public void setGpsDatas( List<GPSData> gpsDatas )
+	{
+		this.gpsDatas = gpsDatas;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
@@ -81,27 +102,6 @@ public class Heatmap extends AbstractRessourceObject
 		rsb.setUpToClass( this.getClass() );
 		rsb.setExcludeFieldNames( null );
 		return rsb.toString();
-	}
-
-	/**
-	 * Liefert das Attribut gpsDatas.
-	 * 
-	 * @return gpsDatas
-	 */
-	public List<GPSData> getGpsDatas()
-	{
-		return gpsDatas;
-	}
-
-	/**
-	 * Setzt das Attribut gpsDatas.
-	 * 
-	 * @param gpsDatas
-	 *            zu setzender Wert für das Attribut gpsDatas
-	 */
-	public void setGpsDatas( List<GPSData> gpsDatas )
-	{
-		this.gpsDatas = gpsDatas;
 	}
 
 }
