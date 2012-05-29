@@ -4,9 +4,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/BasicLibraries/testing/junit/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="/BasicLibraries/commons/lang/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="/BasicLibraries/dev-cache/BasicApi.jar"/>
-	<classpathentry kind="lib" path="/BasicLibraries/dev-cache/PizzaAppApi.jar"/>
-	<classpathentry kind="lib" path="/BasicLibraries/dev-cache/TSP-Service.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 6.x Runtime"/>
+	<classpathentry kind="lib" path="/BasicLibraries/dev-cache/BasicApi.jar" sourcepath="/BasicApi"/>
+	<classpathentry kind="lib" path="/BasicLibraries/dev-cache/PizzaAppApi.jar" sourcepath="/PizzaAppApi"/>
+	<classpathentry kind="lib" path="/BasicLibraries/dev-cache/TSP-Service.jar" sourcepath="/TSP-Service"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JBoss RESTeasy"/>
+	<classpathentry kind="lib" path="/BasicLibraries/commons/configuration/commons-configuration-1.7.jar"/>
+	<classpathentry kind="lib" path="/BasicLibraries/commons/collections/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="/BasicLibraries/commons/beanutils/commons-beanutils-1.8.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
