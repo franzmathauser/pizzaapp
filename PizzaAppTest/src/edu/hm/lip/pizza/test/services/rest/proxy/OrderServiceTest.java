@@ -299,7 +299,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
 
-		log( this.getClass(), "Update", orderUpdated.toString() );
+		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
 		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
@@ -308,7 +308,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
 
-		log( this.getClass(), "Update", orderUpdated.toString() );
+		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
 		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
@@ -317,7 +317,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
 
-		log( this.getClass(), "Update", orderUpdated.toString() );
+		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
 		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
@@ -326,10 +326,121 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
 
-		log( this.getClass(), "Update", orderUpdated.toString() );
+		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
 		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
 		orderCreated.setCurrentStage( Stage.DELIVERED );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		// ==================================================
+		// Bestellung löschen
+		// ==================================================
+		getOrderProxy().remove( orderCreated.getId() );
+
+		Order orderFound = getOrderProxy().find( orderCreated.getId() );
+		Assert.assertNull( orderFound );
+
+		// ==================================================
+		// Produkt löschen
+		// ==================================================
+		getProductProxy().remove( productCreated.getId() );
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+	}
+
+	/**
+	 * Testet die CREATE PREVIOUS ORDER STAGE Funktion.
+	 */
+	@Test
+	public void testCreatePreviousOrderStage()
+	{
+		// ==================================================
+		// Produkt anlegen
+		// ==================================================
+		Product product = getProduct();
+
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		// ==================================================
+		// Bestellung anlegen
+		// ==================================================
+		Order order = getOrder();
+		addOrderLine( order, productCreated );
+		order.setCustomer( getCustomer() );
+
+		Order orderCreated = getOrderProxy().create( order );
+		Assert.assertNotNull( orderCreated );
+		Assert.assertNotNull( orderCreated.getId() );
+		assertOrderEquals( orderCreated, order, false );
+
+		// ==================================================
+		// Bestellung aktualisieren (NEXT Stage)
+		// ==================================================
+		Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		orderCreated.setCurrentStage( Stage.DELIVERED );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		// ==================================================
+		// Bestellung aktualisieren (PREVIOUS Stage)
+		// ==================================================
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+
+		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
+
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+
+		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
+
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+
+		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
+
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+
+		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
+
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.ORDERED );
+		orderCreated.setCurrentStage( Stage.ORDERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
 		// ==================================================
@@ -573,7 +684,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		String orderStage = getOrderProxy().getNextOrderStage( orderCreated.getId() );
 		log( this.getClass(), "Get_Next_Stage", orderStage );
 		Assert.assertNotNull( orderStage );
-		assertOrderStage( orderStage, Stage.IN_PREPARATION );
+		assertNextOrderStage( orderStage, Stage.IN_PREPARATION );
 
 		Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
@@ -584,7 +695,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderStage = getOrderProxy().getNextOrderStage( orderCreated.getId() );
 		log( this.getClass(), "Get_Next_Stage", orderStage );
 		Assert.assertNotNull( orderStage );
-		assertOrderStage( orderStage, Stage.IN_STOVE );
+		assertNextOrderStage( orderStage, Stage.IN_STOVE );
 
 		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
@@ -595,7 +706,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderStage = getOrderProxy().getNextOrderStage( orderCreated.getId() );
 		log( this.getClass(), "Get_Next_Stage", orderStage );
 		Assert.assertNotNull( orderStage );
-		assertOrderStage( orderStage, Stage.IN_DELIVERY );
+		assertNextOrderStage( orderStage, Stage.IN_DELIVERY );
 
 		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
@@ -606,7 +717,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderStage = getOrderProxy().getNextOrderStage( orderCreated.getId() );
 		log( this.getClass(), "Get_Next_Stage", orderStage );
 		Assert.assertNotNull( orderStage );
-		assertOrderStage( orderStage, Stage.DELIVERED );
+		assertNextOrderStage( orderStage, Stage.DELIVERED );
 
 		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
@@ -617,6 +728,130 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderStage = getOrderProxy().getNextOrderStage( orderCreated.getId() );
 		log( this.getClass(), "Get_Next_Stage", orderStage );
 		Assert.assertNull( orderStage );
+
+		// ==================================================
+		// Bestellung löschen
+		// ==================================================
+		getOrderProxy().remove( orderCreated.getId() );
+
+		Order orderFound = getOrderProxy().find( orderCreated.getId() );
+		Assert.assertNull( orderFound );
+
+		// ==================================================
+		// Produkt löschen
+		// ==================================================
+		getProductProxy().remove( productCreated.getId() );
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+	}
+
+	/**
+	 * Testet die GET PREVIOUS ORDER STAGE Funktion.
+	 */
+	@Test
+	public void testGetPreviousOrderStage()
+	{
+		// ==================================================
+		// Produkt anlegen
+		// ==================================================
+		Product product = getProduct();
+
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		// ==================================================
+		// Bestellung anlegen
+		// ==================================================
+		Order order = getOrder();
+		addOrderLine( order, productCreated );
+		order.setCustomer( getCustomer() );
+
+		Order orderCreated = getOrderProxy().create( order );
+		Assert.assertNotNull( orderCreated );
+		Assert.assertNotNull( orderCreated.getId() );
+		assertOrderEquals( orderCreated, order, false );
+
+		// ==================================================
+		// Bestellung aktualisieren (NEXT Stage)
+		// ==================================================
+		Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		orderCreated.setCurrentStage( Stage.DELIVERED );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		// ==================================================
+		// Bestellung auslesen/aktualisieren
+		// ==================================================
+		String orderStage = getOrderProxy().getPreviousOrderStage( orderCreated.getId() );
+		log( this.getClass(), "Get_Previous_Stage", orderStage );
+		Assert.assertNotNull( orderStage );
+		assertPreviousOrderStage( orderStage, Stage.IN_DELIVERY );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderStage = getOrderProxy().getPreviousOrderStage( orderCreated.getId() );
+		log( this.getClass(), "Get_Previous_Stage", orderStage );
+		Assert.assertNotNull( orderStage );
+		assertPreviousOrderStage( orderStage, Stage.IN_STOVE );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderStage = getOrderProxy().getPreviousOrderStage( orderCreated.getId() );
+		log( this.getClass(), "Get_Previous_Stage", orderStage );
+		Assert.assertNotNull( orderStage );
+		assertPreviousOrderStage( orderStage, Stage.IN_PREPARATION );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderStage = getOrderProxy().getPreviousOrderStage( orderCreated.getId() );
+		log( this.getClass(), "Get_Previous_Stage", orderStage );
+		Assert.assertNotNull( orderStage );
+		assertPreviousOrderStage( orderStage, Stage.ORDERED );
+
+		orderUpdated = getOrderProxy().createPreviousOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.ORDERED );
+		orderCreated.setCurrentStage( Stage.ORDERED );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderStage = getOrderProxy().getPreviousOrderStage( orderCreated.getId() );
+		log( this.getClass(), "Get_Previous_Stage", orderStage );
+		Assert.assertNotNull( orderStage );
+		assertPreviousOrderStage( orderStage, Stage.ORDERED );
 
 		// ==================================================
 		// Bestellung löschen

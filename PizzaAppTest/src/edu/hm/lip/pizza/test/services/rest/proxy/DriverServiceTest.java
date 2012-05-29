@@ -5,7 +5,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.api.object.resource.Driver;
+import edu.hm.lip.pizza.api.object.resource.GPSData;
+import edu.hm.lip.pizza.api.object.resource.Order;
+import edu.hm.lip.pizza.api.object.resource.OrderId;
+import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 
 import junit.framework.Assert;
@@ -163,7 +168,6 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// Fahrer aktualisieren
 		// ==================================================
 		driverCreated.setName( driver.getName() + "_Updated" );
-		// TODO update all attributes
 
 		Driver driverUpdated = getDriverProxy().update( driverCreated.getId(), driverCreated );
 		Assert.assertNotNull( driverUpdated );
@@ -218,7 +222,8 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 	@Test
 	public void testGetRoute()
 	{
-		//TODO Implementieren
+		// TODO Implementieren
+		// TODO Customer mit richtigen Adressen anlegen!!
 	}
 
 	/**
@@ -227,7 +232,99 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 	@Test
 	public void testAddOrder()
 	{
-		//TODO Implementieren
+		// ==================================================
+		// Produkt anlegen
+		// ==================================================
+		Product product = getProduct();
+
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		// ==================================================
+		// Bestellung anlegen
+		// ==================================================
+		Order order = getOrder();
+		addOrderLine( order, productCreated );
+		order.setCustomer( getCustomer() );
+
+		Order orderCreated = getOrderProxy().create( order );
+		Assert.assertNotNull( orderCreated );
+		Assert.assertNotNull( orderCreated.getId() );
+		assertOrderEquals( orderCreated, order, false );
+
+		// ==================================================
+		// Bestellung aktualisieren
+		// ==================================================
+		Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		Driver driver = getDriver();
+
+		Driver driverCreated = getDriverProxy().create( driver );
+		Assert.assertNotNull( driverCreated );
+		Assert.assertNotNull( driverCreated.getId() );
+		assertDriverEquals( driverCreated, driver, false );
+
+		// ==================================================
+		// Dem Fahrer Bestellung zuordnen
+		// ==================================================
+		OrderId orderId = new OrderId();
+		orderId.setId( orderCreated.getId() );
+		getDriverProxy().addOrder( driverCreated.getId(), orderId );
+
+		log( this.getClass(), "Add_Order", driverCreated.toString() );
+		log( this.getClass(), "Add_Order", orderCreated.toString() );
+
+		// ==================================================
+		// Bestellung des Fahrers auslesen
+		// ==================================================
+		List<Order> driverOrdersFound = getDriverProxy().getUndeliveredOrders( driverCreated.getId() );
+		Assert.assertNotNull( driverOrdersFound );
+		for (Order driverOrderFound : driverOrdersFound)
+		{
+			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+		}
+		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		Assert.assertTrue( driverOrdersFound.size() >= 1 );
+		assertContainsOrder( driverOrdersFound, orderCreated, false );
+
+		// ==================================================
+		// Bestellung löschen
+		// ==================================================
+		getOrderProxy().remove( orderCreated.getId() );
+
+		Order orderFound = getOrderProxy().find( orderCreated.getId() );
+		Assert.assertNull( orderFound );
+
+		// ==================================================
+		// Produkt löschen
+		// ==================================================
+		getProductProxy().remove( productCreated.getId() );
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		getDriverProxy().remove( driverCreated.getId() );
+
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
 	}
 
 	/**
@@ -236,7 +333,119 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 	@Test
 	public void testRemoveOrder()
 	{
-		//TODO Implementieren
+		// ==================================================
+		// Produkt anlegen
+		// ==================================================
+		Product product = getProduct();
+
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		// ==================================================
+		// Bestellung anlegen
+		// ==================================================
+		Order order = getOrder();
+		addOrderLine( order, productCreated );
+		order.setCustomer( getCustomer() );
+
+		Order orderCreated = getOrderProxy().create( order );
+		Assert.assertNotNull( orderCreated );
+		Assert.assertNotNull( orderCreated.getId() );
+		assertOrderEquals( orderCreated, order, false );
+
+		// ==================================================
+		// Bestellung aktualisieren
+		// ==================================================
+		Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		Assert.assertNotNull( orderUpdated );
+		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertOrderEquals( orderUpdated, orderCreated, true );
+
+		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		Driver driver = getDriver();
+
+		Driver driverCreated = getDriverProxy().create( driver );
+		Assert.assertNotNull( driverCreated );
+		Assert.assertNotNull( driverCreated.getId() );
+		assertDriverEquals( driverCreated, driver, false );
+
+		// ==================================================
+		// Dem Fahrer Bestellung zuordnen
+		// ==================================================
+		OrderId orderId = new OrderId();
+		orderId.setId( orderCreated.getId() );
+		getDriverProxy().addOrder( driverCreated.getId(), orderId );
+
+		// ==================================================
+		// Bestellung des Fahrers auslesen
+		// ==================================================
+		List<Order> driverOrdersFound = getDriverProxy().getUndeliveredOrders( driverCreated.getId() );
+		Assert.assertNotNull( driverOrdersFound );
+		for (Order driverOrderFound : driverOrdersFound)
+		{
+			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+		}
+		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		Assert.assertTrue( driverOrdersFound.size() >= 1 );
+		assertContainsOrder( driverOrdersFound, orderCreated, false );
+
+		// ==================================================
+		// Zuordnung wieder auflösen
+		// ==================================================
+		getDriverProxy().removeOrder( driverCreated.getId(), orderCreated.getId() );
+
+		log( this.getClass(), "Remove_Order", driverCreated.toString() );
+		log( this.getClass(), "Remove_Order", orderCreated.toString() );
+
+		// ==================================================
+		// Bestellung des Fahrers auslesen
+		// ==================================================
+		driverOrdersFound = getDriverProxy().getUndeliveredOrders( driverCreated.getId() );
+		Assert.assertTrue( driverOrdersFound.size() == 0 );
+
+		// ==================================================
+		// Bestellung auslesen
+		// ==================================================
+		List<Order> ordersFound = getOrderProxy().findAll();
+		Assert.assertNotNull( ordersFound );
+		Assert.assertTrue( ordersFound.size() >= 1 );
+		orderCreated.setCurrentStage( Stage.IN_STOVE );
+		assertContainsOrder( ordersFound, orderCreated, true );
+
+		// ==================================================
+		// Bestellung löschen
+		// ==================================================
+		getOrderProxy().remove( orderCreated.getId() );
+
+		Order orderFound = getOrderProxy().find( orderCreated.getId() );
+		Assert.assertNull( orderFound );
+
+		// ==================================================
+		// Produkt löschen
+		// ==================================================
+		getProductProxy().remove( productCreated.getId() );
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		getDriverProxy().remove( driverCreated.getId() );
+
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
 	}
 
 	/**
@@ -245,7 +454,42 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 	@Test
 	public void testCreateGPSData()
 	{
-		//TODO Implementieren
+		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		Driver driver = getDriver();
+
+		Driver driverCreated = getDriverProxy().create( driver );
+		Assert.assertNotNull( driverCreated );
+		Assert.assertNotNull( driverCreated.getId() );
+		assertDriverEquals( driverCreated, driver, false );
+
+		// ==================================================
+		// GPSDaten hinzufügen
+		// ==================================================
+		GPSData gpsData = getGPSData();
+		completeGPSData( gpsData, driverCreated );
+
+		getDriverProxy().createGPSData( driverCreated.getId(), gpsData );
+
+		log( this.getClass(), "Create_GPS_Data", driverCreated.toString() );
+		log( this.getClass(), "Create_GPS_Data", gpsData.toString() );
+
+		// ==================================================
+		// GPSDaten prüfen
+		// ==================================================
+		List<GPSData> gpsDataListFound = getGPSDataProxy().findAll();
+		Assert.assertNotNull( gpsDataListFound );
+		Assert.assertTrue( gpsDataListFound.size() >= 1 );
+		assertContainsGPSData( gpsDataListFound, gpsData, false, false );
+
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		getDriverProxy().remove( driverCreated.getId() );
+
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
 	}
 
 	/**
@@ -254,7 +498,122 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 	@Test
 	public void testGetUndeliveredOrders()
 	{
-		//TODO Implementieren
+		// ==================================================
+		// Produkt anlegen
+		// ==================================================
+		Product product = getProduct();
+
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		// ==================================================
+		// Bestellung anlegen
+		// ==================================================
+		List<Order> ordersCreated = new ArrayList<Order>();
+
+		for (Order order : getOrderList())
+		{
+			addOrderLine( order, productCreated );
+			order.setCustomer( getCustomer() );
+
+			Order orderCreated = getOrderProxy().create( order );
+			Assert.assertNotNull( orderCreated );
+			Assert.assertNotNull( orderCreated.getId() );
+			assertOrderEquals( orderCreated, order, false );
+
+			ordersCreated.add( orderCreated );
+		}
+
+		// ==================================================
+		// Bestellung aktualisieren
+		// ==================================================
+		for (int i = 0; i < ordersCreated.size(); i++)
+		{
+			Order orderCreated = ordersCreated.get( i );
+
+			Order orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+			Assert.assertNotNull( orderUpdated );
+			Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+			orderCreated.setCurrentStage( Stage.IN_PREPARATION );
+			assertOrderEquals( orderUpdated, orderCreated, true );
+
+			orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+			Assert.assertNotNull( orderUpdated );
+			Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+			orderCreated.setCurrentStage( Stage.IN_STOVE );
+			assertOrderEquals( orderUpdated, orderCreated, true );
+		}
+
+		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		Driver driver = getDriver();
+
+		Driver driverCreated = getDriverProxy().create( driver );
+		Assert.assertNotNull( driverCreated );
+		Assert.assertNotNull( driverCreated.getId() );
+		assertDriverEquals( driverCreated, driver, false );
+
+		// ==================================================
+		// Dem Fahrer Bestellung zuordnen
+		// ==================================================
+		for (int i = 0; i < ordersCreated.size() - 2; i++)
+		{
+			Order orderCreated = ordersCreated.get( i );
+
+			OrderId orderId = new OrderId();
+			orderId.setId( orderCreated.getId() );
+			getDriverProxy().addOrder( driverCreated.getId(), orderId );
+
+			orderCreated.setCurrentStage( Stage.IN_DELIVERY );
+		}
+
+		// ==================================================
+		// Bestellung des Fahrers auslesen
+		// ==================================================
+		List<Order> driverOrdersFound = getDriverProxy().getUndeliveredOrders( driverCreated.getId() );
+		Assert.assertNotNull( driverOrdersFound );
+
+		for (Order driverOrderFound : driverOrdersFound)
+		{
+			log( this.getClass(), "Get_Undelivered_Orders", driverOrderFound.toString() );
+			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+		}
+
+		Assert.assertTrue( driverOrdersFound.size() >= ordersCreated.size() - 2 );
+		for (Order driverOrderFound : driverOrdersFound)
+		{
+			assertContainsOrder( ordersCreated, driverOrderFound, false );
+		}
+
+		// ==================================================
+		// Bestellung löschen
+		// ==================================================
+		for (Order orderCreated : ordersCreated)
+		{
+			getOrderProxy().remove( orderCreated.getId() );
+
+			Order orderFound = getOrderProxy().find( orderCreated.getId() );
+			Assert.assertNull( orderFound );
+		}
+
+		// ==================================================
+		// Produkt löschen
+		// ==================================================
+		getProductProxy().remove( productCreated.getId() );
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		getDriverProxy().remove( driverCreated.getId() );
+
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
 	}
 
 }

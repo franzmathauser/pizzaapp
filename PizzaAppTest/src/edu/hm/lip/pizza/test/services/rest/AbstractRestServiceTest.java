@@ -51,9 +51,9 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			Driver driver = new Driver();
 			driver.setId( null );
 			driver.setName( "TestDriver" + i );
-			// muss an entsprechender Stelle richtig gesetzt werden // TODO
+			// muss an entsprechender Stelle richtig gesetzt werden
 			driver.setOrders( null );
-			// muss an entsprechender Stelle richtig gesetzt werden // TODO
+			// muss an entsprechender Stelle richtig gesetzt werden
 			driver.setGpsData( null );
 			m_drivers.add( driver );
 
@@ -102,9 +102,9 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			gpsData.setId( null );
 			gpsData.setLat( Double.parseDouble( "48." + i ) );
 			gpsData.setLon( Double.parseDouble( "11." + i ) );
-			// muss an entsprechender Stelle richtig gesetzt werden // TODO
+			// muss an entsprechender Stelle richtig gesetzt werden
 			gpsData.setDriver( null );
-			// muss an entsprechender Stelle richtig gesetzt werden // TODO
+			// muss an entsprechender Stelle richtig gesetzt werden
 			gpsData.setDate( null );
 			m_gpsData.add( gpsData );
 		}
@@ -137,6 +137,36 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 		order.setOrderLines( oderLines );
 		order.setPrice( "" + (Double.parseDouble( product.getPriceL() ) * 2) );
 		order.setOrderDate( new Date() );
+	}
+
+	/**
+	 * Vervollständigt die fehlenden Attributfelder des GPS Datums.
+	 * 
+	 * @param gpsData
+	 *            GPS Datum
+	 * @param driver
+	 *            Fahrer
+	 */
+	protected void completeGPSData( GPSData gpsData, Driver driver )
+	{
+		gpsData.setDriver( driver );
+		gpsData.setDate( new Date() );
+	}
+
+	/**
+	 * Vervollständigt die fehlenden Attributfelder des Fahrers.
+	 * 
+	 * @param driver
+	 *            Fahrer
+	 * @param gpsData
+	 *            GPS Daten
+	 * @param orders
+	 *            Bestellungen
+	 */
+	protected void completeDriver( Driver driver, List<GPSData> gpsData, List<Order> orders )
+	{
+		driver.setGpsData( gpsData );
+		driver.setOrders( orders );
 	}
 
 	/**
@@ -431,13 +461,98 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param expectedStage
 	 *            Erwartete OrderStage
 	 */
-	protected void assertOrderStage( String receivedString, Stage expectedStage )
+	protected void assertNextOrderStage( String receivedString, Stage expectedStage )
 	{
 		Assert.assertNotNull( expectedStage );
 		Assert.assertNotNull( receivedString );
 
 		String expectedString = "{\"nextStage\": " + expectedStage.name() + "}";
 		Assert.assertEquals( receivedString, expectedString );
+	}
+
+	/**
+	 * Prüft OrderStage String auf Gleichheit.
+	 * 
+	 * @param receivedString
+	 *            Empfangener OrderStage String
+	 * @param expectedStage
+	 *            Erwartete OrderStage
+	 */
+	protected void assertPreviousOrderStage( String receivedString, Stage expectedStage )
+	{
+		Assert.assertNotNull( expectedStage );
+		Assert.assertNotNull( receivedString );
+
+		String expectedString = "{\"previousStage\": " + expectedStage.name() + "}";
+		Assert.assertEquals( receivedString, expectedString );
+	}
+
+	/**
+	 * Prüft Bestellung auf Gleichheit. Für das Bestelldatum wird ein Zeitversatz von 2 Sekunden berücksichtigt.
+	 * 
+	 * @param gpsDataReceived
+	 *            Empfangene Bestellung
+	 * @param gpsDataSent
+	 *            Gesendete Bestellung
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 */
+	protected void assertGPSDataEquals( GPSData gpsDataReceived, GPSData gpsDataSent, boolean assertId )
+	{
+		if (assertId)
+		{
+			Assert.assertEquals( gpsDataReceived.getId(), gpsDataSent.getId() );
+		}
+		Assert.assertEquals( gpsDataReceived.getLat(), gpsDataSent.getLat() );
+		Assert.assertEquals( gpsDataReceived.getLon(), gpsDataSent.getLon() );
+		assertDriverEquals( gpsDataReceived.getDriver(), gpsDataSent.getDriver(), false );
+		Assert.assertEquals( gpsDataReceived.getDate().getTime(), gpsDataSent.getDate().getTime(), 2000L );
+	}
+
+	/**
+	 * Prüft ob GPS Datum in Liste enthalten ist. Für das Datumsfeld wird ein Zeitversatz von 2 Sekunden berücksichtigt.
+	 * 
+	 * @param gpsDataListReceived
+	 *            Empfangene GPS Daten
+	 * @param gpsDataSent
+	 *            Gesendetes GPS Datum
+	 * @param assertId
+	 *            ID in Assertion miteinbeziehen
+	 * @param updateId
+	 *            ID nach fundenenem Element aktualisieren
+	 */
+	protected void assertContainsGPSData( List<GPSData> gpsDataListReceived, GPSData gpsDataSent, boolean assertId,
+			boolean updateId )
+	{
+		boolean contained = false;
+
+		for (GPSData gpsDataReceived : gpsDataListReceived)
+		{
+			try
+			{
+				if (assertId)
+				{
+					Assert.assertEquals( gpsDataReceived.getId(), gpsDataSent.getId() );
+				}
+				Assert.assertEquals( gpsDataReceived.getLat(), gpsDataSent.getLat() );
+				Assert.assertEquals( gpsDataReceived.getLon(), gpsDataSent.getLon() );
+				assertDriverEquals( gpsDataReceived.getDriver(), gpsDataSent.getDriver(), false );
+				Assert.assertEquals( gpsDataReceived.getDate().getTime(), gpsDataSent.getDate().getTime(), 2000L );
+
+				if (updateId)
+				{
+					gpsDataSent.setId( gpsDataReceived.getId() );
+				}
+				contained = true;
+				break;
+			}
+			catch (AssertionFailedError e)
+			{
+				contained = false;
+			}
+		}
+
+		Assert.assertTrue( contained );
 	}
 
 }
