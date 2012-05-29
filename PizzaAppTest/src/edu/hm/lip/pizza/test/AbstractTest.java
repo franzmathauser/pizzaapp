@@ -27,7 +27,7 @@ public abstract class AbstractTest
 	 * 
 	 * @return URL
 	 */
-	protected String getRestUrl()
+	protected static String getRestUrl()
 	{
 		String hostname = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.HOSTNAME );
 		String port = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.PORT );
@@ -49,7 +49,7 @@ public abstract class AbstractTest
 	 * @param message
 	 *            Nachricht
 	 */
-	protected <T> void log( Class<T> clazz, String method, String message )
+	protected static <T> void log( Class<T> clazz, String method, String message )
 	{
 		if (!StringUtils.equals( m_lastLogClass, clazz.getSimpleName() ) || !StringUtils.equals( m_lastLogMethod, method ))
 		{

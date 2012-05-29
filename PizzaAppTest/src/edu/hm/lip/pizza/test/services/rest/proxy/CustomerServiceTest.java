@@ -20,6 +20,66 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 {
 
 	/**
+	 * Legt den übergebenen Kunde an.
+	 * 
+	 * @param customer
+	 *            Anzulegender Kunde
+	 * @param log
+	 *            Ausgabe ins Log
+	 * @return Angelegter Kunde
+	 * @throws Exception
+	 *             Fehler beim Löschen
+	 */
+	protected static Customer createCustomer( Customer customer, boolean log ) throws Exception
+	{
+		Customer customerCreated = getCustomerProxy().create( customer );
+		Assert.assertNotNull( customerCreated );
+		updateCustomerCoordinates( customerCreated, customer );
+
+		if (log)
+		{
+			log( CustomerServiceTest.class, "Create", customerCreated.toString() );
+		}
+
+		Assert.assertNotNull( customerCreated.getId() );
+		assertCustomerEquals( customerCreated, customer, false );
+
+		return customerCreated;
+	}
+
+	/**
+	 * Löscht den übergebenen Kunde.
+	 * 
+	 * @param customerCreated
+	 *            Zu löschender Kunde
+	 * @param log
+	 *            Ausgabe ins Log
+	 * @throws Exception
+	 *             Fehler beim Löschen
+	 */
+	protected static void deleteCustomer( Customer customerCreated, boolean log ) throws Exception
+	{
+		try
+		{
+			Thread.sleep( 2000 );
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		getCustomerProxy().remove( customerCreated.getId() );
+
+		if (log)
+		{
+			log( CustomerServiceTest.class, "Remove", customerCreated.toString() );
+		}
+
+		Customer customerFound = getCustomerProxy().find( customerCreated.getId() );
+		Assert.assertNull( customerFound );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
@@ -31,24 +91,12 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// ==================================================
 		// Kunde anlegen
 		// ==================================================
-		Customer customer = getCustomer();
-
-		Customer customerCreated = getCustomerProxy().create( customer );
-		Assert.assertNotNull( customerCreated );
-		updateCustomerCoordinates( customerCreated, customer );
-
-		log( this.getClass(), "Create", customerCreated.toString() );
-
-		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEquals( customerCreated, customer, false );
+		Customer customerCreated = createCustomer( getCustomer(), true );
 
 		// ==================================================
 		// Kunde löschen
 		// ==================================================
-		getCustomerProxy().remove( customerCreated.getId() );
-
-		Customer customerFound = getCustomerProxy().find( customerCreated.getId() );
-		Assert.assertNull( customerFound );
+		deleteCustomer( customerCreated, false );
 	}
 
 	/**
@@ -67,12 +115,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		for (Customer customer : getCustomerList())
 		{
-			Customer customerCreated = getCustomerProxy().create( customer );
-			Assert.assertNotNull( customerCreated );
-			updateCustomerCoordinates( customerCreated, customer );
-			Assert.assertNotNull( customerCreated.getId() );
-			assertCustomerEquals( customerCreated, customer, false );
-
+			Customer customerCreated = createCustomer( customer, false );
 			customersCreated.add( customerCreated );
 		}
 
@@ -98,10 +141,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// ==================================================
 		for (Customer customerCreated : customersCreated)
 		{
-			getCustomerProxy().remove( customerCreated.getId() );
-
-			Customer customerFound = getCustomerProxy().find( customerCreated.getId() );
-			Assert.assertNull( customerFound );
+			deleteCustomer( customerCreated, false );
 		}
 	}
 
@@ -117,13 +157,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// ==================================================
 		// Kunde anlegen
 		// ==================================================
-		Customer customer = getCustomer();
-
-		Customer customerCreated = getCustomerProxy().create( customer );
-		Assert.assertNotNull( customerCreated );
-		updateCustomerCoordinates( customerCreated, customer );
-		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEquals( customerCreated, customer, false );
+		Customer customerCreated = createCustomer( getCustomer(), false );
 
 		// ==================================================
 		// Kunde auslesen
@@ -138,10 +172,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// ==================================================
 		// Kunde löschen
 		// ==================================================
-		getCustomerProxy().remove( customerCreated.getId() );
-
-		customerFound = getCustomerProxy().find( customerCreated.getId() );
-		Assert.assertNull( customerFound );
+		deleteCustomer( customerCreated, false );
 	}
 
 	/**
@@ -157,12 +188,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// Kunde anlegen
 		// ==================================================
 		Customer customer = getCustomer();
-
-		Customer customerCreated = getCustomerProxy().create( customer );
-		Assert.assertNotNull( customerCreated );
-		updateCustomerCoordinates( customerCreated, customer );
-		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEquals( customerCreated, customer, false );
+		Customer customerCreated = createCustomer( customer, false );
 
 		// ==================================================
 		// Kunde aktualisieren
@@ -184,16 +210,12 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		log( this.getClass(), "Update", customerUpdated.toString() );
 
-		Assert.assertEquals( customerUpdated.getLastname(), customerCreated.getLastname() );
 		Assert.assertEquals( customerUpdated, customerCreated );
 
-		// ==================================================
+		// / ==================================================
 		// Kunde löschen
 		// ==================================================
-		getCustomerProxy().remove( customerCreated.getId() );
-
-		Customer customerFound = getCustomerProxy().find( customerCreated.getId() );
-		Assert.assertNull( customerFound );
+		deleteCustomer( customerCreated, false );
 	}
 
 	/**
@@ -208,23 +230,12 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		// ==================================================
 		// Kunde anlegen
 		// ==================================================
-		Customer customer = getCustomer();
-
-		Customer customerCreated = getCustomerProxy().create( customer );
-		Assert.assertNotNull( customerCreated );
-		updateCustomerCoordinates( customerCreated, customer );
-		Assert.assertNotNull( customerCreated.getId() );
-		assertCustomerEquals( customerCreated, customer, false );
+		Customer customerCreated = createCustomer( getCustomer(), false );
 
 		// ==================================================
 		// Kunde löschen
 		// ==================================================
-		getCustomerProxy().remove( customerCreated.getId() );
-
-		log( this.getClass(), "Remove", customerCreated.toString() );
-
-		Customer customerFound = getCustomerProxy().find( customerCreated.getId() );
-		Assert.assertNull( customerFound );
+		deleteCustomer( customerCreated, true );
 	}
 
 }

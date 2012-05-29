@@ -23,7 +23,7 @@ public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTe
 	 * 
 	 * @return DriverService Proxy
 	 */
-	protected IDriverService getDriverProxy()
+	protected static IDriverService getDriverProxy()
 	{
 		return ProxyFactory.create( IDriverService.class, getRestUrl() );
 	}
@@ -33,7 +33,7 @@ public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTe
 	 * 
 	 * @return CustomerService Proxy
 	 */
-	protected ICustomerService getCustomerProxy()
+	protected static ICustomerService getCustomerProxy()
 	{
 		return ProxyFactory.create( ICustomerService.class, getRestUrl() );
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTe
 	 * 
 	 * @return ProductService Proxy
 	 */
-	protected IProductService getProductProxy()
+	protected static IProductService getProductProxy()
 	{
 		return ProxyFactory.create( IProductService.class, getRestUrl() );
 	}
@@ -53,7 +53,7 @@ public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTe
 	 * 
 	 * @return OrderService Proxy
 	 */
-	protected IOrderService getOrderProxy()
+	protected static IOrderService getOrderProxy()
 	{
 		return ProxyFactory.create( IOrderService.class, getRestUrl() );
 	}
@@ -63,7 +63,7 @@ public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTe
 	 * 
 	 * @return GPSDataService Proxy
 	 */
-	protected IGPSDataService getGPSDataProxy()
+	protected static IGPSDataService getGPSDataProxy()
 	{
 		return ProxyFactory.create( IGPSDataService.class, getRestUrl() );
 	}
@@ -73,7 +73,7 @@ public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTe
 	 * 
 	 * @return StatisticService Proxy
 	 */
-	protected IStatisticService getStatisticProxy()
+	protected static IStatisticService getStatisticProxy()
 	{
 		return ProxyFactory.create( IStatisticService.class, getRestUrl() );
 	}

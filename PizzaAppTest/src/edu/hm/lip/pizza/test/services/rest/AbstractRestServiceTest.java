@@ -163,7 +163,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param product
 	 *            Produkt
 	 */
-	protected void addOrderLine( Order order, Product product )
+	protected static void addOrderLine( Order order, Product product )
 	{
 		if (order == null || product == null || product.getId() == null)
 		{
@@ -192,7 +192,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param driver
 	 *            Fahrer
 	 */
-	protected void completeGPSData( GPSData gpsData, Driver driver )
+	protected static void completeGPSData( GPSData gpsData, Driver driver )
 	{
 		gpsData.setDriver( driver );
 		gpsData.setDate( new Date() );
@@ -208,7 +208,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param orders
 	 *            Bestellungen
 	 */
-	protected void completeDriver( Driver driver, List<GPSData> gpsData, List<Order> orders )
+	protected static void completeDriver( Driver driver, List<GPSData> gpsData, List<Order> orders )
 	{
 		driver.setGpsData( gpsData );
 		driver.setOrders( orders );
@@ -222,7 +222,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param customerSent
 	 *            Gesendeter Kunde
 	 */
-	protected void updateCustomerCoordinates( Customer customerReceived, Customer customerSent )
+	protected static void updateCustomerCoordinates( Customer customerReceived, Customer customerSent )
 	{
 		customerSent.setLat( customerReceived.getLat() );
 		customerSent.setLon( customerReceived.getLon() );
@@ -233,7 +233,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Fahrer
 	 */
-	protected Driver getDriver()
+	protected static Driver getDriver()
 	{
 		return m_drivers.get( 0 );
 	}
@@ -243,7 +243,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Fahrerliste
 	 */
-	protected List<Driver> getDriverList()
+	protected static List<Driver> getDriverList()
 	{
 		return m_drivers;
 	}
@@ -253,7 +253,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Kunde
 	 */
-	protected Customer getCustomer()
+	protected static Customer getCustomer()
 	{
 		return m_customers.get( 0 );
 	}
@@ -263,7 +263,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Kundenliste
 	 */
-	protected List<Customer> getCustomerList()
+	protected static List<Customer> getCustomerList()
 	{
 		return m_customers;
 	}
@@ -273,7 +273,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Produkt
 	 */
-	protected Product getProduct()
+	protected static Product getProduct()
 	{
 		return m_products.get( 0 );
 	}
@@ -283,7 +283,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Produktliste
 	 */
-	protected List<Product> getProductList()
+	protected static List<Product> getProductList()
 	{
 		return m_products;
 	}
@@ -293,7 +293,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Bestellung
 	 */
-	protected Order getOrder()
+	protected static Order getOrder()
 	{
 		return m_orders.get( 0 );
 	}
@@ -303,7 +303,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return Bestellungsliste
 	 */
-	protected List<Order> getOrderList()
+	protected static List<Order> getOrderList()
 	{
 		return m_orders;
 	}
@@ -313,7 +313,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return GPS-Datum
 	 */
-	protected GPSData getGPSData()
+	protected static GPSData getGPSData()
 	{
 		return m_gpsData.get( 0 );
 	}
@@ -323,7 +323,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @return GPS-Datenliste
 	 */
-	protected List<GPSData> getGPSDataList()
+	protected static List<GPSData> getGPSDataList()
 	{
 		return m_gpsData;
 	}
@@ -338,7 +338,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertDriverEquals( Driver driverReceived, Driver driverSent, boolean assertId )
+	protected static void assertDriverEquals( Driver driverReceived, Driver driverSent, boolean assertId )
 	{
 		if (assertId)
 		{
@@ -359,7 +359,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertCustomerEquals( Customer customerReceived, Customer customerSent, boolean assertId )
+	protected static void assertCustomerEquals( Customer customerReceived, Customer customerSent, boolean assertId )
 	{
 		updateCustomerCoordinates( customerReceived, customerSent );
 
@@ -393,7 +393,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertProductEquals( Product productReceived, Product productSend, boolean assertId )
+	protected static void assertProductEquals( Product productReceived, Product productSend, boolean assertId )
 	{
 		if (assertId)
 		{
@@ -417,7 +417,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertOrderEquals( Order orderReceived, Order orderSent, boolean assertId )
+	protected static void assertOrderEquals( Order orderReceived, Order orderSent, boolean assertId )
 	{
 		if (assertId)
 		{
@@ -442,7 +442,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertContainsOrder( List<Order> ordersReceived, Order orderSent, boolean assertId )
+	protected static void assertContainsOrder( List<Order> ordersReceived, Order orderSent, boolean assertId )
 	{
 		boolean contained = false;
 
@@ -483,7 +483,8 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertOrderLinesEquals( List<OrderLine> orderLinesReceived, List<OrderLine> orderLinesSent, boolean assertId )
+	protected static void assertOrderLinesEquals( List<OrderLine> orderLinesReceived, List<OrderLine> orderLinesSent,
+			boolean assertId )
 	{
 		Assert.assertEquals( orderLinesReceived.size(), orderLinesSent.size() );
 
@@ -503,7 +504,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertOrderLineEquals( OrderLine orderLineReceived, OrderLine orderLineSent, boolean assertId )
+	protected static void assertOrderLineEquals( OrderLine orderLineReceived, OrderLine orderLineSent, boolean assertId )
 	{
 		if (assertId)
 		{
@@ -522,7 +523,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param expectedStage
 	 *            Erwartete OrderStage
 	 */
-	protected void assertNextOrderStage( String receivedString, Stage expectedStage )
+	protected static void assertNextOrderStage( String receivedString, Stage expectedStage )
 	{
 		Assert.assertNotNull( expectedStage );
 		Assert.assertNotNull( receivedString );
@@ -539,7 +540,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param expectedStage
 	 *            Erwartete OrderStage
 	 */
-	protected void assertPreviousOrderStage( String receivedString, Stage expectedStage )
+	protected static void assertPreviousOrderStage( String receivedString, Stage expectedStage )
 	{
 		Assert.assertNotNull( expectedStage );
 		Assert.assertNotNull( receivedString );
@@ -558,7 +559,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected void assertGPSDataEquals( GPSData gpsDataReceived, GPSData gpsDataSent, boolean assertId )
+	protected static void assertGPSDataEquals( GPSData gpsDataReceived, GPSData gpsDataSent, boolean assertId )
 	{
 		if (assertId)
 		{
@@ -582,7 +583,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * @param updateId
 	 *            ID nach fundenenem Element aktualisieren
 	 */
-	protected void assertContainsGPSData( List<GPSData> gpsDataListReceived, GPSData gpsDataSent, boolean assertId,
+	protected static void assertContainsGPSData( List<GPSData> gpsDataListReceived, GPSData gpsDataSent, boolean assertId,
 			boolean updateId )
 	{
 		boolean contained = false;

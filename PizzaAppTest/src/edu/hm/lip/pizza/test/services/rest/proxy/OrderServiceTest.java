@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
+import edu.hm.lip.pizza.api.object.resource.Customer;
 import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
@@ -21,6 +22,68 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 {
 
 	/**
+	 * Legt die übergebene Bestellung an.
+	 * 
+	 * @param order
+	 *            Bestellung
+	 * @param product
+	 *            Produkt
+	 * @param customer
+	 *            Kunde
+	 * @param log
+	 *            Ausgabe ins Log
+	 * @return Angelegte Bestellung
+	 */
+	protected static Order createOrder( Order order, Product product, Customer customer, boolean log )
+	{
+		addOrderLine( order, product );
+		order.setCustomer( customer );
+
+		Order orderCreated = getOrderProxy().create( order );
+		Assert.assertNotNull( orderCreated );
+
+		if (log)
+		{
+			log( OrderServiceTest.class, "Create", orderCreated.toString() );
+		}
+
+		Assert.assertNotNull( orderCreated.getId() );
+		assertOrderEquals( orderCreated, order, false );
+
+		return orderCreated;
+	}
+
+	/**
+	 * Löscht die übergebene Bestellung.
+	 * 
+	 * @param orderCreated
+	 *            Zu löschende Bestellung
+	 * @param log
+	 *            Ausgabe ins Log
+	 */
+	protected static void deleteOrder( Order orderCreated, boolean log )
+	{
+		try
+		{
+			Thread.sleep( 2000 );
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+
+		getOrderProxy().remove( orderCreated.getId() );
+
+		if (log)
+		{
+			log( OrderServiceTest.class, "Remove", orderCreated.toString() );
+		}
+
+		Order orderFound = getOrderProxy().find( orderCreated.getId() );
+		Assert.assertNull( orderFound );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
@@ -32,43 +95,22 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-
-		log( this.getClass(), "Create", orderCreated.toString() );
-
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), true );
 
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -83,12 +125,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
@@ -97,14 +134,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 
 		for (Order order : getOrderList())
 		{
-			addOrderLine( order, productCreated );
-			order.setCustomer( getCustomer() );
-
-			Order orderCreated = getOrderProxy().create( order );
-			Assert.assertNotNull( orderCreated );
-			Assert.assertNotNull( orderCreated.getId() );
-			assertOrderEquals( orderCreated, order, false );
-
+			Order orderCreated = createOrder( order, productCreated, getCustomer(), false );
 			ordersCreated.add( orderCreated );
 		}
 
@@ -130,19 +160,13 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		for (Order orderCreated : ordersCreated)
 		{
-			getOrderProxy().remove( orderCreated.getId() );
-
-			Order orderFound = getOrderProxy().find( orderCreated.getId() );
-			Assert.assertNull( orderFound );
+			deleteOrder( orderCreated, false );
 		}
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -157,24 +181,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung auslesen
@@ -189,18 +201,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -227,42 +233,22 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		log( this.getClass(), "Remove", orderCreated.toString() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, true );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -274,24 +260,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung aktualisieren
@@ -335,18 +309,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -358,24 +326,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung aktualisieren (NEXT Stage)
@@ -446,18 +402,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -469,24 +419,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung aktualisieren
@@ -521,18 +459,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -544,12 +476,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
@@ -558,14 +485,7 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 
 		for (Order order : getOrderList())
 		{
-			addOrderLine( order, productCreated );
-			order.setCustomer( getCustomer() );
-
-			Order orderCreated = getOrderProxy().create( order );
-			Assert.assertNotNull( orderCreated );
-			Assert.assertNotNull( orderCreated.getId() );
-			assertOrderEquals( orderCreated, order, false );
-
+			Order orderCreated = createOrder( order, productCreated, getCustomer(), false );
 			ordersCreated.add( orderCreated );
 		}
 
@@ -635,19 +555,13 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		for (Order orderCreated : ordersCreated)
 		{
-			getOrderProxy().remove( orderCreated.getId() );
-
-			Order orderFound = getOrderProxy().find( orderCreated.getId() );
-			Assert.assertNull( orderFound );
+			deleteOrder( orderCreated, false );
 		}
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -659,24 +573,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung auslesen/aktualisieren
@@ -732,18 +634,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -755,24 +651,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung aktualisieren (NEXT Stage)
@@ -856,18 +740,12 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 	}
 
 }

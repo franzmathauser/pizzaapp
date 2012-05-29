@@ -19,6 +19,74 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 {
 
 	/**
+	 * Legt das übergebene GPS Datum an.
+	 * 
+	 * @param gpsData
+	 *            Anzulegendes GPS Datum
+	 * @param driver
+	 *            Fahrer
+	 * @param log
+	 *            Ausgabe ins Log
+	 * @return Angelegtes GPS Datum
+	 */
+	protected static GPSData createGPSData( GPSData gpsData, Driver driver, boolean log )
+	{
+		try
+		{
+			Thread.sleep( 1000 );
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+
+		completeGPSData( gpsData, driver );
+
+		getDriverProxy().createGPSData( driver.getId(), gpsData );
+
+		if (log)
+		{
+			log( GPSDataServiceTest.class, "Create", gpsData.toString() );
+		}
+
+		List<GPSData> gpsDataListFound = getGPSDataProxy().findAll();
+		Assert.assertNotNull( gpsDataListFound );
+		Assert.assertTrue( gpsDataListFound.size() >= 1 );
+
+		GPSData gpsDataFound = new GPSData();
+		gpsDataFound.setId( null );
+		gpsDataFound.setDate( gpsData.getDate() );
+		gpsDataFound.setDriver( gpsData.getDriver() );
+		gpsDataFound.setLat( gpsData.getLat() );
+		gpsDataFound.setLon( gpsData.getLon() );
+
+		assertContainsGPSData( gpsDataListFound, gpsDataFound, false, true );
+
+		return gpsDataFound;
+	}
+
+	/**
+	 * Löscht das übergebene GPS Datum.
+	 * 
+	 * @param gpsDataCreated
+	 *            Zu löschendes GPS Datum
+	 * @param log
+	 *            Ausgabe ins Log
+	 */
+	protected static void deleteGPSData( GPSData gpsDataCreated, boolean log )
+	{
+		getGPSDataProxy().remove( gpsDataCreated.getId() );
+
+		if (log)
+		{
+			log( GPSDataServiceTest.class, "Remove", gpsDataCreated.toString() );
+		}
+
+		GPSData gpsDataFound = getGPSDataProxy().find( gpsDataCreated.getId() );
+		Assert.assertNull( gpsDataFound );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
@@ -42,12 +110,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = DriverServiceTest.createDriver( getDriver(), false );
 
 		// ==================================================
 		// GPS Datum anlegen
@@ -56,10 +119,8 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 
 		for (GPSData gpsData : getGPSDataList())
 		{
-			completeGPSData( gpsData, driverCreated );
-			getDriverProxy().createGPSData( driverCreated.getId(), gpsData );
-
-			gpsDataListCreated.add( gpsData );
+			GPSData gpsDataCreated = createGPSData( gpsData, driverCreated, false );
+			gpsDataListCreated.add( gpsDataCreated );
 		}
 
 		// ==================================================
@@ -80,12 +141,17 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		}
 
 		// ==================================================
-		// Fahrer und GPS Daten löschen
+		// GPS Datum löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
+		for (GPSData gpsDataCreated : gpsDataListCreated)
+		{
+			deleteGPSData( gpsDataCreated, false );
+		}
 
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		DriverServiceTest.deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -100,46 +166,32 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = DriverServiceTest.createDriver( getDriver(), false );
 
 		// ==================================================
 		// GPS Datum anlegen
 		// ==================================================
-		GPSData gpsData = getGPSData();
-		completeGPSData( gpsData, driverCreated );
-
-		getDriverProxy().createGPSData( driverCreated.getId(), gpsData );
-
-		// ==================================================
-		// GPSDaten prüfen
-		// ==================================================
-		List<GPSData> gpsDataListFound = getGPSDataProxy().findAll();
-		Assert.assertNotNull( gpsDataListFound );
-		Assert.assertTrue( gpsDataListFound.size() >= 1 );
-		assertContainsGPSData( gpsDataListFound, gpsData, false, true );
+		GPSData gpsDataCreated = createGPSData( getGPSData(), driverCreated, false );
 
 		// ==================================================
 		// GPS Datum auslesen
 		// ==================================================
-		GPSData gpsDataFound = getGPSDataProxy().find( gpsData.getId() );
+		GPSData gpsDataFound = getGPSDataProxy().find( gpsDataCreated.getId() );
 		Assert.assertNotNull( gpsDataFound );
 
 		log( this.getClass(), "Find", gpsDataFound.toString() );
 
-		assertGPSDataEquals( gpsDataFound, gpsData, true );
+		assertGPSDataEquals( gpsDataFound, gpsDataCreated, true );
 
 		// ==================================================
-		// Fahrer und GPS Daten löschen
+		// GPS Datum löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
+		deleteGPSData( gpsDataCreated, false );
 
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		DriverServiceTest.deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -166,46 +218,22 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = DriverServiceTest.createDriver( getDriver(), false );
 
 		// ==================================================
 		// GPS Datum anlegen
 		// ==================================================
-		GPSData gpsData = getGPSData();
-		completeGPSData( gpsData, driverCreated );
-
-		getDriverProxy().createGPSData( driverCreated.getId(), gpsData );
-
-		// ==================================================
-		// GPSDaten prüfen
-		// ==================================================
-		List<GPSData> gpsDataListFound = getGPSDataProxy().findAll();
-		Assert.assertNotNull( gpsDataListFound );
-		Assert.assertTrue( gpsDataListFound.size() >= 1 );
-		assertContainsGPSData( gpsDataListFound, gpsData, false, true );
+		GPSData gpsDataCreated = createGPSData( getGPSData(), driverCreated, false );
 
 		// ==================================================
 		// GPS Datum löschen
 		// ==================================================
-		getGPSDataProxy().remove( gpsData.getId() );
-
-		log( this.getClass(), "Remove", gpsData.toString() );
-
-		GPSData gpsDataFound = getGPSDataProxy().find( gpsData.getId() );
-		Assert.assertNull( gpsDataFound );
+		deleteGPSData( gpsDataCreated, true );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		DriverServiceTest.deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -221,11 +249,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 
 		for (Driver driver : getDriverList())
 		{
-			Driver driverCreated = getDriverProxy().create( driver );
-			Assert.assertNotNull( driverCreated );
-			Assert.assertNotNull( driverCreated.getId() );
-			assertDriverEquals( driverCreated, driver, false );
-
+			Driver driverCreated = DriverServiceTest.createDriver( driver, false );
 			driversCreated.add( driverCreated );
 		}
 
@@ -238,31 +262,9 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		{
 			for (Driver driverCreated : driversCreated)
 			{
-				completeGPSData( gpsData, driverCreated );
-				getDriverProxy().createGPSData( driverCreated.getId(), gpsData );
-
-				gpsDataListCreated.add( gpsData );
-
-				try
-				{
-					Thread.sleep( 1000 );
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+				GPSData gpsDataCreated = createGPSData( gpsData, driverCreated, false );
+				gpsDataListCreated.add( gpsDataCreated );
 			}
-		}
-
-		// ==================================================
-		// GPS Datum auslesen
-		// ==================================================
-		List<GPSData> gpsDataListFound = getGPSDataProxy().findAll();
-		Assert.assertNotNull( gpsDataListFound );
-		Assert.assertTrue( gpsDataListFound.size() >= gpsDataListCreated.size() );
-		for (GPSData gpsDataCreated : gpsDataListCreated)
-		{
-			assertContainsGPSData( gpsDataListFound, gpsDataCreated, false, true );
 		}
 
 		// ==================================================
@@ -297,10 +299,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		for (Driver driverCreated : driversCreated)
 		{
-			getDriverProxy().remove( driverCreated.getId() );
-
-			Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-			Assert.assertNull( driverFound );
+			DriverServiceTest.deleteDriver( driverCreated, false );
 		}
 	}
 

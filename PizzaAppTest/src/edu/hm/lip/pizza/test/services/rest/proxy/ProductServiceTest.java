@@ -19,6 +19,52 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 {
 
 	/**
+	 * Legt das übergebene Produkt an.
+	 * 
+	 * @param product
+	 *            Anzulegendes Produkt
+	 * @param log
+	 *            Ausgabe ins Log
+	 * @return Angelegtes Produkt
+	 */
+	protected static Product createProduct( Product product, boolean log )
+	{
+		Product productCreated = getProductProxy().create( product );
+		Assert.assertNotNull( productCreated );
+
+		if (log)
+		{
+			log( ProductServiceTest.class, "Create", productCreated.toString() );
+		}
+
+		Assert.assertNotNull( productCreated.getId() );
+		assertProductEquals( productCreated, product, false );
+
+		return productCreated;
+	}
+
+	/**
+	 * Löscht das übergebene Produkt.
+	 * 
+	 * @param productCreated
+	 *            Zu löschendes Produkt
+	 * @param log
+	 *            Ausgabe ins Log
+	 */
+	protected static void deleteProduct( Product productCreated, boolean log )
+	{
+		getProductProxy().remove( productCreated.getId() );
+
+		if (log)
+		{
+			log( ProductServiceTest.class, "Remove", productCreated.toString() );
+		}
+
+		Product productFound = getProductProxy().find( productCreated.getId() );
+		Assert.assertNull( productFound );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
@@ -30,23 +76,12 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-
-		log( this.getClass(), "Create", productCreated.toString() );
-
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = createProduct( getProduct(), true );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -65,11 +100,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 
 		for (Product product : getProductList())
 		{
-			Product productCreated = getProductProxy().create( product );
-			Assert.assertNotNull( productCreated );
-			Assert.assertNotNull( productCreated.getId() );
-			assertProductEquals( productCreated, product, false );
-
+			Product productCreated = createProduct( product, false );
 			productsCreated.add( productCreated );
 		}
 
@@ -95,10 +126,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		for (Product productCreated : productsCreated)
 		{
-			getProductProxy().remove( productCreated.getId() );
-
-			Product productFound = getProductProxy().find( productCreated.getId() );
-			Assert.assertNull( productFound );
+			deleteProduct( productCreated, false );
 		}
 	}
 
@@ -114,12 +142,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = createProduct( getProduct(), false );
 
 		// ==================================================
 		// Produkt auslesen
@@ -134,10 +157,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -153,11 +173,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// Produkt anlegen
 		// ==================================================
 		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = createProduct( product, false );
 
 		// ==================================================
 		// Produkt aktualisieren
@@ -174,16 +190,12 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 
 		log( this.getClass(), "Update", productUpdated.toString() );
 
-		Assert.assertEquals( productUpdated.getName(), productCreated.getName() );
 		Assert.assertEquals( productUpdated, productCreated );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		deleteProduct( productCreated, false );
 	}
 
 	/**
@@ -198,22 +210,12 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = createProduct( getProduct(), false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		log( this.getClass(), "Remove", productCreated.toString() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		deleteProduct( productCreated, true );
 	}
 
 }

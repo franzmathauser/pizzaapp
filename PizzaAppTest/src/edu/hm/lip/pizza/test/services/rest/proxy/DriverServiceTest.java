@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import edu.hm.lip.pizza.api.object.enumeration.RouteState;
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
+import edu.hm.lip.pizza.api.object.resource.Customer;
 import edu.hm.lip.pizza.api.object.resource.Driver;
 import edu.hm.lip.pizza.api.object.resource.DriverRoute;
 import edu.hm.lip.pizza.api.object.resource.GPSData;
@@ -27,6 +28,52 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 {
 
 	/**
+	 * Legt den übergebenen Fahrer an.
+	 * 
+	 * @param driver
+	 *            Anzulegender Fahrer
+	 * @param log
+	 *            Ausgabe ins Log
+	 * @return Angelegter Fahrer
+	 */
+	protected static Driver createDriver( Driver driver, boolean log )
+	{
+		Driver driverCreated = getDriverProxy().create( driver );
+		Assert.assertNotNull( driverCreated );
+
+		if (log)
+		{
+			log( DriverServiceTest.class, "Create", driverCreated.toString() );
+		}
+
+		Assert.assertNotNull( driverCreated.getId() );
+		assertDriverEquals( driverCreated, driver, false );
+
+		return driverCreated;
+	}
+
+	/**
+	 * Löscht den übergebenen Fahrer.
+	 * 
+	 * @param driverCreated
+	 *            Zu löschender Fahrer
+	 * @param log
+	 *            Ausgabe ins Log
+	 */
+	protected static void deleteDriver( Driver driverCreated, boolean log )
+	{
+		getDriverProxy().remove( driverCreated.getId() );
+
+		if (log)
+		{
+			log( DriverServiceTest.class, "Remove", driverCreated.toString() );
+		}
+
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 * 
 	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
@@ -38,23 +85,12 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-
-		log( this.getClass(), "Create", driverCreated.toString() );
-
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), true );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -73,11 +109,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 
 		for (Driver driver : getDriverList())
 		{
-			Driver driverCreated = getDriverProxy().create( driver );
-			Assert.assertNotNull( driverCreated );
-			Assert.assertNotNull( driverCreated.getId() );
-			assertDriverEquals( driverCreated, driver, false );
-
+			Driver driverCreated = createDriver( driver, false );
 			driversCreated.add( driverCreated );
 		}
 
@@ -103,10 +135,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		for (Driver driverCreated : driversCreated)
 		{
-			getDriverProxy().remove( driverCreated.getId() );
-
-			Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-			Assert.assertNull( driverFound );
+			deleteDriver( driverCreated, false );
 		}
 	}
 
@@ -122,12 +151,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// Fahrer auslesen
@@ -142,10 +166,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -161,11 +182,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// Fahrer anlegen
 		// ==================================================
 		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( driver, false );
 
 		// ==================================================
 		// Fahrer aktualisieren
@@ -177,16 +194,12 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 
 		log( this.getClass(), "Update", driverUpdated.toString() );
 
-		Assert.assertEquals( driverUpdated.getName(), driverCreated.getName() );
 		Assert.assertEquals( driverUpdated, driverCreated );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -201,22 +214,12 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		log( this.getClass(), "Remove", driverCreated.toString() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, true );
 	}
 
 	/**
@@ -228,12 +231,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
@@ -243,15 +241,9 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		for (int i = 0; i < getOrderList().size(); i++)
 		{
 			Order order = getOrderList().get( i );
+			Customer customer = getCustomerList().get( i );
 
-			addOrderLine( order, productCreated );
-			order.setCustomer( getCustomerList().get( i ) );
-
-			Order orderCreated = getOrderProxy().create( order );
-			Assert.assertNotNull( orderCreated );
-			Assert.assertNotNull( orderCreated.getId() );
-			assertOrderEquals( orderCreated, order, false );
-
+			Order orderCreated = OrderServiceTest.createOrder( order, productCreated, customer, false );
 			ordersCreated.add( orderCreated );
 		}
 
@@ -278,12 +270,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// Dem Fahrer Bestellung zuordnen
@@ -338,27 +325,18 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		for (Order orderCreated : ordersCreated)
 		{
-			getOrderProxy().remove( orderCreated.getId() );
-
-			Order orderFound = getOrderProxy().find( orderCreated.getId() );
-			Assert.assertNull( orderFound );
+			OrderServiceTest.deleteOrder( orderCreated, false );
 		}
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -370,24 +348,12 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = OrderServiceTest.createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung aktualisieren
@@ -407,12 +373,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// Dem Fahrer Bestellung zuordnen
@@ -440,26 +401,17 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		OrderServiceTest.deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -471,24 +423,12 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
-		Order order = getOrder();
-		addOrderLine( order, productCreated );
-		order.setCustomer( getCustomer() );
-
-		Order orderCreated = getOrderProxy().create( order );
-		Assert.assertNotNull( orderCreated );
-		Assert.assertNotNull( orderCreated.getId() );
-		assertOrderEquals( orderCreated, order, false );
+		Order orderCreated = OrderServiceTest.createOrder( getOrder(), productCreated, getCustomer(), false );
 
 		// ==================================================
 		// Bestellung aktualisieren
@@ -508,12 +448,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// Dem Fahrer Bestellung zuordnen
@@ -561,26 +496,17 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Bestellung löschen
 		// ==================================================
-		getOrderProxy().remove( orderCreated.getId() );
-
-		Order orderFound = getOrderProxy().find( orderCreated.getId() );
-		Assert.assertNull( orderFound );
+		OrderServiceTest.deleteOrder( orderCreated, false );
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -592,12 +518,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// GPSDaten hinzufügen
@@ -621,10 +542,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 	/**
@@ -636,12 +554,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Produkt anlegen
 		// ==================================================
-		Product product = getProduct();
-
-		Product productCreated = getProductProxy().create( product );
-		Assert.assertNotNull( productCreated );
-		Assert.assertNotNull( productCreated.getId() );
-		assertProductEquals( productCreated, product, false );
+		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
 		// Bestellung anlegen
@@ -650,14 +563,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 
 		for (Order order : getOrderList())
 		{
-			addOrderLine( order, productCreated );
-			order.setCustomer( getCustomer() );
-
-			Order orderCreated = getOrderProxy().create( order );
-			Assert.assertNotNull( orderCreated );
-			Assert.assertNotNull( orderCreated.getId() );
-			assertOrderEquals( orderCreated, order, false );
-
+			Order orderCreated = OrderServiceTest.createOrder( order, productCreated, getCustomer(), false );
 			ordersCreated.add( orderCreated );
 		}
 
@@ -684,12 +590,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		// Fahrer anlegen
 		// ==================================================
-		Driver driver = getDriver();
-
-		Driver driverCreated = getDriverProxy().create( driver );
-		Assert.assertNotNull( driverCreated );
-		Assert.assertNotNull( driverCreated.getId() );
-		assertDriverEquals( driverCreated, driver, false );
+		Driver driverCreated = createDriver( getDriver(), false );
 
 		// ==================================================
 		// Dem Fahrer Bestellung zuordnen
@@ -728,27 +629,18 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		// ==================================================
 		for (Order orderCreated : ordersCreated)
 		{
-			getOrderProxy().remove( orderCreated.getId() );
-
-			Order orderFound = getOrderProxy().find( orderCreated.getId() );
-			Assert.assertNull( orderFound );
+			OrderServiceTest.deleteOrder( orderCreated, false );
 		}
 
 		// ==================================================
 		// Produkt löschen
 		// ==================================================
-		getProductProxy().remove( productCreated.getId() );
-
-		Product productFound = getProductProxy().find( productCreated.getId() );
-		Assert.assertNull( productFound );
+		ProductServiceTest.deleteProduct( productCreated, false );
 
 		// ==================================================
 		// Fahrer löschen
 		// ==================================================
-		getDriverProxy().remove( driverCreated.getId() );
-
-		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
-		Assert.assertNull( driverFound );
+		deleteDriver( driverCreated, false );
 	}
 
 }
