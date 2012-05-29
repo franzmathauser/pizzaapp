@@ -269,19 +269,27 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		// Letzte Positionen auslesen
 		// ==================================================
 		List<GPSData> gpsDataListLastPositions = getGPSDataProxy().findDriversLastPositions();
-		Assert.assertNotNull( gpsDataListFound );
+		Assert.assertNotNull( gpsDataListLastPositions );
 
 		for (GPSData gpsDataLastPosition : gpsDataListLastPositions)
 		{
 			log( this.getClass(), "Find_Dirvers_Last_Positions", gpsDataLastPosition.toString() );
 		}
 
-		Assert.assertTrue( gpsDataListFound.size() >= driversCreated.size() );
+		Assert.assertTrue( gpsDataListLastPositions.size() >= driversCreated.size() );
 		for (GPSData gpsDataLastPosition : gpsDataListLastPositions)
 		{
-			assertContainsGPSData( gpsDataListFound, gpsDataLastPosition, false, false );
-			Assert.assertEquals( gpsDataLastPosition.getLat(), getGPSDataList().get( getGPSDataList().size() - 1 ).getLat() );
-			Assert.assertEquals( gpsDataLastPosition.getLon(), getGPSDataList().get( getGPSDataList().size() - 1 ).getLon() );
+			for (Driver driverCreated : driversCreated)
+			{
+				if (driverCreated.getId().intValue() == gpsDataLastPosition.getDriver().getId().intValue())
+				{
+					Assert.assertEquals( getGPSDataList().get( getGPSDataList().size() - 1 ).getLat(),
+							gpsDataLastPosition.getLat() );
+					Assert.assertEquals( getGPSDataList().get( getGPSDataList().size() - 1 ).getLon(),
+							gpsDataLastPosition.getLon() );
+					break;
+				}
+			}
 		}
 
 		// ==================================================
