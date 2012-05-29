@@ -32,6 +32,6 @@ public final class GPSDataQueryConstants
 	 * Letzte Positionen aller Fahrer.
 	 */
 	public static final String GET_DRIVERS_LAST_POSITIONS_QUERY = "SELECT g AS date FROM EntityGPSData g "
-			+ "WHERE g.driver = :driver ORDER BY g.date DESC";
+			+ "WHERE g.driver = :driver ORDER BY g.date DESC, g.id DESC";
 
 }
