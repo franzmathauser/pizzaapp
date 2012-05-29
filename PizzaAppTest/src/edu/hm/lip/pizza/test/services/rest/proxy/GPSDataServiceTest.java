@@ -134,12 +134,12 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 		assertGPSDataEquals( gpsDataFound, gpsData, true );
 
 		// ==================================================
-		// GPS Datum löschen
+		// Fahrer und GPS Daten löschen
 		// ==================================================
-		getGPSDataProxy().remove( gpsData.getId() );
+		getDriverProxy().remove( driverCreated.getId() );
 
-		gpsDataFound = getGPSDataProxy().find( gpsData.getId() );
-		Assert.assertNull( gpsDataFound );
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
 	}
 
 	/**
@@ -198,6 +198,14 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 
 		GPSData gpsDataFound = getGPSDataProxy().find( gpsData.getId() );
 		Assert.assertNull( gpsDataFound );
+
+		// ==================================================
+		// Fahrer löschen
+		// ==================================================
+		getDriverProxy().remove( driverCreated.getId() );
+
+		Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+		Assert.assertNull( driverFound );
 	}
 
 	/**
@@ -206,7 +214,86 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	@Test
 	public void findDriversLastPositions()
 	{
-		// TODO Implementieren (auch auf Serverseite)
+		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		List<Driver> driversCreated = new ArrayList<Driver>();
+
+		for (Driver driver : getDriverList())
+		{
+			Driver driverCreated = getDriverProxy().create( driver );
+			Assert.assertNotNull( driverCreated );
+			Assert.assertNotNull( driverCreated.getId() );
+			assertDriverEquals( driverCreated, driver, false );
+
+			driversCreated.add( driverCreated );
+		}
+
+		// ==================================================
+		// GPS Datum anlegen
+		// ==================================================
+		List<GPSData> gpsDataListCreated = new ArrayList<GPSData>();
+
+		for (GPSData gpsData : getGPSDataList())
+		{
+			for (Driver driverCreated : driversCreated)
+			{
+				completeGPSData( gpsData, driverCreated );
+				getDriverProxy().createGPSData( driverCreated.getId(), gpsData );
+
+				gpsDataListCreated.add( gpsData );
+
+				try
+				{
+					Thread.sleep( 1000 );
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// ==================================================
+		// GPS Datum auslesen
+		// ==================================================
+		List<GPSData> gpsDataListFound = getGPSDataProxy().findAll();
+		Assert.assertNotNull( gpsDataListFound );
+		Assert.assertTrue( gpsDataListFound.size() >= gpsDataListCreated.size() );
+		for (GPSData gpsDataCreated : gpsDataListCreated)
+		{
+			assertContainsGPSData( gpsDataListFound, gpsDataCreated, false, true );
+		}
+
+		// ==================================================
+		// Letzte Positionen auslesen
+		// ==================================================
+		List<GPSData> gpsDataListLastPositions = getGPSDataProxy().findDriversLastPositions();
+		Assert.assertNotNull( gpsDataListFound );
+
+		for (GPSData gpsDataLastPosition : gpsDataListLastPositions)
+		{
+			log( this.getClass(), "Find_Dirvers_Last_Positions", gpsDataLastPosition.toString() );
+		}
+
+		Assert.assertTrue( gpsDataListFound.size() >= driversCreated.size() );
+		for (GPSData gpsDataLastPosition : gpsDataListLastPositions)
+		{
+			assertContainsGPSData( gpsDataListFound, gpsDataLastPosition, false, false );
+			Assert.assertEquals( gpsDataLastPosition.getLat(), getGPSDataList().get( getGPSDataList().size() - 1 ).getLat() );
+			Assert.assertEquals( gpsDataLastPosition.getLon(), getGPSDataList().get( getGPSDataList().size() - 1 ).getLon() );
+		}
+
+		// ==================================================
+		// Fahrer und GPS Daten löschen
+		// ==================================================
+		for (Driver driverCreated : driversCreated)
+		{
+			getDriverProxy().remove( driverCreated.getId() );
+
+			Driver driverFound = getDriverProxy().find( driverCreated.getId() );
+			Assert.assertNull( driverFound );
+		}
 	}
 
 }

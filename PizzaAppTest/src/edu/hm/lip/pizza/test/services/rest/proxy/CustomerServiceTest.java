@@ -35,6 +35,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
+		updateCustomerCoordinates( customerCreated, customer );
 
 		log( this.getClass(), "Create", customerCreated.toString() );
 
@@ -68,6 +69,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		{
 			Customer customerCreated = getCustomerProxy().create( customer );
 			Assert.assertNotNull( customerCreated );
+			updateCustomerCoordinates( customerCreated, customer );
 			Assert.assertNotNull( customerCreated.getId() );
 			assertCustomerEquals( customerCreated, customer, false );
 
@@ -119,6 +121,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
+		updateCustomerCoordinates( customerCreated, customer );
 		Assert.assertNotNull( customerCreated.getId() );
 		assertCustomerEquals( customerCreated, customer, false );
 
@@ -157,6 +160,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
+		updateCustomerCoordinates( customerCreated, customer );
 		Assert.assertNotNull( customerCreated.getId() );
 		assertCustomerEquals( customerCreated, customer, false );
 
@@ -174,8 +178,6 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		customerCreated.setPhone( customer.getPhone() + "_Updated" );
 		customerCreated.setStreet( customer.getStreet() + "_Updated" );
 		customerCreated.setZipcode( "" + (Integer.parseInt( customer.getZipcode() ) + 10) );
-		customerCreated.setLat( customer.getLat() + "1" );
-		customerCreated.setLon( customer.getLon() + "1" );
 
 		Customer customerUpdated = getCustomerProxy().update( customerCreated.getId(), customerCreated );
 		Assert.assertNotNull( customerUpdated );
@@ -210,6 +212,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		Customer customerCreated = getCustomerProxy().create( customer );
 		Assert.assertNotNull( customerCreated );
+		updateCustomerCoordinates( customerCreated, customer );
 		Assert.assertNotNull( customerCreated.getId() );
 		assertCustomerEquals( customerCreated, customer, false );
 

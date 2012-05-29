@@ -28,6 +28,7 @@ import junit.framework.AssertionFailedError;
 public abstract class AbstractRestServiceTest extends AbstractTest
 {
 
+	// Darf nicht weniger als 5 sein!!!
 	private static final int NUM_LIST_ELEMENTS = 5;
 
 	private static List<Driver> m_drivers = new ArrayList<Driver>();
@@ -61,17 +62,15 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			customer.setId( null );
 			customer.setForename( "TestForname" + i );
 			customer.setLastname( "TestLastname" + i );
-			customer.setCity( "TestCity" + i );
 			customer.setCompany( "TestCompany" + i );
 			customer.setDepartment( "TestDepartment" + i );
 			customer.setEmail( "Test" + i + "@mail.com" );
 			customer.setGender( Gender.MALE );
 			customer.setLevel( "TestLevel" + i );
 			customer.setPhone( "01234567" + i );
-			customer.setStreet( "TestStreet" + i );
-			customer.setZipcode( "1000" + i );
-			customer.setLat( "48." + i );
-			customer.setLon( "11." + i );
+			customer.setLat( null );
+			customer.setLon( null );
+			setAddressFields( customer, i );
 			m_customers.add( customer );
 
 			Product product = new Product();
@@ -107,6 +106,52 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			// muss an entsprechender Stelle richtig gesetzt werden
 			gpsData.setDate( null );
 			m_gpsData.add( gpsData );
+		}
+	}
+
+	private static void setAddressFields( Customer customer, int counter )
+	{
+		if (counter % NUM_LIST_ELEMENTS == 0)
+		{
+			customer.setCity( "München" );
+			customer.setStreet( "Oberbiberger Str. 10" );
+			customer.setZipcode( "81547" );
+		}
+		if (counter % NUM_LIST_ELEMENTS == 1)
+		{
+			customer.setCity( "München" );
+			customer.setStreet( "Adams-Lehmannstr. 16" );
+			customer.setZipcode( "80797" );
+		}
+		if (counter % NUM_LIST_ELEMENTS == 2)
+		{
+			customer.setCity( "München" );
+			customer.setStreet( "Lothstr. 64" );
+			customer.setZipcode( "80335" );
+		}
+		if (counter % NUM_LIST_ELEMENTS == 3)
+		{
+			customer.setCity( "Schliersee" );
+			customer.setStreet( "Schatzelweg 12" );
+			customer.setZipcode( "83727" );
+		}
+		if (counter % NUM_LIST_ELEMENTS == 4)
+		{
+			customer.setCity( "München" );
+			customer.setStreet( "Pestalozzistr. 50" );
+			customer.setZipcode( "80469" );
+		}
+		if (counter % NUM_LIST_ELEMENTS == 5)
+		{
+			customer.setCity( "Seefeld" );
+			customer.setStreet( "Schloßhof 14" );
+			customer.setZipcode( "82229" );
+		}
+		if (counter % NUM_LIST_ELEMENTS == 6)
+		{
+			customer.setCity( "Grünwald" );
+			customer.setStreet( "Tölzerstr. 1" );
+			customer.setZipcode( "82031" );
 		}
 	}
 
@@ -167,6 +212,20 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	{
 		driver.setGpsData( gpsData );
 		driver.setOrders( orders );
+	}
+
+	/**
+	 * Aktualisert die Koordinaten des Kunden.
+	 * 
+	 * @param customerReceived
+	 *            Empfangender Kunde
+	 * @param customerSent
+	 *            Gesendeter Kunde
+	 */
+	protected void updateCustomerCoordinates( Customer customerReceived, Customer customerSent )
+	{
+		customerSent.setLat( customerReceived.getLat() );
+		customerSent.setLon( customerReceived.getLon() );
 	}
 
 	/**
@@ -302,6 +361,8 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 */
 	protected void assertCustomerEquals( Customer customerReceived, Customer customerSent, boolean assertId )
 	{
+		updateCustomerCoordinates( customerReceived, customerSent );
+
 		if (assertId)
 		{
 			Assert.assertEquals( customerReceived.getId(), customerSent.getId() );
