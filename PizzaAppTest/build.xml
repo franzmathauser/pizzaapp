@@ -126,6 +126,7 @@
 			<fileset dir="${src.dir.default}">
 				<include name="**/*.xml" />
 				<include name="**/*.xsd" />
+				<include name="**/*.properties" />
 				<exclude name="META-INF" />
 			</fileset>
 		</jar>

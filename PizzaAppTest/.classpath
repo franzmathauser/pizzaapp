@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="/BasicLibraries/commons/configuration/commons-configuration-1.7.jar"/>
 	<classpathentry kind="lib" path="/BasicLibraries/commons/collections/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="/BasicLibraries/commons/beanutils/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/BasicLibraries/commons/logging/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
