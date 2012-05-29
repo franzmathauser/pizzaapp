@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+
+<configuration>
+	<system />
+	<additional>
+		<properties fileName="${user.home}/pizza_app_user.properties" throwExceptionOnMissing="false" optional="true" />
+		<properties fileName="edu/hm/lip/pizza/test/config/pizza_app_default.properties" />
+	</additional>
+</configuration>

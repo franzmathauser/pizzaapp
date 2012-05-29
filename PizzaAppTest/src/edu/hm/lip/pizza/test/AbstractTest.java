@@ -7,6 +7,8 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 import edu.hm.lip.pizza.api.object.ApiConstants;
+import edu.hm.lip.pizza.test.config.ConfigurationConstants;
+import edu.hm.lip.pizza.test.config.ConfigurationSingleton;
 
 /**
  * Abstrakte Basisklasse für alle JUnit Testklassen.
@@ -21,24 +23,17 @@ public abstract class AbstractTest
 	private static String m_lastLogMethod;
 
 	/**
-	 * Server-Hostname.
-	 */
-	protected static final String HOSTNAME = "localhost";
-
-	/**
-	 * Server-Port.
-	 */
-	protected static final String PORT = "80";
-
-	/**
 	 * Liefert die URL für REST-Calls.
 	 * 
 	 * @return URL
 	 */
 	protected String getRestUrl()
 	{
+		String hostname = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.HOSTNAME );
+		String port = ConfigurationSingleton.getInstance().getString( ConfigurationConstants.PORT );
+
 		StringBuilder sb = new StringBuilder();
-		sb.append( "http://" ).append( HOSTNAME ).append( ":" ).append( PORT );
+		sb.append( "http://" ).append( hostname ).append( ":" ).append( port );
 		return sb.toString();
 	}
 
