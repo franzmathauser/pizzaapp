@@ -30,6 +30,37 @@ public final class OrderStageManager
 	}
 
 	/**
+	 * Gibt den letzten Bestellstatus zurück.
+	 * 
+	 * @return Letzter Bestellstatus
+	 */
+	public static EntityOrderStage lastStage()
+	{
+		return previous( null );
+	}
+
+	/**
+	 * Gibt den aktuellen Bestellstatus basierend auf der übergebenen Liste zurück.
+	 * 
+	 * @param orderStages
+	 *            Liste der vorhandenen Bestellstati
+	 * @return Aktueller Bestellstatus
+	 */
+	public static EntityOrderStage current( List<EntityOrderStage> orderStages )
+	{
+		EntityOrderStage eOrderStage = new EntityOrderStage();
+
+		if (orderStages == null)
+		{
+			eOrderStage.setStage( Stage.ORDERED );
+			return eOrderStage;
+		}
+
+		eOrderStage = orderStages.get( orderStages.size() - 1 );
+		return eOrderStage;
+	}
+
+	/**
 	 * Gibt den nächsten Bestellstatus basierend auf der übergebenen Liste zurück.
 	 * 
 	 * @param orderStages
@@ -71,6 +102,36 @@ public final class OrderStageManager
 				break;
 		}
 
+		return eOrderStage;
+	}
+
+	/**
+	 * Gibt den vorhergehenden Bestellstatus basierend auf der übergebenen Liste zurück.
+	 * 
+	 * @param orderStages
+	 *            Liste der vorhandenen Bestellstati
+	 * @return Vorhergehender Bestellstatus
+	 */
+	public static EntityOrderStage previous( List<EntityOrderStage> orderStages )
+	{
+		EntityOrderStage eOrderStage = new EntityOrderStage();
+		eOrderStage.setCreateDate( new Date() );
+
+		if (orderStages == null)
+		{
+			eOrderStage.setStage( Stage.DELIVERED );
+			return eOrderStage;
+		}
+
+		if (orderStages.size() <= 1)
+		{
+			eOrderStage.setStage( Stage.ORDERED );
+		}
+		else
+		{
+			eOrderStage = orderStages.get( orderStages.size() - 2 );
+		}
+		
 		return eOrderStage;
 	}
 

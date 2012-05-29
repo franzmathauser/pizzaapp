@@ -43,7 +43,7 @@ public class GPSDataService extends AbstractBean implements IGPSDataService
 	@Override
 	public List<GPSData> findDriversLastPositions()
 	{
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub -> Implementieren
 		return null;
 	}
 
@@ -55,8 +55,7 @@ public class GPSDataService extends AbstractBean implements IGPSDataService
 	@Override
 	public GPSData find( int id )
 	{
-		EntityGPSData eGPSData = gpsDataDAOBean.read( id );
-		return GPSDataConverter.convertEntityToServiceGPSData( eGPSData );
+		return GPSDataConverter.convertEntityToServiceGPSData( gpsDataDAOBean.read( id ) );
 	}
 
 	/**

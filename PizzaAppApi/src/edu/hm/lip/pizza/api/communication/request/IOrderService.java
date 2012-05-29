@@ -96,7 +96,7 @@ public interface IOrderService
 	 * @return Bestellung mit neuer Stage
 	 */
 	@POST
-	@Path( "{id}/stages" )
+	@Path( "{id}/stages/next" )
 	Order createNextOrderStage( @PathParam( "id" ) int id );
 
 	/**
@@ -106,8 +106,30 @@ public interface IOrderService
 	 *            Bestellidentifikator
 	 * @return Bestellung mit neuer Stage
 	 */
+	@POST
+	@Path( "{id}/stages/previous" )
+	Order createPreviousOrderStage( @PathParam( "id" ) int id );
+
+	/**
+	 * Führt Bestellung in die nächste Stage über.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 * @return Bestellung mit neuer Stage
+	 */
 	@GET
-	@Path( "{id}/stages" )
+	@Path( "{id}/stages/next" )
 	String getNextOrderStage( @PathParam( "id" ) int id );
+
+	/**
+	 * Führt Bestellung in die nächste Stage über.
+	 * 
+	 * @param id
+	 *            Bestellidentifikator
+	 * @return Bestellung mit neuer Stage
+	 */
+	@GET
+	@Path( "{id}/stages/previous" )
+	String getPreviousOrderStage( @PathParam( "id" ) int id );
 
 }

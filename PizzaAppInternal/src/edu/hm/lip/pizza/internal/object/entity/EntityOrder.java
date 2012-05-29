@@ -56,7 +56,7 @@ public class EntityOrder extends AbstractEntityObject
 	@ManyToOne( fetch = FetchType.LAZY )
 	private EntityDriver driver;
 
-	@OneToMany( mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+	@OneToMany( mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true )
 	private List<EntityOrderStage> stages;
 
 	/**

@@ -251,7 +251,7 @@ function orderLineClickHandler(order_id, order_stage) {
 
 		$.ajax({
 			type : 'POST',
-			url : ordersBaseURL + '/' + order_id + '/stages',
+			url : ordersBaseURL + '/' + order_id + '/stages/next',
 			dataType : "json", // data type of response
 			success : function(data) {
 				$('#order_monitor-' + data.id).attr('fill',

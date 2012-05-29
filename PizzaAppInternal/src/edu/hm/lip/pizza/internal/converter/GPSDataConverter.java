@@ -29,6 +29,11 @@ public final class GPSDataConverter
 	 */
 	public static GPSData convertEntityToServiceGPSData( EntityGPSData eGPSData )
 	{
+		if (eGPSData == null)
+		{
+			return null;
+		}
+		
 		GPSData gpsData = new GPSData();
 
 		gpsData.setId( eGPSData.getId() );
@@ -49,6 +54,11 @@ public final class GPSDataConverter
 	 */
 	public static EntityGPSData convertServiceToEntityGPSData( GPSData gpsData )
 	{
+		if (gpsData == null)
+		{
+			return null;
+		}
+		
 		EntityGPSData eGPSData = new EntityGPSData();
 
 		eGPSData.setId( gpsData.getId() );

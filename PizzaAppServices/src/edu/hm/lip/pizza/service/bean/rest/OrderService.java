@@ -165,9 +165,29 @@ public class OrderService extends AbstractBean implements IOrderService
 		if (nextStage != null)
 		{
 			nextStage.setOrder( eOrder );
-
 			eOrderStages.add( nextStage );
+			orderDAOBean.update( eOrder );
+		}
 
+		return OrderConverter.convertEntityToServiceOrder( eOrder );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#createPreviousOrderStage(int)
+	 */
+	@Override
+	public Order createPreviousOrderStage( int id )
+	{
+		EntityOrder eOrder = orderDAOBean.read( id );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
+
+		EntityOrderStage currentStage = OrderStageManager.current( eOrderStages );
+		if (currentStage != null)
+		{
+			eOrderStages.remove( currentStage );
+			eOrder.setStages( eOrderStages );
 			orderDAOBean.update( eOrder );
 		}
 
@@ -191,6 +211,25 @@ public class OrderService extends AbstractBean implements IOrderService
 			return null;
 		}
 		return "{\"nextStage\": " + nextStage.getStage().name() + "}";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#getPreviousOrderStage(int)
+	 */
+	@Override
+	public String getPreviousOrderStage( int id )
+	{
+		EntityOrder eOrder = orderDAOBean.read( id );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
+		EntityOrderStage previousStage = OrderStageManager.previous( eOrderStages );
+
+		if (previousStage == null)
+		{
+			return null;
+		}
+		return "{\"previousStage\": " + previousStage.getStage().name() + "}";
 	}
 
 }

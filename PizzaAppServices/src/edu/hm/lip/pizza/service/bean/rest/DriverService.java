@@ -9,6 +9,7 @@ import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IDriverService;
 import edu.hm.lip.pizza.api.communication.request.IOrderService;
+import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.api.object.resource.Driver;
 import edu.hm.lip.pizza.api.object.resource.DriverRoute;
 import edu.hm.lip.pizza.api.object.resource.GPSData;
@@ -23,9 +24,11 @@ import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
 import edu.hm.lip.pizza.internal.interceptor.DriverArrivalActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
+import edu.hm.lip.pizza.internal.manager.OrderStageManager;
 import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 import edu.hm.lip.pizza.internal.object.entity.EntityOrder;
+import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
 
 /**
  * REST-Service für die Fahrerdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
@@ -133,13 +136,23 @@ public class DriverService extends AbstractBean implements IDriverService
 	@Override
 	public void addOrder( int id, OrderId orderId )
 	{
-		EntityDriver driver = driverDAO.read( id );
-		EntityOrder order = orderDAO.read( orderId.getId() );
-		order.setDriver( driver );
-		orderDAO.update( order );
+		EntityDriver eDriver = driverDAO.read( id );
+		EntityOrder eOrder = orderDAO.read( orderId.getId() );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
 
-		// set next order stage
-		orderService.createNextOrderStage( orderId.getId() );
+		if (OrderStageManager.current( eOrderStages ).getStage() == Stage.IN_STOVE)
+		{
+			eOrder.setDriver( eDriver );
+			orderDAO.update( eOrder );
+
+			// set next order stage
+			orderService.createNextOrderStage( orderId.getId() );
+		}
+		else
+		{
+			// TODO Fehler melden!
+			return;
+		}
 	}
 
 	/**
@@ -150,7 +163,23 @@ public class DriverService extends AbstractBean implements IDriverService
 	@Override
 	public void removeOrder( int driverId, int orderId )
 	{
-		// TODO Auto-generated method stub
+		EntityDriver eDriver = driverDAO.read( driverId );
+		EntityOrder eOrder = orderDAO.read( orderId );
+		List<EntityOrderStage> eOrderStages = eOrder.getStages();
+
+		if (eOrder.getDriver().equals( eDriver ) && OrderStageManager.current( eOrderStages ).getStage() == Stage.IN_DELIVERY)
+		{
+			eOrder.setDriver( null );
+			orderDAO.update( eOrder );
+
+			// set previous order stage
+			orderService.createPreviousOrderStage( orderId );
+		}
+		else
+		{
+			// TODO Fehler melden!
+			return;
+		}
 	}
 
 	/**
