@@ -56,4 +56,12 @@ public interface IGPSDataDAOLocal
 	 *            Zu entfernendes GPS-Datum
 	 */
 	void delete( EntityGPSData gpsData );
+
+	/**
+	 * Liest die letzten Positionen aller Fahrer aus.
+	 * 
+	 * @return Letzte Positionen der Fahrer.
+	 */
+	List<EntityGPSData> getDriversLastPositions();
+
 }

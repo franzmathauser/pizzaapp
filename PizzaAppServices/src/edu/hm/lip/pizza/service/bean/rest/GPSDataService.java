@@ -43,8 +43,7 @@ public class GPSDataService extends AbstractBean implements IGPSDataService
 	@Override
 	public List<GPSData> findDriversLastPositions()
 	{
-		// TODO Auto-generated method stub -> Implementieren
-		return null;
+		return GPSDataConverter.convertEntityToServiceGPSDataList( gpsDataDAOBean.getDriversLastPositions() );
 	}
 
 	/**

@@ -30,7 +30,10 @@ import edu.hm.lip.pizza.internal.object.query.GPSDataQueryConstants;
  */
 @Entity
 @Table( name = "gps_data" )
-@NamedQueries( { @NamedQuery( name = GPSDataQueryConstants.GET_ALL_GPSDATA, query = GPSDataQueryConstants.GET_ALL_GPSDATA_QUERY ) } )
+@NamedQueries( {
+		@NamedQuery( name = GPSDataQueryConstants.GET_ALL_GPSDATA, query = GPSDataQueryConstants.GET_ALL_GPSDATA_QUERY ),
+		@NamedQuery(	name = GPSDataQueryConstants.GET_DRIVERS_LAST_POSITIONS,
+						query = GPSDataQueryConstants.GET_DRIVERS_LAST_POSITIONS_QUERY ) } )
 public class EntityGPSData extends AbstractEntityObject
 {
 
