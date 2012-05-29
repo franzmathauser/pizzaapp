@@ -15,7 +15,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testCreate()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
 	 */
 	@Override
 	public void testCreate() throws Exception
@@ -27,7 +27,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFindAll()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testFindAll()
 	 */
 	@Test
 	@Override
@@ -82,7 +82,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFind()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testFind()
 	 */
 	@Test
 	@Override
@@ -122,7 +122,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testUpdate()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testUpdate()
 	 */
 	@Override
 	public void testUpdate() throws Exception
@@ -134,7 +134,7 @@ public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testRemove()
 	 */
 	@Test
 	@Override

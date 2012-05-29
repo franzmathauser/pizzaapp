@@ -21,7 +21,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testCreate()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testCreate()
 	 */
 	@Test
 	@Override
@@ -52,7 +52,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFindAll()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testFindAll()
 	 */
 	@Test
 	@Override
@@ -105,7 +105,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testFind()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testFind()
 	 */
 	@Test
 	@Override
@@ -143,7 +143,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testUpdate()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testUpdate()
 	 */
 	@Test
 	@Override
@@ -189,7 +189,7 @@ public class ProductServiceTest extends AbstractRestServiceProxyTest implements 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest#testRemove()
+	 * @see edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions#testRemove()
 	 */
 	@Test
 	@Override
