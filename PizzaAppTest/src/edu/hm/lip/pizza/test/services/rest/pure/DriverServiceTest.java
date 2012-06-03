@@ -192,7 +192,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		log( this.getClass(), "Find", driverFound.toString() );
 
-		Assert.assertEquals( driverFound, driverCreated );
+		Assert.assertEquals( driverCreated, driverFound );
 
 		// ==================================================
 		// Fahrer löschen
@@ -234,7 +234,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		log( this.getClass(), "Update", driverUpdated.toString() );
 
-		Assert.assertEquals( driverUpdated, driverCreated );
+		Assert.assertEquals( driverCreated, driverUpdated );
 
 		// ==================================================
 		// Fahrer löschen
@@ -305,7 +305,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 			Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 			Assert.assertNotNull( orderUpdated );
-			Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+			Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 			orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 			assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -314,7 +314,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 			orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 			Assert.assertNotNull( orderUpdated );
-			Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+			Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 			orderCreated.setCurrentStage( Stage.IN_STOVE );
 			assertOrderEquals( orderUpdated, orderCreated, true );
 		}
@@ -354,7 +354,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		for (Order driverOrderFound : driverOrdersFound)
 		{
-			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+			Assert.assertEquals( Stage.IN_DELIVERY, driverOrderFound.getCurrentStage() );
 		}
 
 		Assert.assertTrue( driverOrdersFound.size() >= ordersCreated.size() - 2 );
@@ -432,7 +432,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -441,7 +441,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -478,7 +478,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		for (Order driverOrderFound : driverOrdersFound)
 		{
-			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+			Assert.assertEquals( Stage.IN_DELIVERY, driverOrderFound.getCurrentStage() );
 		}
 
 		Assert.assertTrue( driverOrdersFound.size() >= 1 );
@@ -530,7 +530,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -539,7 +539,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -573,7 +573,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 		for (Order driverOrderFound : driverOrdersFound)
 		{
-			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+			Assert.assertEquals( Stage.IN_DELIVERY, driverOrderFound.getCurrentStage() );
 		}
 
 		Assert.assertTrue( driverOrdersFound.size() >= 1 );
@@ -716,7 +716,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 			Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 			Assert.assertNotNull( orderUpdated );
-			Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+			Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 			orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 			assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -725,7 +725,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 
 			orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 			Assert.assertNotNull( orderUpdated );
-			Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+			Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 			orderCreated.setCurrentStage( Stage.IN_STOVE );
 			assertOrderEquals( orderUpdated, orderCreated, true );
 		}
@@ -766,7 +766,7 @@ public class DriverServiceTest extends AbstractRestServicePureTest implements IR
 		for (Order driverOrderFound : driverOrdersFound)
 		{
 			log( this.getClass(), "Get_Undelivered_Orders", driverOrderFound.toString() );
-			Assert.assertEquals( driverOrderFound.getCurrentStage(), Stage.IN_DELIVERY );
+			Assert.assertEquals( Stage.IN_DELIVERY, driverOrderFound.getCurrentStage() );
 		}
 
 		Assert.assertTrue( driverOrdersFound.size() >= ordersCreated.size() - 2 );

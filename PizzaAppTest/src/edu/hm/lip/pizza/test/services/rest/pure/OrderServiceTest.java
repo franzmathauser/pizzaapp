@@ -314,7 +314,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -326,7 +326,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -338,7 +338,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -350,7 +350,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Next_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		Assert.assertEquals( Stage.DELIVERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.DELIVERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -394,7 +394,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -403,7 +403,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -412,7 +412,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -421,7 +421,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		Assert.assertEquals( Stage.DELIVERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.DELIVERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -436,7 +436,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -448,7 +448,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -460,7 +460,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -472,7 +472,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Create_Previous_Order_Stage", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.ORDERED );
+		Assert.assertEquals( Stage.ORDERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.ORDERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -516,7 +516,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -525,7 +525,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -534,7 +534,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -546,7 +546,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		log( this.getClass(), "Update_Order_To_Delivered", orderUpdated.toString() );
 
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		Assert.assertEquals( Stage.DELIVERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.DELIVERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -602,7 +602,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 				Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 				Assert.assertNotNull( orderUpdated );
-				Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+				Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 				orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 				assertOrderEquals( orderUpdated, orderCreated, true );
 			}
@@ -614,7 +614,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 				Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 				Assert.assertNotNull( orderUpdated );
-				Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+				Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 				orderCreated.setCurrentStage( Stage.IN_STOVE );
 				assertOrderEquals( orderUpdated, orderCreated, true );
 			}
@@ -626,7 +626,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 				Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 				Assert.assertNotNull( orderUpdated );
-				Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+				Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 				orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 				assertOrderEquals( orderUpdated, orderCreated, true );
 			}
@@ -638,7 +638,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 				Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 				Assert.assertNotNull( orderUpdated );
-				Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+				Assert.assertEquals( Stage.DELIVERED, orderUpdated.getCurrentStage() );
 				orderCreated.setCurrentStage( Stage.DELIVERED );
 				assertOrderEquals( orderUpdated, orderCreated, true );
 			}
@@ -715,7 +715,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -732,7 +732,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -749,7 +749,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -766,7 +766,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		Assert.assertEquals( Stage.DELIVERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.DELIVERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -817,7 +817,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		Order orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -826,7 +826,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -835,7 +835,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -844,7 +844,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.DELIVERED );
+		Assert.assertEquals( Stage.DELIVERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.DELIVERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -864,7 +864,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_DELIVERY );
+		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -881,7 +881,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_STOVE );
+		Assert.assertEquals( Stage.IN_STOVE, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -898,7 +898,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.IN_PREPARATION );
+		Assert.assertEquals( Stage.IN_PREPARATION, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_PREPARATION );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
@@ -915,7 +915,7 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
 		Assert.assertNotNull( orderUpdated );
-		Assert.assertEquals( orderUpdated.getCurrentStage(), Stage.ORDERED );
+		Assert.assertEquals( Stage.ORDERED, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.ORDERED );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 

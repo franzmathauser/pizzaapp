@@ -67,7 +67,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 		{
 			e.printStackTrace();
 		}
-		
+
 		getCustomerProxy().remove( customerCreated.getId() );
 
 		if (log)
@@ -167,7 +167,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		log( this.getClass(), "Find", customerFound.toString() );
 
-		Assert.assertEquals( customerFound, customerCreated );
+		Assert.assertEquals( customerCreated, customerFound );
 
 		// ==================================================
 		// Kunde löschen
@@ -210,7 +210,7 @@ public class CustomerServiceTest extends AbstractRestServiceProxyTest implements
 
 		log( this.getClass(), "Update", customerUpdated.toString() );
 
-		Assert.assertEquals( customerUpdated, customerCreated );
+		Assert.assertEquals( customerCreated, customerUpdated );
 
 		// / ==================================================
 		// Kunde löschen

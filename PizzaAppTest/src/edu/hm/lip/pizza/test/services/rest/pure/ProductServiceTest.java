@@ -183,7 +183,7 @@ public class ProductServiceTest extends AbstractRestServicePureTest implements I
 
 		log( this.getClass(), "Find", productFound.toString() );
 
-		Assert.assertEquals( productFound, productCreated );
+		Assert.assertEquals( productCreated, productFound );
 
 		// ==================================================
 		// Produkt löschen
@@ -230,7 +230,7 @@ public class ProductServiceTest extends AbstractRestServicePureTest implements I
 
 		log( this.getClass(), "Update", productUpdated.toString() );
 
-		Assert.assertEquals( productUpdated, productCreated );
+		Assert.assertEquals( productCreated, productUpdated );
 
 		// ==================================================
 		// Produkt löschen

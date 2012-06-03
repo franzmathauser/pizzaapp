@@ -194,7 +194,7 @@ public class CustomerServiceTest extends AbstractRestServicePureTest implements 
 
 		log( this.getClass(), "Find", customerFound.toString() );
 
-		Assert.assertEquals( customerFound, customerCreated );
+		Assert.assertEquals( customerCreated, customerFound );
 
 		// ==================================================
 		// Kunde löschen
@@ -246,7 +246,7 @@ public class CustomerServiceTest extends AbstractRestServicePureTest implements 
 
 		log( this.getClass(), "Update", customerUpdated.toString() );
 
-		Assert.assertEquals( customerUpdated, customerCreated );
+		Assert.assertEquals( customerCreated, customerUpdated );
 
 		// ==================================================
 		// Kunde löschen

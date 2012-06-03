@@ -342,11 +342,11 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	{
 		if (assertId)
 		{
-			Assert.assertEquals( driverReceived.getId(), driverSent.getId() );
+			Assert.assertEquals( driverSent.getId(), driverReceived.getId() );
 		}
-		Assert.assertEquals( driverReceived.getName(), driverSent.getName() );
-		Assert.assertEquals( driverReceived.getGpsData(), driverSent.getGpsData() );
-		Assert.assertEquals( driverReceived.getOrders(), driverSent.getOrders() );
+		Assert.assertEquals( driverSent.getName(), driverReceived.getName() );
+		Assert.assertEquals( driverSent.getGpsData(), driverReceived.getGpsData() );
+		Assert.assertEquals( driverSent.getOrders(), driverReceived.getOrders() );
 	}
 
 	/**
@@ -365,22 +365,22 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 
 		if (assertId)
 		{
-			Assert.assertEquals( customerReceived.getId(), customerSent.getId() );
+			Assert.assertEquals( customerSent.getId(), customerReceived.getId() );
 		}
-		Assert.assertEquals( customerReceived.getAddressAsString(), customerSent.getAddressAsString() );
-		Assert.assertEquals( customerReceived.getCity(), customerSent.getCity() );
-		Assert.assertEquals( customerReceived.getCompany(), customerSent.getCompany() );
-		Assert.assertEquals( customerReceived.getDepartment(), customerSent.getDepartment() );
-		Assert.assertEquals( customerReceived.getEmail(), customerSent.getEmail() );
-		Assert.assertEquals( customerReceived.getForename(), customerSent.getForename() );
-		Assert.assertEquals( customerReceived.getLastname(), customerSent.getLastname() );
-		Assert.assertEquals( customerReceived.getLat(), customerSent.getLat() );
-		Assert.assertEquals( customerReceived.getLon(), customerSent.getLon() );
-		Assert.assertEquals( customerReceived.getLevel(), customerSent.getLevel() );
-		Assert.assertEquals( customerReceived.getPhone(), customerSent.getPhone() );
-		Assert.assertEquals( customerReceived.getStreet(), customerSent.getStreet() );
-		Assert.assertEquals( customerReceived.getZipcode(), customerSent.getZipcode() );
-		Assert.assertEquals( customerReceived.getGender(), customerSent.getGender() );
+		Assert.assertEquals( customerSent.getAddressAsString(), customerReceived.getAddressAsString() );
+		Assert.assertEquals( customerSent.getCity(), customerReceived.getCity() );
+		Assert.assertEquals( customerSent.getCompany(), customerReceived.getCompany() );
+		Assert.assertEquals( customerSent.getDepartment(), customerReceived.getDepartment() );
+		Assert.assertEquals( customerSent.getEmail(), customerReceived.getEmail() );
+		Assert.assertEquals( customerSent.getForename(), customerReceived.getForename() );
+		Assert.assertEquals( customerSent.getLastname(), customerReceived.getLastname() );
+		Assert.assertEquals( customerSent.getLat(), customerReceived.getLat() );
+		Assert.assertEquals( customerSent.getLon(), customerReceived.getLon() );
+		Assert.assertEquals( customerSent.getLevel(), customerReceived.getLevel() );
+		Assert.assertEquals( customerSent.getPhone(), customerReceived.getPhone() );
+		Assert.assertEquals( customerSent.getStreet(), customerReceived.getStreet() );
+		Assert.assertEquals( customerSent.getZipcode(), customerReceived.getZipcode() );
+		Assert.assertEquals( customerSent.getGender(), customerReceived.getGender() );
 	}
 
 	/**
@@ -388,23 +388,23 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	 * 
 	 * @param productReceived
 	 *            Empfangenes Produkt
-	 * @param productSend
+	 * @param productSent
 	 *            Gesendetes Produkt
 	 * @param assertId
 	 *            ID in Assertion miteinbeziehen
 	 */
-	protected static void assertProductEquals( Product productReceived, Product productSend, boolean assertId )
+	protected static void assertProductEquals( Product productReceived, Product productSent, boolean assertId )
 	{
 		if (assertId)
 		{
-			Assert.assertEquals( productReceived.getId(), productSend.getId() );
+			Assert.assertEquals( productSent.getId(), productReceived.getId() );
 		}
-		Assert.assertEquals( productReceived.getName(), productSend.getName() );
-		Assert.assertEquals( productReceived.getDescription(), productSend.getDescription() );
-		Assert.assertEquals( productReceived.getImageUrl(), productSend.getImageUrl() );
-		Assert.assertEquals( Double.parseDouble( productReceived.getPriceL() ), Double.parseDouble( productSend.getPriceL() ) );
-		Assert.assertEquals( Double.parseDouble( productReceived.getPriceXL() ), Double.parseDouble( productSend.getPriceXL() ) );
-		Assert.assertEquals( Double.parseDouble( productReceived.getPriceXXL() ), Double.parseDouble( productSend.getPriceXXL() ) );
+		Assert.assertEquals( productSent.getName(), productReceived.getName() );
+		Assert.assertEquals( productSent.getDescription(), productReceived.getDescription() );
+		Assert.assertEquals( productSent.getImageUrl(), productReceived.getImageUrl() );
+		Assert.assertEquals( Double.parseDouble( productSent.getPriceL() ), Double.parseDouble( productReceived.getPriceL() ) );
+		Assert.assertEquals( Double.parseDouble( productSent.getPriceXL() ), Double.parseDouble( productReceived.getPriceXL() ) );
+		Assert.assertEquals( Double.parseDouble( productSent.getPriceXXL() ), Double.parseDouble( productReceived.getPriceXXL() ) );
 	}
 
 	/**
@@ -421,13 +421,14 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	{
 		if (assertId)
 		{
-			Assert.assertEquals( orderReceived.getId(), orderSent.getId() );
+			Assert.assertEquals( orderSent.getId(), orderReceived.getId() );
 		}
-		Assert.assertEquals( orderReceived.getNote(), orderSent.getNote() );
-		Assert.assertEquals( orderReceived.getPrice(), orderSent.getPrice() );
-		Assert.assertEquals( orderReceived.getCurrentStage(), orderSent.getCurrentStage() );
+		Assert.assertEquals( orderSent.getNote(), orderReceived.getNote() );
+		Assert.assertEquals( orderSent.getPrice(), orderReceived.getPrice() );
+		Assert.assertEquals( orderSent.getCurrentStage(), orderReceived.getCurrentStage() );
+		Assert.assertEquals( orderSent.getOrderDate().getTime(), orderReceived.getOrderDate().getTime(), 2000L );
+
 		assertCustomerEquals( orderReceived.getCustomer(), orderSent.getCustomer(), false );
-		Assert.assertEquals( orderReceived.getOrderDate().getTime(), orderSent.getOrderDate().getTime(), 2000L );
 		assertOrderLinesEquals( orderReceived.getOrderLines(), orderSent.getOrderLines(), false );
 	}
 
@@ -452,13 +453,14 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			{
 				if (assertId)
 				{
-					Assert.assertEquals( orderReceived.getId(), orderSent.getId() );
+					Assert.assertEquals( orderSent.getId(), orderReceived.getId() );
 				}
-				Assert.assertEquals( orderReceived.getNote(), orderSent.getNote() );
-				Assert.assertEquals( orderReceived.getPrice(), orderSent.getPrice() );
-				Assert.assertEquals( orderReceived.getCurrentStage(), orderSent.getCurrentStage() );
+				Assert.assertEquals( orderSent.getNote(), orderReceived.getNote() );
+				Assert.assertEquals( orderSent.getPrice(), orderReceived.getPrice() );
+				Assert.assertEquals( orderSent.getCurrentStage(), orderReceived.getCurrentStage() );
+				Assert.assertEquals( orderSent.getOrderDate().getTime(), orderReceived.getOrderDate().getTime(), 2000L );
+
 				assertCustomerEquals( orderReceived.getCustomer(), orderSent.getCustomer(), false );
-				Assert.assertEquals( orderReceived.getOrderDate().getTime(), orderSent.getOrderDate().getTime(), 2000L );
 				assertOrderLinesEquals( orderReceived.getOrderLines(), orderSent.getOrderLines(), false );
 
 				contained = true;
@@ -486,7 +488,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	protected static void assertOrderLinesEquals( List<OrderLine> orderLinesReceived, List<OrderLine> orderLinesSent,
 			boolean assertId )
 	{
-		Assert.assertEquals( orderLinesReceived.size(), orderLinesSent.size() );
+		Assert.assertEquals( orderLinesSent.size(), orderLinesReceived.size() );
 
 		for (int i = 0; i < orderLinesSent.size(); i++)
 		{
@@ -508,11 +510,11 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	{
 		if (assertId)
 		{
-			Assert.assertEquals( orderLineReceived.getId(), orderLineSent.getId() );
+			Assert.assertEquals( orderLineSent.getId(), orderLineReceived.getId() );
 		}
-		Assert.assertEquals( orderLineReceived.getProductId(), orderLineSent.getProductId() );
-		Assert.assertEquals( orderLineReceived.getQuantity(), orderLineSent.getQuantity() );
-		Assert.assertEquals( orderLineReceived.getSize(), orderLineSent.getSize() );
+		Assert.assertEquals( orderLineSent.getProductId(), orderLineReceived.getProductId() );
+		Assert.assertEquals( orderLineSent.getQuantity(), orderLineReceived.getQuantity() );
+		Assert.assertEquals( orderLineSent.getSize(), orderLineReceived.getSize() );
 	}
 
 	/**
@@ -529,7 +531,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 		Assert.assertNotNull( receivedString );
 
 		String expectedString = "{\"nextStage\": " + expectedStage.name() + "}";
-		Assert.assertEquals( receivedString, expectedString );
+		Assert.assertEquals( expectedString, receivedString );
 	}
 
 	/**
@@ -546,7 +548,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 		Assert.assertNotNull( receivedString );
 
 		String expectedString = "{\"previousStage\": " + expectedStage.name() + "}";
-		Assert.assertEquals( receivedString, expectedString );
+		Assert.assertEquals( expectedString, receivedString );
 	}
 
 	/**
@@ -563,12 +565,13 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 	{
 		if (assertId)
 		{
-			Assert.assertEquals( gpsDataReceived.getId(), gpsDataSent.getId() );
+			Assert.assertEquals( gpsDataSent.getId(), gpsDataReceived.getId() );
 		}
-		Assert.assertEquals( gpsDataReceived.getLat(), gpsDataSent.getLat() );
-		Assert.assertEquals( gpsDataReceived.getLon(), gpsDataSent.getLon() );
+		Assert.assertEquals( gpsDataSent.getLat(), gpsDataReceived.getLat() );
+		Assert.assertEquals( gpsDataSent.getLon(), gpsDataReceived.getLon() );
+		Assert.assertEquals( gpsDataSent.getDate().getTime(), gpsDataReceived.getDate().getTime(), 2000L );
+
 		assertDriverEquals( gpsDataReceived.getDriver(), gpsDataSent.getDriver(), false );
-		Assert.assertEquals( gpsDataReceived.getDate().getTime(), gpsDataSent.getDate().getTime(), 2000L );
 	}
 
 	/**
@@ -594,12 +597,13 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			{
 				if (assertId)
 				{
-					Assert.assertEquals( gpsDataReceived.getId(), gpsDataSent.getId() );
+					Assert.assertEquals( gpsDataSent.getId(), gpsDataReceived.getId() );
 				}
-				Assert.assertEquals( gpsDataReceived.getLat(), gpsDataSent.getLat() );
-				Assert.assertEquals( gpsDataReceived.getLon(), gpsDataSent.getLon() );
+				Assert.assertEquals( gpsDataSent.getLat(), gpsDataReceived.getLat() );
+				Assert.assertEquals( gpsDataSent.getLon(), gpsDataReceived.getLon() );
+				Assert.assertEquals( gpsDataSent.getDate().getTime(), gpsDataReceived.getDate().getTime(), 2000L );
+
 				assertDriverEquals( gpsDataReceived.getDriver(), gpsDataSent.getDriver(), false );
-				Assert.assertEquals( gpsDataReceived.getDate().getTime(), gpsDataSent.getDate().getTime(), 2000L );
 
 				if (updateId)
 				{
