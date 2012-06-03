@@ -615,7 +615,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 		for (Order driverOrderFound : driverOrdersFound)
 		{
 			log( this.getClass(), "Get_Undelivered_Orders", driverOrderFound.toString() );
-			Assert.assertEquals(Stage.IN_DELIVERY , driverOrderFound.getCurrentStage() );
+			Assert.assertEquals( Stage.IN_DELIVERY, driverOrderFound.getCurrentStage() );
 		}
 
 		Assert.assertTrue( driverOrdersFound.size() >= ordersCreated.size() - 2 );
