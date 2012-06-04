@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tracking_distance_interval_list">
+        <item>@string/tracking_distance_interval_0</item>
+        <item>@string/tracking_distance_interval_10</item>
+        <item>@string/tracking_distance_interval_25</item>
+        <item>@string/tracking_distance_interval_50</item>
+        <item>@string/tracking_distance_interval_100</item>
+    </string-array>
+    <string-array name="tracking_distance_interval_values">
+        <item>0</item>
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+    </string-array>
+    
+    <string-array name="tracking_time_interval_list">
+        <item>@string/tracking_time_interval_0</item>
+        <item>@string/tracking_time_interval_10</item>
+        <item>@string/tracking_time_interval_20</item>
+        <item>@string/tracking_time_interval_30</item>
+        <item>@string/tracking_time_interval_60</item>
+    </string-array>
+    <string-array name="tracking_time_interval_values">
+        <item>0</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+
+</resources>

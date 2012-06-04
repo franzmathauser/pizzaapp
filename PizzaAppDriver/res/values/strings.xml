@@ -46,6 +46,26 @@
     <string name="pref_category_driver_id_title">Name</string>
     <string name="pref_category_driver_id_dialogtitle">Select a Driver</string>
     <string name="pref_category_driver_list_key">driver_list</string>
+    <string name="pref_category_tracking_title">Tracking Interval Configuration</string>
+    <string name="pref_category_tracking_time_interval_key">tracking_time_interval</string>
+    <string name="pref_category_tracking_time_interval_title">Time Interval</string>
+    <string name="pref_category_tracking_time_interval_dialogtitle">Select a Time Interval</string>
+    <string name="pref_category_tracking_distance_interval_key">tracking_distance_interval</string>
+    <string name="pref_category_tracking_distance_interval_title">Distance Interval</string>
+    <string name="pref_category_tracking_distance_interval_dialogtitle">Select a Distance Interval</string>
+
+    <!-- Preferences Lists -->
+
+    <string name="tracking_distance_interval_0">Always</string>
+    <string name="tracking_distance_interval_10">10 Meters</string>
+    <string name="tracking_distance_interval_25">25 Meters</string>
+    <string name="tracking_distance_interval_50">50 Meters</string>
+    <string name="tracking_distance_interval_100">100 Meters</string>
+    <string name="tracking_time_interval_0">Always</string>
+    <string name="tracking_time_interval_10">10 Seconds</string>
+    <string name="tracking_time_interval_20">20 Seconds</string>
+    <string name="tracking_time_interval_30">30 Seconds</string>
+    <string name="tracking_time_interval_60">1 Minute</string>
 
     <!-- Location Provider -->
 

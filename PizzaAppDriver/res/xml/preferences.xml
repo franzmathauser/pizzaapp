@@ -3,20 +3,36 @@
 
     <PreferenceCategory android:title="@string/pref_category_server_title" >
         <EditTextPreference
+            android:dialogTitle="@string/pref_category_server_hostname_dialogtitle"
             android:key="@string/pref_category_server_hostname_key"
-            android:title="@string/pref_category_server_hostname_title"
-            android:dialogTitle="@string/pref_category_server_hostname_dialogtitle" />
+            android:title="@string/pref_category_server_hostname_title" />
         <EditTextPreference
+            android:defaultValue="80"
+            android:dialogTitle="@string/pref_category_server_port_dialogtitle"
             android:key="@string/pref_category_server_port_key"
-            android:title="@string/pref_category_server_port_title"
-            android:dialogTitle="@string/pref_category_server_port_dialogtitle" />
+            android:title="@string/pref_category_server_port_title" />
     </PreferenceCategory>
-    
     <PreferenceCategory android:title="@string/pref_category_driver_title" >
         <ListPreference
+            android:dialogTitle="@string/pref_category_driver_id_dialogtitle"
             android:key="@string/pref_category_driver_id_key"
-            android:title="@string/pref_category_driver_id_title"
-            android:dialogTitle="@string/pref_category_driver_id_dialogtitle" />
+            android:title="@string/pref_category_driver_id_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_tracking_title" >
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/pref_category_tracking_time_interval_dialogtitle"
+            android:entries="@array/tracking_time_interval_list"
+            android:entryValues="@array/tracking_time_interval_values"
+            android:key="@string/pref_category_tracking_time_interval_key"
+            android:title="@string/pref_category_tracking_time_interval_title" />
+        <ListPreference
+            android:defaultValue="25"
+            android:dialogTitle="@string/pref_category_tracking_distance_interval_dialogtitle"
+            android:entries="@array/tracking_distance_interval_list"
+            android:entryValues="@array/tracking_distance_interval_values"
+            android:key="@string/pref_category_tracking_distance_interval_key"
+            android:title="@string/pref_category_tracking_distance_interval_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>
