@@ -25,10 +25,10 @@
     </string-array>
     <string-array name="tracking_time_interval_values">
         <item>0</item>
-        <item>10</item>
-        <item>20</item>
-        <item>30</item>
-        <item>60</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>30000</item>
+        <item>60000</item>
     </string-array>
 
 </resources>
