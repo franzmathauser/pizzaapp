@@ -3,14 +3,15 @@ package edu.hm.lip.pizza.driver.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 
+import edu.hm.lip.pizza.driver.AppConstants;
 import edu.hm.lip.pizza.driver.R;
 
 /**
+ * Diese Klasse repräsentiert die SplahScreen-Activity der Applikation.
+ * 
  * @author Stefan Wörner
  */
 public class SplashScreenActivity extends Activity
@@ -29,18 +30,8 @@ public class SplashScreenActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.splash );
 
-		// View splashScreen = (View) findViewById( R.id.splash );
-
 		final SplashScreenActivity splashScreen = this;
-		
-		View splash = (View) findViewById( R.id.splash_id );
 
-		Animation anim1 = new AlphaAnimation( 0.0f, 1.0f );
-		anim1.setDuration( 2000 );
-
-		splash.startAnimation( anim1 );
-
-		// The thread to wait for splash screen events
 		m_splashThread = new Thread()
 		{
 
@@ -51,21 +42,22 @@ public class SplashScreenActivity extends Activity
 				{
 					synchronized (this)
 					{
-						// Wait given period of time or exit on touch
-						wait( 5000 );
+						wait( AppConstants.SPLASH_SCREEN_VISIBLE_INTERVAL );
 					}
 				}
-				catch (InterruptedException ex)
+				catch (InterruptedException e)
 				{
-					
+					Log.e( this.getClass().getSimpleName(), e.getMessage() );
 				}
 
 				finish();
 
-				// Run next activity
+				// Main Avtivity starten
 				Intent intent = new Intent();
 				intent.setClass( splashScreen, MainActivity.class );
 				startActivity( intent );
+
+				// Thread beenden
 				stop();
 			}
 		};
@@ -76,25 +68,11 @@ public class SplashScreenActivity extends Activity
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see android.app.Activity#onPause()
-	 */
-	@Override
-	protected void onPause()
-	{
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
 	 * @see android.app.Activity#onTouchEvent(android.view.MotionEvent)
 	 */
 	@Override
 	public boolean onTouchEvent( MotionEvent event )
 	{
-		// TODO Auto-generated method stub
-		// return super.onTouchEvent( event );
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
 			synchronized (m_splashThread)
