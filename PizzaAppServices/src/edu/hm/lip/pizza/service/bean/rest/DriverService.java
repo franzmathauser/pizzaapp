@@ -24,6 +24,7 @@ import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
 import edu.hm.lip.pizza.internal.interceptor.DriverArrivalActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
+import edu.hm.lip.pizza.internal.interceptor.LoggingInterceptor;
 import edu.hm.lip.pizza.internal.manager.OrderStageManager;
 import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
@@ -36,6 +37,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityOrderStage;
  * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
+@Interceptors( LoggingInterceptor.class )
 public class DriverService extends AbstractBean implements IDriverService
 {
 

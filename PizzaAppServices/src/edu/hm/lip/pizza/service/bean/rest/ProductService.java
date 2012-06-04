@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IProductService;
 import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IProductDAOLocal;
 import edu.hm.lip.pizza.internal.converter.ProductConverter;
+import edu.hm.lip.pizza.internal.interceptor.LoggingInterceptor;
 import edu.hm.lip.pizza.internal.object.entity.EntityProduct;
 
 /**
@@ -18,6 +20,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityProduct;
  * @author Franz Mathauser
  */
 @Stateless
+@Interceptors( LoggingInterceptor.class )
 public class ProductService extends AbstractBean implements IProductService
 {
 

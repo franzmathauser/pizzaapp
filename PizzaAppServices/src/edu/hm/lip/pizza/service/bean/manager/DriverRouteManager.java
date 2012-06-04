@@ -85,7 +85,7 @@ public class DriverRouteManager implements IDriverRouteManagerLocal
 
 			TspSolver solver = new TspPermutation( matrix, tspPaths );
 			Path path = solver.solve();
-			BasicLogger.logInfo( this.getClass().getName(), "Path: " + path );
+			BasicLogger.logInfo( this.getClass(), "Path: " + path );
 
 			for (Edge edge : path.getEdges())
 			{

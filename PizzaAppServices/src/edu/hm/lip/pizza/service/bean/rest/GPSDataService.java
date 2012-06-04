@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 
 import edu.hm.lip.pizza.api.communication.request.IGPSDataService;
 import edu.hm.lip.pizza.api.object.resource.GPSData;
 import edu.hm.lip.pizza.internal.bean.AbstractBean;
 import edu.hm.lip.pizza.internal.bean.database.IGPSDataDAOLocal;
 import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
+import edu.hm.lip.pizza.internal.interceptor.LoggingInterceptor;
 import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 
 /**
@@ -18,6 +20,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
  * @author Franz Mathauser
  */
 @Stateless
+@Interceptors( LoggingInterceptor.class )
 public class GPSDataService extends AbstractBean implements IGPSDataService
 {
 
