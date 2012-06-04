@@ -8,8 +8,9 @@
 
 <link rel="stylesheet" href="../css/jquery.mobile-1.1.0.min.css" />
 <script src="../js/jquery-1.7.1.min.js"></script>
-<script	src="../js/jquery.mobile-1.1.0.min.js"></script>
-<script	src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+<script src="../js/jquery.mobile-1.1.0.min.js"></script>
+<script
+	src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../js/jquery.metadata.js"></script>
 
@@ -45,6 +46,23 @@ input.error {
 }
 </style>
 
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push([ '_setAccount', 'UA-32391020-1' ]);
+	_gaq.push([ '_trackPageview' ]);
+
+	(function() {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+				: 'http://www')
+				+ '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
 </head>
 <body>
 
@@ -75,7 +93,7 @@ input.error {
 					<!-- 							<h3>Pizza Salami</h3> -->
 					<!-- 							<p>ab 7,30 &euro;</p> -->
 					<!-- 					</a> -->
-<!-- 					</li> -->
+					<!-- 					</li> -->
 				</ul>
 			</div>
 		</div>
@@ -112,13 +130,13 @@ input.error {
 							kommt hier</div>
 						<div style="clear: both;">
 							<fieldset data-role="controlgroup">
-								<input type="radio" name="detail_size" id="size_l" value="l" /> <label
-									for="size_l">L <span id="detail_price_l"></span></label> <input
-									type="radio" name="detail_size" id="size_xl" value="xl"
+								<input type="radio" name="detail_size" id="size_l" value="l" />
+								<label for="size_l">L <span id="detail_price_l"></span></label>
+								<input type="radio" name="detail_size" id="size_xl" value="xl"
 									checked="checked" /> <label for="size_xl">XL <span
-									id="detail_price_xl"></span></label> <input type="radio" name="detail_size"
-									id="size_xxl" value="xxl" /> <label for="size_xxl">XXL
-									<span id="detail_price_xxl"></span>
+									id="detail_price_xl"></span></label> <input type="radio"
+									name="detail_size" id="size_xxl" value="xxl" /> <label
+									for="size_xxl">XXL <span id="detail_price_xxl"></span>
 								</label>
 							</fieldset>
 						</div>
@@ -171,8 +189,9 @@ input.error {
 				</a><a href="#deleteCartItem" data-rel="dialog" data-transition="pop">Artikel
 						l&ouml;schen </a></li>
 
-				<li data-theme="d"><h3 style="text-align: right">Betrag:
-						<span class="order_sum">247,06 &euro;</span></h3></li>
+				<li data-theme="d"><h3 style="text-align: right">
+						Betrag: <span class="order_sum">247,06 &euro;</span>
+					</h3></li>
 			</ul>
 
 		</div>
@@ -187,8 +206,8 @@ input.error {
 		<div data-role="header" data-position="fixed">
 			<a href="#cart" data-icon="back">Zur&uuml;ck</a>
 			<h1>Kundendaten</h1>
-			<a  id="lnk_orderPreview" href="#orderPreview" data-icon="check" data-theme="b"
-				class="ui-btn-right">Weiter</a>
+			<a id="lnk_orderPreview" href="#orderPreview" data-icon="check"
+				data-theme="b" class="ui-btn-right">Weiter</a>
 		</div>
 		<!-- /header -->
 
@@ -205,25 +224,28 @@ input.error {
 				</div>
 				<div data-role="fieldcontain">
 					<label for="lastname">Nachname *</label> <input type="text"
-						name="lastname" id="lastname" value="" data-mini="true" 
-						class="{required:true, messages:{required:'Bitte geben sie einen Nachnamen an.'}}"/>
+						name="lastname" id="lastname" value="" data-mini="true"
+						class="{required:true, messages:{required:'Bitte geben sie einen Nachnamen an.'}}" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="forename">Vorname *</label> <input type="text"
-						name="forename" id="forename" value="" data-mini="true" 
-						class="{required:true, messages:{required:'Bitte geben sie einen Vornamen an.'}}"/>
+						name="forename" id="forename" value="" data-mini="true"
+						class="{required:true, messages:{required:'Bitte geben sie einen Vornamen an.'}}" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="street">Stra&szlig;e *</label> <input type="text"
-						name="street" id="street" value="" data-mini="true" class="{required:true, messages:{required:'Bitte geben sie eine Straße an.'}}" />
+						name="street" id="street" value="" data-mini="true"
+						class="{required:true, messages:{required:'Bitte geben sie eine Straße an.'}}" />
 				</div>
 				<div data-role="fieldcontain">
-					<label for="zipcode">PLZ *</label> <input type="text" name="zipcode"
-						id="zipcode" value="" data-mini="true" class="{required:true, minlength:5, maxlength:5, messages:{required:'Bitte geben sie eine PLZ an.', minlength:'Bitte geben sie eine 5-stellige PLZ an.', maxlength:'Bitte geben sie eine 5-stellige PLZ an.'}}"/>
+					<label for="zipcode">PLZ *</label> <input type="text"
+						name="zipcode" id="zipcode" value="" data-mini="true"
+						class="{required:true, minlength:5, maxlength:5, messages:{required:'Bitte geben sie eine PLZ an.', minlength:'Bitte geben sie eine 5-stellige PLZ an.', maxlength:'Bitte geben sie eine 5-stellige PLZ an.'}}" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="city">Ort *</label> <input type="text" name="city"
-						id="city" value="" data-mini="true" class="{required:true, messages:{required:'Bitte geben sie einen Ort an.'}}"/>
+						id="city" value="" data-mini="true"
+						class="{required:true, messages:{required:'Bitte geben sie einen Ort an.'}}" />
 				</div>
 				<div data-role="fieldcontain">
 					<label for="city">Hinterhof/ Etage</label>
@@ -231,13 +253,15 @@ input.error {
 				</div>
 
 				<div data-role="fieldcontain">
-					<label for="phone">Telefon *</label> <input type="text" name="phone"
-						id="phone" value="" data-mini="true" class="{required:true, messages:{required:'Bitte geben sie ihre Telefonnummer an.'}}"/>
+					<label for="phone">Telefon *</label> <input type="text"
+						name="phone" id="phone" value="" data-mini="true"
+						class="{required:true, messages:{required:'Bitte geben sie ihre Telefonnummer an.'}}" />
 				</div>
 
 				<div data-role="fieldcontain">
 					<label for="email">E-Mail *</label> <input type="text" name="email"
-						id="email" value="" data-mini="true" class="{required:true, email:true, messages:{required:'Bitte geben sie eine Emailadresse an.', email:'Bitte geben sie eine gültige Emailadresse an.'}}" />
+						id="email" value="" data-mini="true"
+						class="{required:true, email:true, messages:{required:'Bitte geben sie eine Emailadresse an.', email:'Bitte geben sie eine gültige Emailadresse an.'}}" />
 				</div>
 
 				<div data-role="fieldcontain">
@@ -270,7 +294,7 @@ input.error {
 		<div data-role="content" data-theme="2">
 
 			<ul id="previewProductList" data-role="listview">
-<!-- 				<li id="orders-divider" data-role="list-divider">Bestellung</li> -->
+				<!-- 				<li id="orders-divider" data-role="list-divider">Bestellung</li> -->
 				<li class="orderedProducts"><img
 					src="http://www.kenbersupplies.com/product/XDURS2011-03-10/no_image_icon2_150.gif"
 					style="width: 84px; height: 84px;" />
@@ -281,8 +305,9 @@ input.error {
 					style="width: 84px; height: 84px;" />
 					<h3>Pizza Salami</h3>
 					<p>Preis 123,58 &euro;</p></li>
-				<li data-theme="d"><h3 style="text-align: right">Betrag:
-						<span class="order_sum">247,06 &euro;</span></h3></li>
+				<li data-theme="d"><h3 style="text-align: right">
+						Betrag: <span class="order_sum">247,06 &euro;</span>
+					</h3></li>
 				<li data-role="list-divider">Kundendaten</li>
 			</ul>
 
@@ -342,9 +367,8 @@ input.error {
 			<p>
 			<fieldset class="ui-grid-a">
 				<div class="ui-block-a">
-					<a href="#" data-rel="back" data-role="button"
-						data-icon="delete" data-inline="true" data-icon="back"
-						data-theme="b">Nein</a>
+					<a href="#" data-rel="back" data-role="button" data-icon="delete"
+						data-inline="true" data-icon="back" data-theme="b">Nein</a>
 				</div>
 				<div class="ui-block-b">
 					<a href="#cart" id="add_to_cart" data-role="button"
@@ -371,13 +395,14 @@ input.error {
 		<div data-role="content">
 			<h2>Artikel aus Warenkorb entfernen?</h2>
 			<p>Wollen sie wirklich diesen Artikel entfernen?</p>
-			<br />
-			<input type="text" id="del_row" name="del_row" readonly="readonly" style="display: none;"/>
-			
+			<br /> <input type="text" id="del_row" name="del_row"
+				readonly="readonly" style="display: none;" />
+
 			<fieldset class="ui-grid-a">
 				<div class="ui-block-a">
-					<a id="confirm_deleteCartItem" href="#cart" data-role="button" data-icon="check"
-						data-inline="true" data-theme="b">Raus damit!</a>
+					<a id="confirm_deleteCartItem" href="#cart" data-role="button"
+						data-icon="check" data-inline="true" data-theme="b">Raus
+						damit!</a>
 				</div>
 				<div class="ui-block-b">
 					<a href="#cart" data-role="button" data-icon="delete"
@@ -388,8 +413,8 @@ input.error {
 		<!-- /content -->
 	</div>
 	<!-- /page popup -->
-	
-	
+
+
 	<div data-role="page" id="order_error" data-theme="e">
 
 		<div data-role="header">
@@ -399,9 +424,9 @@ input.error {
 
 		<div data-role="content">
 			<h2>Fehler</h2>
-			<p>Es ist ein Fehler bei der übermittlung der Daten aufgetreten, bitte überprüfen sie ihre Daten und versuchen es nochmal.</p>
-			<br />
-			<a href="#" data-role="button" data-rel="back" data-theme="c">Zur&uuml;ck</a>
+			<p>Es ist ein Fehler bei der übermittlung der Daten aufgetreten,
+				bitte überprüfen sie ihre Daten und versuchen es nochmal.</p>
+			<br /> <a href="#" data-role="button" data-rel="back" data-theme="c">Zur&uuml;ck</a>
 
 		</div>
 		<!-- /content -->
@@ -409,8 +434,10 @@ input.error {
 	<!-- /page popup -->
 
 
-<a id='lnk_orderError' href="#order_error" data-rel="dialog" data-transition="pop" style='display:none;'></a>
-<a id='lnk_orderSuccess' href="#ordered" data-rel="page" style='display:none;'></a>
+	<a id='lnk_orderError' href="#order_error" data-rel="dialog"
+		data-transition="pop" style='display: none;'></a>
+	<a id='lnk_orderSuccess' href="#ordered" data-rel="page"
+		style='display: none;'></a>
 
 </body>
 </html>
