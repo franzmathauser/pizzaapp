@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.tsp.common.permutation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.hm.lip.pizza.tsp.domain.Edge;
@@ -32,8 +33,17 @@ public class AddOriginAsReturnpoint extends AbstractPermutationDecorator
 	@Override
 	public List<Path> permute( List<Edge> edges )
 	{
-		edges.add( edges.get( 0 ) );
-		return super.permute( edges );
+
+		List<Path> permutationPaths = super.permute( edges );
+		List<Path> returnPermutations = new ArrayList<Path>();
+
+		for (Path path : permutationPaths)
+		{
+			path.addEdge( path.getEdge( 0 ) );
+			returnPermutations.add( path );
+		}
+
+		return returnPermutations;
 	}
 
 }

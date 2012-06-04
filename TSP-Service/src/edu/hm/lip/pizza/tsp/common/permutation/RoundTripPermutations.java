@@ -7,7 +7,7 @@ import edu.hm.lip.pizza.tsp.domain.Edge;
 import edu.hm.lip.pizza.tsp.domain.Path;
 
 /**
- * Fügt die Erste Adresse an das Ende der Liste hinzu.
+ * Filtert alle Permutationen, die nicht das gleiche Objekt am Anfang und Ende des Pfades haben.
  * 
  * @author Franz Mathauser
  */
@@ -38,13 +38,11 @@ public class RoundTripPermutations extends AbstractPermutationDecorator
 
 		for (Path path : permutationPaths)
 		{
-			if (path.getEdge( 0 ).equals( edges.get( 0 ) )
-					&& path.getEdge( path.size() - 1 ).equals( edges.get( path.size() - 1 ) ))
+			if (path.getEdge( 0 ).equals( edges.get( 0 ) ) && path.getEdge( 0 ).equals( path.getEdge( path.size() - 1 ) ))
 			{
 				returnPermutations.add( path );
 			}
 		}
 		return returnPermutations;
 	}
-
 }
