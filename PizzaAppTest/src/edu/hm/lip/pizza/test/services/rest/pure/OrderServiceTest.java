@@ -658,11 +658,9 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 			log( this.getClass(), "Get_Undelivered_Orders", orderFound.toString() );
 		}
 
-		Assert.assertTrue( ordersFound.size() >= ordersCreated.size() - 3 );
-		for (Order orderFound : ordersFound)
-		{
-			assertContainsOrder( ordersCreated, orderFound, true );
-		}
+		Assert.assertTrue( ordersFound.size() >= 2 );
+		assertContainsOrder( ordersFound, ordersCreated.get( ordersCreated.size() - 2 ), true );
+		assertContainsOrder( ordersFound, ordersCreated.get( ordersCreated.size() - 1 ), true );
 
 		// ==================================================
 		// Bestellung löschen
