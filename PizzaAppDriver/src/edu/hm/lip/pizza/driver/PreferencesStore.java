@@ -295,8 +295,9 @@ public final class PreferencesStore
 	 */
 	public static Integer getTrackingDistanceIntervalPreference()
 	{
-		return getPreferences().getInt(
-				DriverApp.getAppContext().getString( R.string.pref_category_tracking_distance_interval_key ), 25 );
+		String interval = getPreferences().getString(
+				DriverApp.getAppContext().getString( R.string.pref_category_tracking_distance_interval_key ), "25" );
+		return Integer.parseInt( interval );
 	}
 
 	/**
@@ -307,8 +308,8 @@ public final class PreferencesStore
 	 */
 	public static void setTrackingDistanceIntervalPreference( Integer trackingDistanceIntervalPreference )
 	{
-		setPrefernces( DriverApp.getAppContext().getString( R.string.pref_category_tracking_distance_interval_key ),
-				trackingDistanceIntervalPreference );
+		setPrefernces( DriverApp.getAppContext().getString( R.string.pref_category_tracking_distance_interval_key ), ""
+				+ trackingDistanceIntervalPreference.intValue() );
 	}
 
 	/**
@@ -316,9 +317,11 @@ public final class PreferencesStore
 	 * 
 	 * @return TrackingTimeInterval Preference
 	 */
-	public static Integer getTrackingTimeIntervalPreference()
+	public static Long getTrackingTimeIntervalPreference()
 	{
-		return getPreferences().getInt( DriverApp.getAppContext().getString( R.string.pref_category_driver_id_key ), 0 );
+		String interval = getPreferences().getString(
+				DriverApp.getAppContext().getString( R.string.pref_category_tracking_time_interval_key ), "0" );
+		return Long.parseLong( interval );
 	}
 
 	/**
@@ -327,10 +330,10 @@ public final class PreferencesStore
 	 * @param trackingTimeIntervalPreference
 	 *            Zu setzender Wert für die TrackingTimeInterval Preference
 	 */
-	public static void setTrackingTimeIntervalPreference( Integer trackingTimeIntervalPreference )
+	public static void setTrackingTimeIntervalPreference( Long trackingTimeIntervalPreference )
 	{
-		setPrefernces( DriverApp.getAppContext().getString( R.string.pref_category_driver_id_key ),
-				trackingTimeIntervalPreference );
+		setPrefernces( DriverApp.getAppContext().getString( R.string.pref_category_tracking_time_interval_key ), ""
+				+ trackingTimeIntervalPreference.longValue() );
 	}
 
 }

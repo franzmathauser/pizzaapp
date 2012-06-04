@@ -15,7 +15,6 @@ import android.location.LocationManager;
 import android.provider.Settings;
 import android.util.Log;
 
-import edu.hm.lip.pizza.driver.AppConstants;
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.listener.DriverLocationListener;
@@ -104,10 +103,11 @@ public final class LocationProviderManager
 		{
 			if (!m_locationListeners.contains( m_gpsLocationListener ))
 			{
+				// TODO Auf Preference Änderungen registrieren
 				// LocationListener für Updates über den GPS Provider registrieren
 				m_locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
-						AppConstants.LOCATION_NOTIFICATION_MIN_TIME, AppConstants.LOCATION_NOTIFICATION_MIN_DISTANCE,
-						m_gpsLocationListener );
+						PreferencesStore.getTrackingTimeIntervalPreference(),
+						PreferencesStore.getTrackingDistanceIntervalPreference(), m_gpsLocationListener );
 				Log.d( LocationProviderManager.class.getSimpleName(), "using " + LocationManager.GPS_PROVIDER
 						+ " provider for tracking" );
 
@@ -118,10 +118,11 @@ public final class LocationProviderManager
 
 			if (!m_locationListeners.contains( m_networkLocationListener ))
 			{
+				// TODO Auf Preference Änderungen registrieren
 				// LocationListener für Updates über den NETWORK Provider registrieren
 				m_locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,
-						AppConstants.LOCATION_NOTIFICATION_MIN_TIME, AppConstants.LOCATION_NOTIFICATION_MIN_DISTANCE,
-						m_networkLocationListener );
+						PreferencesStore.getTrackingTimeIntervalPreference(),
+						PreferencesStore.getTrackingDistanceIntervalPreference(), m_networkLocationListener );
 				Log.d( LocationProviderManager.class.getSimpleName(), "using " + LocationManager.NETWORK_PROVIDER
 						+ " provider for tracking" );
 

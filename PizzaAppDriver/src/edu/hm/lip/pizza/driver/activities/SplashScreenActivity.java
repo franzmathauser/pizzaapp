@@ -56,9 +56,6 @@ public class SplashScreenActivity extends Activity
 				Intent intent = new Intent();
 				intent.setClass( splashScreen, MainActivity.class );
 				startActivity( intent );
-
-				// Thread beenden
-				stop();
 			}
 		};
 
