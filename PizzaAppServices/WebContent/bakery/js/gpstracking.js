@@ -32,14 +32,15 @@ function driverLocationTopic(driverLocation) {
 	for ( var key in driver_obj) {
 		bounds.extend(driver_obj[key].getPosition());
 	}
+	
 
+	map.fitBounds(bounds);
+	
 	// set maximal zoom level to 17
 	var listener = google.maps.event.addListener(map, "idle", function() {
 		if (map.getZoom() > 17)
 			map.setZoom(17);
 		google.maps.event.removeListener(listener);
 	});
-
-	map.fitBounds(bounds);
 
 }
