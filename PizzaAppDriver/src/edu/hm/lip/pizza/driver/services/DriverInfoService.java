@@ -86,7 +86,6 @@ public class DriverInfoService extends IntentService
 			catch (HostnameNotSetException e)
 			{
 				String message = getString( R.string.service_hostname_not_set_message );
-				// postMessageToUI( message );
 				notifyTransactionDone( false, message );
 
 				Log.e( this.getClass().getSimpleName(), e.getMessage() );
@@ -97,7 +96,6 @@ public class DriverInfoService extends IntentService
 				String localizedMsg = getString( R.string.service_illegal_statuscode_message );
 				String msgSubstitutions = e.getStatusCode() + " " + e.getReasonPhrase();
 				String message = String.format( localizedMsg, msgSubstitutions );
-				// postMessageToUI( message );
 				notifyTransactionDone( false, message );
 
 				Log.e( this.getClass().getSimpleName(), e.getMessage() );
@@ -106,7 +104,6 @@ public class DriverInfoService extends IntentService
 			catch (IOException e)
 			{
 				final String message = getString( R.string.service_connection_failed_message );
-				// postMessageToUI( message );
 				notifyTransactionDone( false, message );
 
 				Log.e( this.getClass().getSimpleName(), e.getMessage() );
