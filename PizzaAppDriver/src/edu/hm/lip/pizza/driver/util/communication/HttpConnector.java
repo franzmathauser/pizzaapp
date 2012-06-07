@@ -84,7 +84,7 @@ public final class HttpConnector
 			sb.append( " - expected: 200" );
 
 			// TODO 200er Statuscodes prüfen
-			Log.w( HttpConnector.class.getName(), sb.toString() );
+			Log.w( HttpConnector.class.getSimpleName(), sb.toString() );
 		}
 	}
 
