@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.services;
+package edu.hm.lip.pizza.driver.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,9 +13,10 @@ import android.util.Log;
 
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.exceptions.HostnameNotSetException;
-import edu.hm.lip.pizza.driver.exceptions.HttpStatusCodeException;
-import edu.hm.lip.pizza.driver.objects.resources.Driver;
+import edu.hm.lip.pizza.driver.exception.HostnameNotSetException;
+import edu.hm.lip.pizza.driver.exception.HttpStatusCodeException;
+import edu.hm.lip.pizza.driver.objects.resource.Driver;
+import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
 import edu.hm.lip.pizza.driver.util.communication.HttpConnector;
 import edu.hm.lip.pizza.driver.util.communication.JsonMapper;
 
@@ -31,21 +32,6 @@ public class DriverInfoService extends IntentService
 	 * Broadcast-Konstante für die TRANSACTION_DONE Action des DriverInfo Service.
 	 */
 	public static final String TRANSACTION_DONE = DriverInfoService.class.getName() + ".TRANSACTION_DONE";
-
-	/**
-	 * Extra-Konstante für das Successful-Flag.
-	 */
-	public static final String SUCCESSFUL_EXTRA = "successful";
-
-	/**
-	 * Extra-Konstante für das Refresh-Flag.
-	 */
-	public static final String REFRESH_EXTRA = "refresh";
-
-	/**
-	 * Extra-Konstante für Fehlermeldungen.
-	 */
-	public static final String ERROR_MSG_EXTRA = "error_message";
 
 	private static final Object SERVICE_LOCK = new Object();
 
@@ -88,13 +74,13 @@ public class DriverInfoService extends IntentService
 				else
 				{
 					// Keine Fahrer gefunden
-					String localizedMsg = getString( R.string.service_no_driver_available );
+					String localizedMsg = getString( R.string.service_driverinfo_no_driver_available );
 					notifyTransactionDone( false, localizedMsg );
 				}
 			}
 			catch (HostnameNotSetException e)
 			{
-				String message = getString( R.string.service_hostname_not_set_message );
+				String message = getString( R.string.service_driverinfo_hostname_not_set_message );
 				notifyTransactionDone( false, message );
 
 				Log.e( this.getClass().getSimpleName(), e.getMessage() );
@@ -102,7 +88,7 @@ public class DriverInfoService extends IntentService
 			}
 			catch (HttpStatusCodeException e)
 			{
-				String localizedMsg = getString( R.string.service_illegal_statuscode_message );
+				String localizedMsg = getString( R.string.service_driverinfo_illegal_statuscode_message );
 				String msgSubstitutions = e.getStatusCode() + " " + e.getReasonPhrase();
 				String message = String.format( localizedMsg, msgSubstitutions );
 				notifyTransactionDone( false, message );
@@ -112,7 +98,7 @@ public class DriverInfoService extends IntentService
 			}
 			catch (IOException e)
 			{
-				final String message = getString( R.string.service_connection_failed_message );
+				String message = getString( R.string.service_driverinfo_connection_failed_message );
 				notifyTransactionDone( false, message );
 
 				Log.e( this.getClass().getSimpleName(), e.getMessage() );
@@ -173,9 +159,9 @@ public class DriverInfoService extends IntentService
 	private void notifyTransactionDone( boolean successful, boolean refresh, String errorMsg )
 	{
 		Intent intent = new Intent( TRANSACTION_DONE );
-		intent.putExtra( SUCCESSFUL_EXTRA, successful );
-		intent.putExtra( REFRESH_EXTRA, refresh );
-		intent.putExtra( ERROR_MSG_EXTRA, errorMsg );
+		intent.putExtra( ExtraConstants.SUCCESSFUL_EXTRA, successful );
+		intent.putExtra( ExtraConstants.REFRESH_EXTRA, refresh );
+		intent.putExtra( ExtraConstants.ERROR_MSG_EXTRA, errorMsg );
 		sendBroadcast( intent );
 	}
 

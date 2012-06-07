@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.exceptions;
+package edu.hm.lip.pizza.driver.exception;
 
 /**
  * Exception zeigt an, dass der Hostname für die Serververbindung nicht gesetzt ist.

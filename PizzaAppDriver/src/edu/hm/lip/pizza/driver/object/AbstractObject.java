@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.objects;
+package edu.hm.lip.pizza.driver.object;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.activities;
+package edu.hm.lip.pizza.driver.activity;
 
 import java.util.List;
 
@@ -23,8 +23,9 @@ import android.preference.PreferenceCategory;
 import edu.hm.lip.pizza.driver.PreferencesConstants;
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.objects.resources.Driver;
-import edu.hm.lip.pizza.driver.services.DriverInfoService;
+import edu.hm.lip.pizza.driver.objects.resource.Driver;
+import edu.hm.lip.pizza.driver.service.DriverInfoService;
+import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
 
 /**
  * Diese Klasse repräsentiert die Einstellungs-Activity der Applikation.
@@ -221,12 +222,12 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 			}
 
 			// Status auslesen
-			boolean successful = intent.getBooleanExtra( DriverInfoService.SUCCESSFUL_EXTRA, false );
+			boolean successful = intent.getBooleanExtra( ExtraConstants.SUCCESSFUL_EXTRA, false );
 
 			if (successful)
 			{
 				// Auslesen ob Ansicht aktualisiert werden muss
-				boolean refresh = intent.getBooleanExtra( DriverInfoService.REFRESH_EXTRA, false );
+				boolean refresh = intent.getBooleanExtra( ExtraConstants.REFRESH_EXTRA, false );
 
 				if (refresh)
 				{
@@ -245,7 +246,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 				m_driverInfoProgressDialog.dismiss();
 
 				// Fehlermeldung auslesen
-				String message = intent.getStringExtra( DriverInfoService.ERROR_MSG_EXTRA );
+				String message = intent.getStringExtra( ExtraConstants.ERROR_MSG_EXTRA );
 				// Fehlermeldung anzeigen
 				showErrorDialog( message );
 			}

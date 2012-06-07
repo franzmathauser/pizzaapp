@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.services;
+package edu.hm.lip.pizza.driver.service;
 
 import android.app.IntentService;
 import android.content.Intent;

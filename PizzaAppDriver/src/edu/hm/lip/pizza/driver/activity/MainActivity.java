@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.activities;
+package edu.hm.lip.pizza.driver.activity;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -7,7 +7,12 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
@@ -22,6 +27,8 @@ import android.widget.Toast;
 import edu.hm.lip.pizza.driver.PreferencesConstants;
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
+import edu.hm.lip.pizza.driver.service.DriverLocationService;
+import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
 import edu.hm.lip.pizza.driver.util.location.LastLocationFinder;
 import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
 import edu.hm.lip.pizza.driver.util.location.LocationProviderManager;
@@ -101,6 +108,9 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		// Deregistrieren des PreferenceChangeListeners
 		getSharedPreferences( PreferencesConstants.FILENAME, Activity.MODE_PRIVATE ).unregisterOnSharedPreferenceChangeListener(
 				this );
+
+		// BroadcastReceiver für DriverLocation Service deregistrieren
+		unregisterReceiver( m_driverLocationReceiver );
 	}
 
 	/**
@@ -116,11 +126,25 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		// Alle benötigten LocationListener registrieren
 		LocationProviderManager.getInstance( this, m_mapView ).registerLocationListener();
 
+		if (PreferencesStore.getTrackMePreference())
+		{
+			// BroadcastReceiver für DriverLocation Service registrieren
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction( DriverLocationService.TRANSACTION_DONE );
+			registerReceiver( m_driverLocationReceiver, intentFilter );
+		}
+
 		// Letzte bekannte Position auslesen
 		Location lastLocation = LastLocationFinder.getInstance( this ).getLastLocation();
 
 		// Letzte bekannte Position zeichnen lassen
 		LocationDrawer.getInstance( this, m_mapView ).updateCurrentLocation( lastLocation, true );
+
+		// Letzte bekannte Position an Server senden
+		Intent intent = new Intent( this, DriverLocationService.class );
+		intent.putExtra( ExtraConstants.EXTRA_LATITUDE, lastLocation.getLatitude() );
+		intent.putExtra( ExtraConstants.EXTRA_LONGITUDE, lastLocation.getLongitude() );
+		startService( intent );
 
 		// Bildschirmschoner solange die Activity aktiv ist ausschalten (Gilt nur für diese Activity!!)
 		getWindow().addFlags( LayoutParams.FLAG_KEEP_SCREEN_ON );
@@ -308,10 +332,18 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 				if (cb.isChecked())
 				{
 					LocationProviderManager.getInstance( this, m_mapView ).registerLocationListener();
+
+					// BroadcastReceiver für DriverLocation Service registrieren
+					IntentFilter intentFilter = new IntentFilter();
+					intentFilter.addAction( DriverLocationService.TRANSACTION_DONE );
+					registerReceiver( m_driverLocationReceiver, intentFilter );
 				}
 				else
 				{
 					LocationProviderManager.getInstance( this, m_mapView ).unregisterLocationListener();
+
+					// BroadcastReceiver für DriverLocation Service deregistrieren
+					unregisterReceiver( m_driverLocationReceiver );
 				}
 				break;
 
@@ -369,6 +401,60 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 			LocationProviderManager.getInstance( this, m_mapView ).unregisterLocationListener();
 			LocationProviderManager.getInstance( this, m_mapView ).registerLocationListener();
 		}
+	}
+
+	private BroadcastReceiver m_driverLocationReceiver = new BroadcastReceiver()
+	{
+
+		@Override
+		public void onReceive( Context context, Intent intent )
+		{
+			if (intent == null)
+			{
+				return;
+			}
+
+			// Status auslesen
+			boolean successful = intent.getBooleanExtra( ExtraConstants.SUCCESSFUL_EXTRA, false );
+
+			if (successful)
+			{
+				return;
+			}
+			else
+			{
+				// Tracking ausschalten
+				PreferencesStore.setTrackMePreference( Boolean.FALSE );
+				((CheckBox) findViewById( R.id.mapbehavior_content_trackme_id )).setChecked( Boolean.FALSE );
+				// Locationlistener deregistrieren
+				LocationProviderManager.getInstance( MainActivity.this, m_mapView ).unregisterLocationListener();
+				// BroadcastReceiver für DriverLocation Service deregistrieren
+				unregisterReceiver( m_driverLocationReceiver );
+
+				// Fehlermeldung auslesen
+				String message = intent.getStringExtra( ExtraConstants.ERROR_MSG_EXTRA );
+				// Fehlermeldung anzeigen
+				showErrorDialog( message );
+			}
+		}
+	};
+
+	private void showErrorDialog( String message )
+	{
+		// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+		builder.setMessage( message ).setCancelable( false );
+		builder.setPositiveButton( R.string.service_errordialog_bt_ok, new DialogInterface.OnClickListener()
+		{
+
+			public void onClick( DialogInterface dialog, int id )
+			{
+				// Wenn OK Button geklickt wird, Dialog schließen
+				dialog.cancel();
+			}
+		} );
+		// Hinweisdialog anzeigen
+		builder.create().show();
 	}
 
 }

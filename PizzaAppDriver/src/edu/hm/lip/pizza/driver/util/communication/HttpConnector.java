@@ -15,8 +15,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 
 import edu.hm.lip.pizza.driver.PreferencesStore;
-import edu.hm.lip.pizza.driver.exceptions.HostnameNotSetException;
-import edu.hm.lip.pizza.driver.exceptions.HttpStatusCodeException;
+import edu.hm.lip.pizza.driver.exception.HostnameNotSetException;
+import edu.hm.lip.pizza.driver.exception.HttpStatusCodeException;
 
 /**
  * Utility-Klasse um Verbindungen zum Server aufzubauen und Requests abzusetzen.

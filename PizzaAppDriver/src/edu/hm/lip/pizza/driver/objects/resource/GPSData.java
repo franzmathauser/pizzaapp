@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.objects.resources;
+package edu.hm.lip.pizza.driver.objects.resource;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -8,95 +8,95 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import edu.hm.lip.pizza.driver.objects.AbstractObject;
+import edu.hm.lip.pizza.driver.object.AbstractObject;
 
 /**
- * Ressource für einen Fahrer.
+ * Resource für die GPS-Daten eines Fahrers.
  * 
  * @author Stefan Wörner
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class Driver extends AbstractObject
+public class GPSData extends AbstractObject
 {
 
-	private static final long serialVersionUID = -154321901389993649L;
+	private static final long serialVersionUID = 2633414796396252187L;
 
-	private Integer m_id;
+	private Double m_lat;
 
-	private String m_name;
-
-	/**
-	 * Konstruktor.
-	 */
-	public Driver()
-	{
-
-	}
+	private Double m_lon;
 
 	/**
 	 * Konstruktor.
-	 * 
-	 * @param id
-	 *            Identifikator
-	 * @param name
-	 *            Name des Fahrers.
 	 */
-	public Driver( Integer id, String name )
+	public GPSData()
 	{
-		m_id = id;
-		m_name = name;
+
 	}
 
 	/**
-	 * Liefert das Attribut id.
+	 * Konstruktor.
 	 * 
-	 * @return id
+	 * @param lat
+	 *            Latitude
+	 * @param lon
+	 *            Longitude
 	 */
-	@JsonProperty( "id" )
-	public Integer getId()
+	public GPSData( Double lat, double lon )
 	{
-		return m_id;
+		m_lat = lat;
+		m_lon = lon;
 	}
 
 	/**
-	 * Setzt das Attribut id.
+	 * Liefert das Attribut lat.
 	 * 
-	 * @param id
-	 *            zu setzender Wert für das Attribut id
+	 * @return lat
 	 */
-	@JsonProperty( "id" )
-	public void setId( Integer id )
+	@JsonProperty( "lat" )
+	public Double getLat()
 	{
-		m_id = id;
+		return m_lat;
 	}
 
 	/**
-	 * Liefert das Attribut name.
+	 * Setzt das Attribut lat.
 	 * 
-	 * @return name
+	 * @param lat
+	 *            zu setzender Wert für das Attribut lat
 	 */
-	@JsonProperty( "name" )
-	public String getName()
+	@JsonProperty( "lat" )
+	public void setLat( Double lat )
 	{
-		return m_name;
+		this.m_lat = lat;
 	}
 
 	/**
-	 * Setzt das Attribut name.
+	 * Liefert das Attribut lon.
 	 * 
-	 * @param name
-	 *            zu setzender Wert für das Attribut name
+	 * @return lon
 	 */
-	@JsonProperty( "name" )
-	public void setName( String name )
+	@JsonProperty( "lon" )
+	public Double getLon()
 	{
-		m_name = name;
+		return m_lon;
+	}
+
+	/**
+	 * Setzt das Attribut lon.
+	 * 
+	 * @param lon
+	 *            zu setzender Wert für das Attribut lon
+	 */
+	@JsonProperty( "lon" )
+	public void setLon( Double lon )
+	{
+		this.m_lon = lon;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.driver.objects.AbstractObject#hashCode()
+	 * @see edu.hm.lip.pizza.driver.object.AbstractObject#hashCode()
 	 */
 	@Override
 	public int hashCode()
@@ -108,7 +108,7 @@ public class Driver extends AbstractObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.driver.objects.AbstractObject#equals(java.lang.Object)
+	 * @see edu.hm.lip.pizza.driver.object.AbstractObject#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals( Object obj )
@@ -119,7 +119,7 @@ public class Driver extends AbstractObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.driver.objects.AbstractObject#toString()
+	 * @see edu.hm.lip.pizza.driver.object.AbstractObject#toString()
 	 */
 	@Override
 	public String toString()
@@ -131,4 +131,5 @@ public class Driver extends AbstractObject
 		rsb.setExcludeFieldNames( null );
 		return rsb.toString();
 	}
+
 }

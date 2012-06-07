@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.overlays;
+package edu.hm.lip.pizza.driver.overlay;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;

@@ -73,15 +73,28 @@
     <string name="provider_disabled_bt_positive">Activate</string>
     <string name="provider_disabled_bt_negative">Exit</string>
 
-    <!-- DriverInfo Service -->
+    <!-- General Services -->
 
-    <string name="service_hostname_not_set_message">Please specify the server configuration! (hostname and port)</string>
-    <string name="service_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
-    <string name="service_connection_failed_message">Server connection failed!</string>
     <string name="service_check_connection_title">Please wait!</string>
     <string name="service_check_connection_message">Checking server connection…</string>
     <string name="service_errordialog_bt_ok">OK</string>
-    <string name="service_no_driver_available">No Drivers available at server! (Added cached Drivers)</string>
+
+    <!-- DriverInfo Services -->
+
+    <string name="service_driverinfo_hostname_not_set_message">Please specify the server configuration! (hostname and port)</string>
+    <string name="service_driverinfo_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
+    <string name="service_driverinfo_connection_failed_message">Server connection failed!</string>
+    <string name="service_driverinfo_no_driver_available">No Drivers available at server, using cached Drivers!</string>
+
+    <!-- DriverLocation Services -->
+
+    <string name="service_driverlocation_unable_to_send_data">Unable to send Position to Server:</string>
+    <string name="service_driverlocation_hostname_not_set_message">Server Configuration not specified in Application Preferences. Please set it up!</string>
+    <string name="service_driverlocation_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
+    <string name="service_driverlocation_connection_failed_message">Server connection failed!</string>
+    <string name="service_driverlocation_no_driver_available">No Drivers available at server, using cached Drivers!</string>
+    <string name="service_driverlocation_no_driver_selected">No Driver selected in Application Preferences. Please select one!</string>
+    <string name="service_driverlocation_tracking_disabled">Meanwhile the Location Tracking was disabled.</string>
 
     <!-- SplashScreen Activity -->
 

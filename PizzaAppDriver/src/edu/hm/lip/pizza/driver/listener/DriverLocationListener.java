@@ -11,7 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import edu.hm.lip.pizza.driver.AppConstants;
-import edu.hm.lip.pizza.driver.services.DriverLocationService;
+import edu.hm.lip.pizza.driver.service.DriverLocationService;
+import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
 import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
 
 /**
@@ -138,8 +139,8 @@ public class DriverLocationListener implements LocationListener
 		LocationDrawer.getInstance( m_context, m_mapView ).updateCurrentLocation( location );
 
 		Intent intent = new Intent( m_context, DriverLocationService.class );
-		intent.putExtra( DriverLocationService.EXTRA_LATITUDE, location.getLatitude() );
-		intent.putExtra( DriverLocationService.EXTRA_LONGITUDE, location.getLongitude() );
+		intent.putExtra( ExtraConstants.EXTRA_LATITUDE, location.getLatitude() );
+		intent.putExtra( ExtraConstants.EXTRA_LONGITUDE, location.getLongitude() );
 		m_context.startService( intent );
 
 		// TODO Server Request asynchron -> Service

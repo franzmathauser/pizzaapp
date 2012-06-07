@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import edu.hm.lip.pizza.driver.objects.resources.Driver;
+import edu.hm.lip.pizza.driver.objects.resource.Driver;
 
 /**
  * Klasse veraltet alle Preferences der PizzaApp. Hierzu zählen u.a. die MapBehavior Einstellungen, sowie die

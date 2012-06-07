@@ -14,7 +14,7 @@ import android.util.Log;
 
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.overlays.DriverOverlay;
+import edu.hm.lip.pizza.driver.overlay.DriverOverlay;
 
 /**
  * Singletonimplementierung des LocationDrawers. Zeichnet die aktuelle Position auf der Karte neu.

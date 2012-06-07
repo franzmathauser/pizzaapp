@@ -1,4 +1,4 @@
-package edu.hm.lip.pizza.driver.exceptions;
+package edu.hm.lip.pizza.driver.exception;
 
 /**
  * Exception zeigt an, dass ein HTTP Status Code ab 400 aufwärts empfangen wurde (HTTP Fehler).
