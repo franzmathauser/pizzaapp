@@ -6,56 +6,34 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import edu.hm.lip.pizza.driver.object.AbstractObject;
 
 /**
- * Ressource für einen Fahrer.
+ * Ressource für eine Bestellung.
  * 
  * @author Stefan Wörner
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class Driver extends AbstractObject
+public class Order extends AbstractObject
 {
 
-	private static final long serialVersionUID = -6603727263288437346L;
+	private static final long serialVersionUID = 4158033419773167502L;
 
-	private Integer m_id;
+	private Integer id;
 
-	private String m_name;
+	private Customer customer;
 
-	/**
-	 * Konstruktor.
-	 */
-	public Driver()
-	{
-
-	}
-
-	/**
-	 * Konstruktor.
-	 * 
-	 * @param id
-	 *            Identifikator
-	 * @param name
-	 *            Name des Fahrers.
-	 */
-	public Driver( Integer id, String name )
-	{
-		m_id = id;
-		m_name = name;
-	}
+	private String price;
 
 	/**
 	 * Liefert das Attribut id.
 	 * 
 	 * @return id
 	 */
-	@JsonProperty( "id" )
 	public Integer getId()
 	{
-		return m_id;
+		return id;
 	}
 
 	/**
@@ -64,39 +42,57 @@ public class Driver extends AbstractObject
 	 * @param id
 	 *            zu setzender Wert für das Attribut id
 	 */
-	@JsonProperty( "id" )
 	public void setId( Integer id )
 	{
-		m_id = id;
+		this.id = id;
 	}
 
 	/**
-	 * Liefert das Attribut name.
+	 * Liefert das Attribut customer.
 	 * 
-	 * @return name
+	 * @return customer
 	 */
-	@JsonProperty( "name" )
-	public String getName()
+	public Customer getCustomer()
 	{
-		return m_name;
+		return customer;
 	}
 
 	/**
-	 * Setzt das Attribut name.
+	 * Setzt das Attribut customer.
 	 * 
-	 * @param name
-	 *            zu setzender Wert für das Attribut name
+	 * @param customer
+	 *            zu setzender Wert für das Attribut customer
 	 */
-	@JsonProperty( "name" )
-	public void setName( String name )
+	public void setCustomer( Customer customer )
 	{
-		m_name = name;
+		this.customer = customer;
+	}
+
+	/**
+	 * Liefert das Attribut price.
+	 * 
+	 * @return price
+	 */
+	public String getPrice()
+	{
+		return price;
+	}
+
+	/**
+	 * Setzt das Attribut price.
+	 * 
+	 * @param price
+	 *            zu setzender Wert für das Attribut price
+	 */
+	public void setPrice( String price )
+	{
+		this.price = price;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.driver.object.AbstractObject#hashCode()
+	 * @see edu.hm.basic.object.AbstractBasicObject#hashCode()
 	 */
 	@Override
 	public int hashCode()
@@ -108,7 +104,7 @@ public class Driver extends AbstractObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.driver.object.AbstractObject#equals(java.lang.Object)
+	 * @see edu.hm.basic.object.AbstractBasicObject#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals( Object obj )
@@ -119,7 +115,7 @@ public class Driver extends AbstractObject
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.driver.object.AbstractObject#toString()
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString()
@@ -131,4 +127,5 @@ public class Driver extends AbstractObject
 		rsb.setExcludeFieldNames( null );
 		return rsb.toString();
 	}
+
 }

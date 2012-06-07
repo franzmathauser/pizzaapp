@@ -19,7 +19,7 @@ import edu.hm.lip.pizza.driver.object.AbstractObject;
 public class GPSData extends AbstractObject
 {
 
-	private static final long serialVersionUID = 2633414796396252187L;
+	private static final long serialVersionUID = 2912274422422894743L;
 
 	private Double m_lat;
 
