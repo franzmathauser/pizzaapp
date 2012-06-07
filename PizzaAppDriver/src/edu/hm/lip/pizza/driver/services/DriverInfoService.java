@@ -80,8 +80,17 @@ public class DriverInfoService extends IntentService
 				// GetRequest absetzen
 				HttpResponse response = HttpConnector.doGetRequest( path.toString(), MediaType.APPLICATION_JSON );
 
-				// Liste mit Driver Objekten erzeugen
-				fetchedDrivers = JsonMapper.fromJSONArray( response.getEntity().getContent(), Driver.class );
+				if (response.getEntity() != null)
+				{
+					// Liste mit Driver Objekten erzeugen
+					fetchedDrivers = JsonMapper.fromJSONArray( response.getEntity().getContent(), Driver.class );
+				}
+				else
+				{
+					// Keine Fahrer gefunden
+					String localizedMsg = getString( R.string.service_no_driver_available );
+					notifyTransactionDone( false, localizedMsg );
+				}
 			}
 			catch (HostnameNotSetException e)
 			{
