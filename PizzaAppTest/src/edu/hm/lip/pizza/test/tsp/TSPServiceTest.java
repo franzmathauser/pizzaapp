@@ -3,8 +3,6 @@ package edu.hm.lip.pizza.test.tsp;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 import edu.hm.lip.pizza.test.AbstractTest;
@@ -19,6 +17,8 @@ import edu.hm.lip.pizza.tsp.domain.MatrixContainerAdapter.Measurements;
 import edu.hm.lip.pizza.tsp.domain.Path;
 import edu.hm.lip.pizza.tsp.domain.google.GoogleDistanceMatrix;
 import edu.hm.lip.pizza.tsp.service.DistanceMatrixBroker;
+
+import junit.framework.Assert;
 
 /**
  * Dieses Beispiel zeigt wie der TSP-Solver eingesetzt werden kann.
