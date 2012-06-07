@@ -29,14 +29,16 @@ public class DriverLocationService extends IntentService
 {
 
 	/**
-	 *
+	 * Extra-Konstante für die Latitude der aktuellen Position.
 	 */
 	public static final String EXTRA_LATITUDE = "lat";
 
 	/**
-	 *
+	 * Extra-Konstante für die Longitude der aktuellen Position.
 	 */
 	public static final String EXTRA_LONGITUDE = "lon";
+
+	private static final Object SERVICE_LOCK = new Object();
 
 	/**
 	 * Konstruktor.
@@ -54,73 +56,78 @@ public class DriverLocationService extends IntentService
 	@Override
 	protected void onHandleIntent( Intent intent )
 	{
-		if (intent == null)
+		// Aufrufe Synchronisieren -> Reihenfolge wird eingehalten und die Server Request werden nacheinander
+		// abgearbeitet
+		synchronized (SERVICE_LOCK)
 		{
-			// TODO Fehlerhandling
-			// stopSelf();
-			return;
-		}
-
-		double lat = intent.getDoubleExtra( EXTRA_LATITUDE, Double.MIN_VALUE );
-		double lon = intent.getDoubleExtra( EXTRA_LONGITUDE, Double.MIN_VALUE );
-
-		if (lat == Double.MIN_VALUE && lon == Double.MIN_VALUE)
-		{
-			// TODO Fehlerhandling
-			// stopSelf();
-			return;
-		}
-
-		try
-		{
-			GPSData gpsData = new GPSData();
-			gpsData.setLat( lat );
-			gpsData.setLon( lon );
-
-			HttpEntity entity = new StringEntity( JsonMapper.toJSON( gpsData ) );
-
-			String driverId = PreferencesStore.getSelectedDriverIdPreference();
-
-			if (StringUtils.isBlank( driverId ))
+			if (intent == null)
 			{
-				// TODO Throw Exception
 				// TODO Fehlerhandling
-				stopSelf();
+				// stopSelf();
 				return;
 			}
 
-			StringBuilder path = new StringBuilder();
-			path.append( "drivers/" ).append( driverId ).append( "/gpsdata" );
+			double lat = intent.getDoubleExtra( EXTRA_LATITUDE, Double.MIN_VALUE );
+			double lon = intent.getDoubleExtra( EXTRA_LONGITUDE, Double.MIN_VALUE );
 
-			HttpConnector.doPostRequest( path.toString(), MediaType.APPLICATION_JSON, entity, MediaType.APPLICATION_JSON );
-		}
-		catch (HostnameNotSetException e)
-		{
-			// TODO Notification!
-			// TODO Tracking abschalten?
-			Toast.makeText( this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT ).show();
-			return;
-		}
-		catch (HttpStatusCodeException e)
-		{
-			// TODO Notification!
-			// TODO Tracking abschalten?
-			Toast.makeText( this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT ).show();
-			Log.e( this.getClass().getSimpleName(), e.getMessage() );
-		}
-		catch (IOException e)
-		{
-			// TODO Benutzerbenachrichtigung
-			Toast.makeText( this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT ).show();
-			Log.e( this.getClass().getSimpleName(), e.getMessage() );
-
-			for (StackTraceElement element : e.getStackTrace())
+			if (lat == Double.MIN_VALUE && lon == Double.MIN_VALUE)
 			{
-				Log.e( this.getClass().getSimpleName(), element.toString() );
+				// TODO Fehlerhandling
+				// stopSelf();
+				return;
 			}
-		}
 
-		// stopSelf();
+			try
+			{
+				GPSData gpsData = new GPSData();
+				gpsData.setLat( lat );
+				gpsData.setLon( lon );
+
+				HttpEntity entity = new StringEntity( JsonMapper.toJSON( gpsData ) );
+
+				String driverId = PreferencesStore.getSelectedDriverIdPreference();
+
+				if (StringUtils.isBlank( driverId ))
+				{
+					// TODO Throw Exception
+					// TODO Fehlerhandling
+					stopSelf();
+					return;
+				}
+
+				StringBuilder path = new StringBuilder();
+				path.append( "drivers/" ).append( driverId ).append( "/gpsdata" );
+
+				HttpConnector.doPostRequest( path.toString(), MediaType.APPLICATION_JSON, entity, MediaType.APPLICATION_JSON );
+			}
+			catch (HostnameNotSetException e)
+			{
+				// TODO Notification!
+				// TODO Tracking abschalten?
+				Toast.makeText( this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT ).show();
+				return;
+			}
+			catch (HttpStatusCodeException e)
+			{
+				// TODO Notification!
+				// TODO Tracking abschalten?
+				Toast.makeText( this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT ).show();
+				Log.e( this.getClass().getSimpleName(), e.getMessage() );
+			}
+			catch (IOException e)
+			{
+				// TODO Benutzerbenachrichtigung
+				Toast.makeText( this.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT ).show();
+				Log.e( this.getClass().getSimpleName(), e.getMessage() );
+
+				for (StackTraceElement element : e.getStackTrace())
+				{
+					Log.e( this.getClass().getSimpleName(), element.toString() );
+				}
+			}
+
+			// stopSelf();
+		}
 	}
 
 }
