@@ -81,6 +81,7 @@
     <string name="service_check_connection_title">Please wait!</string>
     <string name="service_check_connection_message">Checking server connection…</string>
     <string name="service_errordialog_bt_ok">OK</string>
+    <string name="service_no_driver_available">No Drivers available at server! (Added cached Drivers)</string>
 
     <!-- SplashScreen Activity -->
 

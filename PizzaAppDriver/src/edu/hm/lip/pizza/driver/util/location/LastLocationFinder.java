@@ -96,7 +96,7 @@ public final class LastLocationFinder
 
 			// Wenn GPS Positionszeitstempel neuer ist als der NETWORK Positionszeitstempel abzüglich der Toleranz,
 			// dann GPS Position verwenden
-			if (lastGpsLocation.getTime() > lastNetworkLocation.getTime() - AppConstants.TIME_TOLERANCE)
+			if (lastGpsLocation.getTime() > lastNetworkLocation.getTime() - AppConstants.TIME_TOLERANCE_2_MINUTES)
 			{
 				Toast.makeText( m_context, "used gps provider for last known location", Toast.LENGTH_SHORT ).show();
 				Log.d( this.getClass().getSimpleName(), "used gps provider for last known location" );

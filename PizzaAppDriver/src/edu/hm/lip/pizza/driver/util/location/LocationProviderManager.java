@@ -103,7 +103,6 @@ public final class LocationProviderManager
 		{
 			if (!m_locationListeners.contains( m_gpsLocationListener ))
 			{
-				// TODO Auf Preference Änderungen registrieren
 				// LocationListener für Updates über den GPS Provider registrieren
 				m_locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
 						PreferencesStore.getTrackingTimeIntervalPreference(),
@@ -118,7 +117,6 @@ public final class LocationProviderManager
 
 			if (!m_locationListeners.contains( m_networkLocationListener ))
 			{
-				// TODO Auf Preference Änderungen registrieren
 				// LocationListener für Updates über den NETWORK Provider registrieren
 				m_locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,
 						PreferencesStore.getTrackingTimeIntervalPreference(),

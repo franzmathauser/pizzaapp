@@ -31,7 +31,7 @@ import edu.hm.lip.pizza.driver.services.DriverInfoService;
  * 
  * @author Stefan Wörner
  */
-public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener // ,IDriverInfoUpdateListener
+public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener
 {
 
 	private ProgressDialog m_driverInfoProgressDialog;
@@ -109,12 +109,9 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	@Override
 	public void onSharedPreferenceChanged( SharedPreferences sharedPreferences, String key )
 	{
-		// Prüfen ob die Fahrerliste aktuelisiert wurde, falls ja muss der key auf den der PreferenceList umgesetzt
-		// werden
+		// Prüfen ob die Fahrerliste aktuelisiert wurde, falls ja muss nichts unternommen werden
 		if (getString( R.string.pref_category_driver_list_key ).equals( key ))
 		{
-			// updateDriverListPreference();
-			// PreferencesStore.setSelectedDriverIdPreference( "" );
 			return;
 		}
 

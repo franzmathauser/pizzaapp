@@ -6,7 +6,10 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +19,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import edu.hm.lip.pizza.driver.PreferencesConstants;
 import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.util.location.LastLocationFinder;
@@ -28,7 +32,7 @@ import edu.hm.lip.pizza.driver.util.location.LocationProviderManager;
  * 
  * @author Stefan Wörner
  */
-public class MainActivity extends MapActivity
+public class MainActivity extends MapActivity implements OnSharedPreferenceChangeListener
 {
 
 	private MapView m_mapView;
@@ -93,6 +97,10 @@ public class MainActivity extends MapActivity
 		LocationDrawer.destroyInstance();
 		LocationProviderManager.destroyInstance();
 		LastLocationFinder.destroyInstance();
+
+		// Deregistrieren des PreferenceChangeListeners
+		getSharedPreferences( PreferencesConstants.FILENAME, Activity.MODE_PRIVATE ).unregisterOnSharedPreferenceChangeListener(
+				this );
 	}
 
 	/**
@@ -116,6 +124,10 @@ public class MainActivity extends MapActivity
 
 		// Bildschirmschoner solange die Activity aktiv ist ausschalten (Gilt nur für diese Activity!!)
 		getWindow().addFlags( LayoutParams.FLAG_KEEP_SCREEN_ON );
+
+		// Für Änderungen an den Einstellungen registrieren, um ggf. die LocationListener zu aktualisieren
+		getSharedPreferences( PreferencesConstants.FILENAME, Activity.MODE_PRIVATE ).registerOnSharedPreferenceChangeListener(
+				this );
 	}
 
 	/**
@@ -265,7 +277,7 @@ public class MainActivity extends MapActivity
 	{
 		// TODO CurrentLocation Click Handler
 	}
-	
+
 	/**
 	 * Handler für Click Events des SendDelivered Buttons auf der Karte.
 	 * 
@@ -338,6 +350,25 @@ public class MainActivity extends MapActivity
 		cboxFollow.setChecked( PreferencesStore.getFollowMePreference() );
 		cboxRoute.setChecked( PreferencesStore.getShowRoutePreference() );
 		cboxTraffic.setChecked( PreferencesStore.getShowTrafficPreference() );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see android.content.SharedPreferences.OnSharedPreferenceChangeListener#onSharedPreferenceChanged(android.content.SharedPreferences,
+	 *      java.lang.String)
+	 */
+	@Override
+	public void onSharedPreferenceChanged( SharedPreferences sharedPreferences, String key )
+	{
+		// Wenn die Preferences zu den Tracking Intervallen geändert werden müssen die Location Listener aktualisiert
+		// werden, sprich unregister und register
+		if (getString( R.string.pref_category_tracking_distance_interval_key ).equals( key )
+				|| getString( R.string.pref_category_tracking_time_interval_key ).equals( key ))
+		{
+			LocationProviderManager.getInstance( this, m_mapView ).unregisterLocationListener();
+			LocationProviderManager.getInstance( this, m_mapView ).registerLocationListener();
+		}
 	}
 
 }
