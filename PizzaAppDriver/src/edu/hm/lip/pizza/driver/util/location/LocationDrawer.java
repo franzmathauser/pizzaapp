@@ -122,10 +122,6 @@ public final class LocationDrawer
 		// GeoPoint mit aktuellen Koordinaten erzeugen
 		m_currentLocation = new GeoPoint( lat, lon );
 
-		Log.d( this.getClass().getSimpleName(), "location: " + location.getLatitude() + "|" + location.getLongitude() );
-		Log.d( this.getClass().getSimpleName(), "location time: " + location.getTime() );
-		Log.d( this.getClass().getSimpleName(), "location accuracy: " + location.getAccuracy() );
-
 		if (m_mapView != null)
 		{
 			List<Overlay> mapOverlays = m_mapView.getOverlays();
