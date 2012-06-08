@@ -24,6 +24,7 @@ import edu.hm.lip.pizza.internal.converter.GPSDataConverter;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
 import edu.hm.lip.pizza.internal.interceptor.DriverArrivalActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.DriverGPSActiveMQInterceptor;
+import edu.hm.lip.pizza.internal.interceptor.HomezoneNotificationInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.LoggingInterceptor;
 import edu.hm.lip.pizza.internal.manager.OrderStageManager;
 import edu.hm.lip.pizza.internal.object.entity.EntityDriver;
@@ -191,7 +192,7 @@ public class DriverService extends AbstractBean implements IDriverService
 	 *      edu.hm.lip.pizza.api.object.resource.GPSData)
 	 */
 	@Override
-	@Interceptors( DriverGPSActiveMQInterceptor.class )
+	@Interceptors( { DriverGPSActiveMQInterceptor.class, HomezoneNotificationInterceptor.class } )
 	public void createGPSData( int id, GPSData gpsData )
 	{
 		if (gpsData.getDate() == null)

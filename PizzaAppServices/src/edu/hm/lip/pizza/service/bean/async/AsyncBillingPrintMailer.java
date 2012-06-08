@@ -68,8 +68,6 @@ public class AsyncBillingPrintMailer implements IAsyncBillingPrintMailer
 		String displayName = customer.getForename() + " " + customer.getLastname();
 		StringBuilder sb = new StringBuilder();
 
-		sb.append( "<img src=\"http://" ).append( ApiConstants.PRODUCTION_SERVER_URL ).append( "/img/logo/pizza_hm_logo.png\"" )
-				.append( " style=\"float:right;\" >" );
 		sb.append( "PizzaApp" ).append( "<br />" );
 		sb.append( "Hochschule München" ).append( "<br />" );
 		sb.append( "Lothstr. 64" ).append( "<br /><br />" );
@@ -100,7 +98,9 @@ public class AsyncBillingPrintMailer implements IAsyncBillingPrintMailer
 
 		sb.append( "</table>" ).append( "<br />" );
 
-		sb.append( "Gesamtsumme: " ).append( order.getPrice() ).append( " EUR" );
+		sb.append( "Gesamtsumme: " ).append( order.getPrice() ).append( " EUR" ).append( "<br /><br />" );
+
+		sb.append( "<img src=\"http://" ).append( ApiConstants.PRODUCTION_SERVER_URL ).append( "/img/logo/pizza_hm_logo.png\" >" );
 
 		return sb.toString();
 	}

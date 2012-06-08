@@ -3,6 +3,7 @@ package edu.hm.lip.pizza.internal.object.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,9 @@ public class EntityOrder extends AbstractEntityObject
 	private Integer id;
 
 	private String note;
+
+	@Column( columnDefinition = "boolean default false" )
+	private boolean homezoneNotificationFlag;
 
 	@OneToMany( mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	private List<EntityOrderLine> orderLines;
@@ -99,6 +103,27 @@ public class EntityOrder extends AbstractEntityObject
 	public void setNote( String note )
 	{
 		this.note = note;
+	}
+
+	/**
+	 * Liefert das Attribut homezoneNotificationFlag.
+	 * 
+	 * @return homezoneNotificationFlag
+	 */
+	public boolean isHomezoneNotificationFlag()
+	{
+		return homezoneNotificationFlag;
+	}
+
+	/**
+	 * Setzt das Attribut homezoneNotificationFlag.
+	 * 
+	 * @param homezoneNotificationFlag
+	 *            zu setzender Wert für das Attribut homezoneNotificationFlag
+	 */
+	public void setHomezoneNotificationFlag( boolean homezoneNotificationFlag )
+	{
+		this.homezoneNotificationFlag = homezoneNotificationFlag;
 	}
 
 	/**
