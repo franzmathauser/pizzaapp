@@ -1,19 +1,21 @@
 package edu.hm.lip.pizza.driver.overlay;
 
+import java.util.ArrayList;
+
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
 import android.graphics.drawable.Drawable;
 
 /**
- * Overlay für die aktuelle Position des Fahrers auf der Karte.
+ * Overlay für die Routenpunkte (Pizzeria, Kunden) der Fahrer-Route auf der Karte.
  * 
  * @author Stefan Wörner
  */
-public class DriverOverlay extends ItemizedOverlay<OverlayItem>
+public class RoutePointOverlay extends ItemizedOverlay<OverlayItem>
 {
 
-	private OverlayItem m_overlay;
+	private ArrayList<OverlayItem> m_overlays = new ArrayList<OverlayItem>();
 
 	/**
 	 * Konstruktor.
@@ -21,30 +23,42 @@ public class DriverOverlay extends ItemizedOverlay<OverlayItem>
 	 * @param marker
 	 *            Symbol welches auf der Karte dargestellt wird.
 	 */
-	public DriverOverlay( Drawable marker )
+	public RoutePointOverlay( Drawable marker )
 	{
-		super( boundCenter( marker ) );
+		super( marker );
 	}
 
 	/**
-	 * Liefert das Attribut overlay.
+	 * Liefert das Attribut overlays.
 	 * 
-	 * @return overlay
+	 * @return overlays
 	 */
-	public OverlayItem getOverlay()
+	public ArrayList<OverlayItem> getOverlays()
 	{
-		return m_overlay;
+		return m_overlays;
 	}
 
 	/**
-	 * Setzt das Attribut overlay.
+	 * Setzt das Attribut overlays.
+	 * 
+	 * @param overlays
+	 *            zu setzender Wert für das Attribut overlays
+	 */
+	public void setOverlays( ArrayList<OverlayItem> overlays )
+	{
+		m_overlays = overlays;
+	}
+
+	/**
+	 * Fügt ein neues Overlay-Item hinzu.
 	 * 
 	 * @param overlay
-	 *            zu setzender Wert für das Attribut overlay
+	 *            Overlay-Item
 	 */
-	public void setOverlay( OverlayItem overlay )
+	public void addOverlay( OverlayItem overlay )
 	{
-		m_overlay = overlay;
+		m_overlays.add( overlay );
+		populate();
 	}
 
 	/**
@@ -55,7 +69,7 @@ public class DriverOverlay extends ItemizedOverlay<OverlayItem>
 	@Override
 	protected OverlayItem createItem( int i )
 	{
-		return m_overlay == null ? null : m_overlay;
+		return m_overlays.get( i );
 	}
 
 	/**
@@ -66,7 +80,7 @@ public class DriverOverlay extends ItemizedOverlay<OverlayItem>
 	@Override
 	public int size()
 	{
-		return m_overlay == null ? 0 : 1;
+		return m_overlays.size();
 	}
 
 	/**

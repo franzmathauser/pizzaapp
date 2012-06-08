@@ -34,11 +34,11 @@ public final class ExtraConstants
 	/**
 	 * Extra-Konstante für die Latitude der aktuellen Position.
 	 */
-	public static final String EXTRA_LATITUDE = "lat";
+	public static final String LATITUDE_EXTRA = "lat";
 
 	/**
 	 * Extra-Konstante für die Longitude der aktuellen Position.
 	 */
-	public static final String EXTRA_LONGITUDE = "lon";
+	public static final String LONGITUDE_EXTRA = "lon";
 
 }

@@ -53,7 +53,7 @@
             android:name=".service.DriverLocationService"
             android:enabled="true" />
         <service
-            android:name=".service.RouteService"
+            android:name=".service.DriverRouteService"
             android:enabled="true" />
 
         <uses-library android:name="com.google.android.maps" />

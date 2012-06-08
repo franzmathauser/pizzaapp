@@ -139,8 +139,8 @@ public class DriverLocationListener implements LocationListener
 		LocationDrawer.getInstance( m_context, m_mapView ).updateCurrentLocation( location );
 
 		Intent intent = new Intent( m_context, DriverLocationService.class );
-		intent.putExtra( ExtraConstants.EXTRA_LATITUDE, location.getLatitude() );
-		intent.putExtra( ExtraConstants.EXTRA_LONGITUDE, location.getLongitude() );
+		intent.putExtra( ExtraConstants.LATITUDE_EXTRA, location.getLatitude() );
+		intent.putExtra( ExtraConstants.LONGITUDE_EXTRA, location.getLongitude() );
 		m_context.startService( intent );
 
 		// TODO Server Request asynchron -> Service

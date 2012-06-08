@@ -12,9 +12,9 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.util.Log;
 
-import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.overlay.DriverOverlay;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 
 /**
  * Singletonimplementierung des LocationDrawers. Zeichnet die aktuelle Position auf der Karte neu.
@@ -137,9 +137,9 @@ public final class LocationDrawer
 			// Markersymbol erzeugen welches auf der Karte für die aktuelle Position gezeichnet werden soll
 			Drawable marker = m_context.getResources().getDrawable( R.drawable.ic_location_tracker );
 			// OverlayItem erzeugen für die aktuelle Position und angebe von Metadaten (Titel und Inhalt)
-			OverlayItem overlayItem = new OverlayItem( m_currentLocation, "title", "snippet" ); // TODO Metadaten!
+			OverlayItem overlayItem = new OverlayItem( m_currentLocation, "", "" );
 			// LocationOverlay erzeugen mit ausgewähltem Markerysmbol und erzeugtem OverlayItem
-			m_currentLocationOverlay = new DriverOverlay( marker, m_context );
+			m_currentLocationOverlay = new DriverOverlay( marker );
 			m_currentLocationOverlay.setOverlay( overlayItem );
 
 			// Overlay für die aktuelle Position auf die Karte bringen

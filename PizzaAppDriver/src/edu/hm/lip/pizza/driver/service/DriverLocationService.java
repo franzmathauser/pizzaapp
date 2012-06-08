@@ -12,7 +12,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.exception.HostnameNotSetException;
 import edu.hm.lip.pizza.driver.exception.HttpStatusCodeException;
@@ -20,6 +19,7 @@ import edu.hm.lip.pizza.driver.objects.resource.GPSData;
 import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
 import edu.hm.lip.pizza.driver.util.communication.HttpConnector;
 import edu.hm.lip.pizza.driver.util.communication.JsonMapper;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 
 /**
  * Service-Klasse welche die Trackingdaten an das Backend sendet.
@@ -62,8 +62,8 @@ public class DriverLocationService extends IntentService
 				return;
 			}
 
-			double lat = intent.getDoubleExtra( ExtraConstants.EXTRA_LATITUDE, Double.MIN_VALUE );
-			double lon = intent.getDoubleExtra( ExtraConstants.EXTRA_LONGITUDE, Double.MIN_VALUE );
+			double lat = intent.getDoubleExtra( ExtraConstants.LATITUDE_EXTRA, Double.MIN_VALUE );
+			double lon = intent.getDoubleExtra( ExtraConstants.LONGITUDE_EXTRA, Double.MIN_VALUE );
 
 			if (lat == Double.MIN_VALUE && lon == Double.MIN_VALUE)
 			{

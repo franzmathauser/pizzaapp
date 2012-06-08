@@ -75,7 +75,7 @@
 
     <!-- General Services -->
 
-    <string name="service_check_connection_title">Please wait!</string>
+    <string name="service_progress_dialog_wait_title">Please wait!</string>
     <string name="service_check_connection_message">Checking server connection…</string>
     <string name="service_errordialog_bt_ok">OK</string>
 
@@ -92,9 +92,17 @@
     <string name="service_driverlocation_hostname_not_set_message">Server Configuration not specified in Application Preferences. Please set it up!</string>
     <string name="service_driverlocation_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
     <string name="service_driverlocation_connection_failed_message">Server connection failed!</string>
-    <string name="service_driverlocation_no_driver_available">No Drivers available at server, using cached Drivers!</string>
     <string name="service_driverlocation_no_driver_selected">No Driver selected in Application Preferences. Please select one!</string>
     <string name="service_driverlocation_tracking_disabled">Meanwhile the Location Tracking was disabled.</string>
+
+    <!-- DriverRoute Services -->
+
+    <string name="service_fetch_route_message">Fetching Route from Server…</string>
+    <string name="service_driverroute_hostname_not_set_message">Server Configuration not specified in Application Preferences. Please set it up!</string>
+    <string name="service_driverroute_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
+    <string name="service_driverroute_connection_failed_message">Server connection failed!</string>
+    <string name="service_driverroute_no_driver_selected">No Driver selected in Application Preferences. Please select one!</string>
+    <string name="service_driverroute_no_route_available">No Route available!</string>
 
     <!-- SplashScreen Activity -->
 

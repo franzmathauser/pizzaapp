@@ -1,13 +1,19 @@
 package edu.hm.lip.pizza.driver.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +21,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,14 +32,20 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import edu.hm.lip.pizza.driver.PreferencesConstants;
-import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
+import edu.hm.lip.pizza.driver.objects.resource.DriverRoute;
+import edu.hm.lip.pizza.driver.objects.resource.Order;
+import edu.hm.lip.pizza.driver.overlay.RouteOverlay;
+import edu.hm.lip.pizza.driver.overlay.RoutePointOverlay;
 import edu.hm.lip.pizza.driver.service.DriverLocationService;
+import edu.hm.lip.pizza.driver.service.DriverRouteService;
 import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
 import edu.hm.lip.pizza.driver.util.location.LastLocationFinder;
 import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
 import edu.hm.lip.pizza.driver.util.location.LocationProviderManager;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesConstants;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
+import edu.hm.lip.pizza.driver.util.route.DriverRouteStore;
 
 /**
  * Diese Klasse repräsentiert die Haupt-Activity der Applikation. Sie beinhaltet die Kartenansicht und hat am rechten
@@ -47,6 +61,8 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	private MapController m_mapController;
 
 	private MyLocationOverlay m_myLocationOverlay;
+
+	private ProgressDialog m_driverRouteProgressDialog;
 
 	// private Button m_configHandle;
 	// private SlidingDrawer m_configSlider;
@@ -104,13 +120,20 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		LocationDrawer.destroyInstance();
 		LocationProviderManager.destroyInstance();
 		LastLocationFinder.destroyInstance();
+		DriverRouteStore.destroyInstance();
 
 		// Deregistrieren des PreferenceChangeListeners
 		getSharedPreferences( PreferencesConstants.FILENAME, Activity.MODE_PRIVATE ).unregisterOnSharedPreferenceChangeListener(
 				this );
 
-		// BroadcastReceiver für DriverLocation Service deregistrieren
-		unregisterReceiver( m_driverLocationReceiver );
+		if (PreferencesStore.getTrackMePreference())
+		{
+			// BroadcastReceiver für DriverLocation Service deregistrieren
+			unregisterReceiver( m_driverLocationReceiver );
+		}
+
+		// BroadcastReceiver für DriverRoute Service deregistrieren
+		unregisterReceiver( m_driverRouteReceiver );
 	}
 
 	/**
@@ -142,8 +165,8 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 
 		// Letzte bekannte Position an Server senden
 		Intent intent = new Intent( this, DriverLocationService.class );
-		intent.putExtra( ExtraConstants.EXTRA_LATITUDE, lastLocation.getLatitude() );
-		intent.putExtra( ExtraConstants.EXTRA_LONGITUDE, lastLocation.getLongitude() );
+		intent.putExtra( ExtraConstants.LATITUDE_EXTRA, lastLocation.getLatitude() );
+		intent.putExtra( ExtraConstants.LONGITUDE_EXTRA, lastLocation.getLongitude() );
 		startService( intent );
 
 		// Bildschirmschoner solange die Activity aktiv ist ausschalten (Gilt nur für diese Activity!!)
@@ -152,6 +175,11 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		// Für Änderungen an den Einstellungen registrieren, um ggf. die LocationListener zu aktualisieren
 		getSharedPreferences( PreferencesConstants.FILENAME, Activity.MODE_PRIVATE ).registerOnSharedPreferenceChangeListener(
 				this );
+
+		// BroadcastReceiver für DriverRoute Service registrieren
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction( DriverRouteService.TRANSACTION_DONE );
+		registerReceiver( m_driverRouteReceiver, intentFilter );
 	}
 
 	/**
@@ -299,7 +327,11 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	 */
 	public void loadRouteClickHandler( View view )
 	{
-		// TODO CurrentLocation Click Handler
+		Intent intent = new Intent( this, DriverRouteService.class );
+		startService( intent );
+
+		m_driverRouteProgressDialog = ProgressDialog.show( this, getString( R.string.service_progress_dialog_wait_title ),
+				getString( R.string.service_fetch_route_message ) );
 	}
 
 	/**
@@ -311,6 +343,15 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	public void sendDeliveredClickHandler( View view )
 	{
 		// TODO CurrentLocation Click Handler
+
+		if (DriverRouteStore.getInstance().nextVisiblePartAvailable())
+		{
+			// Broadcast senden um Strecke zu zeichnen
+			Intent intent = new Intent( DriverRouteService.TRANSACTION_DONE );
+			intent.putExtra( ExtraConstants.SUCCESSFUL_EXTRA, true );
+			intent.putExtra( ExtraConstants.REFRESH_EXTRA, true );
+			sendBroadcast( intent );
+		}
 	}
 
 	/**
@@ -417,11 +458,7 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 			// Status auslesen
 			boolean successful = intent.getBooleanExtra( ExtraConstants.SUCCESSFUL_EXTRA, false );
 
-			if (successful)
-			{
-				return;
-			}
-			else
+			if (!successful)
 			{
 				// Tracking ausschalten
 				PreferencesStore.setTrackMePreference( Boolean.FALSE );
@@ -438,6 +475,160 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 			}
 		}
 	};
+
+	private BroadcastReceiver m_driverRouteReceiver = new BroadcastReceiver()
+	{
+
+		@Override
+		public void onReceive( Context context, Intent intent )
+		{
+			if (intent == null)
+			{
+				return;
+			}
+
+			// Status auslesen
+			boolean successful = intent.getBooleanExtra( ExtraConstants.SUCCESSFUL_EXTRA, false );
+
+			if (successful)
+			{
+				// Auslesen ob Ansicht aktualisiert werden muss
+				boolean refresh = intent.getBooleanExtra( ExtraConstants.REFRESH_EXTRA, false );
+
+				if (refresh && DriverRouteStore.getInstance().getCurrentlyVisibleRoutePart() != Integer.MIN_VALUE)
+				{
+					// Routenpunkte zeichnen (Pizzeria, Kunden)
+					drawRoutePoints();
+					// Route bzw. Routenabschnitt zeichnen
+					drawRoute();
+					// Karte aktualisieren
+					m_mapView.invalidate();
+				}
+
+				// Progress Dialog schließen
+				m_driverRouteProgressDialog.dismiss();
+			}
+			else
+			{
+				// Progress Dialog schließen
+				m_driverRouteProgressDialog.dismiss();
+
+				// Fehlermeldung auslesen
+				String message = intent.getStringExtra( ExtraConstants.ERROR_MSG_EXTRA );
+				// Fehlermeldung anzeigen
+				showErrorDialog( message );
+			}
+		}
+	};
+
+	private void drawRoutePoints()
+	{
+		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
+
+		if (driverRouteStore.getPizzeriaPointOverlay() == null && driverRouteStore.getCustomerPointOverlay() == null)
+		{
+			DriverRoute driverRoute = driverRouteStore.getCurrentRoute();
+
+			GeoPoint pizzaStoreGP = new GeoPoint( (int) (driverRoute.getOriginLat() * 1E6),
+					(int) (driverRoute.getOriginLon() * 1E6) );
+
+			Drawable pizzeriaMarker = getResources().getDrawable( R.drawable.ic_routepoint_pizzeria );
+			pizzeriaMarker.setBounds( 0, -pizzeriaMarker.getIntrinsicHeight(), pizzeriaMarker.getIntrinsicWidth(), 0 );
+			RoutePointOverlay pizzeriaRoutePoint = new RoutePointOverlay( pizzeriaMarker );
+			OverlayItem pizzeriaOverlayItem = new OverlayItem( pizzaStoreGP, "", "" );
+			pizzeriaRoutePoint.addOverlay( pizzeriaOverlayItem );
+
+			m_mapView.getOverlays().add( pizzeriaRoutePoint );
+			driverRouteStore.setPizzeriaPointOverlay( pizzeriaRoutePoint );
+
+			Drawable customerMarker = getResources().getDrawable( R.drawable.ic_routepoint_customer );
+			customerMarker.setBounds( customerMarker.getIntrinsicWidth() / -2, customerMarker.getIntrinsicHeight() / -2,
+					customerMarker.getIntrinsicWidth() / 2, customerMarker.getIntrinsicHeight() / 2 );
+			RoutePointOverlay customerRoutePoint = new RoutePointOverlay( customerMarker );
+
+			for (Order order : driverRoute.getOrders())
+			{
+				GeoPoint customerGP = new GeoPoint( (int) (Double.parseDouble( order.getCustomer().getLat() ) * 1E6),
+						(int) (Double.parseDouble( order.getCustomer().getLon() ) * 1E6) );
+
+				OverlayItem customerOverlayItem = new OverlayItem( customerGP, "", "" );
+				customerRoutePoint.addOverlay( customerOverlayItem );
+
+				m_mapView.getOverlays().add( customerRoutePoint );
+			}
+
+			driverRouteStore.setCustomerPointOverlay( customerRoutePoint );
+		}
+	}
+
+	// private void removeRoutePoints()
+	// {
+	// DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
+	// List<Overlay> mapOverlays = m_mapView.getOverlays();
+	//
+	// if (driverRouteStore.getPizzeriaPointOverlay() != null
+	// && mapOverlays.contains( driverRouteStore.getPizzeriaPointOverlay() ))
+	// {
+	// mapOverlays.remove( driverRouteStore.getPizzeriaPointOverlay() );
+	// driverRouteStore.setPizzeriaPointOverlay( null );
+	// }
+	//
+	// if (driverRouteStore.getCustomerPointOverlay() != null
+	// && mapOverlays.contains( driverRouteStore.getCustomerPointOverlay() ))
+	// {
+	// mapOverlays.remove( driverRouteStore.getCustomerPointOverlay() );
+	// driverRouteStore.setCustomerPointOverlay( null );
+	// }
+	// }
+
+	private void drawRoute()
+	{
+		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
+
+		// Alte Route entfernen, falls vorhanden
+		removeRoute();
+
+		List<GeoPoint> routeGeoPoints = driverRouteStore.getCurrentRoutePartsGeoPoints().get(
+				driverRouteStore.getCurrentlyVisibleRoutePart() );
+
+		if (routeGeoPoints != null)
+		{
+			List<RouteOverlay> routeOverlays = new ArrayList<RouteOverlay>();
+
+			GeoPoint startGP = routeGeoPoints.get( 0 );
+			GeoPoint gp1;
+			GeoPoint gp2 = startGP;
+			for (int i = 1; i < routeGeoPoints.size(); i++)
+			{
+				gp1 = gp2;
+				gp2 = routeGeoPoints.get( i );
+				RouteOverlay routeOverlay = new RouteOverlay( gp1, gp2, Color.BLUE );
+
+				m_mapView.getOverlays().add( routeOverlay );
+				routeOverlays.add( routeOverlay );
+			}
+
+			driverRouteStore.addCurrentlyVisibleRouteOverlays( routeOverlays );
+		}
+	}
+
+	private void removeRoute()
+	{
+		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
+		List<Overlay> mapOverlays = m_mapView.getOverlays();
+
+		if (driverRouteStore.getCurrentlyVisibleRouteOverlays() != null)
+		{
+			for (RouteOverlay routeOverlay : driverRouteStore.getCurrentlyVisibleRouteOverlays())
+			{
+				if (mapOverlays.contains( routeOverlay ))
+				{
+					mapOverlays.remove( routeOverlay );
+					driverRouteStore.setCurrentlyVisibleRouteOverlays( null );
+				}
+			}
+		}
+	}
 
 	private void showErrorDialog( String message )
 	{

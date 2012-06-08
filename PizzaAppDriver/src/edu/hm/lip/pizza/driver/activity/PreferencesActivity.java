@@ -20,12 +20,12 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 
-import edu.hm.lip.pizza.driver.PreferencesConstants;
-import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.objects.resource.Driver;
 import edu.hm.lip.pizza.driver.service.DriverInfoService;
 import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesConstants;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 
 /**
  * Diese Klasse repräsentiert die Einstellungs-Activity der Applikation.
@@ -134,7 +134,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 		Intent intent = new Intent( this, DriverInfoService.class );
 		startService( intent );
 
-		m_driverInfoProgressDialog = ProgressDialog.show( this, getString( R.string.service_check_connection_title ),
+		m_driverInfoProgressDialog = ProgressDialog.show( this, getString( R.string.service_progress_dialog_wait_title ),
 				getString( R.string.service_check_connection_message ) );
 	}
 

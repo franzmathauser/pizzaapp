@@ -15,9 +15,9 @@ import android.location.LocationManager;
 import android.provider.Settings;
 import android.util.Log;
 
-import edu.hm.lip.pizza.driver.PreferencesStore;
 import edu.hm.lip.pizza.driver.R;
 import edu.hm.lip.pizza.driver.listener.DriverLocationListener;
+import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 
 /**
  * Singletonimplementierung des ProviderManagers. Verwaltet die bzw. den aktuell verwendeten Provider und bietet
