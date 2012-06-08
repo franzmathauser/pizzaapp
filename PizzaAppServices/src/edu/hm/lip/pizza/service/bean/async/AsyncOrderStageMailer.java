@@ -29,9 +29,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 	@Interceptors( LoggingInterceptor.class )
 	public void sendCurrentStage( Order order )
 	{
+
 		String receipientAddress = order.getCustomer().getEmail();
 		String receipientName = order.getCustomer().getForename() + " " + order.getCustomer().getLastname();
-		String subject = "Ihre Bestellung PizzaApp - Statusänderung: ";
+		String subject = "Ihre Bestellung #" + order.getId() + " PizzaApp - Statusänderung: ";
 		String mailContent = null;
 
 		switch (order.getCurrentStage())

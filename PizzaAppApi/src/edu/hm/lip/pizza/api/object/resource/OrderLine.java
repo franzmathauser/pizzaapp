@@ -42,6 +42,8 @@ public class OrderLine extends AbstractRessourceObject
 	@JsonProperty( "product_id" )
 	private Integer productId;
 
+	private Double price;
+
 	/**
 	 * Liefert das Attribut id.
 	 * 
@@ -163,6 +165,27 @@ public class OrderLine extends AbstractRessourceObject
 		rsb.setUpToClass( this.getClass() );
 		rsb.setExcludeFieldNames( null );
 		return rsb.toString();
+	}
+
+	/**
+	 * Liefert das Attribut price.
+	 * 
+	 * @return price
+	 */
+	public Double getPrice()
+	{
+		return price;
+	}
+
+	/**
+	 * Setzt das Attribut price.
+	 * 
+	 * @param price
+	 *            zu setzender Wert für das Attribut price
+	 */
+	public void setPrice( Double price )
+	{
+		this.price = price;
 	}
 
 }

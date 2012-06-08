@@ -16,6 +16,7 @@ import edu.hm.lip.pizza.internal.bean.database.IOrderDAOLocal;
 import edu.hm.lip.pizza.internal.bean.database.IProductConfigurationDAOLocal;
 import edu.hm.lip.pizza.internal.bean.service.async.IAsyncGeoEncoder;
 import edu.hm.lip.pizza.internal.converter.OrderConverter;
+import edu.hm.lip.pizza.internal.interceptor.BillingPrintMailInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.LoggingInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.OrderActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.OrderStageMailInterceptor;
@@ -159,7 +160,7 @@ public class OrderService extends AbstractBean implements IOrderService
 	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#createNextOrderStage(int)
 	 */
 	@Override
-	@Interceptors( OrderStageMailInterceptor.class )
+	@Interceptors( { OrderStageMailInterceptor.class, BillingPrintMailInterceptor.class } )
 	public Order createNextOrderStage( int id )
 	{
 		EntityOrder eOrder = orderDAOBean.read( id );
