@@ -180,7 +180,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 		oderLines.add( orderLine );
 
 		order.setOrderLines( oderLines );
-		order.setPrice( "" + (Double.parseDouble( product.getPriceL() ) * 2) );
+		order.setPrice( Double.parseDouble( product.getPriceL() ) * 2 );
 		order.setOrderDate( new Date() );
 	}
 
