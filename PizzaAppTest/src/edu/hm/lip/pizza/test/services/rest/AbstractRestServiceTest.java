@@ -64,7 +64,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			customer.setLastname( "TestLastname" + i );
 			customer.setCompany( "TestCompany" + i );
 			customer.setDepartment( "TestDepartment" + i );
-			customer.setEmail( "rechnungpizzaapp@googlemail.com" );
+			customer.setEmail( "bestellung.pizzaapp@googlemail.com" );
 			customer.setGender( Gender.MALE );
 			customer.setLevel( "TestLevel" + i );
 			customer.setPhone( "01234567" + i );
