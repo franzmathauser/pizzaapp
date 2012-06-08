@@ -47,7 +47,7 @@ public final class OrderConverter
 		order.setOrderLines( OrderLineConverter.convertEntityToServiceOrderLineList( eOrder.getOrderLines() ) );
 		order.setCustomer( CustomerConverter.convertEntityToServiceCustomer( eOrder.getCustomer() ) );
 
-		order.setPrice( sumPrices( eOrder.getOrderLines() ).toString() );
+		order.setPrice( sumPrices( eOrder.getOrderLines() ) );
 
 		return order;
 	}

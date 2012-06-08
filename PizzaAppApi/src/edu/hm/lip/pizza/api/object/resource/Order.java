@@ -53,7 +53,7 @@ public class Order extends AbstractRessourceObject
 	@JsonProperty( "order_date" )
 	private Date orderDate;
 
-	private String price;
+	private Double price;
 
 	/**
 	 * Liefert das Attribut id.
@@ -186,7 +186,7 @@ public class Order extends AbstractRessourceObject
 	 * 
 	 * @return price
 	 */
-	public String getPrice()
+	public Double getPrice()
 	{
 		return price;
 	}
@@ -197,7 +197,7 @@ public class Order extends AbstractRessourceObject
 	 * @param price
 	 *            zu setzender Wert für das Attribut price
 	 */
-	public void setPrice( String price )
+	public void setPrice( Double price )
 	{
 		this.price = price;
 	}

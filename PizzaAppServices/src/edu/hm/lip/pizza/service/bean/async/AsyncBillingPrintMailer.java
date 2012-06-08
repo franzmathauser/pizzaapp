@@ -1,5 +1,7 @@
 package edu.hm.lip.pizza.service.bean.async;
 
+import java.text.DecimalFormat;
+
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -64,6 +66,8 @@ public class AsyncBillingPrintMailer implements IAsyncBillingPrintMailer
 	 */
 	private String getBillingMessage( Order order )
 	{
+		DecimalFormat priceFormatter = new DecimalFormat( ",##0.00" );
+
 		Customer customer = order.getCustomer();
 		String displayName = customer.getForename() + " " + customer.getLastname();
 		StringBuilder sb = new StringBuilder();
@@ -90,15 +94,16 @@ public class AsyncBillingPrintMailer implements IAsyncBillingPrintMailer
 			sb.append( "<td>" ).append( orderLine.getQuantity() ).append( "</td>" );
 			sb.append( "<td>" ).append( product.getName() ).append( "</td>" );
 			sb.append( "<td>" ).append( orderLine.getSize() ).append( "</td>" );
-			sb.append( "<td>" ).append( orderLine.getPrice() ).append( "</td>" );
-			sb.append( "<td>" ).append( orderLine.getPrice() * orderLine.getQuantity() ).append( "</td>" );
+			sb.append( "<td>" ).append( priceFormatter.format( orderLine.getPrice() ) ).append( " EUR</td>" );
+			sb.append( "<td>" ).append( priceFormatter.format( orderLine.getPrice() * orderLine.getQuantity() ) )
+					.append( " EUR</td>" );
 
 			sb.append( "</tr>" );
 		}
 
 		sb.append( "</table>" ).append( "<br />" );
 
-		sb.append( "Gesamtsumme: " ).append( order.getPrice() ).append( " EUR" ).append( "<br /><br />" );
+		sb.append( "Gesamtsumme: " ).append( priceFormatter.format( order.getPrice() ) ).append( " EUR" ).append( "<br /><br />" );
 
 		sb.append( "<img src=\"http://" ).append( ApiConstants.PRODUCTION_SERVER_URL ).append( "/img/logo/pizza_hm_logo.png\" >" );
 

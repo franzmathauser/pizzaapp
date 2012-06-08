@@ -52,6 +52,7 @@ public class HomezoneNotificationInterceptor
 	@AroundInvoke
 	public Object gpsDataInterception( InvocationContext ctx ) throws Exception
 	{
+
 		Object[] parameters = ctx.getParameters();
 		Object ret = ctx.proceed();
 

@@ -1,5 +1,8 @@
 package edu.hm.lip.pizza.service.bean.async;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -53,10 +56,12 @@ public class AsyncHomezoneNotificationMailer implements IAsyncHomezoneNotificati
 	 */
 	private String createNotificationMessage( Order order )
 	{
+		NumberFormat priceFormatter = new DecimalFormat( ",##0.00" );
+
 		StringBuilder sb = new StringBuilder();
 		sb.append( "Der Pizzalieferant befindet sich ganz in der Nähe Ihres angegebenen Lieferorts. " ).append( "<br /><br />" );
-		sb.append( "Bitte halten sie den Betrag von " ).append( order.getPrice() ).append( " EUR in Bar bereit." )
-				.append( "<br /><br />" );
+		sb.append( "Bitte halten sie den Betrag von " ).append( priceFormatter.format( order.getPrice() ) )
+				.append( " EUR in Bar bereit." ).append( "<br /><br />" );
 		sb.append( "Wir wünschen schon mal einen Guten Appetit." );
 		return sb.toString();
 	}
