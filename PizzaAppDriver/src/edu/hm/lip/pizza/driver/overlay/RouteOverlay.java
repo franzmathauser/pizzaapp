@@ -11,6 +11,8 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 /**
+ * Overlay für die aktuelle Route des Fahrers.
+ * 
  * @author Stefan Wörner
  */
 public class RouteOverlay extends Overlay

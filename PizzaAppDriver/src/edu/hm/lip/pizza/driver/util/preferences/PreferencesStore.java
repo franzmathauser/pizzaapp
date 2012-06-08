@@ -11,7 +11,6 @@ import android.content.SharedPreferences.Editor;
 
 import edu.hm.lip.pizza.driver.DriverApp;
 import edu.hm.lip.pizza.driver.R;
-import edu.hm.lip.pizza.driver.R.string;
 import edu.hm.lip.pizza.driver.objects.resource.Driver;
 
 /**
