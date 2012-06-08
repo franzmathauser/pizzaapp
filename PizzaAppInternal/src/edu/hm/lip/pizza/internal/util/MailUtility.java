@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
-import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -121,7 +120,10 @@ public final class MailUtility
 				}
 
 				// Message erzeugen
-				Message msg = new MimeMessage( session );
+				MimeMessage msg = new MimeMessage( session );
+
+				// Set Header werte
+				msg.setHeader( "Content-Type", "text/html; charset=UTF-8" );
 
 				// Sendedatum festlegen
 				msg.setSentDate( new Date() );
@@ -133,7 +135,7 @@ public final class MailUtility
 				msg.setRecipient( MimeMessage.RecipientType.TO, new InternetAddress( receipientAddress, receipientName, "UTF-8" ) );
 
 				// Betreff festlegen
-				msg.setSubject( subject );
+				msg.setSubject( subject, "UTF-8" );
 
 				// Inhalt festlegen
 				// msg.setText( mailContent );
