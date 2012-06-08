@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
+
 import org.junit.BeforeClass;
 
 import edu.hm.lip.pizza.api.object.enumeration.Gender;
@@ -16,9 +19,6 @@ import edu.hm.lip.pizza.api.object.resource.Order;
 import edu.hm.lip.pizza.api.object.resource.OrderLine;
 import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.test.AbstractTest;
-
-import junit.framework.Assert;
-import junit.framework.AssertionFailedError;
 
 /**
  * Abstrakte Basisklasse für REST Service Tests.
@@ -64,7 +64,7 @@ public abstract class AbstractRestServiceTest extends AbstractTest
 			customer.setLastname( "TestLastname" + i );
 			customer.setCompany( "TestCompany" + i );
 			customer.setDepartment( "TestDepartment" + i );
-			customer.setEmail( "Test" + i + "@mail.com" );
+			customer.setEmail( "rechnungpizzaapp@googlemail.com" );
 			customer.setGender( Gender.MALE );
 			customer.setLevel( "TestLevel" + i );
 			customer.setPhone( "01234567" + i );
