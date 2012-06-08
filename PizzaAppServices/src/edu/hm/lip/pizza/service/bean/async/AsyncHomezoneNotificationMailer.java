@@ -26,7 +26,8 @@ public class AsyncHomezoneNotificationMailer implements IAsyncHomezoneNotificati
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.service.async.IAsyncHomezoneNotificationMailer#sendHomezoneNotification(edu.hm.lip.pizza.api.object.resource.Order)
+	 * @see edu.hm.lip.pizza.internal.bean.service.async.IAsyncHomezoneNotificationMailer
+	 *      #sendHomezoneNotification(edu.hm.lip.pizza.api.object.resource.Order)
 	 */
 	@Override
 	@Asynchronous
