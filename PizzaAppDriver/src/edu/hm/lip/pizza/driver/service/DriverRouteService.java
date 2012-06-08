@@ -143,8 +143,8 @@ public class DriverRouteService extends IntentService
 			{
 				// TODO evtl. in Preferences speichern, sodass nach erneutem Öffnen der App Route wieder da ist
 				DriverRouteStore.getInstance().setCurrentRoute( driverRoute );
-				DriverRouteStore.getInstance().setCurrentRoutePartsGeoPoints( routePartsGeoPoints );
-				DriverRouteStore.getInstance().setCurrentlyVisibleRoutePart( 0 );
+				DriverRouteStore.getInstance().setAllRouteGeoPoints( routePartsGeoPoints );
+				DriverRouteStore.getInstance().setCurrentRoutePartNumber( 0 );
 				notifyTransactionDone( true, true );
 			}
 			else

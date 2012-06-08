@@ -1,5 +1,6 @@
 package edu.hm.lip.pizza.driver.util.route;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import com.google.android.maps.GeoPoint;
 
 import edu.hm.lip.pizza.driver.objects.resource.DriverRoute;
+import edu.hm.lip.pizza.driver.objects.resource.Order;
 import edu.hm.lip.pizza.driver.overlay.RouteOverlay;
 import edu.hm.lip.pizza.driver.overlay.RoutePointOverlay;
 
@@ -22,22 +24,22 @@ public final class DriverRouteStore
 
 	private DriverRoute m_currentRoute;
 
-	private Map<Integer, List<GeoPoint>> m_currentRoutePartsGeoPoints;
+	private Integer m_currentRoutePartNumber;
 
-	private RoutePointOverlay m_pizzeriaPointOverlay;
+	private Map<Integer, List<GeoPoint>> m_allRouteGeoPoints;
 
-	private RoutePointOverlay m_customerPointOverlay;
+	private RoutePointOverlay m_visiblePizzeriaPointOverlay;
 
-	private Integer m_currentlyVisibleRoutePart;
+	private RoutePointOverlay m_visibleCustomerPointOverlay;
 
-	private List<RouteOverlay> m_currentlyVisibleRouteOverlays;
+	private List<RouteOverlay> m_visibleRouteOverlays;
 
 	/**
 	 * Konstruktor.
 	 */
 	private DriverRouteStore()
 	{
-		m_currentlyVisibleRoutePart = Integer.MIN_VALUE;
+		m_currentRoutePartNumber = 0;
 	}
 
 	/**
@@ -61,12 +63,12 @@ public final class DriverRouteStore
 	{
 		if (m_instance != null)
 		{
-			m_instance.m_currentlyVisibleRouteOverlays = null;
-			m_instance.m_currentlyVisibleRoutePart = null;
+			m_instance.m_visibleRouteOverlays = null;
+			m_instance.m_currentRoutePartNumber = null;
 			m_instance.m_currentRoute = null;
-			m_instance.m_currentRoutePartsGeoPoints = null;
-			m_instance.m_customerPointOverlay = null;
-			m_instance.m_pizzeriaPointOverlay = null;
+			m_instance.m_allRouteGeoPoints = null;
+			m_instance.m_visibleCustomerPointOverlay = null;
+			m_instance.m_visiblePizzeriaPointOverlay = null;
 			m_instance = null;
 		}
 	}
@@ -93,144 +95,226 @@ public final class DriverRouteStore
 	}
 
 	/**
-	 * Liefert das Attribut currentRoutePartsGeoPoints.
+	 * Liefert das Attribut currentRoutePartNumber.
 	 * 
-	 * @return currentRoutePartsGeoPoints
+	 * @return currentRoutePartNumber
 	 */
-	public Map<Integer, List<GeoPoint>> getCurrentRoutePartsGeoPoints()
+	public Integer getCurrentRoutePartNumber()
 	{
-		return m_currentRoutePartsGeoPoints;
+		return m_currentRoutePartNumber;
 	}
 
 	/**
-	 * Setzt das Attribut currentRoutePartsGeoPoints.
+	 * Setzt das Attribut currentRoutePartNumber.
 	 * 
-	 * @param currentRoutePartsGeoPoints
-	 *            zu setzender Wert für das Attribut currentRoutePartsGeoPoints
+	 * @param currentRoutePartNumber
+	 *            zu setzender Wert für das Attribut currentRoutePartNumber
 	 */
-	public void setCurrentRoutePartsGeoPoints( Map<Integer, List<GeoPoint>> currentRoutePartsGeoPoints )
+	public void setCurrentRoutePartNumber( Integer currentRoutePartNumber )
 	{
-		m_currentRoutePartsGeoPoints = currentRoutePartsGeoPoints;
+		m_currentRoutePartNumber = currentRoutePartNumber;
+	}
 
-		if (currentRoutePartsGeoPoints == null)
+	/**
+	 * Liefert das Attribut allRouteGeoPoints.
+	 * 
+	 * @return allRouteGeoPoints
+	 */
+	public Map<Integer, List<GeoPoint>> getAllRouteGeoPoints()
+	{
+		return m_allRouteGeoPoints;
+	}
+
+	/**
+	 * Setzt das Attribut allRouteGeoPoints.
+	 * 
+	 * @param allRouteGeoPoints
+	 *            zu setzender Wert für das Attribut allRouteGeoPoints
+	 */
+	public void setAllRouteGeoPoints( Map<Integer, List<GeoPoint>> allRouteGeoPoints )
+	{
+		m_allRouteGeoPoints = allRouteGeoPoints;
+
+		if (allRouteGeoPoints == null)
 		{
-			m_currentlyVisibleRoutePart = 0;
+			m_currentRoutePartNumber = 0;
 		}
 	}
 
 	/**
-	 * Liefert das Attribut currentlyVisibleRoutePart.
+	 * Liefert das Attribut visiblePizzeriaPointOverlay.
 	 * 
-	 * @return currentlyVisibleRoutePart
+	 * @return visiblePizzeriaPointOverlay
 	 */
-	public Integer getCurrentlyVisibleRoutePart()
+	public RoutePointOverlay getVisiblePizzeriaPointOverlay()
 	{
-		return m_currentlyVisibleRoutePart;
+		return m_visiblePizzeriaPointOverlay;
 	}
 
 	/**
-	 * Setzt das Attribut currentlyVisibleRoutePart.
+	 * Setzt das Attribut visiblePizzeriaPointOverlay.
 	 * 
-	 * @param currentlyVisibleRoutePart
-	 *            zu setzender Wert für das Attribut currentlyVisibleRoutePart
+	 * @param visiblePizzeriaPointOverlay
+	 *            zu setzender Wert für das Attribut visiblePizzeriaPointOverlay
 	 */
-	public void setCurrentlyVisibleRoutePart( Integer currentlyVisibleRoutePart )
+	public void setVisiblePizzeriaPointOverlay( RoutePointOverlay visiblePizzeriaPointOverlay )
 	{
-		m_currentlyVisibleRoutePart = currentlyVisibleRoutePart;
+		m_visiblePizzeriaPointOverlay = visiblePizzeriaPointOverlay;
 	}
 
 	/**
-	 * Wechsel zum nächsten Streckenabschnitt, falls möglich.
+	 * Liefert das Attribut visibleCustomerPointOverlay.
 	 * 
-	 * @return Wechsel möglich
+	 * @return visibleCustomerPointOverlay
 	 */
-	public boolean nextVisiblePartAvailable()
+	public RoutePointOverlay getVisibleCustomerPointOverlay()
 	{
-		if (m_currentlyVisibleRoutePart + 1 < m_currentRoutePartsGeoPoints.size())
-		{
-			m_currentlyVisibleRoutePart++;
-			return true;
-		}
-
-		return false;
+		return m_visibleCustomerPointOverlay;
 	}
 
 	/**
-	 * Liefert das Attribut pizzeriaPointOverlay.
+	 * Setzt das Attribut visibleCustomerPointOverlay.
 	 * 
-	 * @return pizzeriaPointOverlay
+	 * @param visibleCustomerPointOverlay
+	 *            zu setzender Wert für das Attribut visibleCustomerPointOverlay
 	 */
-	public RoutePointOverlay getPizzeriaPointOverlay()
+	public void setVisibleCustomerPointOverlay( RoutePointOverlay visibleCustomerPointOverlay )
 	{
-		return m_pizzeriaPointOverlay;
+		m_visibleCustomerPointOverlay = visibleCustomerPointOverlay;
 	}
 
 	/**
-	 * Setzt das Attribut pizzeriaPointOverlay.
+	 * Liefert das Attribut visibleRouteOverlays.
 	 * 
-	 * @param pizzeriaPointOverlay
-	 *            zu setzender Wert für das Attribut pizzeriaPointOverlay
+	 * @return visibleRouteOverlays
 	 */
-	public void setPizzeriaPointOverlay( RoutePointOverlay pizzeriaPointOverlay )
+	public List<RouteOverlay> getVisibleRouteOverlays()
 	{
-		m_pizzeriaPointOverlay = pizzeriaPointOverlay;
+		return m_visibleRouteOverlays;
 	}
 
 	/**
-	 * Liefert das Attribut customerPointOverlay.
+	 * Setzt das Attribut visibleRouteOverlays.
 	 * 
-	 * @return customerPointOverlay
+	 * @param visibleRouteOverlays
+	 *            zu setzender Wert für das Attribut visibleRouteOverlays
 	 */
-	public RoutePointOverlay getCustomerPointOverlay()
+	public void setVisibleRouteOverlays( List<RouteOverlay> visibleRouteOverlays )
 	{
-		return m_customerPointOverlay;
-	}
-
-	/**
-	 * Setzt das Attribut customerPointOverlay.
-	 * 
-	 * @param customerPointOverlay
-	 *            zu setzender Wert für das Attribut customerPointOverlay
-	 */
-	public void setCustomerPointOverlay( RoutePointOverlay customerPointOverlay )
-	{
-		m_customerPointOverlay = customerPointOverlay;
-	}
-
-	/**
-	 * Liefert das Attribut currentlyVisibleRouteOverlays.
-	 * 
-	 * @return currentlyVisibleRouteOverlays
-	 */
-	public List<RouteOverlay> getCurrentlyVisibleRouteOverlays()
-	{
-		return m_currentlyVisibleRouteOverlays;
-	}
-
-	/**
-	 * Setzt das Attribut currentlyVisibleRouteOverlays.
-	 * 
-	 * @param currentlyVisibleRouteOverlays
-	 *            zu setzender Wert für das Attribut currentlyVisibleRouteOverlays
-	 */
-	public void setCurrentlyVisibleRouteOverlays( List<RouteOverlay> currentlyVisibleRouteOverlays )
-	{
-		m_currentlyVisibleRouteOverlays = currentlyVisibleRouteOverlays;
+		m_visibleRouteOverlays = visibleRouteOverlays;
 	}
 
 	/**
 	 * Fügt die Overlays im Store hinzu.
 	 * 
-	 * @param currentlyVisibleRouteOverlays
+	 * @param visibleRouteOverlays
 	 *            Hinzuzufügende Overlays
 	 */
-	public void addCurrentlyVisibleRouteOverlays( List<RouteOverlay> currentlyVisibleRouteOverlays )
+	public void addVisibleRouteOverlays( List<RouteOverlay> visibleRouteOverlays )
 	{
-		if (m_currentlyVisibleRouteOverlays == null)
+		if (m_visibleRouteOverlays == null)
 		{
-			m_currentlyVisibleRouteOverlays = new ArrayList<RouteOverlay>();
+			m_visibleRouteOverlays = new ArrayList<RouteOverlay>();
 		}
-		m_currentlyVisibleRouteOverlays.addAll( currentlyVisibleRouteOverlays );
+
+		m_visibleRouteOverlays.addAll( visibleRouteOverlays );
+	}
+
+	/**
+	 * Wechsel zum nächsten Streckenabschnitt, falls möglich.
+	 */
+	public void nextRoutePart()
+	{
+		if (m_currentRoutePartNumber + 1 < m_allRouteGeoPoints.size())
+		{
+			m_currentRoutePartNumber++;
+		}
+	}
+
+	/**
+	 * Nächster Streckenabschnitt verfügbar.
+	 * 
+	 * @return Verfügbar
+	 */
+	public boolean isNextRoutePartNumberAvailable()
+	{
+		return m_allRouteGeoPoints != null && m_currentRoutePartNumber + 1 < m_allRouteGeoPoints.size();
+	}
+
+	/**
+	 * Liefert die GepPoints zum aktuellen Routenabschnitt.
+	 * 
+	 * @return GeoPoints des aktuellen Routenabschnitts
+	 */
+	public List<GeoPoint> getCurrentRoutePartGeoPoints()
+	{
+		if (m_allRouteGeoPoints != null && m_allRouteGeoPoints.size() > m_currentRoutePartNumber)
+		{
+			return m_allRouteGeoPoints.get( m_currentRoutePartNumber );
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Gibt die aktuell auszuliefernde Bestellung zurück.
+	 * 
+	 * @return Aktuell auszuliefernde Bestellung
+	 */
+	public Order getCurrentOrder()
+	{
+		if (m_currentRoute != null && m_currentRoute.getOrders() != null
+				&& m_currentRoute.getOrders().size() > m_currentRoutePartNumber)
+		{
+			return m_currentRoute.getOrders().get( m_currentRoutePartNumber );
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Gibt die Infos zur aktuell auszuliefernde Bestellung zurück.
+	 * 
+	 * @return Bestellinfos
+	 */
+	public String getCurrentOrderInfoString()
+	{
+		Order currentOrder = getCurrentOrder();
+
+		if (currentOrder != null)
+		{
+			DecimalFormat priceFormatter = new DecimalFormat( "#0.00€" );
+
+			StringBuilder sb = new StringBuilder();
+			sb.append( "- " ).append( currentOrder.getCustomer().getNameAsString() );
+			sb.append( "\n" );
+			sb.append( "- " ).append( currentOrder.getCustomer().getAddressAsString() );
+			sb.append( "\n" );
+			sb.append( "- " ).append( priceFormatter.format( Double.parseDouble( currentOrder.getPrice() ) ) );
+
+			return sb.toString();
+		}
+		else
+		{
+			return "";
+		}
+	}
+
+	/**
+	 * Setzt den Routenstore zurück.
+	 */
+	public void resetStore()
+	{
+		m_allRouteGeoPoints = null;
+		m_currentRoute = null;
+		m_currentRoutePartNumber = 0;
+		// m_visibleCustomerPointOverlay = null;
+		// m_visiblePizzeriaPointOverlay = null;
+		// m_visibleRouteOverlays = null;
 	}
 
 }

@@ -60,6 +60,16 @@ public class Customer extends AbstractObject
 	}
 
 	/**
+	 * Liefert den Namen des Kunden als Stringzeile.
+	 * 
+	 * @return Kompletter Name als String
+	 */
+	public String getNameAsString()
+	{
+		return getForename() + " " + getLastname();
+	}
+
+	/**
 	 * Liefert das Attribut id.
 	 * 
 	 * @return id

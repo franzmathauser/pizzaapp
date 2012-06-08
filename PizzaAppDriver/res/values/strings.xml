@@ -9,6 +9,12 @@
     <string name="main_bt_mapmode_imgdesc">Switch Map Mode</string>
     <string name="main_bt_loadroute_imgdesc">Load Route from Server</string>
     <string name="main_bt_senddelivered_imgdesc">Send delivered State to Server</string>
+    <string name="main_senddelivered_title">Delivery Confirmation</string>
+    <string name="main_senddelivered_message">Delivered Order:\n%s</string>
+    <string name="main_senddelivered_bt_positive">Confirm</string>
+    <string name="main_senddelivered_bt_negative">Cancel</string>
+    <string name="main_senddelivered_back_pizzeria_title">Back in Pizzeria Confirmation</string>
+    <string name="main_senddelivered_back_pizzeria_message">Please confirm that you are back in Pizzeria</string>
 
     <!-- Map Behavior -->
 

@@ -341,15 +341,93 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	 */
 	public void sendDeliveredClickHandler( View view )
 	{
-		// TODO Delivered Click Handler
+		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
 
-		if (DriverRouteStore.getInstance().nextVisiblePartAvailable())
+		// Prüfen ob weiterer Routenabschnitt verfügbar ist
+		if (driverRouteStore.isNextRoutePartNumberAvailable())
 		{
-			// Broadcast senden um Strecke zu zeichnen
-			Intent intent = new Intent( DriverRouteService.TRANSACTION_DONE );
-			intent.putExtra( ExtraConstants.SUCCESSFUL_EXTRA, true );
-			intent.putExtra( ExtraConstants.REFRESH_EXTRA, true );
-			sendBroadcast( intent );
+			String message = String.format( getString( R.string.main_senddelivered_message ),
+					driverRouteStore.getCurrentOrderInfoString() );
+
+			// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
+			AlertDialog.Builder builder = new AlertDialog.Builder( this );
+			builder.setTitle( R.string.main_senddelivered_title );
+			builder.setMessage( message );
+			builder.setCancelable( false );
+			builder.setPositiveButton( R.string.main_senddelivered_bt_positive, new DialogInterface.OnClickListener()
+			{
+
+				public void onClick( DialogInterface dialog, int id )
+				{
+					// Dialog schließen
+					dialog.cancel();
+
+					// TODO Delivered Flag an Server senden
+
+					// Zum nächsten Routenabschnitt wechseln
+					DriverRouteStore.getInstance().nextRoutePart();
+
+					// Broadcast senden um Strecke zu zeichnen
+					Intent drsIntent = new Intent( DriverRouteService.TRANSACTION_DONE );
+					drsIntent.putExtra( ExtraConstants.SUCCESSFUL_EXTRA, true );
+					drsIntent.putExtra( ExtraConstants.REFRESH_EXTRA, true );
+					sendBroadcast( drsIntent );
+				}
+			} );
+			builder.setNegativeButton( R.string.main_senddelivered_bt_negative, new DialogInterface.OnClickListener()
+			{
+
+				public void onClick( DialogInterface dialog, int id )
+				{
+					// Dialog schließen und nichts unternehmen
+					dialog.cancel();
+				}
+			} );
+
+			// Hinweisdialog anzeigen
+			builder.create().show();
+		}
+		else
+		{
+			if (driverRouteStore.getVisibleRouteOverlays() != null || driverRouteStore.getVisiblePizzeriaPointOverlay() != null
+					|| driverRouteStore.getVisibleCustomerPointOverlay() != null)
+			{
+				// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
+				AlertDialog.Builder builder = new AlertDialog.Builder( this );
+				builder.setTitle( R.string.main_senddelivered_back_pizzeria_title );
+				builder.setMessage( R.string.main_senddelivered_back_pizzeria_message );
+				builder.setCancelable( false );
+				builder.setPositiveButton( R.string.main_senddelivered_bt_positive, new DialogInterface.OnClickListener()
+				{
+
+					public void onClick( DialogInterface dialog, int id )
+					{
+						// Dialog schließen
+						dialog.cancel();
+
+						// Route Store reset
+						DriverRouteStore.getInstance().resetStore();
+
+						// Broadcast senden um Strecke zu zeichnen
+						Intent drsIntent = new Intent( DriverRouteService.TRANSACTION_DONE );
+						drsIntent.putExtra( ExtraConstants.SUCCESSFUL_EXTRA, true );
+						drsIntent.putExtra( ExtraConstants.REFRESH_EXTRA, true );
+						sendBroadcast( drsIntent );
+					}
+				} );
+				builder.setNegativeButton( R.string.main_senddelivered_bt_negative, new DialogInterface.OnClickListener()
+				{
+
+					public void onClick( DialogInterface dialog, int id )
+					{
+						// Dialog schließen und nichts unternehmen
+						dialog.cancel();
+					}
+				} );
+
+				// Hinweisdialog anzeigen
+				builder.create().show();
+			}
 		}
 	}
 
@@ -494,12 +572,12 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 				// Auslesen ob Ansicht aktualisiert werden muss
 				boolean refresh = intent.getBooleanExtra( ExtraConstants.REFRESH_EXTRA, false );
 
-				if (refresh && DriverRouteStore.getInstance().getCurrentlyVisibleRoutePart() != Integer.MIN_VALUE)
+				if (refresh)
 				{
-					// Routenpunkte zeichnen (Pizzeria, Kunden)
-					drawRoutePoints();
 					// Route bzw. Routenabschnitt zeichnen
 					drawRoute();
+					// Routenpunkte zeichnen (Pizzeria, Kunden)
+					drawRoutePoints();
 					// Karte aktualisieren
 					m_mapView.invalidate();
 				}
@@ -523,11 +601,13 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	private void drawRoutePoints()
 	{
 		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
+		DriverRoute driverRoute = driverRouteStore.getCurrentRoute();
 
-		if (driverRouteStore.getPizzeriaPointOverlay() == null && driverRouteStore.getCustomerPointOverlay() == null)
+		// Alte Routenpunkte entfernen, falls vorhanden
+		removeRoutePoints();
+
+		if (driverRoute != null)
 		{
-			DriverRoute driverRoute = driverRouteStore.getCurrentRoute();
-
 			GeoPoint pizzaStoreGP = new GeoPoint( (int) (driverRoute.getOriginLat() * 1E6),
 					(int) (driverRoute.getOriginLon() * 1E6) );
 
@@ -538,11 +618,11 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 			pizzeriaRoutePoint.addOverlay( pizzeriaOverlayItem );
 
 			m_mapView.getOverlays().add( pizzeriaRoutePoint );
-			driverRouteStore.setPizzeriaPointOverlay( pizzeriaRoutePoint );
+			driverRouteStore.setVisiblePizzeriaPointOverlay( pizzeriaRoutePoint );
 
 			Drawable customerMarker = getResources().getDrawable( R.drawable.ic_routepoint_customer );
-			customerMarker.setBounds( customerMarker.getIntrinsicWidth() / -2, customerMarker.getIntrinsicHeight() / -2,
-					customerMarker.getIntrinsicWidth() / 2, customerMarker.getIntrinsicHeight() / 2 );
+			customerMarker.setBounds( customerMarker.getIntrinsicWidth() / -2, -customerMarker.getIntrinsicHeight(),
+					customerMarker.getIntrinsicWidth() / 2, 0 );
 			RoutePointOverlay customerRoutePoint = new RoutePointOverlay( customerMarker );
 
 			for (Order order : driverRoute.getOrders())
@@ -556,29 +636,29 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 				m_mapView.getOverlays().add( customerRoutePoint );
 			}
 
-			driverRouteStore.setCustomerPointOverlay( customerRoutePoint );
+			driverRouteStore.setVisibleCustomerPointOverlay( customerRoutePoint );
 		}
 	}
 
-	// private void removeRoutePoints()
-	// {
-	// DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
-	// List<Overlay> mapOverlays = m_mapView.getOverlays();
-	//
-	// if (driverRouteStore.getPizzeriaPointOverlay() != null
-	// && mapOverlays.contains( driverRouteStore.getPizzeriaPointOverlay() ))
-	// {
-	// mapOverlays.remove( driverRouteStore.getPizzeriaPointOverlay() );
-	// driverRouteStore.setPizzeriaPointOverlay( null );
-	// }
-	//
-	// if (driverRouteStore.getCustomerPointOverlay() != null
-	// && mapOverlays.contains( driverRouteStore.getCustomerPointOverlay() ))
-	// {
-	// mapOverlays.remove( driverRouteStore.getCustomerPointOverlay() );
-	// driverRouteStore.setCustomerPointOverlay( null );
-	// }
-	// }
+	private void removeRoutePoints()
+	{
+		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
+		List<Overlay> mapOverlays = m_mapView.getOverlays();
+
+		if (driverRouteStore.getVisiblePizzeriaPointOverlay() != null
+				&& mapOverlays.contains( driverRouteStore.getVisiblePizzeriaPointOverlay() ))
+		{
+			mapOverlays.remove( driverRouteStore.getVisiblePizzeriaPointOverlay() );
+			driverRouteStore.setVisiblePizzeriaPointOverlay( null );
+		}
+
+		if (driverRouteStore.getVisibleCustomerPointOverlay() != null
+				&& mapOverlays.contains( driverRouteStore.getVisibleCustomerPointOverlay() ))
+		{
+			mapOverlays.remove( driverRouteStore.getVisibleCustomerPointOverlay() );
+			driverRouteStore.setVisibleCustomerPointOverlay( null ); // FIXME Kundenicons werden nicht entfernt!
+		}
+	}
 
 	private void drawRoute()
 	{
@@ -587,8 +667,7 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		// Alte Route entfernen, falls vorhanden
 		removeRoute();
 
-		List<GeoPoint> routeGeoPoints = driverRouteStore.getCurrentRoutePartsGeoPoints().get(
-				driverRouteStore.getCurrentlyVisibleRoutePart() );
+		List<GeoPoint> routeGeoPoints = driverRouteStore.getCurrentRoutePartGeoPoints();
 
 		if (routeGeoPoints != null)
 		{
@@ -607,7 +686,7 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 				routeOverlays.add( routeOverlay );
 			}
 
-			driverRouteStore.addCurrentlyVisibleRouteOverlays( routeOverlays );
+			driverRouteStore.addVisibleRouteOverlays( routeOverlays );
 		}
 	}
 
@@ -616,16 +695,16 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
 		List<Overlay> mapOverlays = m_mapView.getOverlays();
 
-		if (driverRouteStore.getCurrentlyVisibleRouteOverlays() != null)
+		if (driverRouteStore.getVisibleRouteOverlays() != null)
 		{
-			for (RouteOverlay routeOverlay : driverRouteStore.getCurrentlyVisibleRouteOverlays())
+			for (RouteOverlay routeOverlay : driverRouteStore.getVisibleRouteOverlays())
 			{
 				if (mapOverlays.contains( routeOverlay ))
 				{
 					mapOverlays.remove( routeOverlay );
-					driverRouteStore.setCurrentlyVisibleRouteOverlays( null );
 				}
 			}
+			driverRouteStore.setVisibleRouteOverlays( null );
 		}
 	}
 
