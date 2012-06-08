@@ -70,7 +70,7 @@ public class DriverRouteService extends IntentService
 		// abgearbeitet
 		synchronized (SERVICE_LOCK)
 		{
-			// TODO Mehrmaliges abfragen unterbinden?!
+			// TODO erneutes laden unterbinden, damit nicht evtl. nochmals delivered flag für order gestetzt werden kann
 			DriverRoute driverRoute = null;
 			Map<Integer, List<GeoPoint>> routePartsGeoPoints = null;
 
@@ -130,7 +130,7 @@ public class DriverRouteService extends IntentService
 				Log.e( this.getClass().getSimpleName(), e.getMessage() );
 				return;
 			}
-			catch (Exception e) // TODO Exception für KML abfangen
+			catch (Exception e)
 			{
 				String message = getString( R.string.service_driverroute_connection_failed_message );
 				notifyTransactionDone( false, message );
@@ -240,7 +240,6 @@ public class DriverRouteService extends IntentService
 				String[] lngLat = pairs[i].split( "," );
 				kmlRouteGeoPoints.add( new GeoPoint( (int) (Double.parseDouble( lngLat[1] ) * 1E6), (int) (Double
 						.parseDouble( lngLat[0] ) * 1E6) ) );
-				// Log.d( this.getClass().getSimpleName(), "pair:" + pairs[i] );
 			}
 		}
 

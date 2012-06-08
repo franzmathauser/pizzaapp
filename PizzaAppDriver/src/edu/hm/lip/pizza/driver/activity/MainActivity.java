@@ -112,7 +112,6 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	{
 		super.onDestroy();
 
-		// TODO in onStop kopieren, wenn Server Kommunikation über Service erfolgt?
 		// LocationListener deregistrieren
 		LocationProviderManager.getInstance( this, m_mapView ).unregisterLocationListener();
 
@@ -342,7 +341,7 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	 */
 	public void sendDeliveredClickHandler( View view )
 	{
-		// TODO CurrentLocation Click Handler
+		// TODO Delivered Click Handler
 
 		if (DriverRouteStore.getInstance().nextVisiblePartAvailable())
 		{
