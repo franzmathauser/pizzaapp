@@ -59,6 +59,11 @@ public final class ConfigurationConstants
 	public static final String MAIL_AUTHENTICATION_PASSWORD = "lip.pizza.mail.auth.password";
 
 	/**
+	 * Konfigurations-Konstante für SMTP TLS-Aktiv-Flag
+	 */
+	public static final String MAIL_SMTP_STARTTLS_ENABLE = "lip.pizza.mail.smtp.starttls.enabled";
+
+	/**
 	 * Konfigurations-Konstante für die Absenderadresse.
 	 */
 	public static final String MAIL_SENDER_ADDRESS = "lip.pizza.mail.sender.address";

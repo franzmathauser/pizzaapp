@@ -43,4 +43,9 @@ public final class ApiConstants
 	 * Breitengrad-Koordinate des Pizza-Shops.
 	 */
 	public static final Double PIZZA_STORE_ORIGIN_LON = 11.5265;
+
+	/**
+	 * Produktionsserver URL.
+	 */
+	public static final String PRODUCTION_SERVER_URL = "23.23.183.8";
 }

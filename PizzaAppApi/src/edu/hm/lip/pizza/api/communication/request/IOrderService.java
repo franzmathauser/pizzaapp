@@ -100,7 +100,7 @@ public interface IOrderService
 	Order createNextOrderStage( @PathParam( "id" ) int id );
 
 	/**
-	 * Führt Bestellung in die nächste Stage über.
+	 * Führt Bestellung in die vorherige Stage über.
 	 * 
 	 * @param id
 	 *            Bestellidentifikator

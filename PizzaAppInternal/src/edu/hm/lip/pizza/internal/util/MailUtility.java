@@ -10,6 +10,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.ws.rs.core.MediaType;
 
 import edu.hm.basic.logging.BasicLogger;
 import edu.hm.lip.pizza.internal.config.ConfigurationConstants;
@@ -44,6 +45,8 @@ public final class MailUtility
 
 	private static String SENDER_NAME;
 
+	private static boolean SMTP_TLS_ENABLED;
+
 	private MailUtility()
 	{
 
@@ -62,20 +65,23 @@ public final class MailUtility
 		AUTH_CREDENTIAL = CONFIGURATION.getString( ConfigurationConstants.MAIL_AUTHENTICATION_PASSWORD );
 		SENDER_ADDRESS = CONFIGURATION.getString( ConfigurationConstants.MAIL_SENDER_ADDRESS );
 		SENDER_NAME = CONFIGURATION.getString( ConfigurationConstants.MAIL_SENDER_NAME );
+		SMTP_TLS_ENABLED = CONFIGURATION.getBoolean( ConfigurationConstants.MAIL_SMTP_STARTTLS_ENABLE );
 	}
 
 	/**
-	 * Versendet eine Mail mit den Rechnungsdaten den Pizzaapp-Store.
+	 * Versendet eine Mail anhand des Empfängers, Empfängername und Mailinhalts.
 	 * 
 	 * @param receipientAddress
 	 *            E-Mail-Adresse des Empfaengers
 	 * @param receipientName
 	 *            Name des Empfaengers
-	 * @param password
-	 *            Generiertes Passwort
+	 * @param subject
+	 *            Betreffzeile
+	 * @param mailContent
+	 *            Inhalt der Email
 	 * @return Flag: Erfolgreich versandt.
 	 */
-	public static boolean sendMail( String receipientAddress, String receipientName, String password )
+	public static boolean sendMail( String receipientAddress, String receipientName, String subject, String mailContent )
 	{
 		boolean success = false;
 
@@ -86,27 +92,32 @@ public final class MailUtility
 		{
 			try
 			{
-				EspMailAuthenticator auth = null;
+				MailAuthenticator auth = null;
 				Session session = null;
 
 				// Properties definieren
 				Properties properties = new Properties();
+
 				properties.put( "mail.smtp.host", HOST );
 				properties.put( "mail.smtp.port", PORT );
 				properties.put( "mail.debug", DEBUG_ENABLED );
 
 				if (AUTH_REQUIRED)
 				{
+					if (SMTP_TLS_ENABLED)
+					{
+						properties.put( "mail.smtp.starttls.enable", SMTP_TLS_ENABLED );
+					}
 					properties.put( "mail.smtp.auth", AUTH_REQUIRED );
-					auth = new MailUtility.EspMailAuthenticator( AUTH_USERNAME, AUTH_CREDENTIAL );
+					auth = new MailAuthenticator( AUTH_USERNAME, AUTH_CREDENTIAL );
 
 					// Session erzeugen
-					session = Session.getDefaultInstance( properties, auth );
+					session = Session.getInstance( properties, auth );
 				}
 				else
 				{
 					// Session erzeugen
-					session = Session.getDefaultInstance( properties );
+					session = Session.getInstance( properties );
 				}
 
 				// Message erzeugen
@@ -122,10 +133,11 @@ public final class MailUtility
 				msg.setRecipient( MimeMessage.RecipientType.TO, new InternetAddress( receipientAddress, receipientName, "UTF-8" ) );
 
 				// Betreff festlegen
-				msg.setSubject( "Rechnung: automatischer Druck!" );
+				msg.setSubject( subject );
 
 				// Inhalt festlegen
-				msg.setText( getMailContent( receipientName, password ) );
+				// msg.setText( mailContent );
+				msg.setContent( mailContent, MediaType.TEXT_HTML );
 
 				// Versenden
 				Transport.send( msg );
@@ -139,26 +151,19 @@ public final class MailUtility
 		}
 		else
 		{
-			BasicLogger.logInfo( MailUtility.class, password );
+			BasicLogger.logInfo( MailUtility.class, "Email an " + receipientAddress + " erfolgreich versendet" );
 			success = true;
 		}
 
 		return success;
 	}
 
-	private static String getMailContent( String displayName, String password )
-	{
-		StringBuilder sb = new StringBuilder();
-		// TODO append email message
-		return sb.toString();
-	}
-
 	/**
 	 * Mail-Authentifizierungs-Klasse.
 	 * 
-	 * @author Stefan Wörner
+	 * @author Franz Mathauser, Stefan Wörner
 	 */
-	private static class EspMailAuthenticator extends Authenticator
+	public static class MailAuthenticator extends Authenticator
 	{
 
 		private final String m_user;
@@ -173,10 +178,11 @@ public final class MailUtility
 		 * @param password
 		 *            String, das Passwort fuer den Mailaccount.
 		 */
-		public EspMailAuthenticator( String user, String password )
+		public MailAuthenticator( String user, String password )
 		{
 			this.m_user = user;
 			this.m_password = password;
+
 		}
 
 		/**
