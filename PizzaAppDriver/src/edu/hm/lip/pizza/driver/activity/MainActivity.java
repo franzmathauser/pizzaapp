@@ -250,6 +250,10 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		Intent preferencesIntent = new Intent( getApplicationContext(), PreferencesActivity.class );
 		menu.findItem( R.id.menu_preferences_id ).setIntent( preferencesIntent );
 
+		// Intent für das About Menü setzen
+		Intent aboutIntent = new Intent( getApplicationContext(), AboutActivity.class );
+		menu.findItem( R.id.menu_about_id ).setIntent( aboutIntent );
+
 		return super.onCreateOptionsMenu( menu );
 	}
 
@@ -264,12 +268,12 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		switch (item.getItemId())
 		{
 			case R.id.menu_about_id:
-				// startActivity( new Intent( this, About.class ) );
+				startActivity( item.getIntent() );
 				return true;
 
-			case R.id.menu_help_id:
-				// startActivity( new Intent( this, Help.class ) );
-				return true;
+				// case R.id.menu_help_id:
+				// // startActivity( new Intent( this, Help.class ) );
+				// return true;
 
 			case R.id.menu_preferences_id:
 				startActivity( item.getIntent() );
@@ -481,10 +485,10 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 				PreferencesStore.setFollowMePreference( cb.isChecked() );
 				break;
 
-			case R.id.mapbehavior_content_showroute_id:
-				// Neue ShowRoute Einstellung über den PreferencesStore speichern
-				PreferencesStore.setShowRoutePreference( cb.isChecked() );
-				break;
+			// case R.id.mapbehavior_content_showroute_id:
+			// // Neue ShowRoute Einstellung über den PreferencesStore speichern
+			// PreferencesStore.setShowRoutePreference( cb.isChecked() );
+			// break;
 
 			case R.id.mapbehavior_content_showtraffic_id:
 				// Neue ShowTraffic Einstellung über den PreferencesStore speichern
@@ -503,13 +507,13 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		// MapBehaviors Checkboxen auslesen
 		CheckBox cboxTrack = (CheckBox) findViewById( R.id.mapbehavior_content_trackme_id );
 		CheckBox cboxFollow = (CheckBox) findViewById( R.id.mapbehavior_content_followme_id );
-		CheckBox cboxRoute = (CheckBox) findViewById( R.id.mapbehavior_content_showroute_id );
+		// CheckBox cboxRoute = (CheckBox) findViewById( R.id.mapbehavior_content_showroute_id );
 		CheckBox cboxTraffic = (CheckBox) findViewById( R.id.mapbehavior_content_showtraffic_id );
 
 		// Konfiguration wiederherstellen
 		cboxTrack.setChecked( PreferencesStore.getTrackMePreference() );
 		cboxFollow.setChecked( PreferencesStore.getFollowMePreference() );
-		cboxRoute.setChecked( PreferencesStore.getShowRoutePreference() );
+		// cboxRoute.setChecked( PreferencesStore.getShowRoutePreference() );
 		cboxTraffic.setChecked( PreferencesStore.getShowTrafficPreference() );
 	}
 

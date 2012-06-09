@@ -84,7 +84,7 @@ function pizzaAppTopic(messageContainer) {
 		ordersTopic(message);
 		break;
 	case 'HEARTBEAT':
-		setTimeout("heartbeat()", 5000);
+		setTimeout("heartbeat()", 15000);
 		break;
 	case 'ORDER_DELIVERED':
 		updateDriverTank(message.id);

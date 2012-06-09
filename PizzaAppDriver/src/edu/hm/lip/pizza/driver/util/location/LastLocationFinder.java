@@ -98,7 +98,7 @@ public final class LastLocationFinder
 			// dann GPS Position verwenden
 			if (lastGpsLocation.getTime() > lastNetworkLocation.getTime() - AppConstants.TIME_TOLERANCE_2_MINUTES)
 			{
-				Toast.makeText( m_context, "used gps provider for last known location", Toast.LENGTH_SHORT ).show();
+				// Toast.makeText( m_context, "used gps provider for last known location", Toast.LENGTH_SHORT ).show();
 				Log.d( this.getClass().getSimpleName(), "used gps provider for last known location" );
 
 				lastLocation = lastGpsLocation;
@@ -106,7 +106,8 @@ public final class LastLocationFinder
 			// Ansonsten NETWORK Postion verwenden
 			else
 			{
-				Toast.makeText( m_context, "used network provider for last known location", Toast.LENGTH_SHORT ).show();
+				// Toast.makeText( m_context, "used network provider for last known location", Toast.LENGTH_SHORT
+				// ).show();
 				Log.d( this.getClass().getSimpleName(), "used network provider for last known location" );
 
 				lastLocation = lastNetworkLocation;
@@ -118,7 +119,7 @@ public final class LastLocationFinder
 			Log.d( this.getClass().getSimpleName(), "gps location time: " + lastGpsLocation.getTime() );
 			Log.d( this.getClass().getSimpleName(), "gps location accuracy: " + lastGpsLocation.getAccuracy() );
 
-			Toast.makeText( m_context, "used gps provider for last known location", Toast.LENGTH_SHORT ).show();
+			// Toast.makeText( m_context, "used gps provider for last known location", Toast.LENGTH_SHORT ).show();
 			Log.d( this.getClass().getSimpleName(), "used gps provider for last known location" );
 
 			lastLocation = lastGpsLocation;
@@ -129,7 +130,7 @@ public final class LastLocationFinder
 			Log.d( this.getClass().getSimpleName(), "network location time: " + lastNetworkLocation.getTime() );
 			Log.d( this.getClass().getSimpleName(), "network location accuracy: " + lastNetworkLocation.getAccuracy() );
 
-			Toast.makeText( m_context, "used network provider for last known location", Toast.LENGTH_SHORT ).show();
+			// Toast.makeText( m_context, "used network provider for last known location", Toast.LENGTH_SHORT ).show();
 			Log.d( this.getClass().getSimpleName(), "used network provider for last known location" );
 
 			lastLocation = lastNetworkLocation;

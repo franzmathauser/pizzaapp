@@ -53,6 +53,7 @@
                     android:text="@string/mapbehavior_content_followme_text" />
             </LinearLayout>
 
+            <!-- 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +66,8 @@
                     android:layout_height="wrap_content"
                     android:onClick="mapbehaviorClickHandler"
                     android:text="@string/mapbehavior_content_showroute_text" />
-            </LinearLayout>
+            </LinearLayout> 
+            -->
 
             <LinearLayout
                 android:layout_width="wrap_content"

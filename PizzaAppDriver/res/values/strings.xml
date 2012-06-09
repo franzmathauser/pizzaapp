@@ -36,6 +36,10 @@
     <string name="menu_help_title">Help</string>
     <string name="menu_about_title">About</string>
 
+    <!-- About Activity -->
+    
+    <string name="about_content">** Thank you for downloading this app! **\n\n*Developers: PizzaApp Team of the University of Applied Science of Munich, Germany\n*Course: Lernen im Projekt</string>
+    
     <!-- Preferences Activity -->
 
     <string name="pref_summary_prefix_text">Current value:</string>
