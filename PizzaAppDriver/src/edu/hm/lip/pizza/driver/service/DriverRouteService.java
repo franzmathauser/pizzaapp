@@ -70,7 +70,6 @@ public class DriverRouteService extends IntentService
 		// abgearbeitet
 		synchronized (SERVICE_LOCK)
 		{
-			// TODO erneutes laden unterbinden, damit nicht evtl. nochmals delivered flag für order gestetzt werden kann
 			DriverRoute driverRoute = null;
 			Map<Integer, List<GeoPoint>> routePartsGeoPoints = null;
 

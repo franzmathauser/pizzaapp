@@ -30,7 +30,7 @@ public final class DriverRouteStore
 
 	private RoutePointOverlay m_visiblePizzeriaPointOverlay;
 
-	private RoutePointOverlay m_visibleCustomerPointOverlay;
+	private List<RoutePointOverlay> m_visibleCustomerPointOverlays;
 
 	private List<RouteOverlay> m_visibleRouteOverlays;
 
@@ -67,7 +67,7 @@ public final class DriverRouteStore
 			m_instance.m_currentRoutePartNumber = null;
 			m_instance.m_currentRoute = null;
 			m_instance.m_allRouteGeoPoints = null;
-			m_instance.m_visibleCustomerPointOverlay = null;
+			m_instance.m_visibleCustomerPointOverlays = null;
 			m_instance.m_visiblePizzeriaPointOverlay = null;
 			m_instance = null;
 		}
@@ -163,24 +163,39 @@ public final class DriverRouteStore
 	}
 
 	/**
-	 * Liefert das Attribut visibleCustomerPointOverlay.
+	 * Liefert das Attribut visibleCustomerPointOverlays.
 	 * 
-	 * @return visibleCustomerPointOverlay
+	 * @return visibleCustomerPointOverlays
 	 */
-	public RoutePointOverlay getVisibleCustomerPointOverlay()
+	public List<RoutePointOverlay> getVisibleCustomerPointOverlays()
 	{
-		return m_visibleCustomerPointOverlay;
+		return m_visibleCustomerPointOverlays;
 	}
 
 	/**
-	 * Setzt das Attribut visibleCustomerPointOverlay.
+	 * Setzt das Attribut visibleCustomerPointOverlays.
+	 * 
+	 * @param visibleCustomerPointOverlays
+	 *            zu setzender Wert für das Attribut visibleCustomerPointOverlays
+	 */
+	public void setVisibleCustomerPointOverlays( List<RoutePointOverlay> visibleCustomerPointOverlays )
+	{
+		m_visibleCustomerPointOverlays = visibleCustomerPointOverlays;
+	}
+
+	/**
+	 * Fügt ein neues CustomerOverlay hinzu.
 	 * 
 	 * @param visibleCustomerPointOverlay
-	 *            zu setzender Wert für das Attribut visibleCustomerPointOverlay
+	 *            Hinzuzufügendes Overlay
 	 */
-	public void setVisibleCustomerPointOverlay( RoutePointOverlay visibleCustomerPointOverlay )
+	public void addVisibleCustomerPointOverlays( RoutePointOverlay visibleCustomerPointOverlay )
 	{
-		m_visibleCustomerPointOverlay = visibleCustomerPointOverlay;
+		if (m_visibleCustomerPointOverlays == null)
+		{
+			m_visibleCustomerPointOverlays = new ArrayList<RoutePointOverlay>();
+		}
+		m_visibleCustomerPointOverlays.add( visibleCustomerPointOverlay );
 	}
 
 	/**
@@ -315,6 +330,17 @@ public final class DriverRouteStore
 		// m_visibleCustomerPointOverlay = null;
 		// m_visiblePizzeriaPointOverlay = null;
 		// m_visibleRouteOverlays = null;
+	}
+
+	/**
+	 * Prüft ob das Routing noch aktiv ist.
+	 * 
+	 * @return Routing noch aktiv
+	 */
+	public boolean isRoutingActive()
+	{
+		return getVisibleRouteOverlays() != null || getVisiblePizzeriaPointOverlay() != null
+				|| getVisibleCustomerPointOverlays() != null;
 	}
 
 }

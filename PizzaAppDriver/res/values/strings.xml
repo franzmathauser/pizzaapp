@@ -109,6 +109,14 @@
     <string name="service_driverroute_connection_failed_message">Server connection failed!</string>
     <string name="service_driverroute_no_driver_selected">No Driver selected in Application Preferences. Please select one!</string>
     <string name="service_driverroute_no_route_available">No Route available!</string>
+    
+     <!-- Send Delivered Services -->
+
+    <string name="service_senddelivered_hostname_not_set_message">Server Configuration not specified in Application Preferences. Please set it up!</string>
+    <string name="service_senddelivered_illegal_statuscode_message">Received connection error! (Status Code: %s)</string>
+    <string name="service_senddelivered_connection_failed_message">Server connection failed!</string>
+    <string name="service_senddelivered_no_driver_selected">No Driver selected in Application Preferences. Please select one!</string>
+    <string name="service_senddelivered_no_route_available">No Route available!</string>
 
     <!-- SplashScreen Activity -->
 

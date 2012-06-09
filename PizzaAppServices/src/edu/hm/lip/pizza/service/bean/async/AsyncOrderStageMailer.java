@@ -37,6 +37,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 
 		switch (order.getCurrentStage())
 		{
+			case ORDERED:
+				subject += "ist eingegangen";
+				mailContent = orderedMessage();
+				break;
 			case IN_PREPARATION:
 				subject += "wird vorbereitet";
 				mailContent = inPreperationMessage();
@@ -62,6 +66,19 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 		{
 			MailUtility.sendMail( receipientAddress, receipientName, subject, wrapHeaderAndFooter( receipientName, mailContent ) );
 		}
+
+	}
+
+	private String orderedMessage()
+	{
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append( "vielen Dank für Ihre Bestellung. <br /><br />" );
+		sb.append( "<img src=\"http://" ).append( ApiConstants.PRODUCTION_SERVER_URL )
+				.append( "/img/orderstages/orderstage-1.png\" > " );
+
+		return sb.toString();
 
 	}
 

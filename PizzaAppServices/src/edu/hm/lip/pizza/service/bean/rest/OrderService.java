@@ -19,6 +19,7 @@ import edu.hm.lip.pizza.internal.converter.OrderConverter;
 import edu.hm.lip.pizza.internal.interceptor.BillingPrintMailInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.LoggingInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.OrderActiveMQInterceptor;
+import edu.hm.lip.pizza.internal.interceptor.OrderDeliveredActiveMQInterceptor;
 import edu.hm.lip.pizza.internal.interceptor.OrderStageMailInterceptor;
 import edu.hm.lip.pizza.internal.manager.OrderStageManager;
 import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
@@ -66,7 +67,7 @@ public class OrderService extends AbstractBean implements IOrderService
 	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#create(edu.hm.lip.pizza.api.object.resource.Order)
 	 */
 	@Override
-	@Interceptors( OrderActiveMQInterceptor.class )
+	@Interceptors( { OrderActiveMQInterceptor.class, OrderStageMailInterceptor.class } )
 	public Order create( Order order )
 	{
 		EntityOrder eOrder = OrderConverter.convertServiceToEntityOrder( order );
@@ -125,6 +126,7 @@ public class OrderService extends AbstractBean implements IOrderService
 	 * @see edu.hm.lip.pizza.api.communication.request.IOrderService#updateOrderToDelivered(int)
 	 */
 	@Override
+	@Interceptors( OrderDeliveredActiveMQInterceptor.class )
 	public Order updateOrderToDelivered( int id )
 	{
 		EntityOrder eOrder = orderDAOBean.read( id );

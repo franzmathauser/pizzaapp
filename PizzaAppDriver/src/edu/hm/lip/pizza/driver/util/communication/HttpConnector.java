@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
@@ -83,7 +84,6 @@ public final class HttpConnector
 			sb.append( response.getStatusLine().getStatusCode() );
 			sb.append( " - expected: 200" );
 
-			// TODO 200er Statuscodes prüfen
 			Log.w( HttpConnector.class.getSimpleName(), sb.toString() );
 		}
 	}
@@ -114,9 +114,10 @@ public final class HttpConnector
 		// GetRequest absenden und Response entgegennehmen
 		HttpResponse response = httpClient.execute( getRequest );
 		Log.d( HttpConnector.class.getSimpleName(), "Connecting to: " + url );
+		Log.d( HttpConnector.class.getSimpleName(), response.toString() );
 
 		// Verbindung wieder schließen
-		httpClient.getConnectionManager().shutdown();
+		httpClient.getConnectionManager().closeExpiredConnections();
 
 		// StatusCode überprüfen
 		checkStatusCode( response, url, "GetRequest" );
@@ -160,12 +161,63 @@ public final class HttpConnector
 		Log.d( HttpConnector.class.getSimpleName(), "Connecting to: " + url );
 
 		// Verbindung wieder schließen
-		httpClient.getConnectionManager().shutdown();
+		httpClient.getConnectionManager().closeExpiredConnections();
 
 		// StatusCode überprüfen
-		checkStatusCode( response, url, "GetRequest" );
+		checkStatusCode( response, url, "PostRequest" );
 
 		// Reponse zurückgeben
 		return response;
 	}
+
+	/**
+	 * Baut eine Verbindung zum Server auf und sendet einen PUT Request. Der zugehörige HttpReponse wird zurückgegeben.
+	 * 
+	 * @param path
+	 *            URI Pfad für Ressource
+	 * @param acceptType
+	 *            Accept Header MediaType
+	 * @param entity
+	 *            HttpEntity welche per PUT an den Server gesendet werden soll
+	 * @param contentType
+	 *            ContentType Header MediaType
+	 * @return HttpResponse
+	 * @throws IOException
+	 *             Fehler bei der IO Verarbeitung
+	 */
+	public static HttpResponse doPutRequest( String path, String acceptType, HttpEntity entity, String contentType )
+			throws IOException
+	{
+		// URL erzeugen
+		String url = buildUpURL( path );
+
+		// HttpClient instanziieren
+		HttpClient httpClient = new DefaultHttpClient();
+
+		// PutRequest erzeugen
+		HttpPut putRequest = new HttpPut( url );
+		putRequest.addHeader( HttpHeaders.ACCEPT, acceptType );
+		if (contentType != null)
+		{
+			putRequest.addHeader( HttpHeaders.CONTENT_TYPE, contentType );
+		}
+		if (entity != null)
+		{
+			putRequest.setEntity( entity );
+		}
+
+		// GetRequest absenden und Response entgegennehmen
+		HttpResponse response = httpClient.execute( putRequest );
+		Log.d( HttpConnector.class.getSimpleName(), "Connecting to: " + url );
+
+		// Verbindung wieder schließen
+		httpClient.getConnectionManager().closeExpiredConnections();
+
+		// StatusCode überprüfen
+		checkStatusCode( response, url, "PutRequest" );
+
+		// Reponse zurückgeben
+		return response;
+	}
+
 }

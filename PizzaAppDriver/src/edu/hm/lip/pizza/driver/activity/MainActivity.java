@@ -1,7 +1,10 @@
 package edu.hm.lip.pizza.driver.activity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.ws.rs.core.MediaType;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -25,6 +28,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +37,8 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import edu.hm.lip.pizza.driver.R;
+import edu.hm.lip.pizza.driver.exception.HostnameNotSetException;
+import edu.hm.lip.pizza.driver.exception.HttpStatusCodeException;
 import edu.hm.lip.pizza.driver.objects.resource.DriverRoute;
 import edu.hm.lip.pizza.driver.objects.resource.Order;
 import edu.hm.lip.pizza.driver.overlay.RouteOverlay;
@@ -40,6 +46,7 @@ import edu.hm.lip.pizza.driver.overlay.RoutePointOverlay;
 import edu.hm.lip.pizza.driver.service.DriverLocationService;
 import edu.hm.lip.pizza.driver.service.DriverRouteService;
 import edu.hm.lip.pizza.driver.service.extra.ExtraConstants;
+import edu.hm.lip.pizza.driver.util.communication.HttpConnector;
 import edu.hm.lip.pizza.driver.util.location.LastLocationFinder;
 import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
 import edu.hm.lip.pizza.driver.util.location.LocationProviderManager;
@@ -326,11 +333,14 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	 */
 	public void loadRouteClickHandler( View view )
 	{
-		Intent intent = new Intent( this, DriverRouteService.class );
-		startService( intent );
+		if (!DriverRouteStore.getInstance().isRoutingActive())
+		{
+			Intent intent = new Intent( this, DriverRouteService.class );
+			startService( intent );
 
-		m_driverRouteProgressDialog = ProgressDialog.show( this, getString( R.string.service_progress_dialog_wait_title ),
-				getString( R.string.service_fetch_route_message ) );
+			m_driverRouteProgressDialog = ProgressDialog.show( this, getString( R.string.service_progress_dialog_wait_title ),
+					getString( R.string.service_fetch_route_message ) );
+		}
 	}
 
 	/**
@@ -348,6 +358,7 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		{
 			String message = String.format( getString( R.string.main_senddelivered_message ),
 					driverRouteStore.getCurrentOrderInfoString() );
+			final int orderId = driverRouteStore.getCurrentOrder().getId();
 
 			// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
 			AlertDialog.Builder builder = new AlertDialog.Builder( this );
@@ -362,7 +373,8 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 					// Dialog schließen
 					dialog.cancel();
 
-					// TODO Delivered Flag an Server senden
+					// Delivered Flag an Server senden
+					sendDelivered( orderId );
 
 					// Zum nächsten Routenabschnitt wechseln
 					DriverRouteStore.getInstance().nextRoutePart();
@@ -389,8 +401,7 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		}
 		else
 		{
-			if (driverRouteStore.getVisibleRouteOverlays() != null || driverRouteStore.getVisiblePizzeriaPointOverlay() != null
-					|| driverRouteStore.getVisibleCustomerPointOverlay() != null)
+			if (driverRouteStore.isRoutingActive())
 			{
 				// Wenn beide Provider nicht aktiviert sind muss der Benutzer aufgefordert werden diese zu aktivieren
 				AlertDialog.Builder builder = new AlertDialog.Builder( this );
@@ -598,6 +609,43 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		}
 	};
 
+	private void sendDelivered( int orderId )
+	{
+		try
+		{
+			StringBuilder path = new StringBuilder();
+			path.append( "orders/" ).append( orderId ).append( "/delivered" );
+
+			HttpConnector.doPutRequest( path.toString(), MediaType.APPLICATION_JSON, null, null );
+		}
+		catch (HostnameNotSetException e)
+		{
+			String message = getString( R.string.service_senddelivered_hostname_not_set_message );
+			showErrorDialog( message );
+
+			Log.e( this.getClass().getSimpleName(), e.getMessage() );
+			return;
+		}
+		catch (HttpStatusCodeException e)
+		{
+			String localizedMsg = getString( R.string.service_senddelivered_illegal_statuscode_message );
+			String msgSubstitutions = e.getStatusCode() + " " + e.getReasonPhrase();
+			String message = String.format( localizedMsg, msgSubstitutions );
+			showErrorDialog( message );
+
+			Log.e( this.getClass().getSimpleName(), e.getMessage() );
+			return;
+		}
+		catch (IOException e)
+		{
+			String message = getString( R.string.service_senddelivered_connection_failed_message );
+			showErrorDialog( message );
+
+			Log.e( this.getClass().getSimpleName(), e.getMessage() );
+			return;
+		}
+	}
+
 	private void drawRoutePoints()
 	{
 		DriverRouteStore driverRouteStore = DriverRouteStore.getInstance();
@@ -620,13 +668,13 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 			m_mapView.getOverlays().add( pizzeriaRoutePoint );
 			driverRouteStore.setVisiblePizzeriaPointOverlay( pizzeriaRoutePoint );
 
-			Drawable customerMarker = getResources().getDrawable( R.drawable.ic_routepoint_customer );
-			customerMarker.setBounds( customerMarker.getIntrinsicWidth() / -2, -customerMarker.getIntrinsicHeight(),
-					customerMarker.getIntrinsicWidth() / 2, 0 );
-			RoutePointOverlay customerRoutePoint = new RoutePointOverlay( customerMarker );
-
 			for (Order order : driverRoute.getOrders())
 			{
+				Drawable customerMarker = getResources().getDrawable( R.drawable.ic_routepoint_customer );
+				customerMarker.setBounds( customerMarker.getIntrinsicWidth() / -2, -customerMarker.getIntrinsicHeight(),
+						customerMarker.getIntrinsicWidth() / 2, 0 );
+				RoutePointOverlay customerRoutePoint = new RoutePointOverlay( customerMarker );
+
 				GeoPoint customerGP = new GeoPoint( (int) (Double.parseDouble( order.getCustomer().getLat() ) * 1E6),
 						(int) (Double.parseDouble( order.getCustomer().getLon() ) * 1E6) );
 
@@ -634,9 +682,8 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 				customerRoutePoint.addOverlay( customerOverlayItem );
 
 				m_mapView.getOverlays().add( customerRoutePoint );
+				driverRouteStore.addVisibleCustomerPointOverlays( customerRoutePoint );
 			}
-
-			driverRouteStore.setVisibleCustomerPointOverlay( customerRoutePoint );
 		}
 	}
 
@@ -652,11 +699,16 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 			driverRouteStore.setVisiblePizzeriaPointOverlay( null );
 		}
 
-		if (driverRouteStore.getVisibleCustomerPointOverlay() != null
-				&& mapOverlays.contains( driverRouteStore.getVisibleCustomerPointOverlay() ))
+		if (driverRouteStore.getVisibleCustomerPointOverlays() != null)
 		{
-			mapOverlays.remove( driverRouteStore.getVisibleCustomerPointOverlay() );
-			driverRouteStore.setVisibleCustomerPointOverlay( null ); // FIXME Kundenicons werden nicht entfernt!
+			for (RoutePointOverlay routePointOverlay : driverRouteStore.getVisibleCustomerPointOverlays())
+			{
+				if (mapOverlays.contains( routePointOverlay ))
+				{
+					mapOverlays.remove( routePointOverlay );
+				}
+			}
+			driverRouteStore.setVisibleCustomerPointOverlays( null );
 		}
 	}
 

@@ -64,7 +64,7 @@ public final class PreferencesStore
 		{
 			preferencesEditor.putInt( key, (Integer) value );
 		}
-		else if (value instanceof Float)
+		else if (value instanceof Long)
 		{
 			preferencesEditor.putLong( key, (Long) value );
 		}
