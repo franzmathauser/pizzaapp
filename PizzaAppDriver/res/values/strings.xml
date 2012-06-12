@@ -38,7 +38,8 @@
 
     <!-- About Activity -->
     
-    <string name="about_content">** Thank you for downloading this app! **\n\n*Developers: PizzaApp Team of the University of Applied Science of Munich, Germany\n*Course: Lernen im Projekt</string>
+    <string name="about_header">** Thank you for downloading this app! **</string>
+    <string name="about_content">*Developers: PizzaApp Team\n*Institution: University of Applied Science of Munich, Germany\n*Course: Lernen im Projekt\n*Time: Summer Semester 2012</string>
     
     <!-- Preferences Activity -->
 
