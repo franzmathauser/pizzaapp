@@ -169,11 +169,14 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		// Letzte bekannte Position zeichnen lassen
 		LocationDrawer.getInstance( this, m_mapView ).updateCurrentLocation( lastLocation, true );
 
-		// Letzte bekannte Position an Server senden
-		Intent intent = new Intent( this, DriverLocationService.class );
-		intent.putExtra( ExtraConstants.LATITUDE_EXTRA, lastLocation.getLatitude() );
-		intent.putExtra( ExtraConstants.LONGITUDE_EXTRA, lastLocation.getLongitude() );
-		startService( intent );
+		if (lastLocation != null)
+		{
+			// Letzte bekannte Position an Server senden
+			Intent intent = new Intent( this, DriverLocationService.class );
+			intent.putExtra( ExtraConstants.LATITUDE_EXTRA, lastLocation.getLatitude() );
+			intent.putExtra( ExtraConstants.LONGITUDE_EXTRA, lastLocation.getLongitude() );
+			startService( intent );
+		}
 
 		// Bildschirmschoner solange die Activity aktiv ist ausschalten (Gilt nur für diese Activity!!)
 		getWindow().addFlags( LayoutParams.FLAG_KEEP_SCREEN_ON );
