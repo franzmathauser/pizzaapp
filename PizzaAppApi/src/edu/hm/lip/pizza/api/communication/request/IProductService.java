@@ -18,7 +18,7 @@ import edu.hm.lip.pizza.api.object.resource.Product;
 /**
  * REST-Service für die Produktdomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 @Path( "/products" )

@@ -16,7 +16,7 @@ import edu.hm.lip.pizza.tsp.domain.google.GoogleDistanceMatrix;
  * DistanceMatrixBroker stellt einen Restcall an die Google Maps Api. Der Respone des Restcalls liefert eine Matrix über
  * die Kosten der Wege in Form einer Matrix. Via JSON ObjectMapper werden die JSON Daten in ein Java Object gemapped.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DistanceMatrixBroker
 {

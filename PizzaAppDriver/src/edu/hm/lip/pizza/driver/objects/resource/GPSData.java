@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.driver.object.AbstractObject;
 /**
  * Resource für die GPS-Daten eines Fahrers.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class GPSData extends AbstractObject

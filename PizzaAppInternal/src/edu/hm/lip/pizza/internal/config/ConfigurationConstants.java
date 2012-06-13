@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.internal.config;
 /**
  * Diese Klasse enthält die Konstanten zum Auslesen aus der Konfiguration.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class ConfigurationConstants
 {

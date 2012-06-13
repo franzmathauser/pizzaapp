@@ -12,7 +12,7 @@ import edu.hm.basic.logging.BasicLogger;
 /**
  * Konfigurationsklasse.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class PizzaAppConfiguration extends AbstractConfiguration
 {

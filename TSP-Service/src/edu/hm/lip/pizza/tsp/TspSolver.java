@@ -8,7 +8,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
  * Informatik. Die Aufgabe besteht darin, eine Reihenfolge für den Besuch mehrerer Orte so zu wählen, dass die gesamte
  * Reisestrecke des Handlungsreisenden nach der Rückkehr zum Ausgangsort möglichst kurz ist.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public interface TspSolver
 {

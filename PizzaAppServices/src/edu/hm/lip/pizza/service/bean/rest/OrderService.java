@@ -31,7 +31,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
 /**
  * REST-Service für die Bestelldomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 @Interceptors( LoggingInterceptor.class )

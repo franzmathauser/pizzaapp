@@ -8,7 +8,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Beschreibt die Schnittstellen für Permuationsklassen.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public interface Permutation
 {

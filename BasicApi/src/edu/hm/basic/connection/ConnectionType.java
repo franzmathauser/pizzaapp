@@ -3,7 +3,7 @@ package edu.hm.basic.connection;
 /**
  * Zu verwendender Verbindungstyp.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public enum ConnectionType
 {
@@ -17,4 +17,5 @@ public enum ConnectionType
 	 * HTTP.
 	 */
 	HTTP;
+
 }

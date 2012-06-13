@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.driver.service.extra;
 /**
  * Konstenten für Intent, Broadcast und Service Extras.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class ExtraConstants
 {

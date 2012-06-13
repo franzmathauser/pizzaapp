@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable;
 /**
  * Overlay für die Routenpunkte (Pizzeria, Kunden) der Fahrer-Route auf der Karte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class RoutePointOverlay extends ItemizedOverlay<OverlayItem>
 {

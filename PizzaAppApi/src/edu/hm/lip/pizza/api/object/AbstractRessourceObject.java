@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.api.object;
 /**
  * Abstrakte Basisklasse fuer alle PizzaApp Ressource Objekte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractRessourceObject extends AbstractApiObject
 {

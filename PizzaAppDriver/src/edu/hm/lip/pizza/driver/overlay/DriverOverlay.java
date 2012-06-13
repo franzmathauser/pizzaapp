@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 /**
  * Overlay für die aktuelle Position des Fahrers auf der Karte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverOverlay extends ItemizedOverlay<OverlayItem>
 {

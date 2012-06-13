@@ -23,7 +23,7 @@ import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
  * Singletonimplementierung des ProviderManagers. Verwaltet die bzw. den aktuell verwendeten Provider und bietet
  * Funktionen zum registrieren und deregistrieren an.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class LocationProviderManager
 {

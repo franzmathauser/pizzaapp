@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Abstrakte Basisklasse fuer alle Objekte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractBasicObject implements Serializable
 {

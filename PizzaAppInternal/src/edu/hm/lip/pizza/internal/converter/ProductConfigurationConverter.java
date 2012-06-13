@@ -7,7 +7,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityProductConfiguration;
  * Konverter-Klasse fuer ProcuctConfiguration-Objekte, um zwischen dem Service-Datenmodell und dem
  * Entitaeten-Datenmodell zu konvertieren.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class ProductConfigurationConverter
 {

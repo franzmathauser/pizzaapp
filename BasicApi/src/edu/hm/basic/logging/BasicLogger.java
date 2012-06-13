@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 /**
  * Statische Klasse um fuer die Server Komponenten die Logging Funktionalitaet zur Verfuegung zu stellen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class BasicLogger
 {
@@ -275,4 +275,5 @@ public final class BasicLogger
 			}
 		}
 	}
+
 }

@@ -17,7 +17,7 @@ import edu.hm.lip.pizza.internal.object.query.OrderQueryConstants;
 /**
  * Bean für den Datenbankzugriff auf die Order Entität.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 public class OrderDAO extends AbstractBean implements IOrderDAOLocal

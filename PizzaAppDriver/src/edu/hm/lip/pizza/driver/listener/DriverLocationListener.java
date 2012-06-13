@@ -19,7 +19,7 @@ import edu.hm.lip.pizza.driver.util.location.LocationDrawer;
  * LocationListener für die aktuelle Position des Fahrers auf der Karte. Es wird immer nur die aktuelle Position
  * angezeigt und keine Historie.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverLocationListener implements LocationListener
 {

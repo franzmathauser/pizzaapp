@@ -7,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * Repräsentiert eine Reihe der Distance-Matrix des Json-Response der GoogleMaps API.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class GoogleDistanceRow
 {

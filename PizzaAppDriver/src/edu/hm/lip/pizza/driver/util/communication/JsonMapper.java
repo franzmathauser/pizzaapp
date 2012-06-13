@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Generische Hilfsklasse für das JSON Mapping.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class JsonMapper
 {

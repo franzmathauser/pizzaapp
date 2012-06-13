@@ -3,7 +3,7 @@ package edu.hm.basic.connection;
 /**
  * Abstrakte Basisklasse für ausgehende Verbindungen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractConnection
 {

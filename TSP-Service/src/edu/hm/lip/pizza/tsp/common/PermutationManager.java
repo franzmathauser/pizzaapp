@@ -7,7 +7,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Repräsentiert eine mögliche Konfiguration von Pfaden.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public interface PermutationManager
 {

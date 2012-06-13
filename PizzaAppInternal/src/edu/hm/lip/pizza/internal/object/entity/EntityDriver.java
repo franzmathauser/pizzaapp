@@ -29,8 +29,7 @@ import edu.hm.lip.pizza.internal.object.query.DriverQueryConstants;
  */
 @Entity
 @Table( name = "driver" )
-@NamedQueries( { @NamedQuery(	name = DriverQueryConstants.GET_ALL_DRIVERS,
-								query = DriverQueryConstants.GET_ALL_DRIVERS_QUERY ) } )
+@NamedQueries( { @NamedQuery( name = DriverQueryConstants.GET_ALL_DRIVERS, query = DriverQueryConstants.GET_ALL_DRIVERS_QUERY ) } )
 public class EntityDriver extends AbstractEntityObject
 {
 

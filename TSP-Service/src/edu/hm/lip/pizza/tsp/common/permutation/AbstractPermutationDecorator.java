@@ -8,7 +8,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Dekorator-Pattern Konstrukt.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractPermutationDecorator implements Permutation
 {

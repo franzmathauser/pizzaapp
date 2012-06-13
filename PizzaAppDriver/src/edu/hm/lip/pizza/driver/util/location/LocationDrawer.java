@@ -19,7 +19,7 @@ import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 /**
  * Singletonimplementierung des LocationDrawers. Zeichnet die aktuelle Position auf der Karte neu.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class LocationDrawer
 {

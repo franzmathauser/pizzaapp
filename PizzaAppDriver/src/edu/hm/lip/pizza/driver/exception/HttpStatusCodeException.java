@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.driver.exception;
 /**
  * Exception zeigt an, dass ein HTTP Status Code ab 400 aufwärts empfangen wurde (HTTP Fehler).
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class HttpStatusCodeException extends RuntimeException
 {

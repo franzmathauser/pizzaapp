@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * MatrixContainer<T> ist ein generischer Container welcher es ermöglicht Objekte via X-, und Y-Koordinate zu speichern.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  * @param <T>
  *            Datenelement Typ
  */

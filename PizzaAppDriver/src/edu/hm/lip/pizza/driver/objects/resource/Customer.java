@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.driver.objects.resource.enumeration.Gender;
 /**
  * Ressource für einen Kunden.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class Customer extends AbstractObject

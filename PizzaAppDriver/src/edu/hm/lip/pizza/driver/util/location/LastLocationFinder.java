@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.driver.AppConstants;
 /**
  * Singletonimplementierung des LastLocationFinder. Sucht die letzte bekannte Position anhand des besten Providers.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class LastLocationFinder
 {

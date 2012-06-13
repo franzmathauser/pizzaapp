@@ -16,7 +16,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
  * Adresse wird als Endpunkt hinzugefügt Regel 2. Es werden alle Permutationen herausgefiltert die nicht Startpunkt und
  * Endpunkt als gleiche Adresse haben.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class RoundTripPermutation implements PermutationManager
 {

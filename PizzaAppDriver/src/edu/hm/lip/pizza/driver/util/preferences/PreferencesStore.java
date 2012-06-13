@@ -17,7 +17,7 @@ import edu.hm.lip.pizza.driver.objects.resource.Driver;
  * Klasse veraltet alle Preferences der PizzaApp. Hierzu zählen u.a. die MapBehavior Einstellungen, sowie die
  * Einstellungen im Hauptmenü.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class PreferencesStore
 {

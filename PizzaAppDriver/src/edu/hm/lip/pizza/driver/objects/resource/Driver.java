@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.driver.object.AbstractObject;
 /**
  * Ressource für einen Fahrer.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class Driver extends AbstractObject

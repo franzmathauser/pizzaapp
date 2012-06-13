@@ -22,7 +22,7 @@ import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 /**
  * Utility-Klasse um Verbindungen zum Server aufzubauen und Requests abzusetzen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class HttpConnector
 {

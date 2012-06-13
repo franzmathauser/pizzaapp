@@ -3,7 +3,7 @@ package edu.hm.basic.exception;
 /**
  * Basic Excpetion fuer alle Server-Komponenten.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractBasicRuntimeException extends RuntimeException
 {
@@ -52,4 +52,5 @@ public abstract class AbstractBasicRuntimeException extends RuntimeException
 	{
 		super( msg, e );
 	}
+
 }

@@ -17,7 +17,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
 /**
  * REST-Service für die GPS-Datendomäne. Verfügbare Aktionen: GET, DELETE
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 @Interceptors( LoggingInterceptor.class )

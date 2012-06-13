@@ -131,7 +131,7 @@ public final class OrderStageManager
 		{
 			eOrderStage = orderStages.get( orderStages.size() - 2 );
 		}
-		
+
 		return eOrderStage;
 	}
 

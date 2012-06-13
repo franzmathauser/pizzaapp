@@ -5,7 +5,7 @@ import edu.hm.basic.object.AbstractBasicObject;
 /**
  * Abstrakte Basisklasse fuer alle PizzaAPp API Objekte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractApiObject extends AbstractBasicObject
 {

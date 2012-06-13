@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.tsp.domain;
 /**
  * Repräsentiert ein Adress Objekt.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class Address
 {

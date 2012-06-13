@@ -9,7 +9,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Dekorator fügt die erste Ecke aus der Liste an das Ende der Liste an.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class AddOriginAsReturnpoint extends AbstractPermutationDecorator
 {

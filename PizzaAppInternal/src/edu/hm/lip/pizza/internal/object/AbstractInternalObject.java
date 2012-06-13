@@ -5,7 +5,7 @@ import edu.hm.basic.object.AbstractBasicObject;
 /**
  * Abstrakte Basisklasse für alle PizzaApp Internal Objekte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractInternalObject extends AbstractBasicObject
 {

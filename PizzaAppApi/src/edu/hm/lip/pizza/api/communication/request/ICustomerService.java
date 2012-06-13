@@ -18,7 +18,7 @@ import edu.hm.lip.pizza.api.object.resource.Customer;
 /**
  * REST-Service für die Kundendomäne. Verfügbare Aktionen: GET, POST, PUT, DELETE
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 @Path( "/customers" )

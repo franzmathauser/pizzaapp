@@ -16,7 +16,7 @@ import edu.hm.lip.pizza.driver.objects.resource.enumeration.RouteState;
 /**
  * Ressource für die Route des Fahrers.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class DriverRoute extends AbstractObject

@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.internal.object.query;
 /**
  * Konstanten für Queries der GPSData Entität.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class GPSDataQueryConstants
 {

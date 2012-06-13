@@ -19,7 +19,7 @@ import edu.hm.lip.pizza.internal.object.query.ProductQueryConstants;
 /**
  * Bean für den Datenbankzugriff auf die Product Entität.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 public class ProductDAO extends AbstractBean implements IProductDAOLocal

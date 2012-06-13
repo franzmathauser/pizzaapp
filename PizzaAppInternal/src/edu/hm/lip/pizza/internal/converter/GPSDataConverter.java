@@ -10,7 +10,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityGPSData;
  * Konverter-Klasse fuer GPSData-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu
  * konvertieren.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class GPSDataConverter
 {
@@ -33,7 +33,7 @@ public final class GPSDataConverter
 		{
 			return null;
 		}
-		
+
 		GPSData gpsData = new GPSData();
 
 		gpsData.setId( eGPSData.getId() );
@@ -58,7 +58,7 @@ public final class GPSDataConverter
 		{
 			return null;
 		}
-		
+
 		EntityGPSData eGPSData = new EntityGPSData();
 
 		eGPSData.setId( gpsData.getId() );
@@ -90,4 +90,5 @@ public final class GPSDataConverter
 		}
 		return gpsDatas;
 	}
+
 }

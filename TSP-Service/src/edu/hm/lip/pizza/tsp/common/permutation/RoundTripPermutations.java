@@ -9,7 +9,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Filtert alle Permutationen, die nicht das gleiche Objekt am Anfang und Ende des Pfades haben.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class RoundTripPermutations extends AbstractPermutationDecorator
 {

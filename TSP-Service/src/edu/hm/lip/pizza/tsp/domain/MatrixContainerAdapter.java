@@ -8,7 +8,7 @@ import edu.hm.lip.pizza.tsp.domain.google.GoogleDistanceRow;
  * MatrixContainerAdapter bietet die Möglichkeit eine GoogleDistanceMatrix in ein generischeres MatrixContainer-Format
  * umzuwandeln.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class MatrixContainerAdapter
 {
@@ -16,7 +16,7 @@ public class MatrixContainerAdapter
 	/**
 	 * Messwerttypen.
 	 * 
-	 * @author Franz Mathauser
+	 * @author Franz Mathauser, Stefan Wörner
 	 */
 	public enum Measurements
 	{

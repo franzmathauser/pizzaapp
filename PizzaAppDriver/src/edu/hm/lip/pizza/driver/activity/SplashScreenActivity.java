@@ -12,7 +12,7 @@ import edu.hm.lip.pizza.driver.R;
 /**
  * Diese Klasse repräsentiert die SplahScreen-Activity der Applikation.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class SplashScreenActivity extends Activity
 {

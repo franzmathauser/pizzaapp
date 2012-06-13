@@ -7,7 +7,7 @@ import edu.hm.lip.pizza.api.object.resource.DriverRoute;
 /**
  * Interface für die Manager Bean der Fahrerroute.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 public interface IDriverRouteManagerLocal

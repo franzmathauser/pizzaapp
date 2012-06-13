@@ -15,7 +15,7 @@ import edu.hm.lip.pizza.internal.object.query.CustomerQueryConstants;
 /**
  * Bean für den Datenbankzugriff auf die Customer Entität.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 public class CustomerDAO extends AbstractBean implements ICustomerDAOLocal

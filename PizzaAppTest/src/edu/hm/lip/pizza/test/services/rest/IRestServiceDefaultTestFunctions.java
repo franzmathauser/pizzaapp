@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.test.services.rest;
 /**
  * Interface für die Standard REST Funktionen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public interface IRestServiceDefaultTestFunctions
 {

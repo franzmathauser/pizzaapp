@@ -14,7 +14,7 @@ import junit.framework.Assert;
 /**
  * Testklasse für den Customer REST-WebService.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class CustomerServiceTest extends AbstractRestServiceProxyTest implements IRestServiceDefaultTestFunctions
 {

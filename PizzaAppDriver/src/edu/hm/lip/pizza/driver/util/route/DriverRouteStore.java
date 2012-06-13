@@ -15,7 +15,7 @@ import edu.hm.lip.pizza.driver.overlay.RoutePointOverlay;
 /**
  * Store für die Fahrerroute und alle Informationen die damit zusammenhängen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class DriverRouteStore
 {

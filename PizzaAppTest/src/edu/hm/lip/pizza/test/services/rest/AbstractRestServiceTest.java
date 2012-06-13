@@ -23,7 +23,7 @@ import junit.framework.AssertionFailedError;
 /**
  * Abstrakte Basisklasse für REST Service Tests.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractRestServiceTest extends AbstractTest
 {

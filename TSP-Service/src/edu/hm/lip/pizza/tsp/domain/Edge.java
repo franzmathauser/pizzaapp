@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.tsp.domain;
 /**
  * Repräsentiert einen Knoten des Graphen.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class Edge
 {

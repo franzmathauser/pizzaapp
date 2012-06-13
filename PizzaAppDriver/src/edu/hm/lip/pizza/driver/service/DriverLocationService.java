@@ -24,7 +24,7 @@ import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 /**
  * Service-Klasse welche die Trackingdaten an das Backend sendet.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverLocationService extends IntentService
 {

@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.test.config.ConfigurationSingleton;
 /**
  * Abstrakte Basisklasse für alle JUnit Testklassen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractTest
 {

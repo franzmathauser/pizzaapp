@@ -6,7 +6,7 @@ import android.content.Context;
 /**
  * PizzaApp Klasse.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverApp extends Application
 {

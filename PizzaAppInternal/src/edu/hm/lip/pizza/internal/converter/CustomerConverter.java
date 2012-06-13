@@ -10,7 +10,7 @@ import edu.hm.lip.pizza.internal.object.entity.EntityCustomer;
  * Konverter-Klasse fuer Customer-Objekte, um zwischen dem Service-Datenmodell und dem Entitaeten-Datenmodell zu
  * konvertieren.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class CustomerConverter
 {

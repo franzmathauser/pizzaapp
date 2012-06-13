@@ -13,7 +13,7 @@ import junit.framework.Assert;
 /**
  * Testklasse für den Product REST-WebService.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class ProductServiceTest extends AbstractRestServiceProxyTest implements IRestServiceDefaultTestFunctions
 {

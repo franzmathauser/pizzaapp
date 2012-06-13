@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.internal.object;
 /**
  * Abstrakte Basisklasse für alle Entity Objekte.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractEntityObject extends AbstractInternalObject
 {

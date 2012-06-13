@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.driver.objects.resource.enumeration;
 /**
  * Enumeration für den Status der Routenberechnung.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public enum RouteState
 {

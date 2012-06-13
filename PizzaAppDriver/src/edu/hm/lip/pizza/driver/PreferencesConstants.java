@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.driver;
 /**
  * KLasse enthält alle applikationsweit verwendeten Konstanten.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class PreferencesConstants
 {

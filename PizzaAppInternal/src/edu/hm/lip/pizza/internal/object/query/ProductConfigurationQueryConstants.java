@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.internal.object.query;
 /**
  * Konstanten für Queries der ProductConfiguration Entität.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class ProductConfigurationQueryConstants
 {

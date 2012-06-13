@@ -16,7 +16,7 @@ import junit.framework.Assert;
 /**
  * Testklasse für den Order REST-WebService.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class OrderServiceTest extends AbstractRestServiceProxyTest implements IRestServiceDefaultTestFunctions
 {

@@ -23,7 +23,7 @@ import junit.framework.Assert;
 /**
  * Dieses Beispiel zeigt wie der TSP-Solver eingesetzt werden kann.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class TSPServiceTest extends AbstractTest
 {

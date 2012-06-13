@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.api.object.enumeration;
 /**
  * Enumeration für die unterschiedlichen Stufen bei der Herstellung und Auslieferung von Bestellungen.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public enum Stage
 {

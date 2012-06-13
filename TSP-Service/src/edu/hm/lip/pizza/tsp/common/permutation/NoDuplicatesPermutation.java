@@ -9,7 +9,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Erzeugt Permutationen ausgehend von Ecken ohne Duplikate zu erzeugen.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class NoDuplicatesPermutation implements Permutation
 {

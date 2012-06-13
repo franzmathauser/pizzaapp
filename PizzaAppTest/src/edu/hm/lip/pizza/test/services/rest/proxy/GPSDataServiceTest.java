@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 /**
  * Testklasse für den GPSData REST-WebService.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class GPSDataServiceTest extends AbstractRestServiceProxyTest implements IRestServiceDefaultTestFunctions
 {

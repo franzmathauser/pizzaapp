@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.driver;
 /**
  * Applikationskonstanten.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class AppConstants
 {

@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.internal.object.query;
 /**
  * Konstanten für Queries der Order Entität.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class OrderQueryConstants
 {
@@ -44,7 +44,7 @@ public final class OrderQueryConstants
 	 */
 	public static final String ORDERS_BY_STAGE_QUERY = "SELECT o FROM EntityOrder o WHERE NOT EXISTS "
 			+ "(FROM EntityOrderStage AS s WHERE s.order = o AND s.stage = :stage)";
-	
+
 	/**
 	 * Name der "Bestellungen gefiltert Status"-Query (2 Stati).
 	 */

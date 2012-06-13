@@ -23,7 +23,7 @@ import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 /**
  * Service-Klasse welche die Fahrerinformationen vom Backend holt.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverInfoService extends IntentService
 {

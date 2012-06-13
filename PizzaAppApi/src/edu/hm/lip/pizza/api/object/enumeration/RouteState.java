@@ -11,7 +11,7 @@ public enum RouteState
 	 * optimale Route konnte berechnet werden.
 	 */
 	TSP_SUCCESS,
-	
+
 	/**
 	 * optimale Route konnte wurde nicht berechnet.
 	 */

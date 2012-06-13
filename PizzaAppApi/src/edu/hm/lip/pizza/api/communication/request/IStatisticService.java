@@ -12,7 +12,7 @@ import edu.hm.lip.pizza.api.object.resource.heatmap.Heatmap;
 /**
  * REST-Service für die Statistik-Daten. Verfügbare Aktionen: GET
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 @Path( "/statistics" )

@@ -18,7 +18,7 @@ import edu.hm.lip.pizza.internal.object.query.GPSDataQueryConstants;
 /**
  * Bean für den Datenbankzugriff auf die GPSData Entität.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 public class GPSDataDAO extends AbstractBean implements IGPSDataDAOLocal

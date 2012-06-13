@@ -13,7 +13,7 @@ import edu.hm.lip.pizza.test.services.rest.AbstractRestServiceTest;
 /**
  * Abstrakte Basisklasse für alle REST Service Proxy Tests.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class AbstractRestServiceProxyTest extends AbstractRestServiceTest
 {

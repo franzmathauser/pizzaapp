@@ -38,7 +38,7 @@ import edu.hm.lip.pizza.driver.util.route.DriverRouteStore;
 /**
  * Service-Klasse welche die Routeninformationen vom Backend holt.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverRouteService extends IntentService
 {

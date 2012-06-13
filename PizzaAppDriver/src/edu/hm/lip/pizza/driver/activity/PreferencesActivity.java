@@ -30,7 +30,7 @@ import edu.hm.lip.pizza.driver.util.preferences.PreferencesStore;
 /**
  * Diese Klasse repräsentiert die Einstellungs-Activity der Applikation.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener
 {

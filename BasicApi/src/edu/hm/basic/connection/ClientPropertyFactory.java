@@ -12,7 +12,7 @@ import edu.hm.basic.object.BasicConstants;
  * Klasse stellt Methoden zur Verfügung mit denen Clients die Properties für Lookups auf dem Server erzeugen lassen
  * können.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public abstract class ClientPropertyFactory extends AbstractConnection
 {
@@ -176,4 +176,5 @@ public abstract class ClientPropertyFactory extends AbstractConnection
 
 		return properties;
 	}
+
 }

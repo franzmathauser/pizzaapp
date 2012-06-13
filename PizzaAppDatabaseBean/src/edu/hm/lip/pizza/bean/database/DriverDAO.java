@@ -18,7 +18,7 @@ import edu.hm.lip.pizza.internal.object.query.OrderQueryConstants;
 /**
  * Bean für den Datenbankzugriff auf die Driver Entität.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Stateless
 public class DriverDAO extends AbstractBean implements IDriverDAOLocal

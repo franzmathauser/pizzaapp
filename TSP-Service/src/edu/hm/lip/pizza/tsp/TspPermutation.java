@@ -8,7 +8,7 @@ import edu.hm.lip.pizza.tsp.domain.Path;
 /**
  * Solves The TSP-Problem through Permutation of Paths.
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class TspPermutation implements TspSolver
 {

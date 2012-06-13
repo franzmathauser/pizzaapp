@@ -16,7 +16,7 @@ import edu.hm.lip.pizza.api.object.resource.GPSData;
 /**
  * REST-Service für die GPS-Datendomäne. Verfügbare Aktionen: GET, DELETE
  * 
- * @author Franz Mathauser
+ * @author Franz Mathauser, Stefan Wörner
  */
 @Local
 @Path( "/gpsdatas" )

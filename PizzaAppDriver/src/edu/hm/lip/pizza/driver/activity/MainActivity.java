@@ -58,7 +58,7 @@ import edu.hm.lip.pizza.driver.util.route.DriverRouteStore;
  * Diese Klasse repräsentiert die Haupt-Activity der Applikation. Sie beinhaltet die Kartenansicht und hat am rechten
  * Rand einen Slider für die konfiguration des Kartenverhaltens.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class MainActivity extends MapActivity implements OnSharedPreferenceChangeListener
 {
@@ -70,9 +70,6 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 	private MyLocationOverlay m_myLocationOverlay;
 
 	private ProgressDialog m_driverRouteProgressDialog;
-
-	// private Button m_configHandle;
-	// private SlidingDrawer m_configSlider;
 
 	/**
 	 * {@inheritDoc}
@@ -104,9 +101,6 @@ public class MainActivity extends MapActivity implements OnSharedPreferenceChang
 		m_myLocationOverlay.enableCompass();
 		m_myLocationOverlay.disableMyLocation();
 		m_mapView.getOverlays().add( m_myLocationOverlay );
-
-		// m_configHandle = (Button) findViewById( R.id.configHandle );
-		// m_configSlider = (SlidingDrawer) findViewById( R.id.configSlider );
 	}
 
 	/**

@@ -3,7 +3,7 @@ package edu.hm.lip.pizza.driver.objects.resource.enumeration;
 /**
  * Enumeration für das Geschlecht der Kunden.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public enum Gender
 {

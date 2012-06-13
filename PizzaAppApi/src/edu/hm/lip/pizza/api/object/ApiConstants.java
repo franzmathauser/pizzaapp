@@ -6,7 +6,7 @@ package edu.hm.lip.pizza.api.object;
 /**
  * Klasse enthaelt alle Konstanten der PizzaApp API die auch fuer Clients notwendig bzw. sinnvoll sind.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public final class ApiConstants
 {

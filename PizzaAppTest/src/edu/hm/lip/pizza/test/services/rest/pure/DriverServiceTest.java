@@ -28,7 +28,7 @@ import junit.framework.Assert;
 /**
  * Testklasse für den Driver REST-WebService.
  * 
- * @author Stefan Wörner
+ * @author Franz Mathauser, Stefan Wörner
  */
 public class DriverServiceTest extends AbstractRestServicePureTest implements IRestServiceDefaultTestFunctions
 {
