@@ -12,3 +12,4 @@ DELETE from product_configuration WHERE product_id > 30;
 
 DELETE from product WHERE id > 30;
 
+DELETE from customer WHERE company LIKE 'Test%' AND department LIKE 'TestDepartment%' AND level LIKE 'TestLevel%'
