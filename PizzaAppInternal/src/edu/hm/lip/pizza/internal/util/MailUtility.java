@@ -157,11 +157,13 @@ public final class MailUtility
 				BasicLogger.logError( MailUtility.class, e.getMessage() );
 				success = false;
 			}
+
+			BasicLogger.logInfo( MailUtility.class, "Email an " + receipientAddress + " erfolgreich versendet" );
+			success = true;
 		}
 		else
 		{
-			BasicLogger.logInfo( MailUtility.class, "Email an " + receipientAddress + " erfolgreich versendet" );
-			success = true;
+			BasicLogger.logWarn( MailUtility.class, "Email versand wurde abgestellt." );
 		}
 
 		return success;
