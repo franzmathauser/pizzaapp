@@ -12,7 +12,9 @@ import org.junit.Test;
 
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.api.object.resource.Customer;
+import edu.hm.lip.pizza.api.object.resource.Driver;
 import edu.hm.lip.pizza.api.object.resource.Order;
+import edu.hm.lip.pizza.api.object.resource.OrderId;
 import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.test.JsonMapper;
 import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
@@ -504,6 +506,11 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		Driver driverCreated = DriverServiceTest.createDriver( getDriver(), false );
+
+		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
 		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
@@ -529,7 +536,19 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
-		response = getClient( "orders/" + orderCreated.getId() + "/stages/next" ).post( String.class );
+		// ==================================================
+		// Dem Fahrer Bestellung zuordnen
+		// ==================================================
+		OrderId orderId = new OrderId();
+		orderId.setId( orderCreated.getId() );
+
+		ClientRequest request = getClient( "drivers/" + driverCreated.getId() + "/orders" );
+		request.body( MediaType.APPLICATION_JSON, JsonMapper.toJSON( orderId ) );
+
+		response = request.post( String.class );
+		Assert.assertEquals( HttpStatus.SC_NO_CONTENT, response.getStatus() );
+
+		response = getClient( "orders/" + orderCreated.getId() ).get( String.class );
 		Assert.assertEquals( HttpStatus.SC_OK, response.getStatus() );
 
 		orderUpdated = JsonMapper.fromJSON( response.getEntity(), Order.class );
@@ -538,6 +557,9 @@ public class OrderServiceTest extends AbstractRestServicePureTest implements IRe
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
+		// ==================================================
+		// Bestellung weiter aktualisieren
+		// ==================================================
 		response = getClient( "orders/" + orderCreated.getId() + "/delivered" ).put( String.class );
 		Assert.assertEquals( HttpStatus.SC_OK, response.getStatus() );
 

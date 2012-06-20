@@ -54,7 +54,6 @@ public class AsyncBillingPrintMailer implements IAsyncBillingPrintMailer
 
 			MailUtility.sendMail( receipientAddress, receipientName, subject, mailContent );
 		}
-
 	}
 
 	/**
@@ -109,4 +108,5 @@ public class AsyncBillingPrintMailer implements IAsyncBillingPrintMailer
 
 		return sb.toString();
 	}
+
 }

@@ -45,7 +45,6 @@ public class AsyncHomezoneNotificationMailer implements IAsyncHomezoneNotificati
 		{
 			MailUtility.sendMail( receipientAddress, receipientName, subject, wrapHeaderAndFooter( receipientName, mailContent ) );
 		}
-
 	}
 
 	/**
@@ -69,7 +68,6 @@ public class AsyncHomezoneNotificationMailer implements IAsyncHomezoneNotificati
 
 	private String wrapHeaderAndFooter( String displayName, String mainContent )
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		sb.append( "Sehr geehrte(r) " ).append( displayName ).append( ",<br /><br />" );
@@ -80,6 +78,6 @@ public class AsyncHomezoneNotificationMailer implements IAsyncHomezoneNotificati
 
 		sb.append( "<img src=\"http://" ).append( ApiConstants.PRODUCTION_SERVER_URL ).append( "/img/logo/pizza_hm_logo.png\" >" );
 		return sb.toString();
-
 	}
+
 }

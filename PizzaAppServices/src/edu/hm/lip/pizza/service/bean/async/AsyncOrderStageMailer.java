@@ -22,14 +22,13 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @see edu.hm.lip.pizza.internal.bean.service.async.IAsyncOrderStageMailer#sendCurrentStage(edu.hm.lip.pizza.internal.object.entity.EntityOrder)
+	 * @see edu.hm.lip.pizza.internal.bean.service.async.IAsyncOrderStageMailer#sendCurrentStage(edu.hm.lip.pizza.api.object.resource.Order)
 	 */
 	@Override
 	@Asynchronous
 	@Interceptors( LoggingInterceptor.class )
 	public void sendCurrentStage( Order order )
 	{
-
 		String receipientAddress = order.getCustomer().getEmail();
 		String receipientName = order.getCustomer().getForename() + " " + order.getCustomer().getLastname();
 		String subject = "Ihre Bestellung #" + order.getId() + " PizzaApp - Statusänderung: ";
@@ -66,12 +65,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 		{
 			MailUtility.sendMail( receipientAddress, receipientName, subject, wrapHeaderAndFooter( receipientName, mailContent ) );
 		}
-
 	}
 
 	private String orderedMessage()
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		sb.append( "vielen Dank für Ihre Bestellung. <br /><br />" );
@@ -79,12 +76,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 				.append( "/img/orderstages/orderstage-1.png\" > " );
 
 		return sb.toString();
-
 	}
 
 	private String inPreperationMessage()
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		sb.append( "Ihre Bestellung wurde soeben auf den Status: \"In Bearbeitung\" (PREP) gesetzt. <br /><br />" );
@@ -92,12 +87,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 				.append( "/img/orderstages/orderstage-2.png\" > " );
 
 		return sb.toString();
-
 	}
 
 	private String inStoveMessage()
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		sb.append( "Ihre Bestellung wurde soeben auf den Status: \"Baken\" gesetzt. <br /><br />" );
@@ -105,12 +98,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 				.append( "/img/orderstages/orderstage-3.png\" > " );
 
 		return sb.toString();
-
 	}
 
 	private String inDeliveryMessage()
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		sb.append( "Ihre Bestellung wurde soeben auf den Status: \"Auslieferung\" gesetzt. <br /><br />" );
@@ -119,12 +110,10 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 		sb.append( "Wir wünschen ihnen schonmal einen guten Appetit." );
 
 		return sb.toString();
-
 	}
 
 	private String wrapHeaderAndFooter( String displayName, String mainContent )
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		sb.append( "Sehr geehrte(r) " ).append( displayName ).append( ",<br /><br />" );
@@ -134,6 +123,6 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 		sb.append( "Ihr PizzaApp-Team" );
 
 		return sb.toString();
-
 	}
+
 }

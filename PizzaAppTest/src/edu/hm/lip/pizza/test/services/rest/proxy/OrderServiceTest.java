@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import edu.hm.lip.pizza.api.object.enumeration.Stage;
 import edu.hm.lip.pizza.api.object.resource.Customer;
+import edu.hm.lip.pizza.api.object.resource.Driver;
 import edu.hm.lip.pizza.api.object.resource.Order;
+import edu.hm.lip.pizza.api.object.resource.OrderId;
 import edu.hm.lip.pizza.api.object.resource.Product;
 import edu.hm.lip.pizza.test.services.rest.IRestServiceDefaultTestFunctions;
 
@@ -422,6 +424,11 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		Product productCreated = ProductServiceTest.createProduct( getProduct(), false );
 
 		// ==================================================
+		// Fahrer anlegen
+		// ==================================================
+		Driver driverCreated = DriverServiceTest.createDriver( getDriver(), false );
+
+		// ==================================================
 		// Bestellung anlegen
 		// ==================================================
 		Order orderCreated = createOrder( getOrder(), productCreated, getCustomer(), false );
@@ -441,12 +448,22 @@ public class OrderServiceTest extends AbstractRestServiceProxyTest implements IR
 		orderCreated.setCurrentStage( Stage.IN_STOVE );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
-		orderUpdated = getOrderProxy().createNextOrderStage( orderCreated.getId() );
+		// ==================================================
+		// Dem Fahrer Bestellung zuordnen
+		// ==================================================
+		OrderId orderId = new OrderId();
+		orderId.setId( orderCreated.getId() );
+		getDriverProxy().addOrder( driverCreated.getId(), orderId );
+
+		orderUpdated = getOrderProxy().find( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
 		Assert.assertEquals( Stage.IN_DELIVERY, orderUpdated.getCurrentStage() );
 		orderCreated.setCurrentStage( Stage.IN_DELIVERY );
 		assertOrderEquals( orderUpdated, orderCreated, true );
 
+		// ==================================================
+		// Bestellung weiter aktualisieren
+		// ==================================================
 		orderUpdated = getOrderProxy().updateOrderToDelivered( orderCreated.getId() );
 		Assert.assertNotNull( orderUpdated );
 

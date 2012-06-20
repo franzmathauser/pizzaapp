@@ -313,7 +313,7 @@ public class DriverServiceTest extends AbstractRestServiceProxyTest implements I
 
 		Assert.assertEquals( RouteState.TSP_SUCCESS, driverRoute.getStatus() );
 		Assert.assertEquals( Measurements.DURATION, driverRoute.getMeasurement() );
-		Assert.assertEquals( 2855L, driverRoute.getMeasurementValue().longValue(), 120L );
+		Assert.assertEquals( 2855L, driverRoute.getMeasurementValue().longValue(), 300L );
 		Assert.assertTrue( driverRoute.getOrders().size() >= ordersCreated.size() - 2 );
 		for (Order driverOrderFound : driverRoute.getOrders())
 		{
