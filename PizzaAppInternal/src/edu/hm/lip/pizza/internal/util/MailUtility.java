@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.ws.rs.core.MediaType;
+import javax.mail.internet.MimeMultipart;
 
 import edu.hm.basic.logging.BasicLogger;
 import edu.hm.lip.pizza.internal.config.ConfigurationConstants;
@@ -139,7 +142,11 @@ public final class MailUtility
 
 				// Inhalt festlegen
 				// msg.setText( mailContent );
-				msg.setContent( mailContent, MediaType.TEXT_HTML );
+				BodyPart bodyPart = new MimeBodyPart();
+				bodyPart.setContent( mailContent, "text/html; charset=utf-8" );
+				Multipart multiPart = new MimeMultipart();
+				multiPart.addBodyPart( bodyPart );
+				msg.setContent( multiPart );
 
 				// Versenden
 				Transport.send( msg );
