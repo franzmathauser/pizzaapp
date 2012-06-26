@@ -204,7 +204,7 @@ function renderDrivers(data) {
 				+ '<img id="driver_tank-' + +driver.id
 				+ '" src="img/stack-2.png" style="float: left" />'
 				+ '<div id="driver_time-' + driver.id
-				+ '" class="time">ca. 4:59</div>';
+				+ '" class="time"> back</div>';
 		$('#driver_line-' + i).html(html);
 
 		// add to driver_list
