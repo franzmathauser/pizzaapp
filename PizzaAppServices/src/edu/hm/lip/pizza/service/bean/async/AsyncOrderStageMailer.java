@@ -93,7 +93,7 @@ public class AsyncOrderStageMailer implements IAsyncOrderStageMailer
 	{
 		StringBuilder sb = new StringBuilder();
 
-		sb.append( "Ihre Bestellung wurde soeben auf den Status: \"Baken\" gesetzt. <br /><br />" );
+		sb.append( "Ihre Bestellung wurde soeben auf den Status: \"Backen\" gesetzt. <br /><br />" );
 		sb.append( "<img src=\"http://" ).append( ApiConstants.PRODUCTION_SERVER_URL )
 				.append( "/img/orderstages/orderstage-3.png\" > " );
 
